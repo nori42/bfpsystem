@@ -67,10 +67,7 @@ class EstablishmentController extends Controller
         $establishment->save();
         $owner->save();
 
-        return redirect('/establishments')->with([
-            'newPost'=> true,
-            'mssg'=>'New Record Added'
-        ]);
+        return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
     }
 
     //get single record
@@ -87,7 +84,7 @@ class EstablishmentController extends Controller
     public function show_fsic() {
         $establishment = DB::table('establishments')
         ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
-        ->select('establishments.establishment_name', 'establishments.record_no','owners.first_name', 'owners.last_name', 'owners.middle_name')
+        ->where('record_no', (int)request('id'))
         ->where('record_no', (int)request('id'))
         ->first();
 
