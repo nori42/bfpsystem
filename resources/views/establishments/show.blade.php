@@ -32,6 +32,7 @@
 
     </style>
     
+<<<<<<< HEAD
 
     <div class="page-content">
         {{-- Page Panel --}}
@@ -43,6 +44,11 @@
         
         {{-- Details Action --}}
         <div class="d-flex justify-content-between gap-4 w-75 mx-auto mt-5">
+=======
+    
+    <div class="w-75 mx-auto border-1 mt-5">
+        <div class="d-flex justify-content-between gap-4">
+>>>>>>> 19913ace1d6ea7a84714798a3b81c2a406a10cce
             <button class="btn btn-show fs-5">FSEC</button>
             <a href="/establishments/fsic/{{$establishment->record_no}}" class="btn btn-show fs-5">FSIC</a>
             <button class="btn btn-show fs-5">FIRE DRILL</button>
