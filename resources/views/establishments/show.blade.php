@@ -20,14 +20,9 @@
         }
 
     </style>
-
-    {{-- page panel --}}
-    <div class="page-panel h-9 p-5">
-        <h1 class="fs-4 text-white fw-bold">Details Information</h1>
-    </div>
-        
+    
+    
     <div class="w-75 mx-auto border-1 mt-5">
-
         <div class="d-flex justify-content-between gap-4">
             <button class="btn btn-show fs-5">FSEC</button>
             <a href="/establishments/fsic/{{$establishment->record_no}}" class="btn btn-show fs-5">FSIC</a>

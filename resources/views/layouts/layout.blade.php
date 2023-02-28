@@ -1,3 +1,7 @@
+{{-- @php
+    $page_title = "";
+@endphp --}}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +13,6 @@
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
     <link rel="stylesheet" href="/css/modified-boostrap.css">
-    
-    
 </head>
 <body class="d-flex">
 
@@ -26,7 +28,7 @@
         
         <!-- button dashboard-->
         <li class="m-2">
-            <a class="btn w-100 text-end text-white" href="/">
+            <a class="btn w-100 text-end text-white" href="/dashboard">
                 <!-- button icon -->
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn-icon" viewBox="0 0 16 16">
@@ -176,6 +178,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        {{-- page panel --}}
+        <div class="page-panel h-9 p-5">
+            <h1 class="fs-4 text-white fw-bold">{{ $page_title }}</h1>
         </div>
 
         {{-- DUMP CONTENT HERE --}}
