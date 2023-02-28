@@ -3,15 +3,24 @@
 
 @section('content')
 <div class="page-content">
-    <h1 class="my-5 mx-5">Records</h1>
-    <form class="add-record-form" action="/establishments" method="POST">
+
+    <div class="page-panel sticky-top">
+        <h1 class="title">Page Title</h1>
+    </div>
+    <form class="add-record-form mt-5" action="/establishments" method="POST">
         {{-- Cross-site request forgeries  --}}
         {{-- Add @csrf every form --}}
         @csrf
 
+        
+
+        <div class="w-75 mx-auto position-absolute" style="bottom: 25;">
+            <input class="btn btn-secondary d-block float-start" name="submit" type="submit" value="Submit">
+        </div>
+
         <div class="d-flex w-75 mx-auto">
                 
-            <div class="mx-4">
+            <fieldset class="mx-4">
                 <h2 class="">Owner Information</h2>
                     <label for="firstName">First Name:</label>
                     <input type="text" id="firstName" name="firstName">
@@ -24,9 +33,9 @@
 
                     <label for="contactNo">Contact No.:</label>
                     <input type="text" id="contactNo" name="contactNo">
-            </div>
+            </fieldset>
 
-            <div class="mx-4">
+            <fieldset class="mx-4">
                 <h2 class="mx-4">Building Information</h2>
                 <div class="d-flex">
                     <div class="mx-4">
@@ -71,12 +80,9 @@
                         <label for="status">Status:</label>
                         <input type="text" id="status" name="status">
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="w-75 mx-auto">
-            <input class="btn btn-secondary d-block float-start" name="submit" type="submit" value="Submit">
+                </div>
+            </fieldset>
         </div>
     </form>
 </div>

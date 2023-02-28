@@ -71,18 +71,20 @@ class EstablishmentController extends Controller
     public function show() {
         $establishment = DB::table('establishments')
         ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
-        ->select('establishments.*', 'owners.*')
+        ->select('establishments.*','owners.*')
         ->where('record_no', (int)request('id'))
         ->first();
-<<<<<<< HEAD
-=======
-
->>>>>>> a467887109ef8e0589f82b67e9d9a0212ed39a1c
-
+        
         return view('establishments.show', ['establishment' => $establishment]);
     }
 
     public function show_fsic() {
-        return view('establishments.show_fsic');
+        $establishment = DB::table('establishments')
+        ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
+        ->select('establishments.establishment_name', 'establishments.record_no','owners.first_name', 'owners.last_name', 'owners.middle_name')
+        ->where('record_no', (int)request('id'))
+        ->first();
+
+        return view('establishments.show_fsic',['establishment' => $establishment]);
     }
 }

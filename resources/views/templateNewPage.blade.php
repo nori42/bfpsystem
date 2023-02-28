@@ -5,10 +5,10 @@
 @section('content')
     <div class="page-content">
         {{-- Page Panel --}}
+        
         <div class="page-panel sticky-top">
-            <h1 class="title">Dashboard</h1>
+            <h1 class="title">Page Title</h1>
         </div>
-
-        <h1>Welcome to bfp system hehehe!</h1>
+        {{-- Put page content here --}}
     </div>
 @endsection

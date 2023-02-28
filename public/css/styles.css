@@ -37,9 +37,20 @@ nav {
 }
 
 .page-content {
-    padding-bottom: 100px;
+    padding-bottom: 200px;
 }
 
+.page-panel {
+    background: rgb(6,16,31);
+    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgba(28,59,100,1) 100%);
+    padding:1rem 3rem;
+}
+
+.page-panel .title {
+    color: white;
+    font-weight: 500;
+    font-size: 1.875rem;
+}
 .debug {
     border: 1px solid red !important;
 }
@@ -85,6 +96,7 @@ nav .btn:hover {
     left: 0;
     background-color: var(--secondary);
     display: none;
+    z-index: 9999;
 }
 
 .dropdown-profile-menu .btn:hover {
@@ -106,9 +118,4 @@ nav .btn:hover {
 
 nav .btn {
     font-weight: bold;
-}
-
-.page-panel {
-    background: rgb(6,16,31);
-    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgba(28,59,100,1) 100%);
 }

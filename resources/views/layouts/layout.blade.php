@@ -16,17 +16,20 @@
 
     <!-- icons - https://icons.getbootstrap.com/ -->
 
+    {{-- Left Panel --}}
     <nav class="d-flex flex-column">
             <!--Nav Heading  -->
         <div class="p-4 d-flex align-items-center justify-content-center">
             <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
-            <h1 class="text-white fs-4 fw-bold px-3">Bureau of Fire Protection</h1>
+            <h1 class="text-white fs-5 fw-bold px-3">Bureau of Fire Protection</h1>
         </div>
 
         
+        <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
+        
         <!-- button dashboard-->
         <li class="m-2">
-            <a class="btn w-100 text-end text-white" href="/">
+            <a class="btn w-100 text-end text-white" href="/dashboard">
                 <!-- button icon -->
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn-icon" viewBox="0 0 16 16">
@@ -37,7 +40,6 @@
             </a>
         </li>
 
-        <hr class="p-0 my-1 text-white border-2 w-75 mx-auto">
             <!-- Nav Links -->
         <div class="nav-links overflow-y-auto ">
             <ul class="py-3 list-unstyled">
@@ -110,7 +112,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
+                    <a class="btn w-100 text-end text-white" href="/404">
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
                         <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
@@ -123,7 +125,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
+                    <a class="btn w-100 text-end text-white" href="/404">
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
                         <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
@@ -136,9 +138,11 @@
         </div>
     </nav>
 
-    <!-- PANEL  -->
-    <div class="page-container" style="z-index: 99;">
-        <div class="top-panel d-flex justify-content-between p-2">
+    {{-- Righ Panel --}}
+    <div class="page-container d-flex flex-column">
+        
+        <!-- PANEL  -->
+        <div class="top-panel d-flex justify-content-between p-2" style="">
             <div class="fs-4 text-white fw-bold" style="margin-left:1.25rem;">Bureau of Fire Protection  Management System</div>
         
             <!-- profile button -->
@@ -172,14 +176,16 @@
                     <!-- drop down links -->
                     <div class="d-inline flex-column">
                         <a href="#" class="btn w-100 text-end text-white fw-semibold">Info</a>
-                        <a href="#" class="btn w-100 text-end text-white fw-semibold">Logout</a>
+                        <a href="/" class="btn w-100 text-end text-white fw-semibold">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
 
         {{-- DUMP CONTENT HERE --}}
-        @yield('content')
+        <div class="overflow-y-auto">
+            @yield('content')
+        </div>
     </div>
 
 
