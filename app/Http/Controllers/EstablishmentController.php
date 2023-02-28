@@ -74,11 +74,6 @@ class EstablishmentController extends Controller
         ->select('establishments.*', 'owners.*')
         ->where('record_no', (int)request('id'))
         ->first();
-<<<<<<< HEAD
-=======
-
->>>>>>> a467887109ef8e0589f82b67e9d9a0212ed39a1c
-
         return view('establishments.show', ['establishment' => $establishment]);
     }
 
