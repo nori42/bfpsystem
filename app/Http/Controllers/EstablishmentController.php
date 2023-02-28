@@ -28,7 +28,9 @@ class EstablishmentController extends Controller
 
 
     public function create(){
-        return view('establishments.create');
+        return view('establishments.create',[
+            'page_title' => "Add Establishment"
+        ]);
     }
 
     public function store(Request $request){
