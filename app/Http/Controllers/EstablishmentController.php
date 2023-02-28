@@ -80,7 +80,6 @@ class EstablishmentController extends Controller
         ->select('establishments.*','owners.*')
         ->where('record_no', (int)request('id'))
         ->first();
-<<<<<<< HEAD
         
         return view('establishments.show', ['establishment' => $establishment]);
     }
@@ -93,17 +92,5 @@ class EstablishmentController extends Controller
         ->first();
 
         return view('establishments.show_fsic',['establishment' => $establishment]);
-=======
-        return view('establishments.show', [
-            'establishment' => $establishment,
-            'page_title' => "Details Information"
-        ]);
-    }
-
-    public function show_fsic() {
-        return view('establishments.show_fsic', [
-            'page_title' => "Fire Safety Inspection Certificate"
-        ]);
->>>>>>> 19913ace1d6ea7a84714798a3b81c2a406a10cce
     }
 }
