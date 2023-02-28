@@ -24,3 +24,5 @@ Route::get('/establishments/create', [EstablishmentController::class, 'create'])
 Route::post('/establishments', [EstablishmentController::class, 'store']);
 
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
+
+Route::get('/establishments/fsic/{id}', [EstablishmentController::class, 'show_fsic']);

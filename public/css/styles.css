@@ -111,3 +111,8 @@ nav {
 nav .btn {
     font-weight: bold;
 }
+
+.page-panel {
+    background: rgb(6,16,31);
+    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgba(28,59,100,1) 100%);
+}

@@ -73,9 +73,12 @@ class EstablishmentController extends Controller
         ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
         ->select('establishments.*', 'owners.*')
         ->where('record_no', (int)request('id'))
-        ->get();
-
+        ->first();
 
         return view('establishments.show', ['establishment' => $establishment]);
+    }
+
+    public function show_fsic() {
+        return view('establishments.show_fsic');
     }
 }
