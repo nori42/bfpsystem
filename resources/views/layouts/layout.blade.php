@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/css/modified-boostrap.css">
     
     
 </head>
@@ -18,7 +19,7 @@
     <nav class="d-flex flex-column">
             <!--Nav Heading  -->
         <div class="p-4 d-flex align-items-center justify-content-center">
-            <img class="rounded-circle" src="/img/bfp_logo.PNG" height="100px" width="100px" alt="logo">
+            <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
             <h1 class="text-white fs-4 fw-bold px-3">Bureau of Fire Protection</h1>
         </div>
 
@@ -38,7 +39,7 @@
 
         <hr class="p-0 my-1 text-white border-2 w-75 mx-auto">
             <!-- Nav Links -->
-        <div class="nav-links overflow-y-scroll">
+        <div class="nav-links overflow-y-auto ">
             <ul class="py-3 list-unstyled">
 
                 <li class="mx-3 fw-bold text-white fs-6">Menu</li>

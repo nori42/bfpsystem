@@ -11,10 +11,6 @@ body {
     height: 100vh;
 }
 
-html {
-}
-
-
 *, *::after , *::before {
     box-sizing: border-box;
 }
@@ -52,7 +48,7 @@ nav {
     border: 1px solid blue !important;
 }
 
-.btn:hover {
+nav .btn:hover {
     background-color: var(--btn-link-hover) !important;
     color:white !important;
 }

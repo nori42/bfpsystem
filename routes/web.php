@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+//Dashboard
+Route::post('/authenticate', [UserController::class, 'authenticate']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 //Establishments route
 Route::get('/establishments', [EstablishmentController::class, 'index']);

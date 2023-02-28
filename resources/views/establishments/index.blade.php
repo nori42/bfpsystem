@@ -8,7 +8,7 @@
         <h1>Records</h1>
         <a class="btn btn-success" href="/establishments/create">New Record</a>
     </div>
-<div class="w-75 h-75 overflow-y-scroll mx-auto">
+<div class="w-75 h-75 overflow-y-auto mx-auto">
     @if (session('mssg'))
         <h2 class="text-success">{{session('mssg')}}</h2>
     @endif
