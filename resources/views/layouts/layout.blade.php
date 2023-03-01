@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
     <link rel="stylesheet" href="/css/modified-boostrap.css">
+    <link rel="stylesheet" href="/css/modal.css">
 </head>
 <body class="d-flex">
 
@@ -196,5 +197,6 @@
     <footer></footer>
     <script src="/js/script.js"></script>
     <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script>
+    <script src="/js/modal.js"></script>
 
 </body>
