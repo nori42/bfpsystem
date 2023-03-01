@@ -3,11 +3,6 @@
 
 @section('content')
 <div class="page-content">
-    {{-- Page Panel --}}
-    
-    <div class="page-panel sticky-top">
-        <h1 class="title">Fire Safety Inspection Clearance</h1>
-    </div>
     {{-- Put page content here --}}
     
     {{-- Owner Info & Selected Establishment --}}

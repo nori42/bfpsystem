@@ -1,7 +1,3 @@
-{{-- @php
-    $page_title = "";
-@endphp --}}
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -185,6 +181,7 @@
         </div>
 
         {{-- page panel --}}
+        {{-- This panel will be use through all the pages --}}
         <div class="page-panel h-9 p-5">
             <h1 class="fs-4 text-white fw-bold">{{ $page_title }}</h1>
         </div>
@@ -194,9 +191,6 @@
             @yield('content')
         </div>
     </div>
-
-
-
 
     {{-- FOOTER --}}
     <footer></footer>

@@ -3,10 +3,6 @@
 
 @section('content')
 <div class="page-content">
-
-    <div class="page-panel sticky-top">
-        <h1 class="title">Page Title</h1>
-    </div>
     <form class="add-record-form mt-5" action="/establishments" method="POST">
         {{-- Cross-site request forgeries  --}}
         {{-- Add @csrf every form --}}

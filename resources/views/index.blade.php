@@ -40,6 +40,7 @@
         .field-container input{
             padding-top: 5px !important;
             padding-bottom: 5px !important;
+            padding-left: 8px;
             border-radius: 5px;
             border: 1px solid !important;
         }

@@ -78,7 +78,10 @@ class EstablishmentController extends Controller
         ->where('record_no', (int)request('id'))
         ->first();
         
-        return view('establishments.show', ['establishment' => $establishment]);
+        return view('establishments.show', [
+            'establishment' => $establishment,
+            'page_title' => 'Establishment Information' // use to set page title inside the panel
+        ]);
     }
 
     public function show_fsic() {
@@ -88,6 +91,9 @@ class EstablishmentController extends Controller
         ->where('record_no', (int)request('id'))
         ->first();
 
-        return view('establishments.show_fsic',['establishment' => $establishment]);
+        return view('establishments.show_fsic',[
+            'establishment' => $establishment,
+            'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
+        ]);
     }
 }

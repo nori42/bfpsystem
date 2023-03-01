@@ -3,11 +3,6 @@
 
 @section('content')
 <div class="page-content">
-    <!-- page panel -->
-    <div class="page-panel sticky-top">
-        <h1 class="title">Establishments</h1>
-    </div>
-
     {{-- search and add --}}
     <div class="d-flex align-items-center justify-content-between w-75 mx-auto my-3 mt-5">
         <form action="" class="py-2 px-3 mb-0" style="background-color: #E6E6E6;">
