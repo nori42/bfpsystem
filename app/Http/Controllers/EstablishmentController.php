@@ -57,7 +57,7 @@ class EstablishmentController extends Controller
         $establishment->latest_permit = $request->latestPermit;
         $establishment->barangay = $request->barangay;
         $establishment->address = $request->address;
-        $establishment->status = $request->status;
+        $establishment->status = "Pending";
         $establishment->height = $request->height;
         //instantiate foreign id
         $owners = DB::table('owners')->get();

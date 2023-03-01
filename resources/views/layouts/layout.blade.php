@@ -26,17 +26,17 @@
         <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
         
         <!-- button dashboard-->
-        <li class="m-2">
+        <div class="m-2 ">
             <a class="btn w-100 text-end text-white" href="/dashboard">
                 <!-- button icon -->
                 <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn-icon" viewBox="0 0 16 16">
-                <path d="M7.462 0H0v7.19h7.462V0zM16 0H8.538v7.19H16V0zM7.462 8.211H0V16h7.462V8.211zm8.538 0H8.538V16H16V8.211z"/>
-                </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn-icon" viewBox="0 0 16 16">
+                    <path d="M7.462 0H0v7.19h7.462V0zM16 0H8.538v7.19H16V0zM7.462 8.211H0V16h7.462V8.211zm8.538 0H8.538V16H16V8.211z"/>
+                    </svg>
                 </span>
                 Dashboard
             </a>
-        </li>
+        </div>
 
             <!-- Nav Links -->
         <div class="nav-links overflow-y-auto ">
