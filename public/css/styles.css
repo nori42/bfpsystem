@@ -51,6 +51,12 @@ nav {
     font-weight: 500;
     font-size: 1.875rem;
 }
+
+.debug-div {
+    height: 100px;
+    background-color: green;
+}
+
 .debug {
     border: 1px solid red !important;
 }
