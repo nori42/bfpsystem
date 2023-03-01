@@ -6,7 +6,7 @@
         {{-- Add @csrf every form --}}
         @csrf
         <style>
-            .input {`
+            .input {
                 border: 1px solid gray;
                 padding: .4rem .3rem;
                 background: white;
@@ -14,6 +14,11 @@
                 width: 100%;
             }
 
+            select{
+                width: 100%;
+                padding: .4rem .3rem;
+                border-radius: .5rem;
+            }
 
             .info {
                 border: 1px solid gray;
@@ -119,7 +124,19 @@
 
             <div class="my-2">
                 <label class="info-label">Substation</label>
-                <input type="text" id="substation" name="substation" class="input" required>
+                {{-- arrays of sub-stations --}}
+                @php
+                    $stations = [
+                        'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
+                    ];
+                @endphp
+
+                <select name="substation" id="substation" required>
+                    <option value="" selected>Select Substation</option>
+                    @foreach ($stations as $station)
+                        <option value="{{$station}}">{{$station}}</option>
+                    @endforeach
+                </select>
             </div>
     
             <div class="d-flex gap-2">
@@ -130,7 +147,13 @@
     
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <input type="text" id="buildingType" name="buildingType" class="input" required>
+                    <select name="buildingType" id="buildingType" required>
+                        <option value="" selected>Select Building Type</option>
+                        <option value="CBP">Small</option>
+                        <option value="CCFS">Medium</option>
+                        <option value="GUADALUPE">Large</option>
+                        <option value="LABANGON">High Rise</option>
+                    </select>
                 </div>
             </div>
             <div class="d-flex gap-2">

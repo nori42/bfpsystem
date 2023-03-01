@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
     <style>
         .btn-show{
             background-color: #53A3D8;
@@ -117,7 +115,26 @@
 
             <div class="my-2">
                 <label class="info-label">Substation</label>
-                <input class="info" type="text" value="{{$establishment->substation}}" name="substation" readonly>
+                
+                {{-- arrays of sub-stations --}}
+                @php
+                    $stations = [
+                        'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
+                    ];
+                @endphp
+
+                <div class="my-2">
+                    <label class="info-label">Substation</label>
+                    <select class="info" name="substation" id="substation" readonly>
+                        <option value="">Select Substation</option>
+                        @foreach ($stations as $station)
+                            @if($establishment->substation == $station)
+                                <option value="{{$station}}" selected>{{$station}}</option>
+                            @endif
+                            <option value="{{$station}}">{{$station}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="d-flex gap-2">
