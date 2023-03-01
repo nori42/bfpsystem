@@ -11,4 +11,4 @@
         </div>
         {{-- Put page content here --}}
     </div>
-@endsection
+@endsectiongit

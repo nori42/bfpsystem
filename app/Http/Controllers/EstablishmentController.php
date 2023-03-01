@@ -96,4 +96,6 @@ class EstablishmentController extends Controller
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }
+
+    
 }
