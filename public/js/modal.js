@@ -1,8 +1,8 @@
 // Get the modal
-var modal;
+var modal = document.getElementById("Modalowner");
 
-// // Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
+// Get the button that opens the modal
+var btn = document.getElementById("Mbutton");
 
 const openModal = (modalTarget) => {
 

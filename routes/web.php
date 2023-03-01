@@ -29,7 +29,6 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/establishments', [EstablishmentController::class, 'index']);
 Route::get('/establishments/create', [EstablishmentController::class, 'create']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
-
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
 
 //Fsic routes
