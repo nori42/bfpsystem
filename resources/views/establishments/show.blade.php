@@ -10,7 +10,7 @@
             width: 80%;
         }
         .btn-show:hover{
-            background-color: #53A3D8 !important;
+            background-color: #5ab7f6 !important;
             color: black !important;
         }
 
@@ -66,10 +66,10 @@
         <div class="w-75 mx-auto ">
             <div class="pt-5 d-flex justify-content-between owner-info ">
                 <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
-                <button type="button" class="btn btn-show btn-lg" id="Mbutton" >Establishment</button>
+                <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')">Establishment</button>
             </div>
 
-            <div class="fs-5">Record No.: {{$establishment->record_no}}</div>
+            <div class="fs-5">Record No.: {{$establishment->id}}</div>
             <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;">
                 <span class="fw-bold">Selected Establishment: </span>{{$establishment->establishment_name}}
                 <span class="float-start text-decoration-none px-2 rounded-1 text-black" id="editBtn">Edit Details</span>
@@ -77,32 +77,12 @@
                 <input type="hidden" value="false" id="isEditable">
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-        </div>
 
         {{-- Establishment Info --}}
         <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/update" method="POST" id="updateForm">
             {{-- add @csrf every form --}}
             @csrf
-            <input type="hidden" name="record_no" value="{{$establishment->record_no}}">
+            <input type="hidden" name="record_no" value="{{$establishment->id}}">
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
                 <input class="info" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
@@ -203,68 +183,41 @@
 
 
 <!-- The Modal -->
-<div id="Modalowner" class="modal " >
+<div id="modalOwner" class="modal " >
 
   <!-- Modal content -->
-  <div class="modal-content ">
+  <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Owner Information</h5>
     </div>
-    <div class="modal-body">
-    <label for="recipient-name" class="col-form-label">Record No.:</label>
-    </div>
-    <div class="modal-body" >
-        <form>
-        <div class="form-group d-flex justify-content-between" style="width:100%;">
-            <div class=".col-md-6">
-            
-                <label class="col-form-label">First-Name:</label>
-                <input type="text" class="form-control">
-                
-            </div>
-            <br>
-            <div class=".col-md-6">
-            
-                <label class="col-form-label">Middle-Name:</label>
-                <input type="text" class="form-control">
-                
-            </div>
-            <br>
-            <div class=".col-md-6">
-            
-                <label class="col-form-label">Last-Name:</label>
-                <input type="text" class="form-control">
-                
-            </div>
-          </div>
-          
-         
-        </form>
-        <form>
-          <div class="form-group d-flex justify-content-between" style="width:100%;">
-            <div class=".col-md-6">
-            
-                <label class="col-form-label">Contact No.:</label>
-                <input type="text" class="form-control">
-                
-            </div>
-            <br>
-            <div class=".col-md-6">
-            
-                <label class="col-form-label">Address:</label>
-                <input type="text" class="form-control" style="width: 450px">
-                
-            </div>
-            <div class=".col-md-6">
 
+        <form>
+            <div class="d-flex gap-3">
+                <div>
+                    <label class="info-label">First Name</label>
+                    <input type="text" class="info" value="{{$establishment->first_name}}">
+                </div>
+                <div>
+                    <label class="info-label">Middle Name</label>
+                    <input type="text" class="info" value="{{$establishment->middle_name}}">
+                </div>
+                <div class=".col-md-6">
+                    <label class="info-label">Last Name</label>
+                    <input type="text" class="info" value="{{$establishment->last_name}}">
+                </div>
             </div>
             
-          </div>
-          
-         
+            <div class="d-flex gap-3">
+                <div>
+                    <label class="info-label">Contact No.</label>
+                    <input type="text" class="info" value="{{$establishment->contact_no}}">
+                </div>
+            </div>
         </form>
     </div>
   </div>
+
+
 </div>
 
 <script src="/js/script.establishment-edit.js"></script>

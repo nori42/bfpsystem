@@ -28,7 +28,6 @@
                 <th>Date Issued</th>
                 <th>Certification</th>
                 <th>Status</th>
-                <th></th>
             </thead>
             <tbody>
                 @foreach ($payments as $payment)
@@ -44,7 +43,7 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-end">
-            <button class="btn btn-success" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
+            <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
         </div>
         
     </div>
