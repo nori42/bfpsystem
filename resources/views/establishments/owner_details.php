@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
     <style>
         .btn-show{
             background-color: #53A3D8;
@@ -32,11 +30,7 @@
             font-weight: 700;
         }
 
- 
     </style>
-
- 
-
     
 
     <div class="page-content">
@@ -53,33 +47,13 @@
         <div class="w-75 mx-auto">
             <div class="pt-5 d-flex justify-content-between owner-info">
                 <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Establishment</button>
-                
+                <button class="btn" style="background-color: #8ED2FF; font-weight: bold;">Establishment</button>
+                <a href="" style="background-color: #8ED2FF; font-weight: bold; margin: 15px;">Establishment</a>
             </div>
-
             <div class="fs-5">Record No.: {{$establishment->record_no}}</div>
             <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Selected Establishment: </span>{{$establishment->establishment_name}}</div>
         </div>
-        <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-            </div>
+
         {{-- Establishment Info --}}
         <div class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;">
 
@@ -145,23 +119,5 @@
         </div>
         
     </div>
-
- <h2>Modal Example</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
-
-</div>
-
-
     
 @endsection
