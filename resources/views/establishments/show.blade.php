@@ -53,7 +53,7 @@
         <div class="w-75 mx-auto">
             <div class="pt-5 d-flex justify-content-between owner-info">
                 <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Establishment</button>
+                <button type="button" class="btn btn-show " id="Mbutton" >Establishment</button>
                 
             </div>
 
@@ -146,18 +146,15 @@
         
     </div>
 
- <h2>Modal Example</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="Modalowner" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <div class="header">
+        <h2>Owner Information</h3>
+    </div>
   </div>
 
 </div>
