@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
     <link rel="stylesheet" href="/css/modified-boostrap.css">
     <link rel="stylesheet" href="/css/modal.css">
+
+    {{-- styles - google fonts --}}
+    <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 <body class="d-flex">
 
@@ -188,7 +191,7 @@
         </div>
 
         {{-- DUMP CONTENT HERE --}}
-        <div class="overflow-y-auto">
+        <div class="overflow-y-auto" id="scrollable">
             @yield('content')
         </div>
     </div>

@@ -11,6 +11,7 @@ use App\Models\Owner;
 
 class EstablishmentController extends Controller
 {
+    // load index page
     public function index(){
 
         // $establishments = Establishment::orderBy('created_at', 'DESC')->get();
@@ -33,6 +34,7 @@ class EstablishmentController extends Controller
         ]);
     }
 
+    // store new record
     public function store(Request $request){
 
         // instantiate model
@@ -84,6 +86,8 @@ class EstablishmentController extends Controller
         ]);
     }
 
+
+    // show fsic
     public function show_fsic() {
         $establishment = DB::table('establishments')
         ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
@@ -97,5 +101,38 @@ class EstablishmentController extends Controller
         ]);
     }
 
-    
+    // update establishment details
+    public function update_establishment(Request $request){
+        Establishment::where('record_no', $request->record_no)->update([
+            'establishment_name' => $request->establishmentName,
+            'corporate_name' => $request->corporateName,
+            'substation' => $request->substation,
+            'sub_type' => $request->subType,
+            'building_type' => $request->buildingType,
+            'no_of_story' => $request->noOfStory,
+            'building_permit_no' => $request->buildingPermitNo,
+            'fire_insurance_co' => $request->fireInsuranceCo,
+            'latest_permit' => $request->latestPermit,
+            'barangay' => $request->barangay,
+            'address' => $request->address,
+            'height' => $request->height
+        ]);
+
+        return redirect('/establishments'. "/" . $request->record_no);
+
+        // $establishment->establishment_name = $request->establishmentName;
+        // $establishment->corporate_name = $request->corporateName; 
+        // $establishment->substation = $request->substation;
+        // $establishment->sub_type = $request->subType;
+        // $establishment->building_type = $request->buildingType;
+        // $establishment->no_of_story = $request->noOfStory;
+        // $establishment->building_permit_no = $request->buildingPermitNo;
+        // $establishment->fire_insurance_co = $request->fireInsuranceCo;
+        // $establishment->latest_permit = $request->latestPermit;
+        // $establishment->barangay = $request->barangay;
+        // $establishment->address = $request->address;
+        // $establishment->height = $request->height;
+
+        // $establishment->save();
+    }
 }

@@ -28,7 +28,6 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/establishments', [EstablishmentController::class, 'index']);
 Route::get('/establishments/create', [EstablishmentController::class, 'create']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
-
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
-
+Route::post('/establishments/update', [EstablishmentController::class, 'update_establishment']);
 Route::get('/establishments/fsic/{id}', [EstablishmentController::class, 'show_fsic']);

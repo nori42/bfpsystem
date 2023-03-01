@@ -189,4 +189,6 @@
         </div>
     </form>
 </div>
+{{-- ADDED JS FOR THIS PAGE ONLY --}}
+<script src="/js/script.create.js"></script>
 @endsection
