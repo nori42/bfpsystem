@@ -182,7 +182,7 @@
 
         {{-- page panel --}}
         {{-- This panel will be use through all the pages --}}
-        <div class="page-panel h-9 p-5">
+        <div class="page-panel h-9 px-5 py-3">
             <h1 class="fs-4 text-white fw-bold">{{ $page_title }}</h1>
         </div>
 
@@ -194,6 +194,7 @@
 
     {{-- FOOTER --}}
     <footer></footer>
-    <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script>
+
 </body>
