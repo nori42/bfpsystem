@@ -113,14 +113,16 @@
                 <input class="info" type="text" value="{{$establishment->corporate_name}}" name="corporateName" readonly>
             </div>
 
-            <div class="my-2">
-                <label class="info-label">Substation</label>
-                
+            <div class="my-2">                
                 {{-- arrays of sub-stations --}}
                 @php
                     $stations = [
                         'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
                     ];
+
+                    $building_type = [
+                        'Small', 'Medium', 'Large', 'High Rise'
+                    ]
                 @endphp
 
                 <div class="my-2">
@@ -130,8 +132,9 @@
                         @foreach ($stations as $station)
                             @if($establishment->substation == $station)
                                 <option value="{{$station}}" selected>{{$station}}</option>
+                            @else
+                                <option value="{{$station}}">{{$station}}</option>
                             @endif
-                            <option value="{{$station}}">{{$station}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -145,7 +148,16 @@
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <input class="info" type="text" value="{{$establishment->building_type}}" name="buildingType" readonly>
+                    <select class="info"  name="buildingType" id="buildingType" required readonly>
+                        <option value="">Select Building Type</option>
+                        @foreach ($building_type as $btype)
+                            @if($establishment->building_type == $btype)
+                                <option value="{{$btype}}" selected>{{$btype}}</option>
+                            @else
+                                <option value="{{$btype}}">{{$btype}}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
