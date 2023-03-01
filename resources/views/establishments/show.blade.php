@@ -66,7 +66,7 @@
         <div class="w-75 mx-auto ">
             <div class="pt-5 d-flex justify-content-between owner-info ">
                 <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
-                <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')">Establishment</button>
+                <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')">Owner Info</button>
             </div>
 
             <div class="fs-5">Record No.: {{$establishment->id}}</div>
