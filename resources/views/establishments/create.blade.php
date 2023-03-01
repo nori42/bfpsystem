@@ -46,7 +46,7 @@
 
                         <label for="subType">SubType:</label>
                         <input type="text" id="subType" name="subType">
-
+ 
                         <label for="substation">Substation:</label>
                         <input type="text" id="substation" name="substation">
                     </div>

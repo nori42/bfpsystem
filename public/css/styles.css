@@ -125,3 +125,26 @@ nav .btn:hover {
 nav .btn {
     font-weight: bold;
 }
+
+.info {
+    border: 1px solid gray;
+    padding: .4rem .3rem;
+    background: white;
+    border-radius: .5rem;
+    margin-bottom: 0.2rem;
+}
+
+.info-label {
+    font-weight: 700;
+}
+
+
+.fsic-active {
+    background-color: #672424 !important;
+    color: white !important;
+}
+
+.btn-action{
+    border: 2px solid black !important;
+    width: inherit;
+}

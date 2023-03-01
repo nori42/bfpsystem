@@ -49,25 +49,25 @@
                     @if ($loop->index == 0 && session('newPost'))
                     {{-- green bg for new record --}}
                     <tr class="bg-success text-white">
-                        <td> {{ $establishment->record_no }} </td>
+                        <td> {{ $establishment->id }} </td>
                         <td> {{ $establishment->establishment_name }} </td>
                         <td>    {{$establishment->last_name}} </td>
                         <td>    {{$establishment->first_name}}  </td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td><a href="/establishments/{{$establishment->record_no}}"class="btn" style="background-color: #53A3D8;">Details</a></td>
+                        <td><a href="/establishments/{{$establishment->id}}"class="btn" style="background-color: #53A3D8;">Details</a></td>
                     </tr>
                     @else
                     <tr>
-                        <td> {{ $establishment->record_no }} </td>
+                        <td> {{ $establishment->id}} </td>
                         <td> {{ $establishment->establishment_name }} </td>
                         <td>    {{$establishment->last_name}} </td>
                         <td>    {{$establishment->first_name}}  </td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td><a href="/establishments/{{$establishment->record_no}}" class="btn text-white" style="background-color: #53A3D8;">Details</a></td>
+                        <td><a href="/establishments/{{$establishment->id}}" class="btn text-white" style="background-color: #53A3D8;">Details</a></td>
                     </tr>
                     @endif   
                 @endforeach

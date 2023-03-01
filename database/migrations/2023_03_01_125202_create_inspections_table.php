@@ -12,16 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('inspections', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(Establishment::class);
-            $table->string('or_no');
-            $table->string('nature_of_payment');
-            $table->string('amount_paid', 15, 8);
-            $table->string('date_issued');
-            $table->string('certification');
+            $table->string('inspection_date');
             $table->string('status');
-            $table->string('printed_by');
+            $table->string('compliant_status');
+            $table->string('action_taken');
+            $table->string('building_type');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('inspections');
     }
 };

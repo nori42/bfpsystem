@@ -15,9 +15,9 @@ class EstablishmentController extends Controller
 
         // $establishments = Establishment::orderBy('created_at', 'DESC')->get();
         $establishments = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
+        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
         ->select('establishments.*', 'owners.*')
-        ->orderBy('record_no','DESC')
+        ->orderBy('establishments.id','DESC')
         ->get();
 
         return view('establishments.index', [
@@ -50,7 +50,7 @@ class EstablishmentController extends Controller
         $establishment->substation = $request->substation;
         $establishment->sub_type = $request->subType;
         $establishment->building_type = $request->buildingType;
-        $establishment->no_of_story = $request->noOfStory;
+        $establishment->no_of_storey = $request->noOfStory;
         $establishment->createdBy = "admin";
         $establishment->building_permit_no = $request->buildingPermitNo;
         $establishment->fire_insurance_co = $request->fireInsuranceCo;
@@ -73,9 +73,9 @@ class EstablishmentController extends Controller
     //get single record
     public function show() {
         $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
+        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
         ->select('establishments.*','owners.*')
-        ->where('record_no', (int)request('id'))
+        ->where('establishments.id', (int)request('id'))
         ->first();
         
         return view('establishments.show', [
@@ -84,18 +84,6 @@ class EstablishmentController extends Controller
         ]);
     }
 
-    public function show_fsic() {
-        $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.owner_id')
-        ->where('record_no', (int)request('id'))
-        ->where('record_no', (int)request('id'))
-        ->first();
-
-        return view('establishments.show_fsic',[
-            'establishment' => $establishment,
-            'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
-        ]);
-    }
 
     
 }

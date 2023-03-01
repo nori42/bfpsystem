@@ -45,7 +45,7 @@
         {{-- Details Action --}}
         <div class="d-flex justify-content-between gap-4 w-75 mx-auto mt-5">
             <button class="btn btn-show fs-5">FSEC</button>
-            <a href="/establishments/fsic/{{$establishment->record_no}}" class="btn btn-show fs-5">FSIC</a>
+            <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-5">FSIC</a>
             <button class="btn btn-show fs-5">FIRE DRILL</button>
         </div>
 
@@ -57,8 +57,8 @@
                 
             </div>
 
-            <div class="fs-5">Record No.: {{$establishment->record_no}}</div>
-            <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Selected Establishment: </span>{{$establishment->establishment_name}}</div>
+            <div class="fs-5">Record No.: {{$establishment->id}}</div>
+            <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
         </div>
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,7 +109,7 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <div class="info">{{$establishment->no_of_story}}</div>
+                    <div class="info">{{$establishment->no_of_storey}}</div>
                 </div>
     
                 <div class="my-2 w-100">

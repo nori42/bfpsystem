@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('establishments', function (Blueprint $table) {
-            $table->bigIncrements('record_no');
+            $table->bigIncrements('id');
             $table->string('establishment_name');
             $table->string('corporate_name');
             $table->string('substation');
             $table->string('sub_type');
             $table->string('building_type');
-            $table->string('no_of_story');
+            $table->string('no_of_storey');
             $table->string('height');
             $table->string('building_permit_no');
             $table->string('fire_insurance_co');
