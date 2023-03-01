@@ -50,10 +50,10 @@
         </div>
 
         {{-- Owner Info & Selected Establishment --}}
-        <div class="w-75 mx-auto">
-            <div class="pt-5 d-flex justify-content-between owner-info">
+        <div class="w-75 mx-auto ">
+            <div class="pt-5 d-flex justify-content-between owner-info ">
                 <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
-                <button type="button" class="btn btn-show " id="Mbutton" >Establishment</button>
+                <button type="button" class="btn btn-show btn-lg" id="Mbutton" >Establishment</button>
                 
             </div>
 
@@ -148,12 +148,66 @@
 
 
 <!-- The Modal -->
-<div id="Modalowner" class="modal">
+<div id="Modalowner" class="modal " >
 
   <!-- Modal content -->
-  <div class="modal-content">
-    <div class="header">
-        <h2>Owner Information</h3>
+  <div class="modal-content ">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Owner Information</h5>
+    </div>
+    <div class="modal-body">
+    <label for="recipient-name" class="col-form-label">Record No.:</label>
+    </div>
+    <div class="modal-body" >
+        <form>
+          <div class="form-group d-flex justify-content-between" style="width:100%;">
+            <div class=".col-md-6">
+            
+                <label class="col-form-label">First-Name:</label>
+                <input type="text" class="form-control">
+                
+            </div>
+            <br>
+            <div class=".col-md-6">
+            
+                <label class="col-form-label">Middle-Name:</label>
+                <input type="text" class="form-control">
+                
+            </div>
+            <br>
+            <div class=".col-md-6">
+            
+                <label class="col-form-label">Last-Name:</label>
+                <input type="text" class="form-control">
+                
+            </div>
+          </div>
+          
+         
+        </form>
+        <form>
+          <div class="form-group d-flex justify-content-between" style="width:100%;">
+            <div class=".col-md-6">
+            
+                <label class="col-form-label">Contact No.:</label>
+                <input type="text" class="form-control">
+                
+            </div>
+            <br>
+            <div class=".col-md-6">
+            
+                <label class="col-form-label">Address:</label>
+                <input type="text" class="form-control" style="width: 450px">
+                
+            </div>
+            <div class=".col-md-6">
+
+            </div>
+            
+          </div>
+          
+         
+        </form>
     </div>
   </div>
 
