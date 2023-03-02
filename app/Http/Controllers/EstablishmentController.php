@@ -89,13 +89,13 @@ class EstablishmentController extends Controller
 
     // update establishment details
     public function update_establishment(Request $request){
-        Establishment::where('record_no', $request->record_no)->update([
+        Establishment::where('id', $request->id)->update([
             'establishment_name' => $request->establishmentName,
             'corporate_name' => $request->corporateName,
             'substation' => $request->substation,
             'sub_type' => $request->subType,
             'building_type' => $request->buildingType,
-            'no_of_story' => $request->noOfStory,
+            'no_of_storey' => $request->no_of_storey,
             'building_permit_no' => $request->buildingPermitNo,
             'fire_insurance_co' => $request->fireInsuranceCo,
             'latest_permit' => $request->latestPermit,

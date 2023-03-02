@@ -129,10 +129,14 @@
                     $stations = [
                         'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
                     ];
+
+                    $building_type = [
+                        'Small', 'Medium', 'Large', 'High Rise'
+                    ]
                 @endphp
 
                 <select name="substation" id="substation" required>
-                    <option value="" selected>Select Substation</option>
+                    <option value="">Select Substation</option>
                     @foreach ($stations as $station)
                         <option value="{{$station}}">{{$station}}</option>
                     @endforeach
@@ -148,11 +152,10 @@
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
                     <select name="buildingType" id="buildingType" required>
-                        <option value="" selected>Select Building Type</option>
-                        <option value="CBP">Small</option>
-                        <option value="CCFS">Medium</option>
-                        <option value="GUADALUPE">Large</option>
-                        <option value="LABANGON">High Rise</option>
+                        <option value="">Select Building Type</option>
+                        @foreach ($building_type as $btype)
+                            <option value="{{$btype}}">{{$btype}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
