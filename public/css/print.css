@@ -1,0 +1,304 @@
+
+:root{
+    --default: #113350;
+    --red: red;
+    --green: green;
+}
+
+*{
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: var(--default);
+    font-size: 11pt !important;
+}
+
+body{
+    background: #C6C6C6;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+}
+
+#printablePage{
+    margin-top: 80px;
+    position: relative;
+    background: #FFFFFF;
+    width: 8.5in;
+    height: 11in;
+    padding: 0.86in 0.79in 0.19in 1.19in;
+}
+
+li{
+    list-style-type: none;
+    padding: 2px 0;
+}
+
+.header{
+    text-align: center;
+    font-size: 11pt;
+    padding-left: 27px;
+    padding-top: 30px; /* decrease this when printing using orignal copy */
+}
+
+.date-container{
+    padding-right: 55px;
+    position: relative;
+    top: -5px;
+}
+
+.check{
+    position: relative;
+}
+
+.check > *{
+    font-weight: bold !important;
+    padding: 0;
+    font-size: 14pt !important;
+    position: absolute;
+    top: 8px;
+}
+
+.c-2{
+    top: 31px;
+}
+
+.c-3{
+    top: 50px;
+}
+
+.check-container{
+    padding-top: 70px;
+    padding-left: 219px; /* decrease this when printing using orignal copy */
+    position: relative;
+}
+
+.others{
+    position: absolute;
+    top: 139px;
+    left: 365px;
+}
+
+.highlight{
+    position: absolute;
+    display: flex;
+    top: 119px;
+    left: 495px;
+}
+
+.new{
+    background-color: #FFD900 !important;
+    width: 45px;
+    height: 17pt;
+    opacity: .7;
+}
+
+.renewal{
+    background-color: #FFD900;
+    width: 92px;
+    height: 17pt;
+    opacity: .7;
+    margin-left: 5px;
+}
+
+.establishment-name{
+    text-align: center;
+    margin-top: 187px;
+    margin-left: 105px;
+}
+
+.rep-name{
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 95px;
+}
+
+.address{
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.issued-for{
+    margin-top: 91px;
+    margin-left: 370px;
+}
+
+.issued-for2{
+    text-align: center;
+    margin-top: 91px;
+    margin-left: 270px;
+}
+
+.more-info{
+    text-align: center;
+    display: flex;
+    margin-top: 15px;
+}
+
+.more-info div.moreInfo{
+    text-align: center;
+    flex: 40%;
+}
+
+.more-info div.validity{
+    text-align: center;
+    flex: 20%;
+}
+
+.footer{
+    display: flex;
+    margin-top: 109px;
+}
+
+.left{
+    flex: 50%;
+    /* border: 1px solid red; */
+    padding-left: 220px;
+}
+
+.right{
+    text-align: center;
+    flex: 70%;
+    /* border: 1px solid red; */
+}
+
+.left :nth-child(2){
+    margin-top: 3px;
+}
+
+.left :nth-child(3){
+    margin-top: 3px;
+}
+
+.right :nth-child(1){
+    margin-top: 20px;
+}
+
+.right :nth-child(2){
+    margin-top: 85px;
+}
+
+/*  */
+
+#back{
+    background-color: #DC3545;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    float: left;
+    text-decoration: none;
+}
+
+.nav{
+    width: 90%;
+    height: 50px;
+    background-color: #FFFFFF;
+    position: fixed;
+    border-radius: 8px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+}
+
+.nav > *{
+    margin-left: 10px;
+}
+.nav > * > span{
+    text-decoration: underline;
+}
+
+#buttonContainer > *{
+    margin-left: 5px;
+}
+
+#buttonContainer{
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+}
+
+#buttonContainer:hover {
+    background-color: #EBEBEB;
+}
+
+
+
+button{
+    z-index: 1000;
+    cursor: pointer;
+    background-color: #FFC900;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.print-ico{
+    font-size: 26px !important;
+    color: #000 !important;
+}
+/* utitilities */
+
+.disable {
+    opacity: 0;
+}
+
+.debug{
+    border: 1px solid red;
+}
+
+.fs-12{
+    font-size: 12pt;
+}
+
+.fs-12 > *{
+    font-size: 12pt; 
+}
+
+
+.float-right{
+    float: right;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.bold > *{
+    font-weight: bold;
+}
+
+@page {
+    size: letter;
+    margin: 0;
+}
+@media print {
+    html, body {
+        width: 210mm; /* 210mm */
+        height: 297mm;    
+        -webkit-print-color-adjust: exact;
+    }
+    #printablePage {
+        margin-top: 0 !important;
+    }
+
+    .nav{
+        display: none;
+    }
+    
+}

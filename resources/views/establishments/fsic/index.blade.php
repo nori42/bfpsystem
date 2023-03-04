@@ -50,7 +50,7 @@
     <!-- The Modal -->
     {{--Inspection--}}
     <div id="addInspectionModal" class="modal">
-          <!-- Modal content -->
+        <!-- Modal content -->
         <div class="modal-content" style="font-size: 0.9rem">
             <form action="/establishments/fsic/{{$establishment->id}}" method="POST">
                 @csrf

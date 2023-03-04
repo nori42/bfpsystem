@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('building_condition');
             $table->string('building_structures');
             $table->dateTime('expiry_date');
+            $table->dateTime('date_of_payment');
             $table->timestamps();
         });
     }

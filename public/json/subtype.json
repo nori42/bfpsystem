@@ -1,0 +1,272 @@
+[
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "HOTEL",
+        "ABBREVIATE": "HOTEL"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "DORMITORY",
+        "ABBREVIATE": "DORM"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "APARTMENT",
+        "ABBREVIATE": "APT"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "LODGING HOUSE",
+        "ABBREVIATE": "LH"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "SINGLE TWO FAMILY DWELLING",
+        "ABBREVIATE": "STFD"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "BOARDING HOUSE",
+        "ABBREVIATE": "BH"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "CONDOMINIUM",
+        "ABBREVIATE": "CONDO"
+    },
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL",
+        "SUBTYPE": "PENSION HOUSE",
+        "ABBREVIATE": "PH"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY",
+        "SUBTYPE": "AIRPORTS",
+        "ABBREVIATE": "AP"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY",
+        "SUBTYPE": "PIERS WHARVES",
+        "ABBREVIATE": "PW"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY",
+        "SUBTYPE": "COLISEUM",
+        "ABBREVIATE": "COL"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY",
+        "SUBTYPE": "THEATERS",
+        "ABBREVIATE": "TH"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY",
+        "SUBTYPE": "RESORTS RESTAURANTS",
+        "ABBREVIATE": "RR"
+    },
+    {
+        "OCCUPANCY_TYPE": "HEALTH CARE",
+        "SUBTYPE": "HC PRIVATE",
+        "ABBREVIATE": "HPR"
+    },
+    {
+        "OCCUPANCY_TYPE": "HEALTH CARE",
+        "SUBTYPE": "HC PUBLIC",
+        "ABBREVIATE": "HPU"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE NURSERY",
+        "ABBREVIATE": "EPRN"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE ELEMENTARY",
+        "ABBREVIATE": "EPRE"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE HIGH SCHOOL",
+        "ABBREVIATE": "EPRH"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE COLLEGE",
+        "ABBREVIATE": "EPRC"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE TECHNICAL VOCATIONAL",
+        "ABBREVIATE": "EPRTV"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE UNIVERSITY",
+        "ABBREVIATE": "EPRU"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE MEDICAL SCHOOL",
+        "ABBREVIATE": "EPRMS"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE INTERNATIONAL SCHOOL",
+        "ABBREVIATE": "EPRIS"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE SPECIAL SCHOOL",
+        "ABBREVIATE": "EPRSS"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PRIVATE OTHERS",
+        "ABBREVIATE": "EPRO"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC NURSERY",
+        "ABBREVIATE": "EPUN"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC ELEMENTARY",
+        "ABBREVIATE": "EPUE"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC HIGH SCHOOL",
+        "ABBREVIATE": "EPUH"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC COLLEGE",
+        "ABBREVIATE": "EPUC"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC TECHNICAL VOCATIONAL",
+        "ABBREVIATE": "EPUTV"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC UNIVERSITY",
+        "ABBREVIATE": "EPUU"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC MEDICAL SCHOOL",
+        "ABBREVIATE": "EPUMS"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC INTERNATIONAL SCHOOL",
+        "ABBREVIATE": "EPUIS"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC SPECIAL SCHOOL",
+        "ABBREVIATE": "EPUSC"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL",
+        "SUBTYPE": "PUBLIC OTHERS",
+        "ABBREVIATE": "EPUO"
+    },
+    {
+        "OCCUPANCY_TYPE": "MERCANTILE",
+        "SUBTYPE": "MALLS DEPARTMENT STORE",
+        "ABBREVIATE": "MMD"
+    },
+    {
+        "OCCUPANCY_TYPE": "MERCANTILE",
+        "SUBTYPE": "GASOLINE STATION",
+        "ABBREVIATE": "MGS"
+    },
+    {
+        "OCCUPANCY_TYPE": "MERCANTILE",
+        "SUBTYPE": "LPG REFILLING STATION",
+        "ABBREVIATE": "MLPG"
+    },
+    {
+        "OCCUPANCY_TYPE": "DETENTION AND CORRECTIONAL",
+        "SUBTYPE": "DC PRIVATE",
+        "ABBREVIATE": "DCPR"
+    },
+    {
+        "OCCUPANCY_TYPE": "DETENTION AND CORRECTIONAL",
+        "SUBTYPE": "DC PUBLIC",
+        "ABBREVIATE": "DCPU"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL",
+        "SUBTYPE": "FACTORIES",
+        "ABBREVIATE": "IFAC"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL",
+        "SUBTYPE": "LAUNDRIES",
+        "ABBREVIATE": "ILAU"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL",
+        "SUBTYPE": "PUMPING STATION",
+        "ABBREVIATE": "IPUS"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL",
+        "SUBTYPE": "POWER PLANTS",
+        "ABBREVIATE": "IPOW"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL",
+        "SUBTYPE": "SAW MILLS",
+        "ABBREVIATE": "ISAW"
+    },
+    {
+        "OCCUPANCY_TYPE": "BUSINESS",
+        "SUBTYPE": "GOVERNMENT CORP PUBLIC BLDG",
+        "ABBREVIATE": "BGOV"
+    },
+    {
+        "OCCUPANCY_TYPE": "BUSINESS",
+        "SUBTYPE": "BARANGAY HALL",
+        "ABBREVIATE": "BBH"
+    },
+    {
+        "OCCUPANCY_TYPE": "BUSINESS",
+        "SUBTYPE": "TRADING SERVICES",
+        "ABBREVIATE": "BTS"
+    },
+    {
+        "OCCUPANCY_TYPE": "BUSINESS",
+        "SUBTYPE": "OFFICES",
+        "ABBREVIATE": "BOF"
+    },
+    {
+        "OCCUPANCY_TYPE": "STORAGE",
+        "SUBTYPE": "DEPOT",
+        "ABBREVIATE": "SDP"
+    },
+    {
+        "OCCUPANCY_TYPE": "STORAGE",
+        "SUBTYPE": "WAREHOUSE",
+        "ABBREVIATE": "SWH"
+    },
+    {
+        "OCCUPANCY_TYPE": "OTHERS",
+        "SUBTYPE": "AMBULANT",
+        "ABBREVIATE": "AMB"
+    },
+    {
+        "OCCUPANCY_TYPE": "OTHERS",
+        "SUBTYPE": "VEHICULAR",
+        "ABBREVIATE": "VEH"
+    },
+    {
+        "OCCUPANCY_TYPE": "OTHERS",
+        "SUBTYPE": "OTHER",
+        "ABBREVIATE": "OTH"
+    }
+]

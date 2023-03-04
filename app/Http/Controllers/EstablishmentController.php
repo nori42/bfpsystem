@@ -29,8 +29,15 @@ class EstablishmentController extends Controller
 
 
     public function create(){
+
+        //load json files
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
+
         return view('establishments.create',[
-            'page_title' => "Add Establishment"
+            'page_title' => "Add Establishment",
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type
         ]);
     }
 
@@ -42,25 +49,26 @@ class EstablishmentController extends Controller
         $owner = new Owner();
 
         //get Data
-        $owner->first_name = $request->firstName;
-        $owner->last_name = $request->lastName;
-        $owner->middle_name= $request->middleName;
+        $owner->first_name = strtoupper($request->firstName);
+        $owner->last_name = strtoupper($request->lastName);
+        $owner->middle_name =  strtoupper($request->middleName);
         $owner->contact_no = $request->contactNo;
 
-        $establishment->establishment_name = $request->establishmentName;
-        $establishment->corporate_name = $request->corporateName; 
-        $establishment->substation = $request->substation;
-        $establishment->sub_type = $request->subType;
-        $establishment->building_type = $request->buildingType;
+        $establishment->establishment_name = strtoupper($request->establishmentName);
+        $establishment->corporate_name = strtoupper($request->corporateName);
+        $establishment->substation = strtoupper($request->substation);
+        $establishment->sub_type = strtoupper($request->subType);
+        $establishment->building_type = strtoupper($request->buildingType);
         $establishment->no_of_storey = $request->noOfStory;
-        $establishment->createdBy = "admin";
-        $establishment->building_permit_no = $request->buildingPermitNo;
-        $establishment->fire_insurance_co = $request->fireInsuranceCo;
-        $establishment->latest_permit = $request->latestPermit;
-        $establishment->barangay = $request->barangay;
-        $establishment->address = $request->address;
-        $establishment->status = "Pending";
+        $establishment->createdBy = strtoupper("admin");
+        $establishment->building_permit_no = $request->buildingPermitNo; 
+        $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
+        $establishment->latest_permit = $request->latestPermit; 
+        $establishment->barangay =  strtoupper($request->barangay);
+        $establishment->address = strtoupper($request->address);
+        $establishment->status = "Pending"; 
         $establishment->height = $request->height;
+        $establishment->occupancy = strtoupper($request->occupancy);
         //instantiate foreign id
         $owners = DB::table('owners')->get();
         $establishment->owner_id = count($owners) + 1;

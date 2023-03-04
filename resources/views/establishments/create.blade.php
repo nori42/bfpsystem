@@ -12,6 +12,7 @@
                 background: white;
                 border-radius: .5rem;
                 width: 100%;
+                text-transform: uppercase;
             }
 
             select{
@@ -101,6 +102,16 @@
                 <input type="text" id="contactNo" name="contactNo" class="input" required>
             </div>
         </div>
+        {{-- arrays of sub-stations --}}
+        @php
+            $stations = [
+                'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
+            ];
+
+            $building_type = [
+                'Small', 'Medium', 'Large', 'High Rise'
+            ]
+        @endphp
 
         {{-- Establishment Info --}}
         <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="establismentDetails">
@@ -115,34 +126,38 @@
             
             <div class="my-2">
                 <label class="info-label">Corporate Name</label>
-                <input type="text" id="corporateName" name="corporateName" class="input" required>
+                <input type="text" id="corporateName" name="corporateName" class="input">
             </div>
 
             <div class="my-2">
-                <label class="info-label">Substation</label>
-                {{-- arrays of sub-stations --}}
-                @php
-                    $stations = [
-                        'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
-                    ];
-
-                    $building_type = [
-                        'Small', 'Medium', 'Large', 'High Rise'
-                    ]
-                @endphp
-
-                <select name="substation" id="substation" required>
-                    <option value="">Select Substation</option>
-                    @foreach ($stations as $station)
-                        <option value="{{$station}}">{{$station}}</option>
+                <label class="info-label">Occupancy</label>
+                <select name="occupancy" id="occupancy" required>
+                    <option value="">Select Occupancy</option>
+                    @foreach ($occupancies as $occupancy)
+                        <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
                     @endforeach
                 </select>
             </div>
-    
+
+            <div class="my-2 w-100">
+                <label class="info-label">Sub Type</label>
+                <select name="subType" id="subType" required>
+                    <option value="">Select Sub Type</option>
+                    {{-- @foreach ($occupancies as $occupancy)
+                        <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
+                    @endforeach --}}
+                </select>
+            </div>
+
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
-                    <label class="info-label">Sub Type</label>
-                    <input type="text" id="subType" name="subType" class="input" required>
+                    <label class="info-label">Substation</label>
+                    <select name="substation" id="substation" required>
+                        <option value="">Select Substation</option>
+                        @foreach ($stations as $station)
+                            <option value="{{$station}}">{{$station}}</option>
+                        @endforeach
+                    </select>
                 </div>
     
                 <div class="my-2 w-100">
@@ -212,5 +227,30 @@
     </form>
 </div>
 {{-- ADDED JS FOR THIS PAGE ONLY --}}
+<script>
+    const OCCUPANCY = document.getElementById("occupancy")
+    const SUBTYPE = document.getElementById("subType")
+    var subtypes = {!! json_encode($subtype) !!}
+
+    //OCCUPANCY EVENT LISTENER
+    OCCUPANCY.addEventListener("change", function(){
+        var child = [...SUBTYPE.children]
+        child.forEach(element => {
+            //remove current list of types
+            element.remove()
+        });
+
+        // populates sub type
+        for (let i = 0; i < subtypes.length; i++) {
+            // verify if same
+            if(subtypes[i]['OCCUPANCY_TYPE'] == OCCUPANCY.value){
+                var option = document.createElement("option")
+                option.value = subtypes[i]['SUBTYPE']
+                option.textContent = subtypes[i]['SUBTYPE']
+                SUBTYPE.appendChild(option)
+            }
+        }
+    })
+</script>
 <script src="/js/script.create.js"></script>
 @endsection

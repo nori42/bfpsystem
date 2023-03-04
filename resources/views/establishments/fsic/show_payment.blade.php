@@ -28,6 +28,7 @@
                 <th>Date Issued</th>
                 <th>Certification</th>
                 <th>Status</th>
+                <th class="text-center">Action</th>
             </thead>
             <tbody>
                 @foreach ($payments as $payment)
@@ -35,9 +36,11 @@
                     <td>{{$payment->or_no}}</td>
                     <td>{{$payment->nature_of_payment}}</td>
                     <td>{{$payment->amount_paid}}</td>
-                    <td>{{$payment->date_issued}}</td>
+                    <td>{{$payment->created_at}}</td>
                     <td>{{$payment->certification}}</td>
                     <td>{{$payment->status}}</td>
+
+                    <td><a href="/establishments/fsic/print/{{$establishment->id}}&{{$payment->or_no}}" class="btn btn-warning mx-5"><span class="material-symbols-outlined">print</span> </a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -53,39 +56,98 @@
         <div id="addPaymentModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content" style="font-size: 0.9rem">
-                <form action="/establishments/fsic/payment/{{$establishment->id}}" method="POST">
+                
+                {{-- arrays for drop-downs --}}
+                @php
+                    $issuances = [
+                        'THE PURPOSE OF SECURING BUSINESS PERMIT',
+                        'NEW BUSINESS PERMIT',
+                        'OCCUPANCY PERMIT',
+                        'RENEWAL OF BUSINESS PERMIT',
+                        'RENEWAL OF BUSINESS PERMIT/TESDA ACCREDITATION',
+                        'RENEWAL OF BUSINESS PERMIT/DOT ACCREDITATION',
+                        'PEZA OCCUPANCY PERMIT',
+                        'ANNUAL INSPECTION OF PEZA CERTIFICATE'
+                    ];
+
+                    $regStatus = [
+                        'NEW',
+                        'RENEWAL',
+                        'OCCUPANCY',
+                        'BUILDING PERMIT',
+                        'ACCREDITATION'
+                    ];
+                @endphp
+
+                <form action="/establishments/fsic/payment" method="POST" id="savePayment">
                     @csrf
-                    <div class="d-flex flex-column w-100">
-                        {{-- This is hidden, only used for post request--}}
-                        <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
+                    <div class="d-flex side-parent justify-content-center">
+                        <div class="d-flex flex-column w-100 leftModal">
+                            {{-- This is hidden, only used for post request--}}
+                            <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
+    
+                            <label class="info-label" for="orNo">OR No.</label>
+                            <input class="info" type="text" id="orNo" name="orNo" required value="">
+    
+                            <label class="info-label" for="natureOfPayment">Nature Of Payment</label>
+                            <select name="natureOfPayment" id="natureOfPayment" required class="info">
+                                @foreach ($natureOfPayment as $nop)
+                                    <option value="{{$nop['DESCRIPTION']}}">{{$nop['DESCRIPTION']}} - {{$nop['NATURE_PAYMENT']}} - {{$nop['CODE']}}</option>
+                                @endforeach
+                            </select>
+    
+                            <label class="info-label" for="amountPaid">Amount Paid</label>
+                            <input class="info" type="text" id="amountPaid" name="amountPaid" required>
+    
+                            <label class="info-label" for="certification">Certificate No.</label>
+                            <input class="info" type="text" id="certification" name="certification" required>
 
-                        <label class="info-label" for="orNo">OR No.</label>
-                        <input class="info" type="text" id="orNo" name="orNo">
-
-                        <label class="info-label" for="natureOfPayment">Nature Of Payment</label>
-                        <input class="info" type="text" id="natureOfPayment" name="natureOfPayment">
-
-                        <label class="info-label" for="amountPaid">Amount Paid</label>
-                        <input class="info" type="text" id="amountPaid" name="amountPaid">
-
-                        <label class="info-label" for="dateIssued">Date Issued</label>
-                        <input class="info" type="text" id="dateIssued" name="dateIssued">
-
-                        <label class="info-label" for="certification">Certification</label>
-                        <input class="info" type="text" id="certification" name="certification">
-
-                        <label class="info-label" for="status">Status</label>
-                        <input class="info" type="text" id="status" name="status">
+                            <label class="info-label" for="date_of_payment">Date Of Payment</label>
+                            <input class="info" type="date" id="date_of_payment" name="date_of_payment" required>
+    
+                            <label class="info-label" for="status">Registration Status</label>
+                            <select name="status" id="status" required class="info">
+                                @foreach ($regStatus as $status)
+                                    <option value="{{$status}}">{{$status}}</option>
+                                @endforeach
+                            </select>
+    
+                            <label class="info-label" for="dateIssued">Issued For</label>
+                            <select name="issuedFor" id="issuedFor" required class="info">
+                                @foreach ($issuances as $issuance)
+                                    <option value="{{$issuance}}">{{$issuance}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+    
+                        <div class="d-flex flex-column w-100 rightModal">
+                            <label class="info-label" for="expiry_date">Expiry Date</label>
+                            <input class="info" type="date" id="expiry_date" name="expiry_date" required>
+    
+                            <label class="info-label" for="buildingConditions">Building Conditions</label>
+                            <textarea class="info" type="comment" id="buildingConditions" name="buildingConditions" required></textarea>
+    
+                            <label class="info-label" for="buildingStructures">Building Structures</label>
+                            <textarea class="info" type="text" id="buildingStructures" name="buildingStructures" required></textarea>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print</a>
-                        <button class="btn btn-success">Save</button>
+                    <div class="d-flex justify-content-end mt-3 modal-button-container">
+                        {{-- <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print & Save</a> --}}
+                        <button class="btn btn-success">Save & Print</button>
                     </div>
+                    
                 </form>
             </div>
-
         </div>
-
-
+        {{-- script for this page only --}}
+        <script>
+            var orNo = document.getElementById("orNo")
+            var savePayment = document.getElementById("savePayment")
+            var id = {!! $establishment->id !!}
+            
+            orNo.addEventListener("change", function(){
+                savePayment.action = "/establishments/fsic/payment/" + id
+            })
+        </script>
 </div>
 @endsection
