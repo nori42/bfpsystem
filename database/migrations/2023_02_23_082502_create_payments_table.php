@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('or_no');
             $table->string('nature_of_payment');
             $table->string('amount_paid', 15, 8);
-            $table->string('date_issued');
             $table->string('certification');
             $table->string('status');
             $table->string('printed_by');

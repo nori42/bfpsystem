@@ -35,7 +35,7 @@
                     <td>{{$payment->or_no}}</td>
                     <td>{{$payment->nature_of_payment}}</td>
                     <td>{{$payment->amount_paid}}</td>
-                    <td>{{$payment->date_issued}}</td>
+                    <td>{{date('m-d-Y', strtotime($payment->created_at))}}</td>
                     <td>{{$payment->certification}}</td>
                     <td>{{$payment->status}}</td>
                 </tr>
@@ -68,8 +68,6 @@
                         <label class="info-label" for="amountPaid">Amount Paid</label>
                         <input class="info" type="text" id="amountPaid" name="amountPaid">
 
-                        <label class="info-label" for="dateIssued">Date Issued</label>
-                        <input class="info" type="text" id="dateIssued" name="dateIssued">
 
                         <label class="info-label" for="certification">Certification</label>
                         <input class="info" type="text" id="certification" name="certification">

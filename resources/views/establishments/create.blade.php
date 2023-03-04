@@ -100,10 +100,6 @@
                 <label class="info-label">Contact No.</label>
                 <input type="text" id="contactNo" name="contactNo" class="input" required>
             </div>
-            <div class="my-2">
-                <label class="info-label">Address</label>
-                <input type="text" id="address" name="address" class="input" required>
-            </div>
         </div>
 
         {{-- Establishment Info --}}
@@ -132,7 +128,7 @@
                 @endphp
 
                 <select name="substation" id="substation" required>
-                    <option value="" selected>Select Substation</option>
+                    <option value="" selected disabled>--Select Substation--</option>
                     @foreach ($stations as $station)
                         <option value="{{$station}}">{{$station}}</option>
                     @endforeach
@@ -148,11 +144,11 @@
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
                     <select name="buildingType" id="buildingType" required>
-                        <option value="" selected>Select Building Type</option>
-                        <option value="CBP">Small</option>
-                        <option value="CCFS">Medium</option>
-                        <option value="GUADALUPE">Large</option>
-                        <option value="LABANGON">High Rise</option>
+                        <option value="" selected disabled>--Select Building Type--</option>
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                        <option value="High Rise">High Rise</option>
                     </select>
                 </div>
             </div>

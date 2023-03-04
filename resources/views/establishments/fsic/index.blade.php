@@ -33,7 +33,7 @@
                 @foreach ($inspections as $inspection)
                 <tr>
                     <td>{{$inspection->id}}</td>
-                    <td>{{$inspection->inspection_date}}</td>
+                    <td>{{date('m-d-Y', strtotime($inspection->inspection_date))}}</td>
                     <td>{{$inspection->status}}</td>
                     <td>{{$inspection->compliant_status}}</td>
                     <td>{{$inspection->action_taken}}</td>
@@ -58,8 +58,8 @@
                     {{-- This is hidden, only used for post request--}}
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
 
-                    <label class="info-label" for="middleName">Inspection Date</label>
-                    <input class="info" type="text" id="inspectionDate" name="inspectionDate">
+                    <label class="info-label" for="inspectionDate">Inspection Date</label>
+                    <input class="info" type="date" id="inspectionDate" name="inspectionDate">
 
                     <label class="info-label" for="lastName">Status</label>
                     <input class="info" type="text" id="status" name="status">

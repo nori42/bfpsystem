@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attachments', function (Blueprint $table) {
-            $table->bigIncrements('record_no');
+            $table->bigIncrements('id');
             $table->string('file_name');
             $table->string('file_type');
             $table->timestamps();

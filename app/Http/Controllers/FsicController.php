@@ -79,7 +79,6 @@ class FsicController extends Controller
         $payment->or_no = $request->orNo;
         $payment->nature_of_Payment = $request->natureOfPayment;
         $payment->amount_paid = $request->amountPaid;
-        $payment->date_issued = $request->dateIssued;
         $payment->certification = $request->certification ;
         $payment->status  = $request->status;
         $payment->printed_by = 'admin';

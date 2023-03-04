@@ -13,8 +13,17 @@ editBtn.addEventListener("click", function(){
         this.classList.remove("text-white")
         this.classList.remove("editable")
         fields.forEach(e => {
-            e.setAttribute("readonly", "readonly")
+            
+            if(e.tagName == 'SELECT')
+            {
+             e.setAttribute("disabled", "disabled")
+            }
+            else
+            {
+            e.setAttribute("readonly", "readonly")   
+            }
             e.classList.remove("editable")
+            
         });
     }else{
         this.textContent = "Cancel"
@@ -22,7 +31,14 @@ editBtn.addEventListener("click", function(){
         this.classList += " bg-danger text-white"
         isEditable.value = true
         fields.forEach(e => {
+            if(e.tagName = 'SELECT')
+            {
+             e.removeAttribute("disabled")
+            }
+            else
+            {
             e.removeAttribute("readonly")
+            }
             e.classList += " editable"
         });
     }
