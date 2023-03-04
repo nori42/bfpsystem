@@ -14,7 +14,7 @@ class FsicController extends Controller
 {
     //Inspection
     public function index()
-    { 
+    {
         $establishment = DB::table('establishments')
         ->join('owners', 'establishments.owner_id', '=', 'owners.id')
         ->where('establishments.id', (int)request('id'))
@@ -84,8 +84,6 @@ class FsicController extends Controller
         $payment->status  = $request->status;
         $payment->printed_by = 'admin';
 
-       
-
         //save data to database
         $payment->save();
 
@@ -104,5 +102,10 @@ class FsicController extends Controller
             'establishment' => $establishment,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
+    }
+
+    public function print_fsic(Request $request){
+        
+        return view('establishments/fsic/print_fsic');
     }
 }

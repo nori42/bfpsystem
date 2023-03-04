@@ -38,7 +38,5 @@ Route::post('/establishments/fsic/{id}', [FsicController::class, 'store']);
 
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
-
-
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
-
+Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);

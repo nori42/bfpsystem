@@ -78,6 +78,7 @@
                         <input class="info" type="text" id="status" name="status">
                     </div>
                     <div class="d-flex justify-content-end mt-3">
+                        <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print</a>
                         <button class="btn btn-success">Save</button>
                     </div>
                 </form>

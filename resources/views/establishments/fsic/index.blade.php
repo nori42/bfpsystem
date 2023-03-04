@@ -59,7 +59,7 @@
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
 
                     <label class="info-label" for="middleName">Inspection Date</label>
-                    <input class="info" type="text" id="inspectionDate" name="inspectionDate">
+                    <input class="info" type="date" id="inspectionDate" name="inspectionDate">
 
                     <label class="info-label" for="lastName">Status</label>
                     <input class="info" type="text" id="status" name="status">
