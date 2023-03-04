@@ -50,7 +50,7 @@
     <!-- The Modal -->
     {{--Inspection--}}
     <div id="addInspectionModal" class="modal">
-          <!-- Modal content -->
+        <!-- Modal content -->
         <div class="modal-content" style="font-size: 0.9rem">
             <form action="/establishments/fsic/{{$establishment->id}}" method="POST">
                 @csrf
@@ -58,7 +58,7 @@
                     {{-- This is hidden, only used for post request--}}
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
 
-                    <label class="info-label" for="inspectionDate">Inspection Date</label>
+                    <label class="info-label" for="middleName">Inspection Date</label>
                     <input class="info" type="date" id="inspectionDate" name="inspectionDate">
 
                     <label class="info-label" for="lastName">Status</label>

@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('certification');
             $table->string('status');
             $table->string('printed_by');
+            $table->string('issued_for');
+            $table->string('building_condition');
+            $table->string('building_structures');
+            $table->dateTime('expiry_date');
+            $table->dateTime('date_of_payment');
             $table->timestamps();
         });
     }

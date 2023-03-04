@@ -1,0 +1,112 @@
+[
+    {
+        "DESCRIPTION": "FCCT",
+        "NATURE_PAYMENT": "FIRE CODE CONSTRUCTION TAX",
+        "CODE": "BFP-01"
+    },
+    {
+        "DESCRIPTION": "FCRT",
+        "NATURE_PAYMENT": "FIRE CODE REALTY TAX",
+        "CODE": "BFP-02"
+    },
+    {
+        "DESCRIPTION": "FCPret",
+        "NATURE_PAYMENT": "FIRE CODE PREMIUM TAX",
+        "CODE": "BFP-03"
+    },
+    {
+        "DESCRIPTION": "FCProt",
+        "NATURE_PAYMENT": "FIRE CODE PROCEEDS TAX",
+        "CODE": "BFP-04"
+    },
+    {
+        "DESCRIPTION": "FCST",
+        "NATURE_PAYMENT": "FIRE CODE SALES TAX",
+        "CODE": "BFP-05"
+    },
+    {
+        "DESCRIPTION": "FSIF(NBP)",
+        "NATURE_PAYMENT": "FIRE SAFETY INSPECTION FEE",
+        "CODE": "BFP-06"
+    },
+    {
+        "DESCRIPTION": "FSIF(RBP)",
+        "NATURE_PAYMENT": "FIRE SAFETY INSPECTION FEE",
+        "CODE": "BFP-06"
+    },
+    {
+        "DESCRIPTION": "FSIF(OCC)",
+        "NATURE_PAYMENT": "FIRE SAFETY INSPECTION FEE",
+        "CODE": "BFP-06"
+    },
+    {
+        "DESCRIPTION": "FSIF(ACCREDITATION)",
+        "NATURE_PAYMENT": "FIRE SAFETY INSPECTION FEE",
+        "CODE": "BFP-06"
+    },
+    {
+        "DESCRIPTION": "STO",
+        "NATURE_PAYMENT": "STORAGE CLEARANCE FEE",
+        "CODE": "BFP-07"
+    },
+    {
+        "DESCRIPTION": "CON",
+        "NATURE_PAYMENT": "CONVEYANCE CLEARANCE FEE",
+        "CODE": "BFP-08"
+    },
+    {
+        "DESCRIPTION": "INST",
+        "NATURE_PAYMENT": "INSTALLATION CLEARANCE FEE",
+        "CODE": "BFP-09"
+    },
+    {
+        "DESCRIPTION": "FCAF",
+        "NATURE_PAYMENT": "FIRE CODE ADMINISTRATIVE FINES",
+        "CODE": "BFP-11"
+    },
+    {
+        "DESCRIPTION": "OTHERS(FD)",
+        "NATURE_PAYMENT": "OTHERS (FIRE DRILL)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(FWD)",
+        "NATURE_PAYMENT": "OTHERS (FIREWORKS DISPLAY)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(HW)",
+        "NATURE_PAYMENT": "OTHERS (HOTWORKS)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(FG)",
+        "NATURE_PAYMENT": "OTHERS (FOGGING)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(L/U)",
+        "NATURE_PAYMENT": "OTHERS (LOADING/UNLOADING)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(SF)",
+        "NATURE_PAYMENT": "OTHERS (STANDBY FIRE TRUCK)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(FC)",
+        "NATURE_PAYMENT": "OTHERS (FIRE CERTIFICATE)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "OTHERS(A/CTC)",
+        "NATURE_PAYMENT": "OTHERS (AUTHENTICATION/CTC)",
+        "CODE": "BFP-10"
+    },
+    {
+        "DESCRIPTION": "FCCT/Hotworks",
+        "NATURE_PAYMENT": "FCCT/Hotworks",
+        "CODE": "BFP-01/10"
+    }
+]

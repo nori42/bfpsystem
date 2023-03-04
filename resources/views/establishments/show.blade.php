@@ -79,10 +79,10 @@
         </div>
 
         {{-- Establishment Info --}}
-        <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/update" method="POST" id="updateForm">
+        <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/create" method="POST" id="updateForm">
             {{-- add @csrf every form --}}
             @csrf
-            <input type="hidden" name="record_no" value="{{$establishment->id}}">
+            <input type="hidden" name="id" value="{{$establishment->id}}">
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
                 <input class="info" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
@@ -128,7 +128,7 @@
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="info"  name="buildingType" id="buildingType" required disabled>
+                    <select class="info"  name="buildingType" id="buildingType" readonly>
                         <option value="">Select Building Type</option>
                         @foreach ($building_type as $btype)
                             @if($establishment->building_type == $building_type)
@@ -144,7 +144,7 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <div class="info">{{$establishment->no_of_storey}}</div>
+                    <input class="info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" readonly>
                 </div>
     
                 <div class="my-2 w-100">
