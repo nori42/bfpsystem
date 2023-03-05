@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignIdFor(Establishment::class);
+            $table->integer('record_no');
             $table->string('or_no');
             $table->string('nature_of_payment');
             $table->string('amount_paid', 15, 8);

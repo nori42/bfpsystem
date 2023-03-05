@@ -70,8 +70,8 @@ class EstablishmentController extends Controller
         $establishment->height = $request->height;
         $establishment->occupancy = strtoupper($request->occupancy);
         //instantiate foreign id
-        $owners = DB::table('owners')->get();
-        $establishment->owner_id = count($owners) + 1;
+        $ownersCount = Owner::all()->count();
+        $establishment->owner_id = $ownersCount + 1;
 
         //save data to database
         $establishment->save();
@@ -87,6 +87,9 @@ class EstablishmentController extends Controller
         ->select('establishments.*','owners.*')
         ->where('establishments.id', (int)request('id'))
         ->first();
+
+        // $establishment = Establishment::where('id', (int)request('id'));
+        // $owner = Owner::where('id', (int)request('id'));
         
         return view('establishments.show', [
             'establishment' => $establishment,

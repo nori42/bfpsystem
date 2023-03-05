@@ -35,8 +35,7 @@
                 <tr>
                     <th>Record no.</th>
                     <th>Establishment</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
+                    <th>Name</th>
                     <th>Barangay</th>
                     <th>Substation</th>
                     <th>Status</th>
@@ -51,8 +50,7 @@
                     <tr class="bg-success text-white">
                         <td> {{ $establishment->id }} </td>
                         <td> {{ $establishment->establishment_name }} </td>
-                        <td>    {{$establishment->last_name}} </td>
-                        <td>    {{$establishment->first_name}}  </td>
+                        <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
@@ -62,8 +60,7 @@
                     <tr>
                         <td> {{ $establishment->id}} </td>
                         <td> {{ $establishment->establishment_name }} </td>
-                        <td>    {{$establishment->last_name}} </td>
-                        <td>    {{$establishment->first_name}}  </td>
+                        <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>

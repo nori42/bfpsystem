@@ -13,7 +13,7 @@
     </div>
     {{-- Owner Info & Selected Establishment --}}
     <div class="w-75 mx-auto mt-5">
-        <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
+        <h5 class="fw-bold"> Owner: {{$owner->last_name." ".$owner->first_name." ".$owner->middle_name}}</h5>
         <div class="fs-5">Record No.: {{$establishment->id}}</div>
         <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
     </div>
@@ -32,7 +32,7 @@
             <tbody>
                 @foreach ($inspections as $inspection)
                 <tr>
-                    <td>{{$inspection->id}}</td>
+                    <td>{{$inspection->record_no}}</td>
                     <td>{{date('m-d-Y', strtotime($inspection->inspection_date))}}</td>
                     <td>{{$inspection->status}}</td>
                     <td>{{$inspection->compliant_status}}</td>
@@ -42,9 +42,9 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-success mt-3 px-4" id="addInspectionBtn" onclick="openModal('addInspectionModal')">Add</button>
-        </div>
+    </div>
+    <div class="d-flex justify-content-end w-75 mx-auto">
+        <button class="btn btn-success mt-3 px-4" id="addInspectionBtn" onclick="openModal('addInspectionModal')">Add</button>
     </div>
 
     <!-- The Modal -->
