@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
+use App\Http\Controllers\Firedrillcontroller;
 use App\Http\Controllers\FsicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,7 @@ Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_
 
 
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
+
+//Firedrill
+Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
 

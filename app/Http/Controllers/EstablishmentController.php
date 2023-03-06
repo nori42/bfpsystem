@@ -79,13 +79,23 @@ class EstablishmentController extends Controller
         ->select('establishments.*','owners.*')
         ->where('establishments.id', (int)request('id'))
         ->first();
-        
+
+     
+        $data = DB::table('establishments')->get();
+       
+
         return view('establishments.show', [
             'establishment' => $establishment,
+            'data' => $data,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
+
+     
     }
 
+
+
+    
 
     // update establishment details
     public function update_establishment(Request $request){
@@ -120,5 +130,7 @@ class EstablishmentController extends Controller
         // $establishment->height = $request->height;
 
         // $establishment->save();
+
+
     }
 }

@@ -100,10 +100,6 @@
                 <label class="info-label">Contact No.</label>
                 <input type="text" id="contactNo" name="contactNo" class="input" required>
             </div>
-            <div class="my-2">
-                <label class="info-label">Address</label>
-                <input type="text" id="address" name="address" class="input" required>
-            </div>
         </div>
 
         {{-- Establishment Info --}}

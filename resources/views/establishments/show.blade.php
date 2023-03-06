@@ -59,7 +59,7 @@
         <div class="d-flex justify-content-between gap-4 w-75 mx-auto mt-5">
             <button class="btn btn-show fs-5">FSEC</button>
             <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-5">FSIC</a>
-            <button class="btn btn-show fs-5">FIRE DRILL</button>
+            <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-5">FIRE DRILL</a>
         </div>
 
         {{-- Owner Info & Selected Establishment --}}
@@ -214,6 +214,34 @@
                 </div>
             </div>
         </form>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Owner Establishment(s)</h5>
+        </div>
+        
+        <!--Establishment Table-->
+        <div id="inspection" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
+            <table class="table">
+                <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+                    <th>Rec No.</th>
+                    <th>Establishment Name</th>
+                    <th></th>
+                    <th></th>
+                    
+                </thead>
+                <tbody>
+                    @foreach ($data as $data)
+                    <tr>
+                        <td>{{$data->id}}</td>
+                        <td>{{$data->establishment_name}}</td>
+                        <td><button class="btn btn-success">Update</button></td>
+                        <td><button class="btn btn-danger">Remove</button></td>
+                        
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>
   </div>
 
