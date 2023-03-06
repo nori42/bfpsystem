@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Establishment::class);
+            $table->integer('record_no');
             $table->string('inspection_date');
             $table->string('status');
             $table->string('compliant_status');

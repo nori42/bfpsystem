@@ -1,0 +1,32 @@
+[
+    {
+        "OCCUPANCY_TYPE": "RESIDENTIAL"
+    },
+    {
+        "OCCUPANCY_TYPE": "ASSEMBLY"
+    },
+    {
+        "OCCUPANCY_TYPE": "HEALTH CARE"
+    },
+    {
+        "OCCUPANCY_TYPE": "EDUCATIONAL"
+    },
+    {
+        "OCCUPANCY_TYPE": "MERCANTILE"
+    },
+    {
+        "OCCUPANCY_TYPE": "DETENTION AND CORRECTIONAL"
+    },
+    {
+        "OCCUPANCY_TYPE": "INDUSTRIAL"
+    },
+    {
+        "OCCUPANCY_TYPE": "BUSINESS"
+    },
+    {
+        "OCCUPANCY_TYPE": "STORAGE"
+    },
+    {
+        "OCCUPANCY_TYPE": "OTHERS"
+    }
+]

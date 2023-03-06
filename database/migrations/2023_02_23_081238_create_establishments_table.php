@@ -15,8 +15,9 @@ return new class extends Migration
         Schema::create('establishments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('establishment_name');
-            $table->string('corporate_name');
+            $table->string('corporate_name')->nullable(true);
             $table->string('substation');
+            $table->string('occupancy');
             $table->string('sub_type');
             $table->string('building_type');
             $table->string('no_of_storey');

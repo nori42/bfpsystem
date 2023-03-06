@@ -4,14 +4,14 @@
 @section('content')
     <style>
         .btn-show{
-            background-color: #53A3D8;
-            color: black;
+            background-color: #1C3B64;
+            color: white;
             font-weight: 600;
             width: 80%;
         }
         .btn-show:hover{
-            background-color: #5ab7f6 !important;
-            color: black !important;
+            background-color: #234a7d !important;
+            color: white !important;
         }
 
         .owner-info .btn:hover {
@@ -57,7 +57,6 @@
         
         {{-- Details Action --}}
         <div class="d-flex justify-content-between gap-4 w-75 mx-auto mt-5">
-            <button class="btn btn-show fs-5">FSEC</button>
             <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-5">FSIC</a>
             <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-5">FIRE DRILL</a>
         </div>
@@ -79,10 +78,10 @@
         </div>
 
         {{-- Establishment Info --}}
-        <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/update" method="POST" id="updateForm">
+        <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/create" method="POST" id="updateForm">
             {{-- add @csrf every form --}}
             @csrf
-            <input type="hidden" name="record_no" value="{{$establishment->id}}">
+            <input type="hidden" name="id" value="{{$establishment->id}}">
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
                 <input class="info" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
@@ -107,7 +106,7 @@
 
                 <div class="my-2">
                     <label class="info-label">Substation</label>
-                    <select class="info" name="substation" id="substation" readonly>
+                    <select class="info" name="substation" id="substation" disabled>
                         <option value="">Select Substation</option>
                         @foreach ($stations as $station)
                             @if($establishment->substation == $station)
@@ -128,10 +127,10 @@
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="info"  name="buildingType" id="buildingType" required readonly>
+                    <select class="info"  name="buildingType" id="buildingType" readonly>
                         <option value="">Select Building Type</option>
                         @foreach ($building_type as $btype)
-                            @if($establishment->building_type == $btype)
+                            @if($establishment->building_type == $building_type)
                                 <option value="{{$btype}}" selected>{{$btype}}</option>
                             @else
                                 <option value="{{$btype}}">{{$btype}}</option>
@@ -144,7 +143,7 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <div class="info">{{$establishment->no_of_storey}}</div>
+                    <input class="info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" readonly>
                 </div>
     
                 <div class="my-2 w-100">

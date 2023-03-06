@@ -15,13 +15,18 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignIdFor(Establishment::class);
+            $table->integer('record_no');
             $table->string('or_no');
             $table->string('nature_of_payment');
             $table->string('amount_paid', 15, 8);
-            $table->string('date_issued');
             $table->string('certification');
             $table->string('status');
             $table->string('printed_by');
+            $table->string('issued_for');
+            $table->string('building_condition');
+            $table->string('building_structures');
+            $table->dateTime('expiry_date');
+            $table->dateTime('date_of_payment');
             $table->timestamps();
         });
     }

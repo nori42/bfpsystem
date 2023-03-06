@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\Firedrillcontroller;
 use App\Http\Controllers\FsicController;
+use App\Http\Controllers\FsecController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,17 +32,19 @@ Route::get('/establishments', [EstablishmentController::class, 'index']);
 Route::get('/establishments/create', [EstablishmentController::class, 'create']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
+Route::post('/establishments/create', [EstablishmentController::class, 'update_establishment']);
 
 //Fsic routes
 Route::get('/establishments/fsic/{id}', [FsicController::class, 'index']);
 Route::post('/establishments/fsic/{id}', [FsicController::class, 'store']);
 
-Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
-
-
+Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
+Route::get('/establishments/fsic/print/{id}&{orNo}', [FsicController::class, 'print_fsic']);
 
 //Firedrill
 Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
 
+//Fsec routes
+Route::get('/fsec', [FsecController::class, 'index']);

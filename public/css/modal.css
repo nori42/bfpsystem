@@ -13,8 +13,6 @@
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-
-    
   }
   
   /* Modal Content */
@@ -23,6 +21,22 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
-    margin-right: 16%;
+    width: 70%;
+    margin-right: 5%;
+  }
+
+  .leftModal, .rightModal{
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 0 20px;
+    padding: 20px;
+  }
+
+  .modal-button-container{
+    margin-right: 20px;
+  }
+
+  textarea{
+    resize: none;
+    height: 100px;
   }
