@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\FsicController;
+use App\Http\Controllers\FsecController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,6 @@ Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
 Route::get('/establishments/fsic/print/{id}&{orNo}', [FsicController::class, 'print_fsic']);
+
+//Fsec routes
+Route::get('/fsec', [FsecController::class, 'index']);

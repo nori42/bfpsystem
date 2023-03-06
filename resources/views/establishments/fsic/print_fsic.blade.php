@@ -29,53 +29,54 @@
         <div class="printby">
             <strong>Printing as: </strong> <span>Admin</span>
         </div>
+        <button id="showCert" onclick="showCert()">Show Cert</button>
     </div>
-
-    <script>
-        document.getElementById("buttonContainer").addEventListener("click", function(){
-            window.print();
-        })
-    </script>
 
     <div id="printablePage">
         <div class="header bold">
-            <ul>
-                <li>Cebu City Fire Office</li>
-                <li>N. Bacalso Avenue, Pahina Central, Cebu City</li>
-                <li>Tel. Nos. (032) - 256-0544 / 2623110</li>
-                <li>Email Address: cebucityfsn@yahoo.com</li>
-            </ul>
+                <div>Cebu City Fire Office</div>
+                <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
+                <div>Tel. Nos. (032) - 256-0544 / 2623110</div>
+                <div>Email Address: cebucityfsn@yahoo.com</div>
         </div>
 
         <div class="date-container bold">
-            <li class="fs-12 float-right">{{$details->created_at}}</li>
+            {{$details->created_at}}
         </div>
 
+        
+
         <div class="check-container">
-            <ul class="check">
-                @if($details->status == "OCCUPANCY" )
-                    <li class="c-1">&check;</li>
-                @elseif($details->status == "NEW" || $details->status == "RENEWAL")
-                    <li class="c-2">&check;</li>
-                @else
-                    <li class="c-3">&check;</li>
-                @endif
-            </ul>
-            <div class="highlight">
-                @if($details->status == "NEW")
-                    <div class="new"></div>
-                    <div class="renewal disable"></div>
-                @endif
-                @if($details->status == "RENEWAL")
-                <div class="new disable"></div>
-                <div class="renewal"></div>   
-                @endif
-            </div>
-            <div class="others bold">
-                @if($details->status != "NEW" && $details->status != "RENEWAL" && $details->status != "OCCUPANCY")
-                    {{ $details->issued_for }}
-                @endif
-            </div>
+                <div class="checkbox-container">
+                    <div class="checkBox c1" onclick="checkToggle('c1')"></div>
+                    <div class="checkBox c2" onclick="checkToggle('c2')"></div>
+                    <div class="checkBox c3" onclick="checkToggle('c3')"></div>
+                </div>
+
+                <div class="highlight-button-container">
+                    <div class="highlight-new" onclick="checkToggle('new')"></div>
+                    <div class="highlight-renewal" onclick="checkToggle('renewal')"></div>
+                </div>
+
+                <div class="c-1 check hidden" id="c1">&check;</div>
+
+                <div class="c-2 check hidden" id="c2">
+                    <div>&check;</div>
+                    <div class="highlight-container">
+                        <div id="new" class="highlight hidden"></div>
+                        <div id="renewal" class="highlight hidden"></div>
+                    </div>
+                </div>
+
+                <div class="c-3 check hidden" id="c3">
+                    <div>&check;</div>
+                    <div class="others bold">
+                        @if($details->status != "NEW" && $details->status != "RENEWAL" && $details->status != "OCCUPANCY")
+                            {{ $details->issued_for }}
+                        @endif
+                        Hello
+                    </div>
+                </div>
         </div>
 
         <div class="establishment-name bold">
@@ -87,29 +88,30 @@
         <div class="address bold">
             <span>{{$details->address}}</span>
         </div>
+        
         <div class="issued-for bold">
             <span>{{$details->issued_for}} </span>
         </div>
-        <div class="more-info bold">
-            <div class="moreInfo">
-                <span>MORE DETAILS HERE</span>
-            </div>
-            <div class="validity">
-                <span>{{$details->expiry_date}}</span>
-            </div>
+
+        <div class="more-info">
+            <span>MORE DETAILS HERE</span>
         </div>
-        
-        <div class="footer bold">
-            <div class="left">
-                <div id="amount">{{$details->amount_paid}}.00</div>
-                <div id="or_no">{{$details->or_no}}</div>
-                <div id="date">{{$details->date_of_payment}}</div>
-            </div>
-            <div class="right">
-                <div id="chiefName">SP04 Philip K Layug, BFP</div>
-                <div id="marshalName">SUPT REYNALDO D ENOC, BFP</div>
-            </div>
+
+        <div class="validity">
+            <span>{{$details->expiry_date}}</span>
         </div>
+
+        <div class="fc-fee">
+            <div id="amount">{{$details->amount_paid}}.00</div>
+            <div id="or_no">{{$details->or_no}}</div>
+            <div id="date">{{$details->date_of_payment}}</div>
+        </div>
+
+        <div id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
+        <div id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
     </div>
+
+    
+    <script src="/js/print.js"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
+                    <a class="btn w-100 text-end text-white" href="/fsec">
                         <!-- button Icon -->
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">

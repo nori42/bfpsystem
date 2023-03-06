@@ -19,6 +19,9 @@
     </div>
 
     {{-- Table --}}
+    <div class="d-flex justify-content-end w-75 mx-auto pt-3">
+        <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
+    </div>
     <div id="payment" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
             <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
@@ -45,9 +48,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
-        </div>
+        
         
     </div>
 

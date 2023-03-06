@@ -19,6 +19,9 @@
     </div>
 
     {{-- Inspection --}}
+    <div class="d-flex justify-content-end w-75 mx-auto">
+        <button class="btn btn-success mt-3 px-4" id="addInspectionBtn" onclick="openModal('addInspectionModal')">Add</button>
+    </div>
     <div id="inspection" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
             <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
@@ -42,9 +45,6 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="d-flex justify-content-end w-75 mx-auto">
-        <button class="btn btn-success mt-3 px-4" id="addInspectionBtn" onclick="openModal('addInspectionModal')">Add</button>
     </div>
 
     <!-- The Modal -->
