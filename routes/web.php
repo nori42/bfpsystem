@@ -47,4 +47,4 @@ Route::get('/establishments/fsic/print/{id}&{orNo}', [FsicController::class, 'pr
 Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
 
 //Fsec routes
-Route::get('/fsec', [FsecController::class, 'index']);
+Route::get('/establishments/fsec/{id}', [FsecController::class, 'index']);

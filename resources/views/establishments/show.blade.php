@@ -57,6 +57,7 @@
         
         {{-- Details Action --}}
         <div class="d-flex justify-content-between gap-4 w-75 mx-auto mt-5">
+            <a href="/establishments/fsec/{{$establishment->id}}" class="btn btn-show fs-5">FSEC</a>
             <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-5">FSIC</a>
             <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-5">FIRE DRILL</a>
         </div>
