@@ -64,7 +64,7 @@
                 </li>
 
                 <!-- button -->
-                <li class="m-2">
+                {{-- <li class="m-2">
                     <a class="btn w-100 text-end text-white" href="/fsec">
                         <!-- button Icon -->
                         <span>
@@ -75,7 +75,7 @@
                         </span>
                         Fire Safety Evaluation Clearance
                     </a>
-                </li>
+                </li> --}}
 
                 <!-- button -->
                 {{-- <li class="m-2">

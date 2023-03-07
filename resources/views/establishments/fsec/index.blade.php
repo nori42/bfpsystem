@@ -18,11 +18,26 @@
     </div>
 
     {{-- Table --}}
-    <div id="payment" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
+    <div id="fsec" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
         </table>
         <div class="d-flex justify-content-end">
             <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
+        </div>
+
+        <div id="fsec" class="h-75 overflow-y-auto mx-auto mt-4 border-3">
+            <table class="table">
+                <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+                    <th>OR No.</th>
+                    <th>Certificate No.</th>
+                    <th>Evaluator</th>
+                    <th>Date Of Payment</th>
+                    <th>Date Of Release</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
         
     </div>
@@ -60,9 +75,6 @@
                             <label class="info-label" for="boq">BOQ</label>
                             <input class="info" type="text" id="boq" name="boq" required>
 
-                            <label class="info-label" for="fsec_print">FSEC Print</label>
-                            <input class="info" type="text" id="fsec_print" name="fsec_print" required>
-
                             <label class="info-label" for="remarks">Remarks</label>
                             <textarea class="info" id="remarks" name="remarks" required></textarea>
 
@@ -74,7 +86,6 @@
                         {{-- <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print & Save</a> --}}
                         <button class="btn btn-success">Save</button>
                     </div>
-                    
                 </form>
             </div>
         </div>

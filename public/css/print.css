@@ -226,15 +226,16 @@ li{
 
 .nav{
     width: 90%;
-    height: 50px;
+    height: auto;
     background-color: #FFFFFF;
     position: fixed;
     border-radius: 8px;
     z-index: 1000;
     display: flex;
+    flex-wrap: wrap; /* wraps content */
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
+    padding: 10px;
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
     -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
@@ -328,6 +329,7 @@ button{
     #printablePage {
         margin-top: 0 !important;
         padding-right: 1in;
+        background-image: none !important;
     }
 
     .nav{
