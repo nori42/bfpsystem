@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
+use App\Http\Controllers\Firedrillcontroller;
 use App\Http\Controllers\FsicController;
 use App\Http\Controllers\FsecController;
 use App\Http\Controllers\UserController;
@@ -42,5 +43,8 @@ Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_pa
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
 Route::get('/establishments/fsic/print/{id}&{orNo}', [FsicController::class, 'print_fsic']);
 
+//Firedrill
+Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
+
 //Fsec routes
-Route::get('/fsec', [FsecController::class, 'index']);
+Route::get('/establishments/fsec/{id}', [FsecController::class, 'index']);
