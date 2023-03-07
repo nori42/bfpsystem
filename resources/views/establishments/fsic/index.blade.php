@@ -4,7 +4,7 @@
 
 <div class="page-content">
     {{-- Put page content here --}}
-
+    
     {{-- FSIC Action --}}
     <div class="d-flex justify-content-between w-75 mx-auto mt-5">
         <a href="/establishments/fsic/{{$establishment->id}}" id="btnInspection" class="btn btn-action rounded-0 fs-5 fsic-active">Inspection</a>
@@ -27,20 +27,20 @@
             <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                 <th>Rec No.</th>
                 <th>Inspection Date</th>
-                <th>Status</th>
                 <th>Compliant Status</th>
                 <th>Action Taken</th>
                 <th>Building Type</th>
+                <th>Status</th>
             </thead>
             <tbody>
                 @foreach ($inspections as $inspection)
-                <tr>
+                <tr class="align-middle">
                     <td>{{$inspection->record_no}}</td>
                     <td>{{date('m-d-Y', strtotime($inspection->inspection_date))}}</td>
-                    <td>{{$inspection->status}}</td>
                     <td>{{$inspection->compliant_status}}</td>
                     <td>{{$inspection->action_taken}}</td>
                     <td>{{$inspection->building_type}}</td>
+                    <td>{{$inspection->status}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -61,9 +61,6 @@
                     <label class="info-label" for="middleName">Inspection Date</label>
                     <input class="info" type="date" id="inspectionDate" name="inspectionDate">
 
-                    <label class="info-label" for="lastName">Status</label>
-                    <input class="info" type="text" id="status" name="status">
-
                     <label class="info-label" for="contactNo">Compliant Status</label>
                     <input class="info" type="text" id="compliantStatus" name="compliantStatus">
 
@@ -71,7 +68,19 @@
                     <input class="info" type="text" id="actionTaken" name="actionTaken">
 
                     <label class="info-label" for="middleName">Building Type</label>
-                    <input class="info" type="text" id="buildingType" name="buildingType">
+                    <select class="info" name="buildingType" id="buildingType">
+                        @php
+                            $buildingType = [
+                            'Small',
+                            'Medium',
+                            'Large',
+                            'High Rise'
+                        ];
+                        @endphp
+                        $@foreach ($buildingType as $item)
+                            <option value="{{$item}}">{{$item}}</option>
+                        @endforeach
+                    </select>
             </fieldset>
 
             <div class="d-flex justify-content-end mt-3">
@@ -81,5 +90,8 @@
             
         </div>
     </div>
+
+    </div>
+
 </div>
 @endsection
