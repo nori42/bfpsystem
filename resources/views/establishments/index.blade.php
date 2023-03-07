@@ -29,7 +29,7 @@
         <h2 class="text-success">{{session('mssg')}}</h2>
     @endif
 
-<div class="w-75 h-75 overflow-y-auto mx-auto">
+<div class="w-75 h-75 overflow-auto mx-auto px-3">
     <table class="table">
             <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                 <tr>
@@ -47,24 +47,25 @@
                 @foreach ($establishments as $establishment)
                     @if ($loop->index == 0 && session('newPost'))
                     {{-- green bg for new record --}}
-                    <tr class="bg-success text-white">
+                    <tr class="bg-success text-white align-middle">
                         <td> {{ $establishment->id }} </td>
                         <td> {{ $establishment->establishment_name }} </td>
                         <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
+                        <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td><a href="/establishments/{{$establishment->id}}"class="btn" style="background-color: #53A3D8;">Details</a></td>
+                        <td class="px-4"><a href="/establishments/{{$establishment->id}}"class="btn pl-5" style="background-color: #53A3D8;">Details</a></td>
                     </tr>
                     @else
-                    <tr>
+                    <tr class="align-middle">
                         <td> {{ $establishment->id}} </td>
                         <td> {{ $establishment->establishment_name }} </td>
                         <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td><a href="/establishments/{{$establishment->id}}" class="btn text-white" style="background-color: #53A3D8;">Details</a></td>
+                        <td class="px-4"><a href="/establishments/{{$establishment->id}}" class="btn text-white" style="background-color: #53A3D8;">Details</a></td>
                     </tr>
                     @endif   
                 @endforeach

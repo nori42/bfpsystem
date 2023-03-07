@@ -1,12 +1,7 @@
-// Get the modal
-var modal = document.getElementById("Modalowner");
 
-// Get the button that opens the modal
-var btn = document.getElementById("Mbutton");
-
+// Use this for showing modal
 const openModal = (modalTarget) => {
 
-    console.log(modalTarget)
     modal = document.getElementById(modalTarget);
     modal.style.display = "block"
 }
@@ -16,4 +11,14 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+
+// Use this for inspectionPayment
+const openInspPayment = (modalTarget, data) => {
+
+  modal = document.getElementById(modalTarget);
+  modal.style.display = "block"
+
+  
+
 }
