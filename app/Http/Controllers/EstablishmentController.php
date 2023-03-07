@@ -14,12 +14,14 @@ class EstablishmentController extends Controller
     // load index page
     public function index(){
 
-        // $establishments = Establishment::orderBy('created_at', 'DESC')->get();
-        $establishments = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
+        $establishments = Establishment::orderBy('created_at', 'DESC')->get();
+        $establishments = DB::table('owners')
+        ->join('establishments', 'establishments.owner_id', '=', 'owners.id')
         ->select('establishments.*', 'owners.*')
         ->orderBy('establishments.id','DESC')
         ->get();
+
+        $establishmentsz = Establishment::all();
 
         return view('establishments.index', [
             'establishments' => $establishments,
@@ -88,21 +90,31 @@ class EstablishmentController extends Controller
         ->where('establishments.id', (int)request('id'))
         ->first();
 
-     
-        $data = DB::table('establishments')->get();
+
+        $data = DB::table('establishments')
+        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
+        ->select('establishments.*','owners.*')
+        ->where(request('owner_id'))
+        ->get();
+
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
+
+
+
+        // $data = DB::table('establishments')->get();
        
 
         return view('establishments.show', [
             'establishment' => $establishment,
             'data' => $data,
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
 
      
     }
-
-
-
     
 
     // update establishment details
@@ -138,5 +150,33 @@ class EstablishmentController extends Controller
         // $establishment->height = $request->height;
 
         // $establishment->save();
+    }
+
+    //Add New Establishment for Existing Owner
+    public function create_owner_establishment(Request $request)
+    {
+        $establishment = new Establishment();
+
+        $establishment->establishment_name = strtoupper($request->establishmentName);
+        $establishment->corporate_name = strtoupper($request->corporateName);
+        $establishment->substation = strtoupper($request->substation);
+        $establishment->sub_type = strtoupper($request->subType);
+        $establishment->building_type = strtoupper($request->buildingType);
+        $establishment->no_of_storey = $request->noOfStory;
+        $establishment->createdBy = strtoupper("admin");
+        $establishment->building_permit_no = $request->buildingPermitNo; 
+        $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
+        $establishment->latest_permit = $request->latestPermit; 
+        $establishment->barangay =  strtoupper($request->barangay);
+        $establishment->address = strtoupper($request->address);
+        $establishment->status = "Pending"; 
+        $establishment->height = $request->height;
+        $establishment->occupancy = strtoupper($request->occupancy);
+        $establishment->owner_id = $request->id;
+ 
+         //save data to database
+         $establishment->save();
+
+         return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
     }
 }
