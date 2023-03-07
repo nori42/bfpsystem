@@ -58,16 +58,19 @@
                     {{-- This is hidden, only used for post request--}}
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
 
-                    <label class="info-label" for="middleName">Inspection Date</label>
+                    <label class="info-label" for="inpsectionDate">Inspection Date</label>
                     <input class="info" type="date" id="inspectionDate" name="inspectionDate">
 
-                    <label class="info-label" for="contactNo">Compliant Status</label>
+                    <label class="info-label" for="compliantStatus">Compliant Status</label>
                     <input class="info" type="text" id="compliantStatus" name="compliantStatus">
 
-                    <label class="info-label" for="firstName">Action Taken</label>
+                    <label class="info-label" for="status">Status</label>
+                    <input class="info" type="text" id="status" name="status">
+
+                    <label class="info-label" for="actionTaken">Action Taken</label>
                     <input class="info" type="text" id="actionTaken" name="actionTaken">
 
-                    <label class="info-label" for="middleName">Building Type</label>
+                    <label class="info-label" for="buildingType">Building Type</label>
                     <select class="info" name="buildingType" id="buildingType">
                         @php
                             $buildingType = [
