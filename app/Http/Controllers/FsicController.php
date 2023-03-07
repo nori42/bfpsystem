@@ -22,11 +22,14 @@ class FsicController extends Controller
         $owner = Owner::where('id', $request->id)->first();
         $inspections = Inspection::where('establishment_id', $request->id)->get();
 
+        //load json files
+        $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/natureOfPayment.json"), true);
 
         return view('establishments.fsic.index',[
             'establishment' => $establishment,
             'owner' => $owner,
             'inspections' => $inspections,
+            'natureOfPayment' => $natureOfPayment,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }
@@ -36,13 +39,14 @@ class FsicController extends Controller
         // instantiate model
         $inspection = new Inspection();
 
+
         $inspectionCount = Inspection::where('establishment_id', $request->id)->get()->count() + 1;
 
         //get Data
         $inspection->establishment_id = $request->establishmentId;
         $inspection->record_no = $inspectionCount;
         $inspection->inspection_date = $request->inspectionDate;
-        $inspection->status = $request->status;
+        $inspection->status = 'Unpaid';
         $inspection->compliant_status = $request->compliantStatus;
         $inspection->action_taken = $request->actionTaken ;
         $inspection->building_type = $request->buildingType;
