@@ -147,11 +147,6 @@
             </div>
             
             <div class="my-2">
-                <label class="info-label">Corporate Name</label>
-                <input type="text" id="corporateName" name="corporateName" class="input">
-            </div>
-
-            <div class="my-2">
                 <label class="info-label">Occupancy</label>
                 <select name="occupancy" id="occupancy" required>
                     <option value="">Select Occupancy</option>

@@ -13,7 +13,7 @@
     </div>
     {{-- Owner Info & Selected Establishment --}}
     <div class="w-75 mx-auto mt-5">
-        <h5 class="fw-bold"> Owner: {{$owner->last_name." ".$owner->first_name." ".$owner->middle_name}}</h5>
+        <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name." ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
         <div class="fs-5">Record No.: {{$establishment->id}}</div>
         <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
     </div>

@@ -30,7 +30,6 @@ class EstablishmentFactory extends Factory
         
         return [
             'establishment_name' => $companyName,
-            'corporate_name' => $companyName,
             'substation' => $substations[array_rand($substations)],
             'occupancy' => $occupancy[array_rand($occupancy)],
             'sub_type' => Str::random(10),

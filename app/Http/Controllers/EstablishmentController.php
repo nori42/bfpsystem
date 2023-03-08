@@ -14,14 +14,7 @@ class EstablishmentController extends Controller
     // load index page
     public function index(){
 
-        $establishments = Establishment::orderBy('created_at', 'DESC')->get();
-        $establishments = DB::table('owners')
-        ->join('establishments', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*', 'owners.*')
-        ->orderBy('establishments.id','DESC')
-        ->get();
-
-        $establishmentsz = Establishment::all();
+        $establishments = Establishment::all()->sortDesc();
 
         return view('establishments.index', [
             'establishments' => $establishments,
@@ -73,9 +66,9 @@ class EstablishmentController extends Controller
         $owner->last_name = strtoupper($request->lastName);
         $owner->middle_name =  strtoupper($request->middleName);
         $owner->contact_no = $request->contactNo;
+        $owner->corporate_name = strtoupper($request->corporateName);
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
-        $establishment->corporate_name = strtoupper($request->corporateName);
         $establishment->substation = strtoupper($request->substation);
         $establishment->sub_type = strtoupper($request->subType);
         $establishment->building_type = strtoupper($request->buildingType);
@@ -101,24 +94,23 @@ class EstablishmentController extends Controller
     }
 
     //get single record
-    public function show() {
-        $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*','owners.*')
-        ->where('establishments.id', (int)request('id'))
-        ->first();
+    public function show(Request $request) {
+        $establishment = Establishment::find($request->id);
+        $ownerEstablishments = Establishment::where('owner_id',$request->id)->get();
+
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
 
 
-        $data = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*','owners.*')
-        ->where(request('owner_id'))
-        ->get();
-    
+
+        // $data = DB::table('establishments')->get();
+       
 
         return view('establishments.show', [
             'establishment' => $establishment,
             'data' => $data,
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
 
@@ -129,8 +121,7 @@ class EstablishmentController extends Controller
     // update establishment details
     public function update_establishment(Request $request){
         Establishment::where('id', $request->id)->update([
-            'establishment_name' => $request->establishmentName,
-            'corporate_name' => $request->corporateName,
+            'establishment_name' => $request->establishmentName,    
             'substation' => $request->substation,
             'sub_type' => $request->subType,
             'building_type' => $request->buildingType,
@@ -144,21 +135,6 @@ class EstablishmentController extends Controller
         ]);
 
         return redirect('/establishments'. "/" . $request->record_no);
-
-        // $establishment->establishment_name = $request->establishmentName;
-        // $establishment->corporate_name = $request->corporateName; 
-        // $establishment->substation = $request->substation;
-        // $establishment->sub_type = $request->subType;
-        // $establishment->building_type = $request->buildingType;
-        // $establishment->no_of_story = $request->noOfStory;
-        // $establishment->building_permit_no = $request->buildingPermitNo;
-        // $establishment->fire_insurance_co = $request->fireInsuranceCo;
-        // $establishment->latest_permit = $request->latestPermit;
-        // $establishment->barangay = $request->barangay;
-        // $establishment->address = $request->address;
-        // $establishment->height = $request->height;
-
-        // $establishment->save();
     }
 
     //Add New Establishment for Existing Owner

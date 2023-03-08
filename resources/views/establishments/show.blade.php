@@ -67,7 +67,7 @@
         {{-- Owner Info & Selected Establishment --}}
         <div class="w-75 mx-auto ">
             <div class="pt-5 d-flex justify-content-between owner-info ">
-                <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
+                <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name.", ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
                 <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')">Owner Info</button>
             </div>
 
@@ -197,23 +197,23 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">First Name</label>
-                    <input type="text"  class="form-control input-lg" value="{{$establishment->first_name}}" disabled>
+                    <input type="text"  class="form-control input-lg" value="{{$establishment->owner->first_name}}" disabled>
                 </div>
     
                 <div class="my-2 w-100">
                     <label class="info-label">Middle Name</label>
-                    <input type="text" class="form-control input-lg" value="{{$establishment->middle_name}}" disabled>
+                    <input type="text" class="form-control input-lg" value="{{$establishment->owner->middle_name}}" disabled>
                 </div>
                 <div class="my-2 w-100">
                     <label class="info-label">Last Name</label>
-                    <input type="text" class="form-control input-lg" value="{{$establishment->last_name}}" disabled>
+                    <input type="text" class="form-control input-lg" value="{{$establishment->owner->last_name}}" disabled>
                 </div>
             </div>
             
             <div class="d-flex gap-3">
                 <div class="my-2 w-100">
                     <label class="info-label">Contact No.</label>
-                    <input type="text" class="form-control info-lg" value="{{$establishment->contact_no}}" disabled>
+                    <input type="text" class="form-control info-lg" value="{{$establishment->owner->contact_no}}" disabled>
                 </div>
                 
             </div>
@@ -225,7 +225,7 @@
         </div>
         
         <!--Establishment Table-->
-        <div class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
+        <div id="inspection" class="w-100 h-75 overflow-y-auto mx-auto mt-4 border-3">
             <table class="table">
                 <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                     <th>Rec No.</th>
@@ -235,10 +235,10 @@
                     
                 </thead>
                 <tbody>
-                    @foreach ($data as $data)
+                    @foreach ($ownerEstablishments as $establishment)
                     <tr>
-                        <td>{{$data->id}}</td>
-                        <td>{{$data->establishment_name}}</td>
+                        <td>{{$establishment->id}}</td>
+                        <td>{{$establishment->establishment_name}}</td>
                         <td><button class="btn btn-success">Update</button></td>
                         
                     </tr>

@@ -50,9 +50,8 @@
                     <tr class="bg-success text-white align-middle">
                         <td> {{ $establishment->id }} </td>
                         <td> {{ $establishment->establishment_name }} </td>
-                        <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
+                        <td> {{$establishment->owner->first_name}} {{$establishment->owner->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
-                        <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
                         <td class="px-4"><a href="/establishments/{{$establishment->id}}"class="btn pl-5" style="background-color: #53A3D8;">Details</a></td>
@@ -61,7 +60,7 @@
                     <tr class="align-middle">
                         <td> {{ $establishment->id}} </td>
                         <td> {{ $establishment->establishment_name }} </td>
-                        <td> {{$establishment->first_name}} {{$establishment->last_name}}</td>
+                        <td> {{$establishment->owner->first_name}} {{$establishment->owner->last_name}}</td>
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>

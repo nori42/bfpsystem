@@ -2,7 +2,58 @@ document.getElementById("buttonContainer").addEventListener("click", function(){
     window.print();
 })
 
+function handleMove(btn){
+    moveables = document.querySelectorAll('[data-draggable="true"]')
 
+    if(btn.innerText == "Move")
+    {
+        moveables.forEach(ele => {
+            makeElementDraggable(ele)
+            ele.classList.add('moveable')
+        });
+
+        btn.innerText = "Save"
+        btn.style.backgroundColor = "green"
+        btn.style.color = "white"
+    }
+    else
+    {
+        moveables.forEach(ele => {
+            removeDraggable(ele)
+            ele.classList.remove('moveable')
+        });
+        btn.innerText = "Move"
+        btn.style.backgroundColor = ""
+        btn.style.color = ""
+    }
+
+}
+
+function handleEdit(btn){
+
+    editables = document.querySelectorAll('[data-editable="true"]')
+
+    if(btn.innerText == 'Edit')
+    {
+        editables.forEach(ele => {
+            makeElementEditable(ele);
+            ele.classList.add('editable')
+        });
+        btn.innerText = 'Save'
+        btn.style.backgroundColor = "green"
+        btn.style.color = "white"
+    }
+    else
+    {
+        editables.forEach(ele => {
+            saveEdit(ele);
+            ele.classList.remove('editable')
+        });
+        btn.innerText = 'Edit'
+        btn.style.backgroundColor = ""
+        btn.style.color = ""
+    }
+}
 
 function checkToggle(id) {
     element = document.getElementById(id)
@@ -14,15 +65,24 @@ function checkToggle(id) {
       }
   }
 
-function showCert(){
+function toggleCert(btn){
 
     printable = document.getElementById('printablePage')
 
     if (printable.style.backgroundSize === '0%') {
-        printable.style.backgroundSize = 'contain';
-        } else {
+            btn.innerText = "Show Certificate"
+            printable.style.backgroundSize = 'contain';
+        } 
+    else 
+        {
+            btn.innerText = "Hide Certificate"
             printable.style.backgroundSize = '0%';
         }
+}
+
+function saveEdit(element) {
+    const newText = element.innerText.trim();
+    element.contentEditable = false;
 }
 
 function makeElementEditable(element) {
@@ -32,6 +92,10 @@ function makeElementEditable(element) {
         const newText = element.innerText.trim();
         // Do something with the new text
     });
+}
+
+function removeDraggable(element){
+    element.onmousedown = null;
 }
 
 function makeElementDraggable(element) {
@@ -76,3 +140,4 @@ function makeElementDraggable(element) {
         document.onmousemove = null;
     }
 }
+

@@ -18,11 +18,34 @@
     </div>
 
     {{-- Table --}}
-    <div id="payment" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
+    <div id="fsec" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
         </table>
         <div class="d-flex justify-content-end">
             <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
+        </div>
+
+        <div id="fsec" class="h-75 overflow-y-auto mx-auto mt-4 border-3">
+            <table class="table">
+                <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+                    <th>OR No.</th>
+                    <th>Certificate No.</th>
+                    <th>Evaluator</th>
+                    <th>Date Of Payment</th>
+                    <th>Date Of Release</th>
+                </thead>
+                <tbody>
+                    @foreach ($evaluations as $evaluation)
+                    <tr>
+                        <td>{{ $evaluation->or_no }}</td>
+                        <td>{{ $evaluation->certification_no }}</td>
+                        <td>{{ $evaluation->evaluator }}</td>
+                        <td>{{ $evaluation->date_of_payment }}</td>
+                        <td>{{ $evaluation->date_release }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
         
     </div>
@@ -47,7 +70,7 @@
                             <input class="info" type="date" id="date_of_payment" name="date_of_payment" required>
 
                             <label class="info-label" for="evaluator">Evaluator</label>
-                            <input class="info" type="text" id="evaluator" name="evaluator" required>
+                            <input class="info" type="text" id="evaluator" name="evaluator">
 
                             <label class="info-label" for="certification">Certificate No.</label>
                             <input class="info" type="text" id="certification" name="certification" required>
@@ -58,23 +81,19 @@
     
                         <div class="d-flex flex-column w-100 rightModal">
                             <label class="info-label" for="boq">BOQ</label>
-                            <input class="info" type="text" id="boq" name="boq" required>
-
-                            <label class="info-label" for="fsec_print">FSEC Print</label>
-                            <input class="info" type="text" id="fsec_print" name="fsec_print" required>
+                            <input class="info" type="text" id="boq" name="boq">
 
                             <label class="info-label" for="remarks">Remarks</label>
-                            <textarea class="info" id="remarks" name="remarks" required></textarea>
+                            <textarea class="info" id="remarks" name="remarks"></textarea>
 
                             <label class="info-label" for="purpose">Purpose</label>
-                            <textarea class="info" id="purpose" name="purpose" required></textarea>
+                            <textarea class="info" id="purpose" name="purpose"></textarea>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3 modal-button-container">
                         {{-- <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print & Save</a> --}}
                         <button class="btn btn-success">Save</button>
                     </div>
-                    
                 </form>
             </div>
         </div>
