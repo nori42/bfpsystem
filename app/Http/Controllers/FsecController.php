@@ -11,11 +11,13 @@ class FsecController extends Controller
 {
     public function index(Request $request){
 
-        $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->where('establishments.id', (int)request('id'))
-        ->where('establishments.id', (int)request('id'))
-        ->first();
+        // $establishment = DB::table('establishments')
+        // ->join('owners', 'establishments.owner_id', '=', 'owners.id')
+        // ->where('establishments.id', (int)request('id'))
+        // ->where('establishments.id', (int)request('id'))
+        // ->first();
+
+        $establishment = Establishment::find($request->id);
 
         $evaluation = Evaluation::where('establishment_id', $request->id)->get();
 
@@ -43,8 +45,6 @@ class FsecController extends Controller
 
         $evaluation->save();
 
-        return view('/establishments/fsec/'.$request->id, [
-            ""
-        ]);
+        return redirect('/establishments/fsec/'. $request->id);
     }
 }

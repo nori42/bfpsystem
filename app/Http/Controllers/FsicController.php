@@ -137,7 +137,7 @@ class FsicController extends Controller
 
         // reformat issued date to full month
         // $createdFormat= Carbon::parse($payment->created_at)->format('F d Y');
-        $createdDate= Carbon::parse($details->created_at)->format('F d Y');
+        $createdDate = Carbon::parse($details->created_at)->format('F d Y');
 
         $expireFormat = Carbon::parse($details->expiry_date)->format('m/d/Y');
         $details->expiry_date = $expireFormat;

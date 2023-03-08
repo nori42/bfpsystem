@@ -100,17 +100,13 @@ class EstablishmentController extends Controller
 
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
-
-
-
-        // $data = DB::table('establishments')->get();
        
 
         return view('establishments.show', [
             'establishment' => $establishment,
-            'data' => $data,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
+            'ownerEstablishments' => $ownerEstablishments,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
 
