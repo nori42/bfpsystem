@@ -363,5 +363,9 @@ button{
     .nav{
         display: none;
     }
+
+    .editToolBox {
+        display: none;
+    }
     
 }
