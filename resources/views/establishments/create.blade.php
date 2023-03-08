@@ -84,23 +84,45 @@
                 <h2>Owner Information</h2>
             </div>
             <hr>
-            <div class="my-2">
-                <label class="info-label">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="input" required>
-            </div>
+
+            @if ($owner == null)
+                <div class="my-2">
+                    <label class="info-label">First Name</label>
+                    <input type="text" id="firstName" name="firstName" class="input" value="" required>
+                </div>
+                
+                <div class="my-2">
+                    <label class="info-label">Middle Name</label>
+                    <input type="text" id="middleName" name="middleName" class="input" value="" required>
+                </div>
+                <div class="my-2">
+                    <label class="info-label">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="input" value="" required>
+                </div>
+                <div class="my-2">
+                    <label class="info-label">Contact No.</label>
+                    <input type="text" id="contactNo" name="contactNo" value="" class="input" required>
+                </div>
+            @else
+                <div class="my-2">
+                    <label class="info-label">First Name</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control input" value="{{$owner->middle_name}}" disabled>
+                </div>
+                
+                <div class="my-2">
+                    <label class="info-label">Middle Name</label>
+                    <input type="text" id="middleName" name="middleName" class="form-control input" value="{{$owner->middle_name}}" disabled>
+                </div>
+                <div class="my-2">
+                    <label class="info-label">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control input" value="{{$owner->last_name}}" disabled>
+                </div>
+                <div class="my-2">
+                    <label class="info-label">Contact No.</label>
+                    <input type="text" id="contactNo" name="contactNo" value="{{$owner->contact_no}}" class="form-control input" disabled>
+                </div>
+            @endif
             
-            <div class="my-2">
-                <label class="info-label">Middle Name</label>
-                <input type="text" id="middleName" name="middleName" class="input" required>
-            </div>
-            <div class="my-2">
-                <label class="info-label">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="input" required>
-            </div>
-            <div class="my-2">
-                <label class="info-label">Contact No.</label>
-                <input type="text" id="contactNo" name="contactNo" class="input" required>
-            </div>
         </div>
         {{-- arrays of sub-stations --}}
         @php

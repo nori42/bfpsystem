@@ -35,17 +35,35 @@ class EstablishmentController extends Controller
         //load json files
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
+        $owner = null;
 
         return view('establishments.create',[
             'page_title' => "Add Establishment",
             'occupancies' => $occupancies,
-            'subtype' => $sub_type
+            'subtype' => $sub_type,
+            'owner' => $owner
+        ]);
+    }
+
+    public function create_from_owner(Request $request){
+
+        $owner = Owner::where('id', $request->id)->first();
+
+        //load json files
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
+
+        return view('establishments.create',[
+            'page_title' => "Add Establishment",
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
+            'owner' => $owner
         ]);
     }
 
     // store new record
     public function store(Request $request){
-
+        
         // instantiate model
         $establishment = new Establishment();
         $owner = new Owner();
@@ -96,20 +114,11 @@ class EstablishmentController extends Controller
         ->select('establishments.*','owners.*')
         ->where(request('owner_id'))
         ->get();
-
-        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
-        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
-
-
-
-        // $data = DB::table('establishments')->get();
-       
+    
 
         return view('establishments.show', [
             'establishment' => $establishment,
             'data' => $data,
-            'occupancies' => $occupancies,
-            'subtype' => $sub_type,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
 
@@ -155,6 +164,12 @@ class EstablishmentController extends Controller
     //Add New Establishment for Existing Owner
     public function create_owner_establishment(Request $request)
     {
+        $establishment = DB::table('establishments')
+        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
+        ->select('establishments.*','owners.*')
+        ->where('establishments.id', (int)request('id'))
+        ->first();
+
         $establishment = new Establishment();
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
@@ -175,8 +190,8 @@ class EstablishmentController extends Controller
         $establishment->owner_id = $request->id;
  
          //save data to database
-         $establishment->save();
+        //  $establishment->save();
 
-         return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
+        //  return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
     }
 }
