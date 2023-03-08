@@ -51,7 +51,6 @@ class FsicController extends Controller
         $inspection->action_taken = $request->actionTaken ;
         $inspection->building_type = $request->buildingType;
 
-
         //save data to database
         $inspection->save();
 

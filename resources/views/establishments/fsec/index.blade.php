@@ -35,7 +35,15 @@
                     <th>Date Of Release</th>
                 </thead>
                 <tbody>
-
+                    @foreach ($evaluations as $evaluation)
+                    <tr>
+                        <td>{{ $evaluation->or_no }}</td>
+                        <td>{{ $evaluation->certification_no }}</td>
+                        <td>{{ $evaluation->evaluator }}</td>
+                        <td>{{ $evaluation->date_of_payment }}</td>
+                        <td>{{ $evaluation->date_release }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -62,7 +70,7 @@
                             <input class="info" type="date" id="date_of_payment" name="date_of_payment" required>
 
                             <label class="info-label" for="evaluator">Evaluator</label>
-                            <input class="info" type="text" id="evaluator" name="evaluator" required>
+                            <input class="info" type="text" id="evaluator" name="evaluator">
 
                             <label class="info-label" for="certification">Certificate No.</label>
                             <input class="info" type="text" id="certification" name="certification" required>
@@ -73,13 +81,13 @@
     
                         <div class="d-flex flex-column w-100 rightModal">
                             <label class="info-label" for="boq">BOQ</label>
-                            <input class="info" type="text" id="boq" name="boq" required>
+                            <input class="info" type="text" id="boq" name="boq">
 
                             <label class="info-label" for="remarks">Remarks</label>
-                            <textarea class="info" id="remarks" name="remarks" required></textarea>
+                            <textarea class="info" id="remarks" name="remarks"></textarea>
 
                             <label class="info-label" for="purpose">Purpose</label>
-                            <textarea class="info" id="purpose" name="purpose" required></textarea>
+                            <textarea class="info" id="purpose" name="purpose"></textarea>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3 modal-button-container">

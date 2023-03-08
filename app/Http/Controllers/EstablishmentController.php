@@ -53,9 +53,9 @@ class EstablishmentController extends Controller
         $owner->last_name = strtoupper($request->lastName);
         $owner->middle_name =  strtoupper($request->middleName);
         $owner->contact_no = $request->contactNo;
+        $owner->corporate_name = strtoupper($request->corporateName);
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
-        $establishment->corporate_name = strtoupper($request->corporateName);
         $establishment->substation = strtoupper($request->substation);
         $establishment->sub_type = strtoupper($request->subType);
         $establishment->building_type = strtoupper($request->buildingType);
@@ -108,8 +108,7 @@ class EstablishmentController extends Controller
     // update establishment details
     public function update_establishment(Request $request){
         Establishment::where('id', $request->id)->update([
-            'establishment_name' => $request->establishmentName,
-            'corporate_name' => $request->corporateName,
+            'establishment_name' => $request->establishmentName,    
             'substation' => $request->substation,
             'sub_type' => $request->subType,
             'building_type' => $request->buildingType,
@@ -123,20 +122,5 @@ class EstablishmentController extends Controller
         ]);
 
         return redirect('/establishments'. "/" . $request->record_no);
-
-        // $establishment->establishment_name = $request->establishmentName;
-        // $establishment->corporate_name = $request->corporateName; 
-        // $establishment->substation = $request->substation;
-        // $establishment->sub_type = $request->subType;
-        // $establishment->building_type = $request->buildingType;
-        // $establishment->no_of_story = $request->noOfStory;
-        // $establishment->building_permit_no = $request->buildingPermitNo;
-        // $establishment->fire_insurance_co = $request->fireInsuranceCo;
-        // $establishment->latest_permit = $request->latestPermit;
-        // $establishment->barangay = $request->barangay;
-        // $establishment->address = $request->address;
-        // $establishment->height = $request->height;
-
-        // $establishment->save();
     }
 }

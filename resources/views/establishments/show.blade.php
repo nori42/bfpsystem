@@ -219,7 +219,7 @@
         </div>
         
         <!--Establishment Table-->
-        <div id="inspection" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
+        <div id="inspection" class="w-100 h-75 overflow-y-auto mx-auto mt-4 border-3">
             <table class="table">
                 <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                     <th>Rec No.</th>

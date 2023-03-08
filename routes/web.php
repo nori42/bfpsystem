@@ -48,3 +48,4 @@ Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index
 
 //Fsec routes
 Route::get('/establishments/fsec/{id}', [FsecController::class, 'index']);
+Route::post('/establishments/fsec/{id}', [FsecController::class, 'store']);

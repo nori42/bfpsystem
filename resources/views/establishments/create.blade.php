@@ -101,6 +101,13 @@
                 <label class="info-label">Contact No.</label>
                 <input type="text" id="contactNo" name="contactNo" class="input" required>
             </div>
+
+            
+
+            <div class="my-2">
+                <label class="info-label">Corporate Name</label>
+                <input type="text" id="corporateName" name="corporateName" class="input">
+            </div>
         </div>
         {{-- arrays of sub-stations --}}
         @php
@@ -124,11 +131,6 @@
                 <input type="text" id="establishmentName" name="establishmentName" class="input" required>
             </div>
             
-            <div class="my-2">
-                <label class="info-label">Corporate Name</label>
-                <input type="text" id="corporateName" name="corporateName" class="input">
-            </div>
-
             <div class="my-2">
                 <label class="info-label">Occupancy</label>
                 <select name="occupancy" id="occupancy" required>
