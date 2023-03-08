@@ -11,7 +11,7 @@
     <div class="p-5 w-75">
         <h3>Fire Incidents 2023</h3>
         <hr>
-        <canvas id="myChart" style="width:100%; height: 50%;"></canvas>
+        <canvas id="myChart" style="width:100%; height:300px;"></canvas>
     </div>
 </div>
 

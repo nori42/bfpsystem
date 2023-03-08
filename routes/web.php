@@ -43,11 +43,12 @@ Route::post('/establishments/fsic/{id}', [FsicController::class, 'store']);
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::get('/establishments/fsic/attachment/{id}', [FsicController::class, 'show_attachment']);
-Route::get('/establishments/fsic/print/{id}&{orNo}', [FsicController::class, 'print_fsic']);
+Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);
 
 //Firedrill
 Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
 
 //Fsec routes
+Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
 Route::get('/establishments/fsec/{id}', [FsecController::class, 'index']);
 Route::post('/establishments/fsec/{id}', [FsecController::class, 'store']);

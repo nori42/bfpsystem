@@ -105,7 +105,7 @@ class FsicController extends Controller
         $payment->save();
 
         // return redirect('/establishments/fsic/payment/'.$request->establishmentId)->with(['newPost'=> true,'mssg'=>'New Record Added']);
-        return redirect('/establishments/fsic/print/' . $request->establishmentId . "&" . $request->orNo);
+        return redirect('/establishments/fsic/print/'.$payment->id);
     }
 
     //Attachment
@@ -124,16 +124,13 @@ class FsicController extends Controller
 
     //Print
     public function print_fsic(Request $request){
-        $id = $request->id;
-        $orNo = (int)request('orNo');
-
         // $details = DB::table('establishments')
         // ->join('owners', 'establishments.owner_id', '=', 'owners.id')
         // ->join('payments', 'payments.establishment_id', '=', 'establishments.id')
         // ->where('payments.or_no', $orNo)
         // ->first();
         
-        $details= Payment::where('or_no', $orNo)->first();
+        $details= Payment::find($request->id);
 
         // reformat issued date to full month
         // $createdFormat= Carbon::parse($payment->created_at)->format('F d Y');
@@ -146,7 +143,6 @@ class FsicController extends Controller
         $details->date_of_payment = $datePaymentFormat;
         
         return view('establishments/fsic/print_fsic', [
-            'id' => $id,
             'details' => $details,
             'createdDate' => $createdDate
         ]);

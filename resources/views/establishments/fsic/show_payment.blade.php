@@ -42,8 +42,7 @@
                     <td>{{date('m-d-Y', strtotime($payment->created_at))}}</td>
                     <td>{{$payment->certification}}</td>
                     <td>{{$payment->status}}</td>
-
-                    <td><a href="/establishments/fsic/print/{{$establishment->id}}&{{$payment->or_no}}" class="btn btn-warning mx-5"><span class="material-symbols-outlined">print</span> </a></td>
+                    <td class="text-center"><a href="/establishments/fsic/print/{{$payment->id}}" class="btn btn-warning"><span class="material-symbols-outlined">print</span> </a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -80,7 +79,7 @@
                     ];
                 @endphp
 
-                <form action="/establishments/fsic/payment/" method="POST" id="savePayment">
+                <form action="/establishments/fsic/payment" method="POST" id="savePayment">
                     @csrf
                     <div class="d-flex side-parent justify-content-center">
                         <div class="d-flex flex-column w-100 leftModal">

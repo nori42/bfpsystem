@@ -29,8 +29,8 @@
         <h2 class="text-success">{{session('mssg')}}</h2>
     @endif
 
-<div class="w-75 h-75 overflow-auto mx-auto px-3">
-    <table class="table">
+<div class="w-75 overflow-auto mx-auto px-3" style="height: 600px;">
+    <table class="table h-50">
             <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                 <tr>
                     <th>Record no.</th>

@@ -5,14 +5,14 @@
 <div class="page-content">
         {{-- Put page content here --}}
 
-        {{-- FSIC Action --}}
+        {{-- FSEC Action --}}
     <div class="d-flex justify-content-between w-75 mx-auto mt-5">
         <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process Fsec</a>
         <a href="/establishments/fsec/attachment/{{$establishment->id}}"  id="btnAttachments" class="btn btn-action rounded-0 fs-5">Attachments</a>
     </div>
     {{-- Owner Info & Selected Establishment --}}
     <div class="w-75 mx-auto mt-5">
-        <h5 class="fw-bold"> Owner: {{$establishment->last_name." ".$establishment->first_name." ".$establishment->middle_name}}</h5>
+        <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name." ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
         <div class="fs-5">Record No.: {{$establishment->id}}</div>
         <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
     </div>
@@ -33,6 +33,7 @@
                     <th>Evaluator</th>
                     <th>Date Of Payment</th>
                     <th>Date Of Release</th>
+                    <th class="text-center">Action</th>
                 </thead>
                 <tbody>
                     @foreach ($evaluations as $evaluation)
@@ -40,8 +41,9 @@
                         <td>{{ $evaluation->or_no }}</td>
                         <td>{{ $evaluation->certification_no }}</td>
                         <td>{{ $evaluation->evaluator }}</td>
-                        <td>{{ $evaluation->date_of_payment }}</td>
-                        <td>{{ $evaluation->date_release }}</td>
+                        <td>{{date('m-d-Y', strtotime($evaluation->date_of_payment))}}</td>
+                        <td>{{date('m-d-Y', strtotime($evaluation->date_release))}}</td>
+                        <td class="text-center"><a href="/establishments/fsec/print/{{$evaluation->id}}" class="btn btn-warning"><span class="material-symbols-outlined">print</span> </a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -91,21 +93,10 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3 modal-button-container">
-                        {{-- <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print & Save</a> --}}
-                        <button class="btn btn-success">Save</button>
+                        <button class="btn btn-success">Save & Print</button>
                     </div>
                 </form>
             </div>
         </div>
-        {{-- script for this page only --}}
-        <script>
-            var orNo = document.getElementById("orNo")
-            var savePayment = document.getElementById("savePayment")
-            var id = {!! $establishment->id !!}
-            
-            orNo.addEventListener("change", function(){
-                savePayment.action = "/establishments/fsic/payment/" + id
-            })
-        </script>
 </div>
 @endsection
