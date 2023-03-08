@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 <body>
+    <div class="editToolBox">
+        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Show Certifcate</button>
+        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Edit</button>
+        <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
+    </div>
+
     <div class="nav">
         <a id="back" href="/establishments/fsic/payment/{{$id}}">
             Back
@@ -18,10 +24,10 @@
             <button id="printBtn"><span class="material-symbols-outlined print-ico">print</span></button>
         </div>
         <div class="printby">
-            <strong>Establishment: </strong> <span>{{$details->establishment_name }}</span>
+            <strong>Establishment: </strong> <span>{{$details->establishment->establishment_name }}</span>
         </div>
         <div class="printby">
-            <strong>Owned By: </strong> <span>{{$details->first_name}} {{$details->last_name}} </span>
+            <strong>Owned By: </strong> <span>{{$details->establishment->owner->first_name}} {{$details->establishment->owner->last_name}} </span>
         </div>
         <div class="printby">
             <strong>Issued For: </strong> <span>{{$details->issued_for}}</span>
@@ -29,19 +35,18 @@
         <div class="printby">
             <strong>Printing as: </strong> <span>Admin</span>
         </div>
-        <button id="showCert" onclick="showCert()">Show Cert</button>
     </div>
 
     <div id="printablePage">
-        <div class="header bold">
+        <div data-draggable="true" class="header bold">
                 <div>Cebu City Fire Office</div>
                 <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
                 <div>Tel. Nos. (032) - 256-0544 / 2623110</div>
                 <div>Email Address: cebucityfsn@yahoo.com</div>
         </div>
 
-        <div class="date-container bold">
-            {{$details->created_at}}
+        <div data-draggable="true" class="date-container bold">
+            {{$createdDate}}
         </div>
 
         
@@ -79,36 +84,36 @@
                 </div>
         </div>
 
-        <div class="establishment-name bold">
-            <span>{{$details->establishment_name}}</span>
+        <div data-draggable="true" id="estabName" class="establishment-name bold">
+            <span>{{$details->establishment->establishment_name}}</span>
         </div>
-        <div class="rep-name bold">
-            <span>{{$details->first_name}} {{$details->middle_name}} {{$details->last_name}}</span>
+        <div data-draggable="true" class="rep-name bold">
+            <span>{{$details->establishment->owner->first_name}} {{$details->establishment->owner->middle_name}} {{$details->establishment->owner->last_name}}</span>
         </div>
-        <div class="address bold">
-            <span>{{$details->address}}</span>
+        <div data-draggable="true" class="address bold">
+            <span>{{$details->establishment->address}}</span>
         </div>
         
-        <div class="issued-for bold">
+        <div data-draggable="true" class="issued-for bold">
             <span>{{$details->issued_for}} </span>
         </div>
 
-        <div class="more-info">
-            <span>MORE DETAILS HERE</span>
+        <div data-draggable="true" data-editable="true" class="more-info" id="moreInfo">
+            <span>&nbsp;</span>
         </div>
 
-        <div class="validity">
+        <div data-draggable="true" class="validity">
             <span>{{$details->expiry_date}}</span>
         </div>
 
-        <div class="fc-fee">
+        <div data-draggable="true" class="fc-fee">
             <div id="amount">{{$details->amount_paid}}.00</div>
             <div id="or_no">{{$details->or_no}}</div>
             <div id="date">{{$details->date_of_payment}}</div>
         </div>
 
-        <div id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
-        <div id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
+        <div data-draggable="true" data-editable="true" id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
+        <div data-draggable="true" data-editable="true" id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
     </div>
 
     

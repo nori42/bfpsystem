@@ -14,14 +14,7 @@ class EstablishmentController extends Controller
     // load index page
     public function index(){
 
-        $establishments = Establishment::orderBy('created_at', 'DESC')->get();
-        $establishments = DB::table('owners')
-        ->join('establishments', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*', 'owners.*')
-        ->orderBy('establishments.id','DESC')
-        ->get();
-
-        $establishmentsz = Establishment::all();
+        $establishments = Establishment::all()->sortDesc();
 
         return view('establishments.index', [
             'establishments' => $establishments,
@@ -83,19 +76,9 @@ class EstablishmentController extends Controller
     }
 
     //get single record
-    public function show() {
-        $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*','owners.*')
-        ->where('establishments.id', (int)request('id'))
-        ->first();
-
-
-        $data = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->select('establishments.*','owners.*')
-        ->where(request('owner_id'))
-        ->get();
+    public function show(Request $request) {
+        $establishment = Establishment::find($request->id);
+        $ownerEstablishments = Establishment::where('owner_id',$request->id)->get();
 
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
@@ -107,7 +90,7 @@ class EstablishmentController extends Controller
 
         return view('establishments.show', [
             'establishment' => $establishment,
-            'data' => $data,
+            'ownerEstablishments' =>$ownerEstablishments,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
             'page_title' => 'Establishment Information' // use to set page title inside the panel

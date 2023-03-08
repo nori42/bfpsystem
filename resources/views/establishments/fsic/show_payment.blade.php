@@ -39,7 +39,7 @@
                     <td>{{$payment->or_no}}</td>
                     <td>{{$payment->nature_of_payment}}</td>
                     <td>{{$payment->amount_paid}}</td>
-                    <td>{{$payment->created_at}}</td>
+                    <td>{{date('m-d-Y', strtotime($payment->created_at))}}</td>
                     <td>{{$payment->certification}}</td>
                     <td>{{$payment->status}}</td>
 

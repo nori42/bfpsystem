@@ -172,6 +172,7 @@ li{
     position: absolute;
     top:690px;
     left: 280px;
+    min-width: 152px;
 }
 
 .validity {
@@ -203,12 +204,6 @@ li{
     left: 630px;
 }
 
-.draggable {
-    border: 1px solid greenyellow;
-    cursor: pointer;
-}
-
-
 /*  */
 
 #back{
@@ -238,6 +233,29 @@ li{
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
     -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+}
+
+.editToolBox {
+    border-radius: 8px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:15px;
+    z-index: 1001;
+    width: 7.5%;
+    left:4.5%;
+    top:65px;
+    padding: 21px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.47);
+}
+
+.btnTools{
+    padding: 5px;
+    border-radius: 8px;
 }
 
 .nav > *{
@@ -312,6 +330,18 @@ button{
 
 .debug {
     border: 1px solid red;
+}
+
+.editable {
+    border: 3px rgb(57, 150, 57) solid;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.moveable {
+    border:2px rgb(63, 63, 189) solid;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 @page {
