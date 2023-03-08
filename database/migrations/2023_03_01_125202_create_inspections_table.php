@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Establishment::class);
-            $table->foreignIdFor(Payment::class)->nullable();
             $table->integer('record_no');
             $table->string('inspection_date');
             $table->string('status');

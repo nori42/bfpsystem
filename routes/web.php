@@ -33,6 +33,8 @@ Route::get('/establishments/create', [EstablishmentController::class, 'create'])
 Route::post('/establishments', [EstablishmentController::class, 'store']);
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
 Route::post('/establishments/create', [EstablishmentController::class, 'update_establishment']);
+Route::post('/establishments/owner/create/{id}', [EstablishmentController::class, 'create_owner_establishment']);
+
 
 //Fsic routes
 Route::get('/establishments/fsic/{id}', [FsicController::class, 'index']);
