@@ -17,5 +17,10 @@ class Establishment extends Model
     {
         return $this->hasMany(Inspection::class);
     }
+
+    public function evaluation()
+    {
+        return $this->hasMany(Evaluation::class);
+    }
     use HasFactory;
 }

@@ -36,7 +36,7 @@
                     <th class="text-center">Action</th>
                 </thead>
                 <tbody>
-                    @foreach ($evaluations as $evaluation)
+                    @foreach ($establishment->evaluation as $evaluation)
                     <tr>
                         <td>{{ $evaluation->or_no }}</td>
                         <td>{{ $evaluation->certification_no }}</td>
