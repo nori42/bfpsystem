@@ -106,13 +106,17 @@ class EstablishmentController extends Controller
         
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
-        
+        $building_type = [
+            'Small', 'Medium', 'Large', 'High Rise'
+        ];       
+
         return view('establishments.show', [
             'establishment' => $establishment,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
             'owner' => $owner,
-            'page_title' => 'Establishment Information' // use to set page title inside the panel
+            'buildingType' => $building_type,
+            'page_title' => 'Establishment Details' // use to set page title inside the panel
         ]);
     }
     

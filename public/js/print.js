@@ -1,4 +1,4 @@
-document.getElementById("buttonContainer").addEventListener("click", function(){
+document.getElementById("printBtn").addEventListener("click", function(){
     window.print();
 })
 
@@ -11,6 +11,10 @@ function handleMove(btn){
             makeElementDraggable(ele)
             ele.classList.add('moveable')
         });
+        document.getElementById("printBtn").disabled = true;
+        document.getElementById("printBtn").classList.add('disable'); 
+        document.getElementById("btnEdit").disabled = true; 
+        document.getElementById("btnEdit").classList.add('disable'); 
 
         btn.innerText = "Save"
         btn.style.backgroundColor = "green"
@@ -22,6 +26,12 @@ function handleMove(btn){
             removeDraggable(ele)
             ele.classList.remove('moveable')
         });
+
+        document.getElementById("printBtn").disabled = false;
+        document.getElementById("printBtn").classList.remove('disable'); 
+        document.getElementById("btnEdit").disabled = false; 
+        document.getElementById("btnEdit").classList.remove('disable');
+
         btn.innerText = "Move"
         btn.style.backgroundColor = ""
         btn.style.color = ""
@@ -39,6 +49,12 @@ function handleEdit(btn){
             makeElementEditable(ele);
             ele.classList.add('editable')
         });
+
+        document.getElementById("printBtn").disabled = true;
+        document.getElementById("printBtn").classList.add('disable'); 
+        document.getElementById("btnMove").disabled = true; 
+        document.getElementById("btnMove").classList.add('disable'); 
+
         btn.innerText = 'Save'
         btn.style.backgroundColor = "green"
         btn.style.color = "white"
@@ -49,6 +65,12 @@ function handleEdit(btn){
             saveEdit(ele);
             ele.classList.remove('editable')
         });
+
+        document.getElementById("printBtn").disabled = false;
+        document.getElementById("printBtn").classList.remove('disable'); 
+        document.getElementById("btnMove").disabled = false; 
+        document.getElementById("btnMove").classList.remove('disable'); 
+
         btn.innerText = 'Edit'
         btn.style.backgroundColor = ""
         btn.style.color = ""
@@ -70,12 +92,12 @@ function toggleCert(btn){
     printable = document.getElementById('printablePage')
 
     if (printable.style.backgroundSize === '0%') {
-            btn.innerText = "Show Certificate"
+            btn.innerText = "Hide Certificate"
             printable.style.backgroundSize = 'contain';
         } 
     else 
         {
-            btn.innerText = "Hide Certificate"
+            btn.innerText = "Show Certificate"
             printable.style.backgroundSize = '0%';
         }
 }

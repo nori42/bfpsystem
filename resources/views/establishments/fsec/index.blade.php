@@ -37,6 +37,7 @@
                     <th>Evaluator</th>
                     <th>Date Of Payment</th>
                     <th>Date Of Release</th>
+                    <th class="text-center">Action</th>
                 </thead>
                 <tbody>
                     @foreach ($establishment->evaluation as $evaluation)
@@ -44,8 +45,9 @@
                         <td>{{ $evaluation->or_no }}</td>
                         <td>{{ $evaluation->certification_no }}</td>
                         <td>{{ $evaluation->evaluator }}</td>
-                        <td>{{ $evaluation->date_of_payment }}</td>
-                        <td>{{ $evaluation->date_release }}</td>
+                        <td>{{date('m-d-Y', strtotime($evaluation->date_of_payment))}}</td>
+                        <td>{{date('m-d-Y', strtotime($evaluation->date_release))}}</td>
+                        <td class="text-center"><a href="/establishments/fsec/print/{{$evaluation->id}}" class="btn btn-warning"><span class="material-symbols-outlined">print</span> </a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -95,21 +97,10 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3 modal-button-container">
-                        {{-- <a href="/establishments/fsic/print/{{$establishment->id}}" class="btn btn-primary mx-5">Print & Save</a> --}}
-                        <button class="btn btn-success">Save</button>
+                        <button class="btn btn-success">Save & Print</button>
                     </div>
                 </form>
             </div>
         </div>
-        {{-- script for this page only --}}
-        <script>
-            var orNo = document.getElementById("orNo")
-            var savePayment = document.getElementById("savePayment")
-            var id = {!! $establishment->id !!}
-            
-            orNo.addEventListener("change", function(){
-                savePayment.action = "/establishments/fsic/payment/" + id
-            })
-        </script>
 </div>
 @endsection

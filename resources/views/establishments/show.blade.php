@@ -20,11 +20,6 @@
         }
 
         .info {
-            border: 1px solid gray;
-            padding: .4rem .3rem;
-            background: white;
-            border-radius: .5rem;
-            width: 100%;
         }
 
         .info-label {
@@ -91,12 +86,12 @@
             <input type="hidden" name="id" value="{{$establishment->id}}">
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
-                <input class="info" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
+                <input class="info form-control" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
             </div>
             
             <div class="my-2">
                 <label class="info-label">Corporate Name</label>
-                <input class="info" type="text" value="{{$establishment->corporate_name}}" name="corporateName" readonly>
+                <input class="info form-control" type="text" value="{{$establishment->corporate_name}}" name="corporateName" readonly>
             </div>
 
             <div class="my-2">                
@@ -110,11 +105,9 @@
                         'Small', 'Medium', 'Large', 'High Rise'
                     ]
                 @endphp
-
                 <div class="my-2">
                     <label class="info-label">Substation</label>
-                    <select class="info" name="substation" id="substation" disabled>
-                        <option value="">Select Substation</option>
+                    <select class="form-control info" name="substation" id="substation" disabled>
                         @foreach ($stations as $station)
                             @if($establishment->substation == $station)
                                 <option value="{{$station}}" selected>{{$station}}</option>
@@ -129,15 +122,14 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">Sub Type</label>
-                    <input class="info" type="text" value="{{$establishment->sub_type}}" name="subType" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->sub_type}}" name="subType" readonly>
                 </div>
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="info"  name="buildingType" id="buildingType" readonly>
-                        <option value="">Select Building Type</option>
+                    <select class="form-control info"  name="buildingType" id="buildingType" disabled>
                         @foreach ($building_type as $btype)
-                            @if($establishment->building_type == $building_type)
+                            @if($establishment->building_type == $btype)
                                 <option value="{{$btype}}" selected>{{$btype}}</option>
                             @else
                                 <option value="{{$btype}}">{{$btype}}</option>
@@ -150,38 +142,38 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <input class="info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" readonly>
                 </div>
     
                 <div class="my-2 w-100">
                     <label class="info-label">Height</label>
-                    <input class="info" type="text" value="{{$establishment->height}}" name="height" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->height}}" name="height" readonly>
                 </div>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Building Permit No.</label>
-                <input class="info" type="text" value="{{$establishment->building_permit_no}}" name="buildingPermitNo" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->building_permit_no}}" name="buildingPermitNo" readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Name of Fire Insurance Co/Co-Insurer</label>
-                <input class="info" type="text" value="{{$establishment->fire_insurance_co}}" name="fireInsuranceCo" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->fire_insurance_co}}" name="fireInsuranceCo" readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Latest Mayor's/Business Permit</label>
-                <input class="info" type="text" value="{{$establishment->latest_permit}}" name="latestPermit" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->latest_permit}}" name="latestPermit" readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Barangay</label>
-                <input class="info" type="text" value="{{$establishment->barangay}}" name="barangay" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->barangay}}" name="barangay" readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Address</label>
-                <input class="info" type="text" value="{{$establishment->address}}" name="address" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->address}}" name="address" readonly>
             </div>
         </form>
         

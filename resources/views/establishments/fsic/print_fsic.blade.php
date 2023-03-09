@@ -4,25 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/print.css">
+    <title>FSIC</title>
+    <link rel="stylesheet" href="/css/printfsic.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 <body>
     <div class="editToolBox">
-        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Show Certifcate</button>
+        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Edit</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
     </div>
 
     <div class="nav">
-        <a id="back" href="/establishments/fsic/payment/{{$id}}">
+        <a id="back" href="/establishments/fsic/payment/{{$details->establishment->id}}">
             Back
         </a>
-        <div id="buttonContainer">
-            Print Certificate
-            <button id="printBtn"><span class="material-symbols-outlined print-ico">print</span></button>
-        </div>
+        <button id="printBtn"><div>Print Certificate</div><span class="material-symbols-outlined print-ico" style="background-color: #FFC900;">print</span></button>
         <div class="printby">
             <strong>Establishment: </strong> <span>{{$details->establishment->establishment_name }}</span>
         </div>
@@ -79,6 +76,9 @@
                         @if($details->status != "NEW" && $details->status != "RENEWAL" && $details->status != "OCCUPANCY")
                             {{ $details->issued_for }}
                         @endif
+                        <div data-draggable="true" data-editable="true" class="others-info">
+                            <span>&nbsp;</span>
+                        </div>
                     </div>
                 </div>
         </div>

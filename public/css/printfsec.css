@@ -28,8 +28,8 @@ body{
     height: 11in;
     padding: 0.86in 0.79in 0.19in 1.19in;
 
-    background-image: url(../img/fsic.png);
-    background-position: 125px 12px;
+    background-image: url(../img/fsec.png);
+    background-position: 115px 20px;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:contain;
     
@@ -44,66 +44,17 @@ li{
     text-align: center;
     position: absolute;
     font-size: 11pt;
-    left: 409px;
-    top: 125px;
+    top: 147px; 
+    left: 418px;
 }
 
 .date-container{
     position: absolute;
     font-size: 11pt;
-    left: 750px;
-    top:218px;
+    top: 240px; 
+    left: 772px;
 }
 
-
-.check-container{
-    position: absolute;
-    left: 375px;
-    top:325px;
-    width: 385px;
-
-}
-
-.check{
-    font-weight: bold !important;
-    font-size: 14pt !important;
-}
-
-.checkBox{
-    height: 15px;
-    width: 18px;
-    margin-top: 6px;
-    z-index: 100;
-    cursor: pointer;
-}
-
-.checkbox-container{
-    position: absolute;
-    top:-3px;
-    left: -5px;
-}
-
-.highlight-button-container{
-    position: absolute;
-    display: flex;
-    left:235px;
-    top:25px;
-    gap: 5px;
-}
-
-.highlight-new {
-    height: 18px;
-    width: 45px;
-    cursor: pointer;
-    z-index: 100;
-}
-
-.highlight-renewal {
-    height: 18px;
-    width: 100px;
-    cursor: pointer;
-    z-index: 100;
-}
 
 
 .hidden {
@@ -125,61 +76,25 @@ li{
 }
 
 
-.others{
-    position: absolute;
-    left: 100px;
-}
-
-#new{
-    background-color: #FFD900 !important;
-    width: 45px;
-    height: 17pt;
-    opacity: .7;
-}
-
-#renewal{
-    background-color: #FFD900;
-    width: 92px;
-    height: 17pt;
-    opacity: .7;
-}
-
 .establishment-name{
     position: absolute;
-    top:475px;
-    left: 500px;
+    top: 474px; 
+    left: 700px;
 }
 
 .rep-name{
     position: absolute;
-    top:510px;
-    left: 460px;
+    top: 556px; 
+    left: 315px;
 }
 
 .address{
     position: absolute;
-    top:550px;
-    left: 470px;
+    top: 524px; 
+    left: 461px;
 }
 
-.issued-for{
-    position: absolute;
-    top:655px;
-    left: 470px;
-}
 
-.more-info{
-    position: absolute;
-    top:690px;
-    left: 280px;
-    min-width: 152px;
-}
-
-.validity {
-    position: absolute;
-    top:690px;
-    left: 760px;
-}
 
 .footer{
     display: flex;
@@ -188,20 +103,22 @@ li{
 
 .fc-fee{
     position: absolute;
-    top:820px;
-    left: 350px;
+    top: 771px; 
+    left: 340px;
 }
 
 .chiefName{
     position: absolute;
-    top:835px;
-    left: 630px;
+    top: 786px; 
+    left: 676px;
+    text-transform: uppercase;
 }
 
 .marshalName{
     position: absolute;
-    top:935px;
-    left: 630px;
+    top: 883px; 
+    left: 674px;
+    text-transform: uppercase;
 }
 
 /*  */
@@ -282,12 +199,6 @@ li{
     -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
 }
 
-#buttonContainer:hover {
-    background-color: #EBEBEB;
-}
-
-
-
 button{
     z-index: 1000;
     cursor: pointer;
@@ -296,16 +207,44 @@ button{
     outline: none;
     border: none;
     border-radius: 0 5px 5px 0;
+    text-align: center;
 }
 
+button:hover{
+    background-color: #d6a800;
+}
+
+#printBtn {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding:0 0 0 10px; 
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+}
+
+#printBtn:hover {
+    background-color: #a1a1a1;
+}
+
+
 .print-ico{
-    font-size: 26px !important;
+    font-size: 24px !important;
     color: #000 !important;
+    margin-left: 5px;
+    margin-right: 0;
 }
 /* utitilities */
 
 .disable {
-    opacity: 0;
+    background-color: #a1a1a1 !important;
+}
+
+.disable:hover {
+    background-color: #a1a1a1 !important;
 }
 
 .fs-12{
