@@ -5,8 +5,12 @@
 <div class="page-content">
         {{-- Put page content here --}}
 
+        <a href="/establishments/{{$establishment->id}}" class="material-symbols-outlined btn-back mt-5">
+            arrow_back
+        </a>
+
         {{-- FSIC Action --}}
-    <div class="d-flex justify-content-between w-75 mx-auto mt-5">
+    <div class="d-flex justify-content-between w-75 mx-auto">
         <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process Fsec</a>
         <a href="/establishments/fsec/attachment/{{$establishment->id}}"  id="btnAttachments" class="btn btn-action rounded-0 fs-5">Attachments</a>
     </div>

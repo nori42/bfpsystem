@@ -1,7 +1,11 @@
 @extends('layouts.layout')
 @section('content')
 <div class="page-content">
-    <form class="add-record-form mt-5" action="/establishments" method="POST">
+    @if($owner == null)
+        <form class="add-record-form mt-5" action="/establishments" method="POST">
+    @else
+        <form class="add-record-form mt-5" action="/establishments/store_from_owner/{{$owner->id}}" method="POST">
+    @endif
         {{-- Cross-site request forgeries  --}}
         {{-- Add @csrf every form --}}
         @csrf
@@ -70,8 +74,11 @@
             }
 
         </style>
+        <a href="/establishments" class="material-symbols-outlined btn-back">
+            arrow_back
+        </a>
         {{-- Details Action --}}
-        <div class="d-flex justify-content-center w-75 mx-auto mt-5 page-container" id="page-container">
+        <div class="d-flex justify-content-center w-75 mx-auto page-container" id="page-container">
             <span class="py-2 current-page">Owner</span>
             <span class="py-2">Establishment</span>
             <span class="py-2">Attachments</span>

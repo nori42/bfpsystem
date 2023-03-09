@@ -2,6 +2,9 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
+<a href="/establishments/{{$establishment->id}}" class="material-symbols-outlined btn-back mt-5">
+    arrow_back
+</a>
 <div class="page-content">
         {{-- Put page content here --}}
         {{-- FSIC Action --}}

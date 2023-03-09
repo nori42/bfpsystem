@@ -149,3 +149,11 @@ nav .btn {
     border: 2px solid black !important;
     width: inherit;
 }
+
+.btn-back{
+    position: relative;
+    color: #000000;
+    text-decoration: none;
+    margin-left: 50px;
+    font-size: 35px !important;
+}

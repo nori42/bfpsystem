@@ -79,7 +79,6 @@
                         @if($details->status != "NEW" && $details->status != "RENEWAL" && $details->status != "OCCUPANCY")
                             {{ $details->issued_for }}
                         @endif
-                        Hello
                     </div>
                 </div>
         </div>
@@ -102,18 +101,18 @@
             <span>&nbsp;</span>
         </div>
 
-        <div data-draggable="true" class="validity">
+        <div data-draggable="true" class="validity bold">
             <span>{{$details->expiry_date}}</span>
         </div>
 
-        <div data-draggable="true" class="fc-fee">
+        <div data-draggable="true" class="fc-fee bold">
             <div id="amount">{{$details->amount_paid}}.00</div>
             <div id="or_no">{{$details->or_no}}</div>
             <div id="date">{{$details->date_of_payment}}</div>
         </div>
 
-        <div data-draggable="true" data-editable="true" id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
-        <div data-draggable="true" data-editable="true" id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
+        <div data-draggable="true" data-editable="true" id="chiefName" class="chiefName bold">SP04 Philip K Layug, BFP</div>
+        <div data-draggable="true" data-editable="true" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC, BFP</div>
     </div>
 
     

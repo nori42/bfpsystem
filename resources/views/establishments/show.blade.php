@@ -54,6 +54,10 @@
 
     </style>
 
+    <a href="/establishments" class="material-symbols-outlined mt-5 btn-back">
+        arrow_back
+    </a>
+
     <div class="page-content">
         {{-- Put page content here --}}
         
@@ -231,16 +235,13 @@
                     <th>Rec No.</th>
                     <th>Establishment Name</th>
                     <th></th>
-                    <th></th>
-                    
                 </thead>
                 <tbody>
-                    @foreach ($ownerEstablishments as $establishment)
+                    @foreach ($owner->establishment as $establishment)
                     <tr>
                         <td>{{$establishment->id}}</td>
                         <td>{{$establishment->establishment_name}}</td>
-                        <td><button class="btn btn-success">Update</button></td>
-                        
+                        <td><a href="/establishments/{{$establishment->id}}" class="btn btn-success">View</a></td>
                     </tr>
                     @endforeach
                 </tbody>

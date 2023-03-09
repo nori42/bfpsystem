@@ -62,11 +62,14 @@ class EstablishmentController extends Controller
         $owner = new Owner();
 
         //get Data
-        $owner->first_name = strtoupper($request->firstName);
-        $owner->last_name = strtoupper($request->lastName);
-        $owner->middle_name =  strtoupper($request->middleName);
-        $owner->contact_no = $request->contactNo;
-        $owner->corporate_name = strtoupper($request->corporateName);
+
+        if(!isset($request->owner_id)){
+            $owner->first_name = strtoupper($request->firstName);
+            $owner->last_name = strtoupper($request->lastName);
+            $owner->middle_name =  strtoupper($request->middleName);
+            $owner->contact_no = $request->contactNo;
+            $owner->corporate_name = strtoupper($request->corporateName);
+        }
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
         $establishment->substation = strtoupper($request->substation);
@@ -84,7 +87,10 @@ class EstablishmentController extends Controller
         $establishment->occupancy = strtoupper($request->occupancy);
         //instantiate foreign id
         $ownersCount = Owner::all()->count();
-        $establishment->owner_id = $ownersCount + 1;
+        if(!isset($request->owner_id)){
+            $establishment->owner_id = $ownersCount + 1;
+        }
+        $establishment->owner_id = $request->owner_id;
 
         //save data to database
         $establishment->save();
@@ -96,24 +102,20 @@ class EstablishmentController extends Controller
     //get single record
     public function show(Request $request) {
         $establishment = Establishment::find($request->id);
-        $ownerEstablishments = Establishment::where('owner_id',$request->id)->get();
-
+        $owner = Owner::find($establishment->owner_id);
+        
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
-       
-
+        
         return view('establishments.show', [
             'establishment' => $establishment,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
-            'ownerEstablishments' => $ownerEstablishments,
+            'owner' => $owner,
             'page_title' => 'Establishment Information' // use to set page title inside the panel
         ]);
-
-     
     }
     
-
     // update establishment details
     public function update_establishment(Request $request){
         Establishment::where('id', $request->id)->update([

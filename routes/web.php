@@ -32,6 +32,7 @@ Route::get('/establishments', [EstablishmentController::class, 'index']);
 Route::get('/establishments/create', [EstablishmentController::class, 'create']);
 Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
+Route::post('/establishments/store_from_owner/{owner_id}', [EstablishmentController::class, 'store']);
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
 Route::post('/establishments/create', [EstablishmentController::class, 'update_establishment']);
 
