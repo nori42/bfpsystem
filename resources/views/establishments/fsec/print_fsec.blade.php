@@ -33,6 +33,7 @@
 
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
+                <div>REGIONAL OFFICE - VII</div>
                 <div>Cebu City Fire Office</div>
                 <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
                 <div>Tel. Nos. (032) - 256-0544 / 2623110</div>
