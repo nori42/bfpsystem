@@ -91,7 +91,7 @@
             
             <div class="my-2">
                 <label class="info-label">Corporate Name</label>
-                <input class="info form-control" type="text" value="{{$establishment->corporate_name}}" name="corporateName" readonly>
+                <input class="info form-control" type="text" value="{{$owner->corporate_name}}" name="corporateName" readonly>
             </div>
 
             <div class="my-2">                

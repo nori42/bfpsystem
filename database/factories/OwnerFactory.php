@@ -22,10 +22,11 @@ class OwnerFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => fake()->name(),
-            'middle_name' => fake()->name(),
-            'last_name' => fake()->name(),
-            'contact_no' => fake()->phoneNumber
+            'first_name' => strtoupper(fake()->name()),
+            'middle_name' => strtoupper(fake()->name()),
+            'last_name' => strtoupper(fake()->name()),
+            'contact_no' => fake()->phoneNumber,
+            'corporate_name' => strtoupper(fake()->company())
         ];
     }
 }

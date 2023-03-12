@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 // USE Establishment Mode to communicate with the database
 use App\Models\Establishment;
 use App\Models\Owner;
+use Illuminate\Support\Arr;
 
 class EstablishmentController extends Controller
 {
@@ -29,12 +30,26 @@ class EstablishmentController extends Controller
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
         $owner = null;
+        
+        $allOwners = Owner::all();
+
+        $nameList = array();
+        
+        foreach($allOwners as $owners)
+        {
+            array_push($nameList, $owners['last_name'].", ".$owners['first_name'].", ".$owners['middle_name']);
+        }
+
+        $allOwnersJson = json_encode($allOwners);
+
 
         return view('establishments.create',[
             'page_title' => "Add Establishment",
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
-            'owner' => $owner
+            'owner' => $owner,
+            'nameList' => $nameList,
+            'allOwnersJson' => $allOwnersJson
         ]);
     }
 
@@ -60,7 +75,7 @@ class EstablishmentController extends Controller
         // instantiate model
         $establishment = new Establishment();
         $owner = new Owner();
-
+        
         //get Data
 
         if(!isset($request->owner_id)){
@@ -87,10 +102,14 @@ class EstablishmentController extends Controller
         $establishment->occupancy = strtoupper($request->occupancy);
         //instantiate foreign id
         $ownersCount = Owner::all()->count();
+
         if(!isset($request->owner_id)){
             $establishment->owner_id = $ownersCount + 1;
         }
-        $establishment->owner_id = $request->owner_id;
+        else
+        {
+            $establishment->owner_id = $request->owner_id;
+        }
 
         //save data to database
         $establishment->save();
