@@ -11,7 +11,7 @@
 
         {{-- FSIC Action --}}
     <div class="d-flex justify-content-between w-75 mx-auto">
-        <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process Fsec</a>
+        <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process</a>
         <a href="/establishments/fsec/attachment/{{$establishment->id}}"  id="btnAttachments" class="btn btn-action rounded-0 fs-5">Attachments</a>
     </div>
     {{-- Owner Info & Selected Establishment --}}

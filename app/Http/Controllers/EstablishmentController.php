@@ -37,7 +37,7 @@ class EstablishmentController extends Controller
         
         foreach($allOwners as $owners)
         {
-            array_push($nameList, $owners['last_name'].", ".$owners['first_name'].", ".$owners['middle_name']);
+            array_push($nameList, $owners['first_name'].", ".$owners['middle_name'].", ".$owners['last_name']);
         }
 
         $allOwnersJson = json_encode($allOwners);
@@ -56,16 +56,20 @@ class EstablishmentController extends Controller
     public function create_from_owner(Request $request){
 
         $owner = Owner::where('id', $request->id)->first();
+        $allOwners = Owner::all();
 
         //load json files
         $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
 
+        $allOwnersJson = json_encode($allOwners);
+
         return view('establishments.create',[
             'page_title' => "Add Establishment",
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
-            'owner' => $owner
+            'owner' => $owner,
+            'allOwnersJson' => $allOwnersJson
         ]);
     }
 
@@ -75,10 +79,16 @@ class EstablishmentController extends Controller
         // instantiate model
         $establishment = new Establishment();
         $owner = new Owner();
+
+        //this id is store_from_owner route
+        // $request->store_from_owner_id
+
+        //this id is from store route for autocomplete to work
+        // $request->ownerId
         
         //get Data
 
-        if(!isset($request->owner_id)){
+        if(!isset($request->store_from_owner_id) && !isset($request->ownerId)){
             $owner->first_name = strtoupper($request->firstName);
             $owner->last_name = strtoupper($request->lastName);
             $owner->middle_name =  strtoupper($request->middleName);
@@ -101,19 +111,30 @@ class EstablishmentController extends Controller
         $establishment->height = $request->height;
         $establishment->occupancy = strtoupper($request->occupancy);
         //instantiate foreign id
-        $ownersCount = Owner::all()->count();
+        //Save owner first to get the id
+        $owner->save();
 
-        if(!isset($request->owner_id)){
-            $establishment->owner_id = $ownersCount + 1;
+        if(!isset($request->store_from_owner_id) && !isset($request->ownerId)){
+            $establishment->owner_id = $owner->id;
         }
         else
         {
-            $establishment->owner_id = $request->owner_id;
+            //When using the new establishment for creating
+            if(isset($request->ownerId))
+            {
+                //When using the new establishment for creating
+                $establishment->owner_id = $request->ownerId;
+            }
+            else
+            {
+                //When using the add new establishment for this owner
+                $establishment->owner_id = $request->store_from_owner_id;
+            }
         }
 
-        //save data to database
+        //save establishment data to database
         $establishment->save();
-        $owner->save();
+        
 
         return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
     }

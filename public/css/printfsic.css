@@ -58,8 +58,8 @@ li{
 
 .check-container{
     position: absolute;
-    left: 375px;
-    top:325px;
+    top: 315px; 
+    left: 385px;
     width: 385px;
 
 }

@@ -18,13 +18,15 @@ class OwnerFactory extends Factory
      * @return array<string, mixed>
      */
    
+    
+
 
     public function definition(): array
-    {
+    {       
         return [
-            'first_name' => strtoupper(fake()->name()),
-            'middle_name' => strtoupper(fake()->name()),
-            'last_name' => strtoupper(fake()->name()),
+            'first_name' => strtoupper(fake()->firstName()),
+            'middle_name' => strtoupper(fake()->lastName()),
+            'last_name' => strtoupper(fake()->lastName()),
             'contact_no' => fake()->phoneNumber,
             'corporate_name' => strtoupper(fake()->company())
         ];

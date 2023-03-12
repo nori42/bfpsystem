@@ -93,9 +93,12 @@
             <hr>
 
             @if ($owner == null)
+                {{-- This is hidden only use for reference --}}
+                <input type="text" id="ownerId" name="ownerId" hidden value="">
+
                 <div class="my-2">
-                    <label class="info-label">Last Name</label>
-                    <input type="text" list="listNames" id="lastName" name="lastName" class="input" value="" required>
+                    <label class="info-label">First Name</label>
+                    <input type="text" list="listNames" id="firstName" name="firstName" class="input" value="" required autocomplete="off">
                 </div>
 
                 <datalist id="listNames">
@@ -104,46 +107,16 @@
                     @endforeach
                 </datalist>
 
-                {{-- Autocomplete Script --}}
-                <script>
-                    //Show the list of recorded owners when typed
-                        const allOwners = {!!$allOwnersJson!!}
-                        const arrNames = [];
-
-                        allOwners.forEach(owner => {
-                            arrNames.push(`${owner.last_name}, ${owner.first_name} ${owner.middle_name}`)
-                        });
-
-                        console.log(arrNames);
-
-                        const lastName = document.getElementById('lastName')
-                        lastName.onchange = () =>{
-                        
-                        var arrName = lastName.value.split(",").map(word => word.trim());
-
-                        const firstName = document.getElementById("firstName");
-                        const middleName = document.getElementById("middleName");
-
-                        lastName.value = arrName[0].replace(",","")
-                        firstName.value = arrName[1]
-                        middleName.value = arrName[2]
-                            
-                        const resOwner = allOwners.find(owner => owner.last_name === lastName.value && owner.first_name === firstName.value && owner.middle_name === middleName.value)
-                        console.log(resOwner)
-                        document.getElementById('contactNo').value = resOwner.contact_no
-                        document.getElementById('corporateName').value = resOwner.corporate_name
-                    }
-                </script>
-
-                <div class="my-2">
-                    <label class="info-label">First Name</label>
-                    <input type="text" id="firstName" name="firstName" class="input" value="" required >
-                </div>
-                
                 <div class="my-2">
                     <label class="info-label">Middle Name</label>
                     <input type="text" id="middleName" name="middleName" class="input" value="" required>
                 </div>
+                
+                <div class="my-2">
+                    <label class="info-label">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="input" value="" required>
+                </div>
+
                 <div class="my-2">
                     <label class="info-label">Contact No.</label>
                     <input type="text" id="contactNo" name="contactNo" value="" class="input" required>
@@ -154,14 +127,10 @@
                     <input type="text" id="corporateName" name="corporateName" value="" class="input" required>
                 </div>
             @else
-                <div class="my-2">
-                    <label class="info-label">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" class="form-control input" value="{{$owner->last_name}}" disabled>
-                </div>
 
                 <div class="my-2">
                     <label class="info-label">First Name</label>
-                    <input type="text" id="firstName" name="firstName" class="form-control input" value="{{$owner->middle_name}}" disabled>
+                    <input type="text" id="firstName" name="firstName" class="form-control input" value="{{$owner->first_name}}" disabled>
                 </div>
                 
                 <div class="my-2">
@@ -170,12 +139,17 @@
                 </div>
 
                 <div class="my-2">
+                    <label class="info-label">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control input" value="{{$owner->last_name}}" disabled>
+                </div>
+
+                <div class="my-2">
                     <label class="info-label">Contact No.</label>
                     <input type="text" id="contactNo" name="contactNo" value="{{$owner->contact_no}}" class="form-control input" disabled>
                 </div>
                 <div class="my-2">
                     <label class="info-label">Corporate Name</label>
-                    <input type="text" id="contactNo" name="corporateName" value="{{$owner->corporate_name}}" class="input" required>
+                    <input type="text" id="contactNo" name="corporateName" value="{{$owner->corporate_name}}" class="form-control input" disabled>
                 </div>
             @endif
             
@@ -299,6 +273,42 @@
         </div>
     </form>
 </div>
+ {{-- Autocomplete Script --}}
+ <script>
+    //Show the list of recorded owners when typed
+        const allOwners = {!!$allOwnersJson!!}
+        const arrNames = [];
+
+        const firstName = document.getElementById('firstName')
+        firstName.onchange = () =>{
+        
+        var arrName = firstName.value.split(",").map(word => word.trim());
+
+        //Get the selected owner that exist in record
+        const resOwner = allOwners.find(owner => owner.first_name === arrName[0] && owner.middle_name === arrName[1] && owner.last_name === arrName[2])
+        
+        console.log(resOwner.id);
+        // Auto fill if owner exist in the record
+        if(resOwner)
+        {
+            const ownerId = document.getElementById('ownerId')
+            const lastName = document.getElementById('lastName');
+            const middleName = document.getElementById('middleName'); 
+            const contactNo = document.getElementById('contactNo');
+            const corporateName = document.getElementById('corporateName');
+
+            firstName.value = resOwner.first_name
+            middleName.value = resOwner.middle_name
+            lastName.value = resOwner.last_name
+            contactNo.value = resOwner.contact_no
+            corporateName.value = resOwner.corporate_name
+            ownerId.value = resOwner.id
+        }
+
+        
+    }
+</script>
+
 {{-- ADDED JS FOR THIS PAGE ONLY --}}
 <script>
     const OCCUPANCY = document.getElementById("occupancy")

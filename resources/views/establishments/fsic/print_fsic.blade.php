@@ -48,7 +48,7 @@
 
         
 
-        <div class="check-container">
+        <div data-draggable="true" class="check-container">
                 <div class="checkbox-container">
                     <div class="checkBox c1" onclick="checkToggle('c1')"></div>
                     <div class="checkBox c2" onclick="checkToggle('c2')"></div>
