@@ -16,14 +16,19 @@
     </div>
     {{-- Owner Info & Selected Establishment --}}
     <div class="w-75 mx-auto mt-5">
-        <h5 class="fw-bold"> Owner: {{$owner->last_name." ".$owner->first_name." ".$owner->middle_name}}</h5>
+        <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name." ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
         <div class="fs-5">Record No.: {{$establishment->id}}</div>
         <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
     </div>
 
     {{-- Table --}}
     <div class="d-flex justify-content-end w-75 mx-auto pt-3">
-        <button class="btn btn-success px-4" id="addPaymentBtn" onclick="openModal('addPaymentModal')">Add</button>
+        <button class="btn btn-success" id="addPaymentBtn" onclick="openModal('addPaymentModal')">
+            <span class="material-symbols-outlined align-middle">
+                payments
+            </span>
+            Add Payment
+        </button>
     </div>
     <div id="payment" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
@@ -45,7 +50,7 @@
                     <td>{{date('m-d-Y', strtotime($payment->created_at))}}</td>
                     <td>{{$payment->certification}}</td>
                     <td>{{$payment->status}}</td>
-                    <td class="text-center"><a href="/establishments/fsic/print/{{$payment->id}}" class="btn btn-warning"><span class="material-symbols-outlined">print</span> </a></td>
+                    <td class="text-center"><a href="/establishments/fsic/print/{{$payment->id}}" class="btn btn-warning"><span class="material-symbols-outlined">print</span></a></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -56,7 +61,7 @@
 
         <!-- The Modal -->
         {{--Inspection--}}
-        <div id="addPaymentModal" class="modal">
+        <div id="addPaymentModal" class="modal" data-modal="modal">
             <!-- Modal content -->
             <div class="modal-content" style="font-size: 0.9rem">
                 
@@ -84,6 +89,8 @@
 
                 <form action="/establishments/fsic/payment" method="POST" id="savePayment">
                     @csrf
+                    
+                    <h4 class="px-4">Add Payment</h4>
                     <div class="d-flex side-parent justify-content-center">
                         <div class="d-flex flex-column w-100 leftModal">
                             {{-- This is hidden, only used for post request--}}

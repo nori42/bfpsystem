@@ -1,7 +1,7 @@
 const CANCEL_BTN = document.getElementById("cancelBtn")
 const NEXT_BTN = document.getElementById("nextBtn")
 const SAVE_BTN = document.getElementById("saveBtn")
-const PAGE_INDICATOR = document.getElementById("page-container").children
+const PAGE_INDICATOR = document.getElementById("steps-title").children
 
 var currentIndex = 0;
 

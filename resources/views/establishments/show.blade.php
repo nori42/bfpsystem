@@ -20,18 +20,28 @@
         }
 
         .info {
+            text-transform: uppercase;
         }
 
         .info-label {
             font-weight: 700;
         }
 
-        #editBtn{
+        #btnEdit{
             background: #53A3D8;
             color: #FFFFFF;
             cursor: pointer;
         }
 
+        .editBtn{
+            background: #53A3D8;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+        .editBtn:hover{
+            background: #72b5e1;
+            color: #FFFFFF;
+        }
         #saveBtn{
             background-color: #28A644;
             margin-right: 5px;
@@ -40,7 +50,7 @@
         }
 
         .editable{
-            border: 2px solid;
+            border: 1px solid;
             border-color: #28A644;
             outline: #28A644;
         }
@@ -56,42 +66,63 @@
     <div class="page-content">
         {{-- Put page content here --}}
         
-        {{-- Details Action --}}
-        <div class="d-flex justify-content-between gap-2 mx-auto mt-5" style="width: 85%">
-            <a href="/establishments/fsec/{{$establishment->id}}" class="btn btn-show fs-5">Fire Safety Evaluation Certificate(FSEC)</a>
-            <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-5">Fire Safety Inspection Certificate(FSIC)</a>
-            <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-5">Fire Drill</a>
-        </div>
 
         {{-- Owner Info & Selected Establishment --}}
         <div class="w-75 mx-auto ">
             <div class="pt-5 d-flex justify-content-between owner-info ">
                 <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name.", ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
-                <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')">Owner Info</button>
+                <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')"><span class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
             </div>
 
             <div class="fs-5">Record No.: {{$establishment->id}}</div>
             <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;">
                 <span class="fw-bold">Selected Establishment: </span>{{$establishment->establishment_name}}
-                <span class="float-start text-decoration-none px-2 rounded-1 text-black" id="editBtn">Edit Details</span>
-                <span class="float-start text-decoration-none px-2 rounded-1 text-white" id="saveBtn">Done</span>
-                <input type="hidden" value="false" id="isEditable">
             </div>
         </div>
 
+        <hr class="w-75 mx-auto border-3">
         {{-- Establishment Info --}}
+        
+        {{-- Details Action --}}
+        <div class="d-flex justify-content-between gap-2 mx-auto mt-5 w-75">
+            <a href="/establishments/fsec/{{$establishment->id}}" class="btn btn-show fs-6">Fire Safety Evaluation Certificate(FSEC)</a>
+            <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-6">Fire Safety Inspection Certificate(FSIC)</a>
+            <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-6">Fire Drill</a>
+        </div>
+
         <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/create" method="POST" id="updateForm">
+
+            {{-- <div class="d-flex justify-content-end gap-1">
+                <span class="text-decoration-none p-2 py-1 rounded-1 text-white" id="btnEdit">
+                    
+                    Edit Details
+                </span>
+                <span class="text-decoration-none p-2 py-1 rounded-1 text-white" id="btnSave">Done</span>
+                <input type="hidden" value="false" id="isEditable">
+            </div> --}}
+
+            <div class="d-flex justify-content-end gap-1">
+                <button class="btn" type="button" id="btnEdit">
+                    <span class="material-symbols-outlined align-middle fs-6">
+                    edit
+                    </span>
+                    Edit Details
+                </button>
+                <button class="btn btn-secondary d-none" type="button" data-btn-edit id="btnCancel">Cancel</button>
+                <button class="btn btn-success d-none" type="submit" data-btn-edit>Save</button>
+            </div>
+
             {{-- add @csrf every form --}}
             @csrf
             <input type="hidden" name="id" value="{{$establishment->id}}">
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
-                <input class="info form-control" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" readonly>
+                <input class="info form-control" type="text" value="{{$establishment->establishment_name}}" name="establishmentName" data-input-edit readonly>
             </div>
             
             <div class="my-2">
                 <label class="info-label">Corporate Name</label>
-                <input class="info form-control" type="text" value="{{$owner->corporate_name}}" name="corporateName" readonly>
+                <input class="info form-control" type="text" value="{{$owner->corporate_name}}" name="corporateName" data-input-edit readonly>
             </div>
 
             <div class="my-2">                
@@ -107,7 +138,7 @@
                 @endphp
                 <div class="my-2">
                     <label class="info-label">Substation</label>
-                    <select class="form-control info" name="substation" id="substation" disabled>
+                    <select class="form-control info" name="substation" id="substation" data-select-edit disabled>
                         @foreach ($stations as $station)
                             @if($establishment->substation == $station)
                                 <option value="{{$station}}" selected>{{$station}}</option>
@@ -122,12 +153,12 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">Sub Type</label>
-                    <input class="form-control info" type="text" value="{{$establishment->sub_type}}" name="subType" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->sub_type}}" name="subType" data-input-edit readonly>
                 </div>
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="form-control info"  name="buildingType" id="buildingType" disabled>
+                    <select class="form-control info"  name="buildingType" id="buildingType" data-select-edit disabled>
                         @foreach ($building_type as $btype)
                             @if($establishment->building_type == $btype)
                                 <option value="{{$btype}}" selected>{{$btype}}</option>
@@ -142,38 +173,38 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <input class="form-control info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->no_of_storey}}" name="no_of_storey" data-input-edit readonly>
                 </div>
     
                 <div class="my-2 w-100">
                     <label class="info-label">Height</label>
-                    <input class="form-control info" type="text" value="{{$establishment->height}}" name="height" readonly>
+                    <input class="form-control info" type="text" value="{{$establishment->height}}" name="height" data-input-edit readonly>
                 </div>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Building Permit No.</label>
-                <input class="form-control info" type="text" value="{{$establishment->building_permit_no}}" name="buildingPermitNo" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->building_permit_no}}" name="buildingPermitNo" data-input-edit readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Name of Fire Insurance Co/Co-Insurer</label>
-                <input class="form-control info" type="text" value="{{$establishment->fire_insurance_co}}" name="fireInsuranceCo" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->fire_insurance_co}}" name="fireInsuranceCo" data-input-edit readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Latest Mayor's/Business Permit</label>
-                <input class="form-control info" type="text" value="{{$establishment->latest_permit}}" name="latestPermit" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->latest_permit}}" name="latestPermit" data-input-edit readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Barangay</label>
-                <input class="form-control info" type="text" value="{{$establishment->barangay}}" name="barangay" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->barangay}}" name="barangay" data-input-edit readonly>
             </div>
 
             <div class="my-2">
                 <label class="info-label">Address</label>
-                <input class="form-control info" type="text" value="{{$establishment->address}}" name="address" readonly>
+                <input class="form-control info" type="text" value="{{$establishment->address}}" name="address" data-input-edit readonly>
             </div>
         </form>
         
@@ -181,7 +212,7 @@
 
 
 <!-- The Modal -->
-<div id="modalOwner" class="modal">
+<div id="modalOwner" class="modal" data-modal="modal">
 
   <!-- Modal content -->
   <div class="modal-content ">
@@ -221,7 +252,7 @@
         </div>
         
         <!--Establishment Table-->
-        <div id="inspection" class="w-100 h-75 overflow-y-auto mx-auto mt-4 border-3">
+        <div class="w-100 h-75 overflow-y-auto mx-auto mt-4 border-3" style="height: 300px !important;">
             <table class="table">
                 <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
                     <th>Rec No.</th>

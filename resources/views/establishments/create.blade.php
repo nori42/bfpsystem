@@ -12,17 +12,19 @@
         <style>
             .input {
                 border: 1px solid gray;
-                padding: .4rem .3rem;
+                padding: .4em .3em;
                 background: white;
-                border-radius: .5rem;
+                border-radius: .5em;
                 width: 100%;
                 text-transform: uppercase;
+                font-size: .9rem
             }
 
             select{
                 width: 100%;
-                padding: .4rem .3rem;
-                border-radius: .5rem;
+                padding: .4em .3em;
+                border-radius: .5em;
+                font-size: .9rem
             }
 
             .info {
@@ -34,17 +36,7 @@
 
             .info-label {
                 font-weight: 700;
-            }
-
-
-            .page-container{
-                border: 1px solid #000;
-            }
-
-            .page-container span{
-                border: 1px solid #000;
-                width: 100%;
-                text-align: center;
+                font-size: .875rem
             }
             
             #ownerDetails{
@@ -60,13 +52,21 @@
             }
 
             .finished-page{
-                background-color: #74B976;
-                color: #EFEFEF;
+                background-color: #55af58;
+                color: #ffffff;
             }
 
             .current-page{
-                background-color: #672424;
-                color: #EFEFEF
+                color: #0F2D55;
+                font-weight: bold;
+                border-bottom:4px solid #0F2D55 !important;
+            }
+
+            .steps-title span{
+                border: 1px solid #000;
+                width: 100%;
+                text-align: center;
+                vertical-align: middle;
             }
 
             #saveBtn{
@@ -78,7 +78,7 @@
             arrow_back
         </a>
         {{-- Details Action --}}
-        <div class="d-flex justify-content-center w-75 mx-auto page-container" id="page-container">
+        <div class="d-flex justify-content-center w-75 mx-auto steps-title" id="steps-title">
             <span class="py-2 current-page">Owner</span>
             <span class="py-2">Establishment</span>
             <span class="py-2">Attachments</span>
@@ -267,8 +267,8 @@
         </div>
 
         <div class="form-footer w-75 mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
-            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-danger">
-            <input type="button" value="Next" id="nextBtn" class="btn btn-primary">
+            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-secondary">
+            <input type="button" value="Next" id="nextBtn" class="btn btn-success">
             <input type="submit" value="Save" id="saveBtn" class="btn btn-success">
         </div>
     </form>

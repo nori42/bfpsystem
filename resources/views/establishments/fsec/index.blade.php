@@ -58,7 +58,7 @@
 
         <!-- The Modal -->
         {{--Inspection--}}
-        <div id="addPaymentModal" class="modal">
+        <div id="addPaymentModal" class="modal" data-modal="modal">
             <!-- Modal content -->
             <div class="modal-content" style="font-size: 0.9rem">
                 <form action="/establishments/fsec/{{$establishment->id}}" method="POST" id="saveEvaluation">

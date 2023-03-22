@@ -22,7 +22,12 @@
 
     {{-- Inspection --}}
     <div class="d-flex justify-content-end w-75 mx-auto">
-        <button class="btn btn-success mt-3 px-4" id="addInspectionBtn" onclick="openModal('addInspectionModal')">Add</button>
+        <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
+            <span class="material-symbols-outlined align-middle">
+                assignment_add
+            </span>
+            Add Inspection
+        </button>
     </div>
     <div id="inspection" class="w-75 h-75 overflow-y-auto mx-auto mt-4 border-3">
         <table class="table">
@@ -51,7 +56,7 @@
 
     <!-- The Modal -->
     {{--Inspection--}}
-    <div id="addInspectionModal" class="modal">
+    <div id="addInspectionModal" class="modal" data-modal="modal">
         <!-- Modal content -->
         <div class="modal-content" style="font-size: 0.9rem">
             <form action="/establishments/fsic/{{$establishment->id}}" method="POST">

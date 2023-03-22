@@ -8,17 +8,13 @@ const openModal = (modalTarget) => {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-// Use this for inspectionPayment
-const openInspPayment = (modalTarget, data) => {
-
-  modal = document.getElementById(modalTarget);
-  modal.style.display = "block"
-
   
+    modals = document.querySelectorAll('[data-modal="modal"]')
 
+    modals.forEach(modal => {
+      if (event.target.style.display == "block") {
+        modal.style.display = "none";
+      }
+    });
 }
+

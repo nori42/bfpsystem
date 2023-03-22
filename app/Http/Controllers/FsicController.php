@@ -116,7 +116,6 @@ class FsicController extends Controller
 
         return view('establishments.fsic.show_attachment',[
             'establishment' => $establishment,
-            'establishment' => $owner,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }

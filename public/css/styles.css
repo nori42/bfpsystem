@@ -42,7 +42,7 @@ nav {
 
 .page-panel {
     background: rgb(6,16,31);
-    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgba(28,59,100,1) 100%);
+    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgb(28, 59, 99) 100%);
     padding:1rem 3rem;
 }
 
@@ -156,4 +156,38 @@ nav .btn {
     text-decoration: none;
     margin-left: 50px;
     font-size: 35px !important;
+}
+
+#table-estab tr:nth-child(even) {
+    background-color: #EDEDED;
+}
+
+/* Utilities */
+
+.w-85{
+    width: 85%;
+}
+
+.w-90{
+    width: 90%;
+}
+
+.w-60{
+    width: 60%;
+}
+
+.h-85{
+    height: 85%;
+}
+
+.h-90{
+    height: 90%;
+}
+
+.h-60{
+    height: 60%;
+}
+
+.btn-primary {
+    background-color: #0F2D55 !important;
 }

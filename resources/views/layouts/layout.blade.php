@@ -15,6 +15,7 @@
 
     {{-- styles - google fonts --}}
     <link rel="stylesheet" href="/css/googlefonts.css">
+    {{-- <script src="/js/tailwind.js"></script> --}}
 </head>
 <body class="d-flex">
 
@@ -32,7 +33,7 @@
         <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
         
         <!-- button dashboard-->
-        
+{{--         
         <div class="m-2">
             <a class="btn w-100 text-end text-white" href="/dashboard">
                 <!-- button icon -->
@@ -43,13 +44,13 @@
                 </span>
                 Dashboard
             </a>
-        </div>
+        </div> --}}
 
             <!-- Nav Links -->
         <div class="nav-links overflow-y-auto ">
             <ul class="py-3 list-unstyled">
 
-                <li class="mx-3 fw-bold text-white fs-6">Menu</li>
+                {{-- <li class="mx-3 fw-bold text-white fs-6">Menu</li> --}}
 
                 <!-- button -->
                 <li class="m-2">
@@ -203,7 +204,7 @@
 
         {{-- page panel --}}
         {{-- This panel will be use through all the pages --}}
-        <div class="page-panel h-9 px-5 py-3">
+        <div class="page-panel px-5 py-3">
             <h1 class="fs-4 text-white fw-bold">{{ $page_title }}</h1>
         </div>
 
