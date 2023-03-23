@@ -51,7 +51,7 @@
 
         .editable{
             border: 1px solid;
-            border-color: #28A644;
+            border-color: #53A3D8;
             outline: #28A644;
         }
 
@@ -68,7 +68,7 @@
         
 
         {{-- Owner Info & Selected Establishment --}}
-        <div class="w-75 mx-auto ">
+        <div class="w-85 mx-auto ">
             <div class="pt-5 d-flex justify-content-between owner-info ">
                 <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name.", ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
                 <button type="button" class="btn btn-show px-4 py-2" id="button" style="width:auto !important" onclick="openModal('modalOwner')"><span class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
@@ -80,17 +80,17 @@
             </div>
         </div>
 
-        <hr class="w-75 mx-auto border-3">
+        <hr class="w-85 mx-auto border-3">
         {{-- Establishment Info --}}
         
         {{-- Details Action --}}
-        <div class="d-flex justify-content-between gap-2 mx-auto mt-5 w-75">
+        <div class="d-flex justify-content-between gap-2 mx-auto mt-5 w-85">
             <a href="/establishments/fsec/{{$establishment->id}}" class="btn btn-show fs-6">Fire Safety Evaluation Certificate(FSEC)</a>
             <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-show fs-6">Fire Safety Inspection Certificate(FSIC)</a>
             <a href="/establishments/firedrill/{{$establishment->id}}" class="btn btn-show fs-6">Fire Drill</a>
         </div>
 
-        <form class="w-75 mx-auto mt-3 py-3 px-5" style="background-color: #EFEFEF;" action="/establishments/create" method="POST" id="updateForm">
+        <form class="w-85 mx-auto mt-3 py-3 px-5 position-relative" style="background-color: #EFEFEF;" action="/establishments/{{$establishment->id}}" method="POST" id="updateForm">
 
             {{-- <div class="d-flex justify-content-end gap-1">
                 <span class="text-decoration-none p-2 py-1 rounded-1 text-white" id="btnEdit">
@@ -100,16 +100,18 @@
                 <span class="text-decoration-none p-2 py-1 rounded-1 text-white" id="btnSave">Done</span>
                 <input type="hidden" value="false" id="isEditable">
             </div> --}}
-
-            <div class="d-flex justify-content-end gap-1">
+            @if (session('mssg'))
+                <h5 class="text-success w-90 position-absolute w-25">{{session('mssg')}}</h5>
+            @endif
+            <div class="d-flex justify-content-end gap-3">
                 <button class="btn" type="button" id="btnEdit">
                     <span class="material-symbols-outlined align-middle fs-6">
                     edit
                     </span>
                     Edit Details
                 </button>
-                <button class="btn btn-secondary d-none" type="button" data-btn-edit id="btnCancel">Cancel</button>
-                <button class="btn btn-success d-none" type="submit" data-btn-edit>Save</button>
+                <button class="btn btn-outline-secondary d-none p-1" type="button" data-btn-edit id="btnCancel">Cancel</button>
+                <button class="btn btn-success d-none px-4" type="submit" data-btn-edit>Save</button>
             </div>
 
             {{-- add @csrf every form --}}
@@ -138,7 +140,7 @@
                 @endphp
                 <div class="my-2">
                     <label class="info-label">Substation</label>
-                    <select class="form-control info" name="substation" id="substation" data-select-edit disabled>
+                    <select class="form-select px-5 info" name="substation" id="substation" data-select-edit disabled>
                         @foreach ($stations as $station)
                             @if($establishment->substation == $station)
                                 <option value="{{$station}}" selected>{{$station}}</option>
@@ -158,7 +160,7 @@
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="form-control info"  name="buildingType" id="buildingType" data-select-edit disabled>
+                    <select class="form-select px-5 info"  name="buildingType" id="buildingType" data-select-edit disabled>
                         @foreach ($building_type as $btype)
                             @if($establishment->building_type == $btype)
                                 <option value="{{$btype}}" selected>{{$btype}}</option>

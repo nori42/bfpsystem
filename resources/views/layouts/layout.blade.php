@@ -24,9 +24,9 @@
     {{-- Left Panel --}}
     <nav class="d-flex flex-column">
             <!--Nav Heading  -->
-        <div class="p-4 d-flex align-items-center justify-content-center">
+        <div class="p-4 d-flex flex-column align-items-center justify-content-center">
             <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
-            <h1 class="text-white fs-5 fw-bold px-3">Bureau of Fire Protection</h1>
+            <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Bureau of Fire Protection</h1>
         </div>
 
         
@@ -107,7 +107,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
+                    <a class="btn w-100 text-end text-white" href="#" disabled>
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
@@ -118,7 +118,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/404">
+                    <a class="btn w-100 text-end text-white" href="#"disabled>
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
                         <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
@@ -131,7 +131,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/404">
+                    <a class="btn w-100 text-end text-white" href="#" disabled>
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
                         <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
@@ -142,7 +142,7 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/fsec">
+                    <a class="btn w-100 text-end text-white" href="#">
                         <!-- button Icon -->
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">

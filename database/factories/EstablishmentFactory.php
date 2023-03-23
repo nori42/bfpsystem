@@ -43,7 +43,7 @@ class EstablishmentFactory extends Factory
             'barangay' => $substations[array_rand($substations)],
             'address' => $substations[array_rand($substations)].', '.'Cebu City',
             'owner_id' => Owner::factory(),
-            'status' => 'Ambot',
+            'status' => 'Pending',
             'createdBy' => 'Admin'
 
         ];

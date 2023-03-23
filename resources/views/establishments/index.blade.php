@@ -4,44 +4,57 @@
 @section('content')
 <div class="page-content">
     {{-- search and add --}}
-    <div class="d-flex align-items-center justify-content-between w-90 mx-auto my-3 mt-5 pr-2">
-        <form action="" class="py-2 px-3 mb-0" style="background-color: #E6E6E6;">
-            <label for="search">Search</label>
-            <input type="text" name="search" id="search">
+    <div class="d-flex align-items-center w-90 mx-auto justify-content-between my-3 mt-5 pr-2 gap-5">
+        
+        <form action="/establishments" method="GET" class="mb-0 d-flex align-content-stretch p-2 gap-2 rounded-2 search-container" style="background-color: #e2e7ed">
+            <input type="text" class="rounded-2 p-2 input-search flex-grow-1 border-0" name="search" id="search" placeholder="Search..">
 
-            {{-- margin --}}
-            <span class="mx-2"></span>
+            <button class="btn my-auto p-2 btn-search rounded-2">
+                <span class="material-symbols-outlined align-middle">
+                search
+                </span>
+            </button>
 
-            <label for="searchFilter">By:</label>
-            <select name="searchFilter" id="searchFilter">
-                <option value="recordNo">Record No.</option>
-                <option value="establishment">Establishment</option>
-                <option value="establishment">Substation</option>
-                <option value="establishment">Barangay</option>
-                <option value="establishment">Last Name</option>
+            <select class="searchFilter" name="searchFilter" id="searchFilter">
+                <option value="establishment_name">Establishment</option>
+                <option value="substation">Substation</option>
+                <option value="barangay">Barangay</option>
+                <option value="name">Name</option>
             </select>
         </form>
-        <a class="btn text-white px-5 py-2 align-middle" href="/establishments/create" style="background-color: #74B976;"><span class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
+
+        
+        <a class="btn btn-success text-white px-5 py-2 align-middle" href="/establishments/create"><span class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
     </div>
 
-<div class="w-90 overflow-auto mx-auto px-2" style="height: 600px;">
+<div class="w-90 overflow-auto mx-auto px-2" style="height: 670px;">
     @if (session('mssg'))
         <h5 class="text-success w-90">{{session('mssg')}}</h5>
     @endif
-    <table class="table h-50" id="table-estab">
-            <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+    
+    @if ($isSearch && count($establishments) != 0)
+        <div class="w-90 py-3 text-success fs-5">{{count($establishments)}} Result</div>
+    @endif
+    
+    <table class="table" id="table-estab">
+            <thead class="sticky-top top">
                 <tr style="background-color: #1c3b64; color: white;">
-                    <th>Record no.</th>
-                    <th>Establishment</th>
-                    <th>Name</th>
-                    <th>Barangay</th>
-                    <th>Substation</th>
-                    <th>Status</th>
-                    <th></th>
+                    <th class="p-3">Record no.</th>
+                    <th class="p-3">Establishment</th>
+                    <th class="p-3">Name</th>
+                    <th class="p-3">Barangay</th>
+                    <th class="p-3">Substation</th>
+                    <th class="p-3">Status</th>
+                    <th class="p-3"></th>
                 </tr>
             </thead>
             <tbody>
                 <!-- output each record -->
+                @if (count($establishments) == 0)
+                    <tr>
+                        <td colspan="100" class="py-5 text-center fs-3 fw-bold">No Result</td>
+                    </tr>
+                @endif
                 @foreach ($establishments as $establishment)
                     @if ($loop->index == 0 && session('newPost'))
                     {{-- green bg for new record --}}
@@ -52,7 +65,16 @@
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td class="px-4"><a href="/establishments/{{$establishment->id}}"class="btn pl-5" style="background-color: #53A3D8;"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a></td>
+                        <td class="px-4">
+                            <div class="m-0 d-flex">
+                                <a href="/establishments/{{$establishment->id}}"class="btn btn-success pl-5"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a>
+                                <button class="btn btn-success">
+                                    <span class="material-symbols-outlined">
+                                        menu
+                                    </span>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     @else
                     <tr class="align-middle">
@@ -62,7 +84,25 @@
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td class="px-4"><a href="/establishments/{{$establishment->id}}" class="btn text-white" style="background-color: #53A3D8;"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a></td>
+                        <td class="px-4">
+                            <div class="m-0 d-flex gap-1">
+                                <a href="/establishments/{{$establishment->id}}"class="btn btn-success pl-5"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a>
+                                <div class="dropdown-estab">
+                                    <button class="btn p-0 fw-bold btn-success h-100" onclick="toggleShow('estMenu{{$establishment->id}}')">
+                                        <span class="material-symbols-outlined fs-2 align-middle">
+                                            menu
+                                        </span>
+                                    </button>
+                                    <div class="dropdown-estab-menu" id="estMenu{{$establishment->id}}" style="display:none !important;">
+                                        <div class="d-inline flex-column">
+                                            <a href="/establishments/fsic/{{$establishment->id}}" class="btn w-100 text-end fw-semibold">Fire Safety Inspection</a>
+                                            <a href="/establishments/fsec/{{$establishment->id}}" class="btn w-100 text-end fw-semibold">Fire Safety Evaluation</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </td>
                     </tr>
                     @endif   
                 @endforeach

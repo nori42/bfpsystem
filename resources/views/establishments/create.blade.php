@@ -52,14 +52,14 @@
             }
 
             .finished-page{
-                background-color: #55af58;
+                background-color: #0F2D55;
                 color: #ffffff;
             }
 
             .current-page{
                 color: #0F2D55;
                 font-weight: bold;
-                border-bottom:4px solid #0F2D55 !important;
+                border:3px solid #0F2D55 !important;
             }
 
             .steps-title span{
@@ -68,7 +68,6 @@
                 text-align: center;
                 vertical-align: middle;
             }
-
             #saveBtn{
                 display: none;
             }
@@ -178,8 +177,8 @@
             
             <div class="my-2">
                 <label class="info-label">Occupancy</label>
-                <select name="occupancy" id="occupancy" required>
-                    <option value="">Select Occupancy</option>
+                <select class="form-select px-5" name="occupancy" id="occupancy" required>
+                    <option value="" disabled selected>Select Occupancy</option>
                     @foreach ($occupancies as $occupancy)
                         <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
                     @endforeach
@@ -188,8 +187,8 @@
 
             <div class="my-2 w-100">
                 <label class="info-label">Sub Type</label>
-                <select name="subType" id="subType" required>
-                    <option value="">Select Sub Type</option>
+                <select class="form-select px-5" name="subType" id="subType" required>
+                    <option value="" disabled selected>Select Occupancy First</option>
                     {{-- @foreach ($occupancies as $occupancy)
                         <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
                     @endforeach --}}
@@ -199,8 +198,8 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">Substation</label>
-                    <select name="substation" id="substation" required>
-                        <option value="">Select Substation</option>
+                    <select class="form-select px-5" name="substation" id="substation" required>
+                        <option value="" disabled selected>Select Substation</option>
                         @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
                         @endforeach
@@ -209,8 +208,8 @@
     
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select name="buildingType" id="buildingType" required>
-                        <option value="">Select Building Type</option>
+                    <select class="form-select px-5" name="buildingType" id="buildingType" required>
+                        <option value="" disabled selected>Select Building Type</option>
                         @foreach ($building_type as $btype)
                             <option value="{{$btype}}">{{$btype}}</option>
                         @endforeach
@@ -267,9 +266,9 @@
         </div>
 
         <div class="form-footer w-75 mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
-            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-secondary">
-            <input type="button" value="Next" id="nextBtn" class="btn btn-success">
-            <input type="submit" value="Save" id="saveBtn" class="btn btn-success">
+            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold">
+            <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5">
+            <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold">
         </div>
     </form>
 </div>

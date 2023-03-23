@@ -13,12 +13,38 @@ use Illuminate\Support\Arr;
 class EstablishmentController extends Controller
 {
     // load index page
-    public function index(){
+    public function index(Request $request){
+        $isSearch = false;
 
-        $establishments = Establishment::all()->sortDesc();
+        if($request->search == null)
+        {
+            $establishments = Establishment::all()->sortDesc();
+        }
+        else if($request->searchFilter != 'name'){
+            $establishments = Establishment::where($request->searchFilter,'LIKE','%'.$request->search.'%')->get()->sortDesc();
+            $isSearch = true;
+        }
+        else
+        {   
+
+            $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '%{$request->search}%'")->get()->sortDesc();
+            
+            $establishments = array();
+
+            foreach ($owners as $owner) {
+                foreach($owner->establishment as $establishment)
+                {
+                    array_push($establishments,$establishment);
+                }
+            }
+
+            $isSearch = true;
+        }
+
 
         return view('establishments.index', [
             'establishments' => $establishments,
+            'isSearch' => $isSearch,
             'page_title' => "Establishments"
         ]);
     }
@@ -162,21 +188,40 @@ class EstablishmentController extends Controller
     
     // update establishment details
     public function update_establishment(Request $request){
-        Establishment::where('id', $request->id)->update([
-            'establishment_name' => $request->establishmentName,    
-            'substation' => $request->substation,
-            'sub_type' => $request->subType,
-            'building_type' => $request->buildingType,
-            'no_of_storey' => $request->no_of_storey,
-            'building_permit_no' => $request->buildingPermitNo,
-            'fire_insurance_co' => $request->fireInsuranceCo,
-            'latest_permit' => $request->latestPermit,
-            'barangay' => $request->barangay,
-            'address' => $request->address,
-            'height' => $request->height
-        ]);
+        $establishment = Establishment::find($request->id);
+        $owner = Owner::find($establishment->owner->id);
+        
+        $establishment->establishment_name = strtoupper($request->establishmentName);
+        $owner->corporate_name = strtoupper($request->corporateName);
+        $establishment->substation = strtoupper($request->substation);
+        $establishment->sub_type = strtoupper($request->subType);
+        $establishment->building_type = strtoupper($request->buildingType);
+        $establishment->no_of_storey = strtoupper($request->no_of_storey );
+        $establishment->building_permit_no = strtoupper($request->buildingPermitNo );
+        $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
+        $establishment->latest_permit = strtoupper($request->latestPermit);
+        $establishment->barangay = strtoupper( $request->barangay);
+        $establishment->address = strtoupper($request->address);
+        $establishment->height = strtoupper($request->height);
 
-        return redirect('/establishments'. "/" . $request->record_no);
+        $owner->save();
+        $establishment->save();
+
+        // Establishment::where('id', $request->id)->update([
+        //     'establishment_name' => $request->establishmentName,    
+        //     'substation' => $request->substation,
+        //     'sub_type' => $request->subType,
+        //     'building_type' => $request->buildingType,
+        //     'no_of_storey' => $request->no_of_storey,
+        //     'building_permit_no' => $request->buildingPermitNo,
+        //     'fire_insurance_co' => $request->fireInsuranceCo,
+        //     'latest_permit' => $request->latestPermit,
+        //     'barangay' => $request->barangay,
+        //     'address' => $request->address,
+        //     'height' => $request->height
+        // ]);
+
+        return redirect('/establishments'. "/" . $request->id)->with(["mssg" => "Record Updated"]);
     }
 
     //Add New Establishment for Existing Owner

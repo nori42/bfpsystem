@@ -1,6 +1,7 @@
 :root{
     --primary-color:#672424;
-    --secondary:#363636;
+    --secondary-color:#1C3B64;
+    --success:#53A3D8;
     --btn-link-hover:#C94747;
 }
 
@@ -29,7 +30,7 @@ input, button, select{
 /* style */
 nav {
     background-color: var(--primary-color);
-    min-width: 16%;
+    min-width: 17%;
 }
 
 .page-container, .page-content{
@@ -90,7 +91,7 @@ nav .btn:hover {
 }
 
 .top-panel {
-    background-color: var(--secondary);
+    background-color: #363636;
 }
 
 .dropdown-profile {
@@ -100,10 +101,25 @@ nav .btn:hover {
 .dropdown-profile-menu {
     position: absolute;
     left: 0;
-    background-color: var(--secondary);
-    display: none;
+    background-color: #363636;
     z-index: 9999;
 }
+
+.dropdown-estab {
+    position: relative;
+}
+
+.dropdown-estab-menu {
+    position: absolute;
+    width: 200px;
+    left: -168px;
+    background-color: #ebebeb;
+    z-index: 9999;
+    border-radius: 8px;
+    color: var(--success);
+    box-shadow: 1px 1px 6px #b5b5b5;
+}
+
 
 .dropdown-profile-menu .btn:hover {
     background-color: gray !important;
@@ -152,10 +168,37 @@ nav .btn {
 
 .btn-back{
     position: relative;
-    color: #000000;
+    color: var(--secondary-color);
     text-decoration: none;
     margin-left: 50px;
     font-size: 35px !important;
+    border-radius: 8px;
+    padding: .225rem .725rem;
+}
+
+.btn-back:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-search {
+    background-color: #1C3B64 !important;
+    color: white !important;
+}
+
+.btn-search:hover {
+    background-color: #285693 !important;
+}
+
+.search-container {
+    width: 34%;
+}
+
+.searchFilter {
+    border: none;
+    border-radius: 8px;
+    padding:.5rem;
+    background-color: #ffffff;
 }
 
 #table-estab tr:nth-child(even) {

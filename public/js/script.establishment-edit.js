@@ -3,6 +3,18 @@ const editBtn = document.getElementById("btnEdit")
 const cancelBtn = document.getElementById("btnCancel")
 const selects = document.querySelectorAll('[data-select-edit]')
 const inputs = document.querySelectorAll('[data-input-edit]')
+const inputsValues = [];
+const selectValues = [];
+
+inputs.forEach(input => {
+    inputsValues.push(input.value)
+});
+    
+selects.forEach((select) => {
+    selectValues.push(select.value)
+});
+
+console.log(selectValues)
 
 editBtn.addEventListener("click",() =>{
     editButtons = document.querySelectorAll('[data-btn-edit]')
@@ -40,6 +52,14 @@ cancelBtn.addEventListener("click",()=>{
     selects.forEach(select => {
         select.disabled = true
         select.classList.remove('editable')
+    });
+
+    inputs.forEach((input,index) => {
+        input.value = inputsValues[index];
+    });
+
+    selects.forEach((select,index) => {
+        select.value = selectValues[index];
     });
 })
 
