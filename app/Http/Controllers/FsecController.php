@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Establishment;
 use App\Models\Evaluation;
+use App\Models\File;
+use App\Models\Owner;
 use Illuminate\Support\Facades\DB;
 
 class FsecController extends Controller
@@ -39,6 +41,25 @@ class FsecController extends Controller
         $evaluation->save();
 
         return redirect('/establishments/fsec/print/'.$evaluation->id);
+    }
+
+    //Attachment
+    public function show_attachment(Request $request)
+    {
+        $establishment = Establishment::where('id', $request->id)->first();
+        $owner = Owner::where('id', $request->id)->first();
+        $establishment_id = $request->id;
+        $attachFor = $request->attachFor;
+        $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {
+            $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
+        })->get();
+
+        return view('establishments.fsec.show_attachment_fsec',[
+            'establishment' => $establishment,
+            'owner' => $owner,
+            'files' =>  $files,
+            'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
+        ]);
     }
 
     public function print_fsec(Request $request){

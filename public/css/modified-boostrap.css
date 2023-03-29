@@ -1,7 +1,8 @@
 :root{
     --primary-color:#672424;
     --secondary-color:#1C3B64;
-    --success:#53A3D8;
+    --success:#1C3B64;
+    /* --success:#53A3D8; */
     --success-subtle:#4d94c4;
     --btn-link-hover:#C94747;
 }
@@ -29,4 +30,11 @@
 .btn-outline-success:hover {
     background-color: var(--success)!important;
     color: white !important;
+}
+
+
+
+.btn-active{
+    color: white !important;
+    background-color: var(--success) !important;
 }

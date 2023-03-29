@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/modified-boostrap.css">
     <link rel="stylesheet" href="/css/modal.css">
-
+    <link rel="stylesheet" href="/css/modified-boostrap.css">
     {{-- styles - google fonts --}}
     <link rel="stylesheet" href="/css/googlefonts.css">
     {{-- <script src="/js/tailwind.js"></script> --}}
@@ -26,7 +25,7 @@
             <!--Nav Heading  -->
         <div class="p-4 d-flex flex-column align-items-center justify-content-center">
             <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
-            <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Bureau of Fire Protection</h1>
+            <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Bureau of Fire Protection Management System</h1>
         </div>
 
         
@@ -117,7 +116,7 @@
                 </li>
 
                 <!-- button -->
-                <li class="m-2">
+                {{-- <li class="m-2">
                     <a class="btn w-100 text-end text-white" href="#"disabled>
                         <!-- button Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
@@ -127,19 +126,8 @@
                         </svg>
                         Fire Incidents Statistics
                     </a>
-                </li>
-
-                <!-- button -->
-                <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="#" disabled>
-                        <!-- button Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
-                        <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                        Log Activities
-                    </a>
-                </li>
-
+                </li> --}}
+                
                 <!-- button -->
                 <li class="m-2">
                     <a class="btn w-100 text-end text-white" href="#">
@@ -150,9 +138,22 @@
                             <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                             </svg>
                         </span>
-                        Records
+                        Activity Log
                     </a>
                 </li>
+
+                <!-- button -->
+                <li class="m-2">
+                    <a class="btn w-100 text-end text-white" href="/archived" disabled>
+                        <!-- button Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
+                        <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        Archive
+                    </a>
+                </li>
+
+
 
             </ul>
         </div>
@@ -162,11 +163,11 @@
     <div class="page-container d-flex flex-column">
         
         <!-- PANEL  -->
-        <div class="top-panel d-flex justify-content-between p-2" style="">
-            <div class="fs-4 text-white fw-bold" style="margin-left:1.25rem;">Bureau of Fire Protection  Management System</div>
+        <div class="top-panel d-flex justify-content-end p-2" style="">
+            
         
             <!-- profile button -->
-            <div class="dropdown-profile py-0" data-dropdown-nb style="margin-right: 10% !important;">
+            <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
                 <button class="btn btn-profile rounded-0" onclick="toggleShow('dropdownMenu')">
                     <span>
                     <!-- icon -->
@@ -183,13 +184,13 @@
                 </button>
         
                 <!-- dropdown menu -->
-                <div  id="dropdownMenu" class="dropdown-profile-menu py-2 px-3 border-1" style="display:none !important;" data-dropdown-menu>
+                <div  id="dropdownMenu" class="dropdown-profile-menu py-2 px-3 border-1" style="display:none !important;">
                     <div class="d-flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-profile-icon" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                         </svg>
-                        <span class="mx-3 fw-semibold text-white">Admin</span>
+                        <span class="mx-3 fw-semibold text-white">User1</span>
                     </div>
         
                     <hr>

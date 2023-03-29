@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Inspection;
 use App\Models\Payment;
 use App\Models\Establishment;
+use App\Models\File;
 use App\Models\Owner;
 use Carbon\Carbon;
 
@@ -20,6 +22,7 @@ class FsicController extends Controller
 
         $establishment = Establishment::where('id', $request->id)->first();
         $inspections = Inspection::where('establishment_id', $request->id)->get();
+        $owner = Owner::find($request->id);
 
         //load json files
         $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/natureOfPayment.json"), true);
@@ -28,6 +31,7 @@ class FsicController extends Controller
             'establishment' => $establishment,
             'inspections' => $inspections,
             'natureOfPayment' => $natureOfPayment,
+            'owner' => $owner,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }
@@ -38,11 +42,11 @@ class FsicController extends Controller
         $inspection = new Inspection();
 
 
-        $inspectionCount = Inspection::where('establishment_id', $request->id)->get()->count() + 1;
+        // $inspectionCount = Inspection::where('establishment_id', $request->id)->get()->count() + 1;
 
         //get Data
         $inspection->establishment_id = $request->establishmentId;
-        $inspection->record_no = $inspectionCount;
+        // $inspection->record_no = $inspectionCount;
         $inspection->inspection_date = $request->inspectionDate;
         $inspection->status = $request->inspectionDate;
         $inspection->compliant_status = $request->compliantStatus;
@@ -113,9 +117,16 @@ class FsicController extends Controller
     {
         $establishment = Establishment::where('id', $request->id)->first();
         $owner = Owner::where('id', $request->id)->first();
+        $establishment_id = $request->id;
+        $attachFor = $request->attachFor;
+        $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {
+            $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
+        })->get();
 
-        return view('establishments.fsic.show_attachment',[
+        return view('establishments.fsic.show_attachment_fsic',[
             'establishment' => $establishment,
+            'owner' => $owner,
+            'files' =>  $files,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }

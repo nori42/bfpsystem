@@ -26,6 +26,9 @@
                 border-radius: .5em;
                 font-size: .9rem
             }
+            #establishmentDetails, #backBtn, #saveBtn, #validateMssg1{
+                display: none;
+            }
 
             .info {
                 border: 1px solid gray;
@@ -37,18 +40,6 @@
             .info-label {
                 font-weight: 700;
                 font-size: .875rem
-            }
-            
-            #ownerDetails{
-                display: block;
-            }
-
-            #establismentDetails{
-                display: none;
-            }
-
-            #attachmentsDetails{
-                display: none;
             }
 
             .finished-page{
@@ -68,9 +59,6 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            #saveBtn{
-                display: none;
-            }
 
         </style>
         <a href="/establishments" class="material-symbols-outlined btn-back">
@@ -78,16 +66,17 @@
         </a>
         {{-- Details Action --}}
         <div class="d-flex justify-content-center w-75 mx-auto steps-title" id="steps-title">
-            <span class="py-2 current-page">Owner</span>
-            <span class="py-2">Establishment</span>
-            <span class="py-2">Attachments</span>
+            <span id="ownerTitle" class="py-2 current-page">Owner</span>
+            <span id="establishmentTitle" class="py-2">Establishment</span>
+            {{-- <span class="py-2">Attachments</span> --}}
         </div>
 
 
         {{-- Owner Info --}}
-        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails">
+        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails" data-step="owner">
             <div class="header">
                 <h2>Owner Information</h2>
+                <h4 id="validateMssg1" class="text-danger">Fill in the empty field</h4>
             </div>
             <hr>
 
@@ -96,8 +85,13 @@
                 <input type="text" id="ownerId" name="ownerId" hidden value="">
 
                 <div class="my-2">
+                    <label class="info-label">Corporate Name</label>
+                    <input type="text" id="corporateName" name="corporateName" value="" class="input" data-owner-input required>
+                </div>
+
+                <div class="my-2">
                     <label class="info-label">First Name</label>
-                    <input type="text" list="listNames" id="firstName" name="firstName" class="input" value="" required autocomplete="off">
+                    <input type="text" list="listNames" id="firstName" name="firstName" class="input" value="" data-owner-input required autocomplete="off">
                 </div>
 
                 <datalist id="listNames">
@@ -108,47 +102,42 @@
 
                 <div class="my-2">
                     <label class="info-label">Middle Name</label>
-                    <input type="text" id="middleName" name="middleName" class="input" value="" required>
+                    <input type="text" id="middleName" name="middleName" class="input" value="" data-owner-input required>
                 </div>
                 
                 <div class="my-2">
                     <label class="info-label">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" class="input" value="" required>
+                    <input type="text" id="lastName" name="lastName" class="input" value="" data-owner-input required>
                 </div>
 
                 <div class="my-2">
                     <label class="info-label">Contact No.</label>
-                    <input type="text" id="contactNo" name="contactNo" value="" class="input" required>
-                </div>
-
-                <div class="my-2">
-                    <label class="info-label">Corporate Name</label>
-                    <input type="text" id="corporateName" name="corporateName" value="" class="input" required>
+                    <input type="text" id="contactNo" name="contactNo" value="" class="input" data-owner-input required>
                 </div>
             @else
+                <div class="my-2">
+                    <label class="info-label">Corporate Name</label>
+                    <input type="text" id="contactNo" name="corporateName" value="{{$owner->corporate_name}}" data-owner-input class="form-control input" disabled>
+                </div>
 
                 <div class="my-2">
                     <label class="info-label">First Name</label>
-                    <input type="text" id="firstName" name="firstName" class="form-control input" value="{{$owner->first_name}}" disabled>
+                    <input type="text" id="firstName" name="firstName" class="form-control input" value="{{$owner->first_name}}" data-owner-input disabled>
                 </div>
                 
                 <div class="my-2">
                     <label class="info-label">Middle Name</label>
-                    <input type="text" id="middleName" name="middleName" class="form-control input" value="{{$owner->middle_name}}" disabled>
+                    <input type="text" id="middleName" name="middleName" class="form-control input" value="{{$owner->middle_name}}" data-owner-input disabled>
                 </div>
 
                 <div class="my-2">
                     <label class="info-label">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" class="form-control input" value="{{$owner->last_name}}" disabled>
+                    <input type="text" id="lastName" name="lastName" class="form-control input" value="{{$owner->last_name}}" data-owner-input disabled>
                 </div>
 
                 <div class="my-2">
                     <label class="info-label">Contact No.</label>
-                    <input type="text" id="contactNo" name="contactNo" value="{{$owner->contact_no}}" class="form-control input" disabled>
-                </div>
-                <div class="my-2">
-                    <label class="info-label">Corporate Name</label>
-                    <input type="text" id="contactNo" name="corporateName" value="{{$owner->corporate_name}}" class="form-control input" disabled>
+                    <input type="text" id="contactNo" name="contactNo" value="{{$owner->contact_no}}" class="form-control input" data-owner-input disabled>
                 </div>
             @endif
             
@@ -165,19 +154,19 @@
         @endphp
 
         {{-- Establishment Info --}}
-        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="establismentDetails">
+        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="establishmentDetails" data-step="establishment">
             <div class="header">
                 <h2>Establishment Information</h2>
             </div>
             <hr>
             <div class="my-2">
                 <label class="info-label">Establishment Name</label>
-                <input type="text" id="establishmentName" name="establishmentName" class="input" required>
+                <input type="text" id="establishmentName" name="establishmentName" class="input" data-establishment-input required>
             </div>
             
             <div class="my-2">
                 <label class="info-label">Occupancy</label>
-                <select class="form-select px-5" name="occupancy" id="occupancy" required>
+                <select class="form-select px-5" name="occupancy" id="occupancy" data-establishment-input required>
                     <option value="" disabled selected>Select Occupancy</option>
                     @foreach ($occupancies as $occupancy)
                         <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
@@ -187,7 +176,7 @@
 
             <div class="my-2 w-100">
                 <label class="info-label">Sub Type</label>
-                <select class="form-select px-5" name="subType" id="subType" required>
+                <select class="form-select px-5" name="subType" id="subType" data-establishment-input required>
                     <option value="" disabled selected>Select Occupancy First</option>
                     {{-- @foreach ($occupancies as $occupancy)
                         <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
@@ -198,7 +187,7 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">Substation</label>
-                    <select class="form-select px-5" name="substation" id="substation" required>
+                    <select class="form-select px-5" name="substation" id="substation" data-establishment-input required>
                         <option value="" disabled selected>Select Substation</option>
                         @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
@@ -208,7 +197,7 @@
     
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
-                    <select class="form-select px-5" name="buildingType" id="buildingType" required>
+                    <select class="form-select px-5" name="buildingType" id="buildingType" data-establishment-input required>
                         <option value="" disabled selected>Select Building Type</option>
                         @foreach ($building_type as $btype)
                             <option value="{{$btype}}">{{$btype}}</option>
@@ -219,43 +208,43 @@
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <input type="text" id="noOfStory" name="noOfStory" class="input" required>
+                    <input type="text" id="noOfStory" name="noOfStory" class="input" data-establishment-input required>
                 </div>
     
                 <div class="my-2 w-100">
                     <label class="info-label">Height</label>
-                    <input type="text" id="height" name="height" class="input" required>
+                    <input type="text" id="height" name="height" class="input" data-establishment-input required>
                 </div>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Building Permit No.</label>
-                <input type="text" id="buildingPermitNo" name="buildingPermitNo" class="input" required>
+                <input type="text" id="buildingPermitNo" name="buildingPermitNo" class="input" data-establishment-input required>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Name of Fire Insurance Co/Co-Insurer</label>
-                <input type="text" id="fireInsuranceCo" name="fireInsuranceCo" class="input" required>
+                <input type="text" id="fireInsuranceCo" name="fireInsuranceCo" class="input" data-establishment-input required>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Latest Mayor's/Business Permit</label>
-                <input type="text" id="latestPermit" name="latestPermit" class="input" required>
+                <input type="text" id="latestPermit" name="latestPermit" class="input" data-establishment-input required>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Barangay</label>
-                <input type="text" id="barangay" name="barangay" class="input" required>
+                <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Address</label>
-                <input type="text" id="address" name="address" class="input" required>
+                <input type="text" id="address" name="address" class="input" data-establishment-input required>
             </div>
         </div>
 
         {{-- Attachments --}}
-        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page"  style="background-color: #EFEFEF;" id="attachmentsDetails">
+        {{-- <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page"  style="background-color: #EFEFEF;" id="attachmentsDetails">
             <div class="header">
                 <h2>Attachments</h2>
             </div>
@@ -264,11 +253,12 @@
             </div>
             <hr>
         </div>
-
+        --}}
         <div class="form-footer w-75 mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
-            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold">
-            <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5">
-            <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold">
+            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold" onclick="cancel()">
+            <input type="button" value="Back" id="backBtn" class="btn btn-outline-success font-bold" onclick="prevStep()">
+            <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5" onclick="nextStep()">
+            <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold px-5">
         </div>
     </form>
 </div>

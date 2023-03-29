@@ -8,7 +8,7 @@
 </head>
 <body>
     <div style="width:50%; margin: auto auto; height: 50%; text-align: center ">
-        <a href="/dashboard" style="background: ">Back Home</a>
+        <a href="/establishments" style="background: ">Back Home</a>
         <h1>404</h1>
         <h3>Page Does Not Exist</h3>
     </div>

@@ -9,16 +9,46 @@
             arrow_back
         </a>
 
-        {{-- FSIC Action --}}
-    <div class="d-flex justify-content-between w-75 mx-auto">
-        <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process</a>
-        <a href="/establishments/fsec/attachment/{{$establishment->id}}"  id="btnAttachments" class="btn btn-action rounded-0 fs-5">Attachments</a>
-    </div>
-    {{-- Owner Info & Selected Establishment --}}
-    <div class="w-75 mx-auto mt-5">
-        <h5 class="fw-bold"> Owner: {{$establishment->owner->last_name.", ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</h5>
+        {{-- Owner Info & Selected Establishment --}}
+    <div class="w-75 mx-auto">
         <div class="fs-5">Record No.: {{$establishment->id}}</div>
-        <div class="w-100 text-black p-2 mt-2 fw-semibold" style="background-color: #D9D9D9;"><span class="fw-bold">Establishment: </span>{{$establishment->establishment_name}}</div>
+
+        <div>
+            <p class="fs-5 mb-0"> Owner: {{$establishment->owner->last_name.", ".$establishment->owner->first_name." ".$establishment->owner->middle_name}}</p>
+            <p class="fw-bold fs-5">Establishment: {{$establishment->establishment_name}}</p>
+        </div>
+        <div class="position-relative">
+            <button type="button" class="btn btn-outline-success" style="width:auto !important" data-dropdown-btn onclick="toggleShow('establishmentDetail',this)"><span class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment Info</button>
+            <div class="dropdown-menus position-absolute p-3" id="establishmentDetail" data-dropdown-menu style="display: none !Important">
+                <ul class="list-unstyled">
+                    <li><span class="fw-bold">Establishment Name: </span>{{$establishment->establishment_name}}</li>
+                    <li><span class="fw-bold">Substation: </span>{{$establishment->substation}}</li>
+                    <li><span class="fw-bold">Occupancy: </span>{{$establishment->occupancy}}</li>
+                    <li><span class="fw-bold">Sub Type: </span>{{$establishment->sub_type}}</li>
+                    <li><span class="fw-bold">Building Type: </span>{{$establishment->building_type}}</li>
+                    <li><span class="fw-bold">No. of storey: </span>{{$establishment->no_of_storey}}</li>
+                    <li><span class="fw-bold">Height: </span>{{$establishment->height}}</li>
+                    <li><span class="fw-bold">Building Permit: </span>{{$establishment->building_permit_no}}</li>
+                    <li><span class="fw-bold">Fire Insurance Co: </span>{{$establishment->fire_insurance_co}}</li>
+                    <li><span class="fw-bold">Latest Permit: </span>{{$establishment->latest_permit}}</li>
+                    <li><span class="fw-bold">Barangay: </span>{{$establishment->barangay}}</li>
+                    <li><span class="fw-bold">Address: </span>{{$establishment->address}}</li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-outline-success" style="width:auto !important" onclick="openModal('modalOwner')"><span class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
+        </div>
+{{--         
+        @if (session('mssg'))
+        <div class="mt-3">
+            <h5 class="text-success w-90 w-25">{{session('mssg')}} {{session('files')}}</h5>
+        </div>
+        @endif --}}
+    </div>
+
+        {{-- FSIC Action --}}
+    <div class="d-flex justify-content-between w-75 mx-auto mt-5">
+        <a href="/establishments/fsec/{{$establishment->id}}"  id="btnPayment" class="btn btn-action rounded-0 fs-5 fsic-active">Process</a>
+        <a href="/establishments/fsec/attachment/{{$establishment->id}}/fsec"  id="btnAttachments" class="btn btn-action rounded-0 fs-5">Attachments</a>
     </div>
 
     {{-- Table --}}
@@ -58,7 +88,7 @@
 
         <!-- The Modal -->
         {{--Inspection--}}
-        <div id="addPaymentModal" class="modal" data-modal="modal">
+        <div id="addPaymentModal" class="modal" data-modal>
             <!-- Modal content -->
             <div class="modal-content" style="font-size: 0.9rem">
                 <form action="/establishments/fsec/{{$establishment->id}}" method="POST" id="saveEvaluation">

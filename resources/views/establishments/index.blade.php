@@ -6,8 +6,31 @@
     {{-- search and add --}}
     <div class="d-flex align-items-center w-90 mx-auto justify-content-between my-3 mt-5 pr-2 gap-5">
         
-        <form action="/establishments" method="GET" class="mb-0 d-flex align-content-stretch p-2 gap-2 rounded-2 search-container" style="background-color: #e2e7ed">
-            <input type="text" class="rounded-2 p-2 input-search flex-grow-1 border-0" name="search" id="search" placeholder="Search..">
+        <form action="/establishments" method="GET" class="mb-0 d-flex align-content-stretch p-2 gap-2 rounded-2 search-container" style="background-color: #e2e7ed; width: 38%;">
+            <input type="text" list="estabList" class="rounded-2 p-2 input-search flex-grow-1 border-0" name="search" id="search" placeholder="Search.." autocomplete="off">
+            <datalist id="estabList">
+                @foreach ($searchList['estabName'] as $establishment)
+                    <option value="{{$establishment}}"></option>
+                @endforeach
+            </datalist>
+
+            <datalist id="nameList">
+                @foreach ($searchList['names'] as $name )
+                    <option value="{{$name}}"></option>
+                @endforeach
+            </datalist>
+
+            <datalist id="barangayList">
+                @foreach ($searchList['barangays'] as $barangay )
+                    <option value="{{$barangay}}"></option>
+                @endforeach
+            </datalist>
+
+            <datalist id="substationList">
+                @foreach ($searchList['substations'] as $substation )
+                    <option value="{{$substation}}"></option>
+                @endforeach
+            </datalist>
 
             <button class="btn my-auto p-2 btn-search rounded-2">
                 <span class="material-symbols-outlined align-middle">
@@ -15,7 +38,7 @@
                 </span>
             </button>
 
-            <select class="searchFilter" name="searchFilter" id="searchFilter">
+            <select class="searchFilter px-4" name="searchFilter" id="searchFilter">
                 <option value="establishment_name">Establishment</option>
                 <option value="substation">Substation</option>
                 <option value="barangay">Barangay</option>
@@ -45,7 +68,7 @@
                     <th class="p-3">Barangay</th>
                     <th class="p-3">Substation</th>
                     <th class="p-3">Status</th>
-                    <th class="p-3"></th>
+                    <th class="p-3">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,28 +78,8 @@
                         <td colspan="100" class="py-5 text-center fs-3 fw-bold">No Result</td>
                     </tr>
                 @endif
+                
                 @foreach ($establishments as $establishment)
-                    @if ($loop->index == 0 && session('newPost'))
-                    {{-- green bg for new record --}}
-                    <tr class="bg-success text-white align-middle">
-                        <td> {{ $establishment->id }} </td>
-                        <td> {{ $establishment->establishment_name }} </td>
-                        <td> {{$establishment->owner->first_name}} {{$establishment->owner->last_name}}</td>
-                        <td> {{ $establishment->barangay }} </td>
-                        <td> {{ $establishment->substation }} </td>
-                        <td> {{ $establishment->status }} </td>
-                        <td class="px-4">
-                            <div class="m-0 d-flex">
-                                <a href="/establishments/{{$establishment->id}}"class="btn btn-success pl-5"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a>
-                                <button class="btn btn-success">
-                                    <span class="material-symbols-outlined">
-                                        menu
-                                    </span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @else
                     <tr class="align-middle">
                         <td> {{ $establishment->id}} </td>
                         <td> {{ $establishment->establishment_name }} </td>
@@ -84,7 +87,7 @@
                         <td> {{ $establishment->barangay }} </td>
                         <td> {{ $establishment->substation }} </td>
                         <td> {{ $establishment->status }} </td>
-                        <td class="px-4">
+                        <td class="px-4 position-relative">
                             <div class="m-0 d-flex gap-1">
                                 <a href="/establishments/{{$establishment->id}}"class="btn btn-success pl-5"><span class="material-symbols-outlined align-middle">wysiwyg</span>Details</a>
                                 <div class="dropdown-estab">
@@ -93,22 +96,45 @@
                                             menu
                                         </span>
                                     </button>
-                                    <div class="dropdown-estab-menu" id="estMenu{{$establishment->id}}" style="display:none !important;">
+                                    <div class="dropdown-menus p-2" data-dropdown-menu id="estMenu{{$establishment->id}}" style="display:none !important; left: -38.5px; width: 200px;">
                                         <div class="d-inline flex-column">
-                                            <a href="/establishments/fsic/{{$establishment->id}}" class="btn w-100 text-end fw-semibold">Fire Safety Inspection</a>
-                                            <a href="/establishments/fsec/{{$establishment->id}}" class="btn w-100 text-end fw-semibold">Fire Safety Evaluation</a>
+                                            <a href="/establishments/fsic/{{$establishment->id}}" class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire Safety Inspection</a>
+                                            <a href="/establishments/fsec/{{$establishment->id}}" class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire Safety Evaluation</a>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </td>
-                    </tr>
-                    @endif   
+                    </tr>  
                 @endforeach
                 
             </tbody>
         </table>
     </div>
+
 </div>
+
+<script defer>
+    
+    document.getElementById('searchFilter').addEventListener('change', ()=>{
+        switch(document.getElementById('searchFilter').value)
+        {
+            case 'establishment_name':
+                document.getElementById('search').setAttribute('list',"estabList")
+            break;
+            case 'substation':
+                document.getElementById('search').setAttribute('list',"substationList")
+            break;
+            case 'barangay':
+                document.getElementById('search').setAttribute('list',"barangayList")
+            break;
+            case 'name':
+                document.getElementById('search').setAttribute('list',"nameList")
+            break;
+            default:
+            break;
+        }
+    
+    })
+</script>
 @endsection

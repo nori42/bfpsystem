@@ -13,11 +13,13 @@ use Illuminate\Support\Arr;
 class EstablishmentController extends Controller
 {
     // load index page
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $isSearch = false;
 
         if($request->search == null)
         {
+            // $establishments = Establishment::all()->sortDesc();
             $establishments = Establishment::all()->sortDesc();
         }
         else if($request->searchFilter != 'name'){
@@ -29,7 +31,7 @@ class EstablishmentController extends Controller
 
             $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '%{$request->search}%'")->get()->sortDesc();
             
-            $establishments = array();
+            $establishments = [];
 
             foreach ($owners as $owner) {
                 foreach($owner->establishment as $establishment)
@@ -41,10 +43,30 @@ class EstablishmentController extends Controller
             $isSearch = true;
         }
 
+        // Used for autocomplete
+        $barangays= [];
+        $estabName= [];
+        $substations= [];
+        $names= [];
+
+        foreach (Owner::all() as $owner) {
+            array_push($names,$owner->first_name." ".$owner->last_name);
+            
+            foreach($owner->establishment as $establishment)
+            {
+                array_push($estabName,$establishment->establishment_name);
+                array_push($substations,$establishment->substation);
+                array_push($barangays,$establishment->barangay);
+            }
+        }
+
+        $barangaysUnq = array_unique($barangays);
+        $substationsUnq = array_unique($substations);
 
         return view('establishments.index', [
             'establishments' => $establishments,
             'isSearch' => $isSearch,
+            'searchList' => ['estabName' => $estabName, 'names' => $names, 'substations' => $substationsUnq, 'barangays' => $barangaysUnq],
             'page_title' => "Establishments"
         ]);
     }
@@ -162,7 +184,7 @@ class EstablishmentController extends Controller
         $establishment->save();
         
 
-        return redirect('/establishments')->with(['newPost'=> true,'mssg'=>'New Record Added']);
+        return redirect('/establishments'.'/'.$establishment->id)->with(['newPost'=> true,'mssg'=>'New Record Added']);
     }
 
     //get single record
@@ -187,7 +209,7 @@ class EstablishmentController extends Controller
     }
     
     // update establishment details
-    public function update_establishment(Request $request){
+    public function update(Request $request){
         $establishment = Establishment::find($request->id);
         $owner = Owner::find($establishment->owner->id);
         
@@ -222,6 +244,16 @@ class EstablishmentController extends Controller
         // ]);
 
         return redirect('/establishments'. "/" . $request->id)->with(["mssg" => "Record Updated"]);
+    }
+
+    public function destroy(Request $request){
+        $establishment = Establishment::find($request->id);
+
+        $establishment->delete();
+
+        error_log($establishment->id." Is Archived");
+
+        return redirect('/establishments')->with(["mssg" => "Record No.".$establishment->id." is moved to archived"]);
     }
 
     //Add New Establishment for Existing Owner

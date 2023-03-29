@@ -29,6 +29,7 @@ return new class extends Migration
             $table->foreignIdFor(Owner::class);
             $table->string('status');
             $table->string('createdBy');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

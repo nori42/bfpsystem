@@ -13,9 +13,6 @@ inputs.forEach(input => {
 selects.forEach((select) => {
     selectValues.push(select.value)
 });
-
-console.log(selectValues)
-
 editBtn.addEventListener("click",() =>{
     editButtons = document.querySelectorAll('[data-btn-edit]')
     editBtn.style.display = "none"

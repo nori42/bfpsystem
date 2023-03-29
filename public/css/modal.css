@@ -26,6 +26,11 @@
     margin-right: 5%;
   }
 
+  .modal-content-dialog {
+    margin-top: 8%; /* Location of the box */
+    margin-right: 18%;
+  }
+
   .leftModal, .rightModal{
     padding: 10px;
     margin: 0 20px;

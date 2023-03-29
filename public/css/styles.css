@@ -94,10 +94,6 @@ nav .btn:hover {
     background-color: #363636;
 }
 
-.dropdown-profile {
-    position: relative;
-}
-
 .dropdown-profile-menu {
     position: absolute;
     left: 0;
@@ -105,21 +101,19 @@ nav .btn:hover {
     z-index: 9999;
 }
 
-.dropdown-estab {
-    position: relative;
-}
-
-.dropdown-estab-menu {
+.dropdown-menus {
     position: absolute;
-    width: 200px;
-    left: -168px;
-    background-color: #ebebeb;
+    background-color: #e5e5e5;
     z-index: 9999;
     border-radius: 8px;
     color: var(--success);
     box-shadow: 1px 1px 6px #b5b5b5;
 }
 
+.dropdown-menus a:hover{
+    background-color: var(--success) !important;
+    color: var(--white);
+}
 
 .dropdown-profile-menu .btn:hover {
     background-color: gray !important;
@@ -205,6 +199,12 @@ nav .btn {
     background-color: #EDEDED;
 }
 
+.fileuploadicon{
+    color: #171717;
+    background-color: #e8e8e8;
+}
+
+
 /* Utilities */
 
 .w-85{
@@ -233,4 +233,45 @@ nav .btn {
 
 .btn-primary {
     background-color: #0F2D55 !important;
+}
+
+
+/* Loadiing Animation */
+
+/* 
+Use this for loading
+<div><div class="fw-bold fs-5" id="loading-message">Uploading...</div><div id="loading-bar-spinner" class="spinner"><div class="spinner-icon"></div></div></div>
+*/
+#loading-bar-spinner.spinner {
+    left: 50%;
+    margin-left: -60px;
+    margin-top: -35px;
+    top: 50%;
+    position: absolute;
+    z-index: 19 !important;
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+
+#loading-message {
+    left: 50%;
+    margin-left: -65px;
+    margin-top: 70px;
+    color:#404040 !important;
+    top: 50%;
+    z-index: 19 !important;
+    position: absolute;
+}
+
+#loading-bar-spinner.spinner .spinner-icon {
+    width: 80px;
+    height: 80px;
+    border:  solid 4px transparent;
+    border-top-color:  gray !important;
+    border-left-color: gray !important;
+    border-radius: 50%;
+}
+
+@keyframes loading-bar-spinner {
+  0%   { transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
