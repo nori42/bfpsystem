@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('nature_of_payment');
             $table->string('amount_paid', 15, 8);
             $table->string('certification');
-            $table->string('status')->nullable();;
+            $table->string('status')->nullable();
             $table->string('printed_by');
             $table->string('issued_for');
-            $table->string('building_condition')->nullable();;
-            $table->string('building_structures')->nullable();;
-            $table->dateTime('expiry_date');
+            $table->string('building_condition')->nullable();
+            $table->string('building_structures')->nullable();
+            $table->dateTime('expiry_date')->nullable();
             $table->dateTime('date_of_payment');
             $table->timestamps();
         });

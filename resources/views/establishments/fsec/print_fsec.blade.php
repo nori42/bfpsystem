@@ -34,9 +34,9 @@
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
                 <div>REGIONAL OFFICE - VII</div>
-                <div>Cebu City Fire Office</div>
+                <div>Cebu City Fire Station</div>
                 <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
-                <div>Tel. Nos. (032) - 256-0544 / 2623110</div>
+                <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
                 <div>Email Address: cebucityfsn@yahoo.com</div>
         </div>
 
@@ -62,8 +62,8 @@
             <div id="date">{{date('m/d/Y', strtotime($evaluation->date_of_payment))}}</div>
         </div>
 
-        <div data-draggable="true" data-editable="true" id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
-        <div data-draggable="true" data-editable="true" id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
+        <div data-draggable="true" id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
+        <div data-draggable="true" id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
     </div>
 
     

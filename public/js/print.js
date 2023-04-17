@@ -43,7 +43,7 @@ function handleEdit(btn){
 
     editables = document.querySelectorAll('[data-editable="true"]')
 
-    if(btn.innerText == 'Edit')
+    if(btn.innerText == 'Add Note')
     {
         editables.forEach(ele => {
             makeElementEditable(ele);
@@ -71,7 +71,7 @@ function handleEdit(btn){
         document.getElementById("btnMove").disabled = false; 
         document.getElementById("btnMove").classList.remove('disable'); 
 
-        btn.innerText = 'Edit'
+        btn.innerText = 'Add Note'
         btn.style.backgroundColor = ""
         btn.style.color = ""
     }

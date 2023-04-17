@@ -23,10 +23,10 @@ class EstablishmentFactory extends Factory
     public function definition(): array
     {
         $substations = array('CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN');
-        $building_type = array('Small', 'Medium', 'Large', 'High Rise');
+        $building_type = array('SMALL', 'MEDIUM', 'LARGE', 'HIGH RISE');
         $occupancy = array('RESIDENTIAL','ASSEMBLY','EDUCATIONAL','MERCANTILE','DETENTION AND CORRECTIONAL','INDUSTRIAL', 'BUSINESS', 'STORAGE', 'OTHERS');
 
-        $companyName = fake()->company();
+        $companyName = strtoupper(fake()->company());
         
         return [
             'establishment_name' => $companyName,
@@ -38,13 +38,12 @@ class EstablishmentFactory extends Factory
             'no_of_storey' => random_int(1,5),
             'height' => random_int(1,15),
             'building_permit_no' => random_int(1000,9999),
-            'fire_insurance_co' => fake()->company(),
+            'fire_insurance_co' => strtoupper(fake()->company()),
             'latest_permit' => random_int(1000,9999),
             'barangay' => $substations[array_rand($substations)],
             'address' => $substations[array_rand($substations)].', '.'Cebu City',
             'owner_id' => Owner::factory(),
-            'status' => 'Pending',
-            'createdBy' => 'Admin'
+            'createdBy' => 'ADMIN'
 
         ];
     }

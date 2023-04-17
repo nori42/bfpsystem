@@ -11,7 +11,7 @@
 <body>
     <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
-        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Edit</button>
+        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
     </div>
 
@@ -36,9 +36,9 @@
 
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
-                <div>Cebu City Fire Office</div>
+                <div>Cebu City Fire Station</div>
                 <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
-                <div>Tel. Nos. (032) - 256-0544 / 2623110</div>
+                <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
                 <div>Email Address: cebucityfsn@yahoo.com</div>
         </div>
 
@@ -111,8 +111,8 @@
             <div id="date">{{$details->date_of_payment}}</div>
         </div>
 
-        <div data-draggable="true" data-editable="true" id="chiefName" class="chiefName bold">SP04 Philip K Layug, BFP</div>
-        <div data-draggable="true" data-editable="true" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC, BFP</div>
+        <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SP04 Philip K Layug, BFP</div>
+        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC, BFP</div>
     </div>
 
     

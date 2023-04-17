@@ -16,11 +16,12 @@ class EstablishmentController extends Controller
     public function index(Request $request)
     {
         $isSearch = false;
+        $totalRecords = Establishment::count();
 
         if($request->search == null)
         {
             // $establishments = Establishment::all()->sortDesc();
-            $establishments = Establishment::all()->sortDesc();
+            $establishments = Establishment::all()->take(25)->sortDesc();
         }
         else if($request->searchFilter != 'name'){
             $establishments = Establishment::where($request->searchFilter,'LIKE','%'.$request->search.'%')->get()->sortDesc();
@@ -29,7 +30,7 @@ class EstablishmentController extends Controller
         else
         {   
 
-            $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '%{$request->search}%'")->get()->sortDesc();
+            $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '{$request->search}%'")->get()->sortDesc();
             
             $establishments = [];
 
@@ -49,16 +50,16 @@ class EstablishmentController extends Controller
         $substations= [];
         $names= [];
 
-        foreach (Owner::all() as $owner) {
-            array_push($names,$owner->first_name." ".$owner->last_name);
+        // foreach (Owner::all() as $owner) {
+        //     array_push($names,$owner->first_name." ".$owner->last_name);
             
-            foreach($owner->establishment as $establishment)
-            {
-                array_push($estabName,$establishment->establishment_name);
-                array_push($substations,$establishment->substation);
-                array_push($barangays,$establishment->barangay);
-            }
-        }
+        //     foreach($owner->establishment as $establishment)
+        //     {
+        //         array_push($estabName,$establishment->establishment_name);
+        //         array_push($substations,$establishment->substation);
+        //         array_push($barangays,$establishment->barangay);
+        //     }
+        // }
 
         $barangaysUnq = array_unique($barangays);
         $substationsUnq = array_unique($substations);
@@ -67,16 +68,13 @@ class EstablishmentController extends Controller
             'establishments' => $establishments,
             'isSearch' => $isSearch,
             'searchList' => ['estabName' => $estabName, 'names' => $names, 'substations' => $substationsUnq, 'barangays' => $barangaysUnq],
+            'totalRecords' => $totalRecords,
             'page_title' => "Establishments"
         ]);
     }
 
 
     public function create(){
-
-        //load json files
-        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
-        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
         $owner = null;
         
         $allOwners = Owner::all();
@@ -93,31 +91,17 @@ class EstablishmentController extends Controller
 
         return view('establishments.create',[
             'page_title' => "Add Establishment",
-            'occupancies' => $occupancies,
-            'subtype' => $sub_type,
-            'owner' => $owner,
-            'nameList' => $nameList,
-            'allOwnersJson' => $allOwnersJson
+            'owner' => $owner
         ]);
     }
 
     public function create_from_owner(Request $request){
 
         $owner = Owner::where('id', $request->id)->first();
-        $allOwners = Owner::all();
-
-        //load json files
-        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
-        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
-
-        $allOwnersJson = json_encode($allOwners);
 
         return view('establishments.create',[
             'page_title' => "Add Establishment",
-            'occupancies' => $occupancies,
-            'subtype' => $sub_type,
             'owner' => $owner,
-            'allOwnersJson' => $allOwnersJson
         ]);
     }
 

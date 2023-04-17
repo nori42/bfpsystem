@@ -15,21 +15,24 @@ const establishmentStep = document.querySelector('[data-step="establishment"]');
 const ownerInputs = document.querySelectorAll('[data-owner-input]')
 const establishmentInputs = document.querySelectorAll('[data-establishment-input]')
 
+
 let currentIndex = 1;
 
 turnOffAutocompeteInput();
 
 function nextStep(){
-    if(AllInputsFilled(ownerInputs))
+    if(validateInputs(ownerInputs))
     {   
         currentIndex++;
         viewForm();
+        
     }
     validateMssg1.style.display = 'block'
 }
 
 function prevStep(){
     currentIndex--;
+    validateMssg1.style.display = 'none'
     viewForm();
 }
 
@@ -159,14 +162,18 @@ function viewForm(){
 
 function turnOffAutocompeteInput()
 {
-    document.querySelectorAll('input').forEach((input) => {
+    document.querySelectorAll("input").forEach((input) => {
         input.setAttribute("autocomplete", "off")
     })
 }
 
-function AllInputsFilled(inputs) {
+function validateInputs(inputs) {
     for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].value.trim() === '') {
+      if ((inputs[i].value.trim() === "" && inputs[i].id === "corporateName") || 
+          (inputs[i].value.trim() === "" && inputs[i].id === "firstName") ||
+          (inputs[i].value.trim() === "" && inputs[i].id === "lastName")
+          ) 
+      {
         return false;
       }
     }

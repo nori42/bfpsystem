@@ -66,7 +66,7 @@
                 </li>
 
                 <!-- button -->
-                {{-- <li class="m-2">
+                <li class="m-2">
                     <a class="btn w-100 text-end text-white" href="/fsec">
                         <!-- button Icon -->
                         <span>
@@ -75,9 +75,9 @@
                             <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                             </svg>
                         </span>
-                        Fire Safety Evaluation Clearance
+                        Propose Project
                     </a>
-                </li> --}}
+                </li>
 
                 <!-- button -->
                 {{-- <li class="m-2">
@@ -219,7 +219,7 @@
     <footer></footer>
     <script src="/js/script.js"></script>
     <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script>
-    <script src="/js/modal.js"></script>
+    <script src="/js/modal.js" defer></script>
 
 </body>
 </html>

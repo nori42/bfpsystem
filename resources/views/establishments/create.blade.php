@@ -1,6 +1,8 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 @section('content')
 <div class="page-content">
+
+
     @if($owner == null)
         <form class="add-record-form mt-5" action="/establishments" method="POST">
     @else
@@ -76,7 +78,7 @@
         <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails" data-step="owner">
             <div class="header">
                 <h2>Owner Information</h2>
-                <h4 id="validateMssg1" class="text-danger">Fill in the empty field</h4>
+                <h4 id="validateMssg1" class="text-danger">Fill in the required field</h4>
             </div>
             <hr>
 
@@ -84,25 +86,27 @@
                 {{-- This is hidden only use for reference --}}
                 <input type="text" id="ownerId" name="ownerId" hidden value="">
 
-                <div class="my-2">
+                <x-form.input type="text" label="Corporate Name" name="corporateName"/>
+                
+                {{-- <div class="my-2">
                     <label class="info-label">Corporate Name</label>
                     <input type="text" id="corporateName" name="corporateName" value="" class="input" data-owner-input required>
-                </div>
+                </div> --}}
 
                 <div class="my-2">
                     <label class="info-label">First Name</label>
-                    <input type="text" list="listNames" id="firstName" name="firstName" class="input" value="" data-owner-input required autocomplete="off">
+                    <input type="text" id="firstName" name="firstName" class="input" value="" data-owner-input required>
                 </div>
 
                 <datalist id="listNames">
-                    @foreach ($nameList as $name )
+                    {{-- @foreach ($nameList as $name )
                         <option value="{{$name}}"></option>
-                    @endforeach
+                    @endforeach --}}
                 </datalist>
 
                 <div class="my-2">
                     <label class="info-label">Middle Name</label>
-                    <input type="text" id="middleName" name="middleName" class="input" value="" data-owner-input required>
+                    <input type="text" id="middleName" name="middleName" class="input" value="" data-owner-input>
                 </div>
                 
                 <div class="my-2">
@@ -112,7 +116,7 @@
 
                 <div class="my-2">
                     <label class="info-label">Contact No.</label>
-                    <input type="text" id="contactNo" name="contactNo" value="" class="input" data-owner-input required>
+                    <input type="text" id="contactNo" name="contactNo" value="" class="input" data-owner-input>
                 </div>
             @else
                 <div class="my-2">
@@ -142,16 +146,6 @@
             @endif
             
         </div>
-        {{-- arrays of sub-stations --}}
-        @php
-            $stations = [
-                'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
-            ];
-
-            $building_type = [
-                'Small', 'Medium', 'Large', 'High Rise'
-            ]
-        @endphp
 
         {{-- Establishment Info --}}
         <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="establishmentDetails" data-step="establishment">
@@ -165,12 +159,17 @@
             </div>
             
             <div class="my-2">
+                <label class="info-label">Building Permit No.</label>
+                <input type="text" id="buildingPermitNo" name="buildingPermitNo" class="input" data-establishment-input>
+            </div>
+
+            <div class="my-2">
                 <label class="info-label">Occupancy</label>
                 <select class="form-select px-5" name="occupancy" id="occupancy" data-establishment-input required>
                     <option value="" disabled selected>Select Occupancy</option>
-                    @foreach ($occupancies as $occupancy)
+                    {{-- @foreach ($occupancies as $occupancy)
                         <option value="{{$occupancy['OCCUPANCY_TYPE']}}">{{$occupancy['OCCUPANCY_TYPE']}}</option>
-                    @endforeach
+                    @endforeach --}}
                 </select>
             </div>
 
@@ -189,9 +188,9 @@
                     <label class="info-label">Substation</label>
                     <select class="form-select px-5" name="substation" id="substation" data-establishment-input required>
                         <option value="" disabled selected>Select Substation</option>
-                        @foreach ($stations as $station)
+                        {{-- @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
     
@@ -199,42 +198,46 @@
                     <label class="info-label">Building Type</label>
                     <select class="form-select px-5" name="buildingType" id="buildingType" data-establishment-input required>
                         <option value="" disabled selected>Select Building Type</option>
-                        @foreach ($building_type as $btype)
+                        {{-- @foreach ($building_type as $btype)
                             <option value="{{$btype}}">{{$btype}}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
             </div>
             <div class="d-flex gap-2">
                 <div class="my-2 w-100">
                     <label class="info-label">No Of Storey</label>
-                    <input type="text" id="noOfStory" name="noOfStory" class="input" data-establishment-input required>
+                    <input type="text" id="noOfStory" name="noOfStory" class="input" data-establishment-input>
                 </div>
     
                 <div class="my-2 w-100">
                     <label class="info-label">Height</label>
-                    <input type="text" id="height" name="height" class="input" data-establishment-input required>
+                    <input type="text" id="height" name="height" class="input" data-establishment-input>
                 </div>
             </div>
     
             <div class="my-2">
-                <label class="info-label">Building Permit No.</label>
-                <input type="text" id="buildingPermitNo" name="buildingPermitNo" class="input" data-establishment-input required>
-            </div>
-    
-            <div class="my-2">
                 <label class="info-label">Name of Fire Insurance Co/Co-Insurer</label>
-                <input type="text" id="fireInsuranceCo" name="fireInsuranceCo" class="input" data-establishment-input required>
+                <input type="text" id="fireInsuranceCo" name="fireInsuranceCo" class="input" data-establishment-input>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Latest Mayor's/Business Permit</label>
-                <input type="text" id="latestPermit" name="latestPermit" class="input" data-establishment-input required>
+                <input type="text" id="latestPermit" name="latestPermit" class="input" data-establishment-input>
+            </div>
+
+            <div class="my-2">
+                <label class="fs-5" for="">Is Located Inside Another Establishment:  <input class="form-check-input fs-5" type="checkbox"></label>
+                <label class="info-label">Establishment</label>
+                <input type="text" id="buildingPermitNo" name="buildingPermitNo" class="input" data-establishment-input>
             </div>
     
             <div class="my-2">
                 <label class="info-label">Barangay</label>
-                <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required>
+                {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
+                <select class="form-select px-5" name="barangay" id="barangay">
+                    <option value="" disabled selected>Select Barangay</option>
+                </select>
             </div>
     
             <div class="my-2">
@@ -262,67 +265,82 @@
         </div>
     </form>
 </div>
- {{-- Autocomplete Script --}}
+
+{{-- Import Scripts --}}
+<script src="{{ asset('js/script.create.js') }}"></script>
+<script src="{{ asset('js/search.js') }}"></script>
+{{--Import the select options--}}
+<script src="{{ asset('js/selectOptions.js') }}"></script>
+
+ {{-- Page Script --}}
  <script>
-    //Show the list of recorded owners when typed
-        const allOwners = {!!$allOwnersJson!!}
-        const arrNames = [];
+    // Autocomplte
+    // const firstName = document.querySelector("#firstName")
+    // const datalist = document.querySelector("#listNames")
+    // firstName.addEventListener("input",(ev)=>{
+    //     populateSearchSuggestion("{{env('APP_URL')}}",ev.target.value,datalist)
+    // })
 
-        const firstName = document.getElementById('firstName')
-        firstName.onchange = () =>{
-        
-        var arrName = firstName.value.split(",").map(word => word.trim());
+    // Populate Select Options
+    const barangaySelect = document.querySelector("#barangay")
+    const occupancySelect = document.querySelector("#occupancy")
+    const subtypeSelect = document.querySelector("#subType")
+    const substationSelect = document.querySelector("#substation")
+    const buildingTypeSelect = document.querySelector("#buildingType")
 
-        //Get the selected owner that exist in record
-        const resOwner = allOwners.find(owner => owner.first_name === arrName[0] && owner.middle_name === arrName[1] && owner.last_name === arrName[2])
-        
-        console.log(resOwner.id);
-        // Auto fill if owner exist in the record
-        if(resOwner)
-        {
-            const ownerId = document.getElementById('ownerId')
-            const lastName = document.getElementById('lastName');
-            const middleName = document.getElementById('middleName'); 
-            const contactNo = document.getElementById('contactNo');
-            const corporateName = document.getElementById('corporateName');
+    populateSelect(barangaySelect,barangays)
+    populateSelect(occupancySelect,occupancy)
+    populateSelect(substationSelect,stations)
+    populateSelect(buildingTypeSelect,buildingType)
+    
+    occupancySelect.addEventListener("change", function(){
+        // Reset Subtype
+        subtypeSelect.innerHTML = ""
 
-            firstName.value = resOwner.first_name
-            middleName.value = resOwner.middle_name
-            lastName.value = resOwner.last_name
-            contactNo.value = resOwner.contact_no
-            corporateName.value = resOwner.corporate_name
-            ownerId.value = resOwner.id
-        }
+        const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === occupancySelect.value)
+        const subTypes = subTypesObj.map(obj => obj.SUBTYPE)
+        populateSelect(subtypeSelect,subTypes)
 
-        
-    }
-</script>
-
-{{-- ADDED JS FOR THIS PAGE ONLY --}}
-<script>
-    const OCCUPANCY = document.getElementById("occupancy")
-    const SUBTYPE = document.getElementById("subType")
-    var subtypes = {!! json_encode($subtype) !!}
-
-    //OCCUPANCY EVENT LISTENER
-    OCCUPANCY.addEventListener("change", function(){
-        var child = [...SUBTYPE.children]
-        child.forEach(element => {
-            //remove current list of types
-            element.remove()
-        });
-
-        // populates sub type
-        for (let i = 0; i < subtypes.length; i++) {
-            // verify if same
-            if(subtypes[i]['OCCUPANCY_TYPE'] == OCCUPANCY.value){
-                var option = document.createElement("option")
-                option.value = subtypes[i]['SUBTYPE']
-                option.textContent = subtypes[i]['SUBTYPE']
-                SUBTYPE.appendChild(option)
-            }
-        }
+        //Remove the subtype placeholder
+        if(subtypeSelect.children[0].value === "")
+        subtypeSelect.removeChild(subtypeSelect.children[0]);
     })
+
+    // Reset Selects After Populating
+    barangaySelect.selectedIndex = 0
+    occupancySelect.selectedIndex = 0
+    subtypeSelect.selectedIndex = 0
+
+    // //Show the list of recorded owners when typed
+    //     const allOwners = {}
+    //     const arrNames = [];
+
+    //     const firstName = document.getElementById('firstName')
+    //     firstName.onchange = () =>{
+        
+    //     var arrName = firstName.value.split(",").map(word => word.trim());
+
+    //     //Get the selected owner that exist in record
+    //     const resOwner = allOwners.find(owner => owner.first_name === arrName[0] && owner.middle_name === arrName[1] && owner.last_name === arrName[2])
+    //     // Auto fill if owner exist in the record
+    //     if(resOwner)
+    //     {
+    //         const ownerId = document.getElementById('ownerId')
+    //         const lastName = document.getElementById('lastName');
+    //         const middleName = document.getElementById('middleName'); 
+    //         const contactNo = document.getElementById('contactNo');
+    //         const corporateName = document.getElementById('corporateName');
+
+    //         firstName.value = resOwner.first_name
+    //         middleName.value = resOwner.middle_name
+    //         lastName.value = resOwner.last_name
+    //         contactNo.value = resOwner.contact_no
+    //         corporateName.value = resOwner.corporate_name
+    //         ownerId.value = resOwner.id
+    //     }
+
+        
+    // }
 </script>
-<script src="/js/script.create.js"></script>
+
 @endsection
