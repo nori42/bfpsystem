@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inspection extends Model
+class Receipt extends Model
 {
     use HasFactory;
 
-    public function receipt(){
-        return $this->belongsTo(Receipt::class);
-    }
+    public function inspection(){
+        return $this->hasMany(Inspection::class);
+    } 
 }

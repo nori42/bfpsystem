@@ -1,110 +1,128 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="page-content">
+        {{-- Put page content here --}}
+        <a href="/establishments/{{ $establishment->id }}" class="material-symbols-outlined btn-back mt-5">
+            arrow_back
+        </a>
 
-<div class="page-content">
-    {{-- Put page content here --}}
-    <a href="/establishments/{{$establishment->id}}" class="material-symbols-outlined btn-back mt-5">
-        arrow_back
-    </a>
-
-    <x-pageWrapper>
-        {{-- Owner Info & Selected Establishment --}}
-        <x-headingInfo :establishment="$establishment" :owner="$owner"/>
-        {{-- FSIC Action --}}
-        <div class="d-flex mt-5 w-100">
-            <x-action.link href="/establishments/fsic/{{$establishment->id}}" text="Inspection" :active="true"/>
-            <x-action.link href="/establishments/fsic/payment/{{$establishment->id}}" text="Payment"/>
-            <x-action.link href="/establishments/fsic/attachment/{{$establishment->id}}/fsic" text="Attachments"/>
-        </div>
-
-        {{-- Inspection --}}
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
-                <span class="material-symbols-outlined align-middle">
-                    assignment_add
-                </span>
-                Add Inspection
-            </button>
-        </div>
-        <div id="inspection" class="h-75 overflow-y-auto mt-4 border-3">
-            <table class="table">
-                <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
-                    <th>Inspection Date</th>
-                    <th>Compliant Status</th>
-                    <th>Action Taken</th>
-                    <th>Building Type</th>
-                    <th>Status</th>
-                </thead>
-                <tbody>
-                    @foreach ($inspections as $inspection)
-                    <tr class="align-middle">
-                        <td>{{date('m-d-Y', strtotime($inspection->inspection_date))}}</td>
-                        <td>{{$inspection->compliant_status}}</td>
-                        <td>{{$inspection->action_taken}}</td>
-                        <td>{{$inspection->building_type}}</td>
-                        <td>{{$inspection->status}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </x-pageWrapper>
-    
-    <!-- Modal -->
-    {{--Inspection--}}
-    <div id="addInspectionModal" class="modal" data-modal>
-        <!-- Modal content -->
-        <div class="modal-content" style="font-size: 0.9rem">
-            <form action="/establishments/fsic/{{$establishment->id}}" method="POST">
-                @csrf
-                <fieldset class="d-flex flex-column">
-                    {{-- This is hidden, only used for post request--}}
-                    <input class="info d-none" type="text" id="establishmentId" name="establishmentId" value="{{$establishment->id}}">
-
-                    <label class="info-label" for="inpsectionDate">Inspection Date</label>
-                    <input class="info" type="date" id="inspectionDate" name="inspectionDate">
-
-                    <label class="info-label" for="compliantStatus">Compliant Status</label>
-                    {{-- <input class="info" type="text" id="compliantStatus" name="compliantStatus"> --}}
-                    <select class="info" name="compliantStatus" id="compliantStatus">
-                        <option value="Non-Compliant">Non-Compliant</option>
-                        <option value="Compliant">Compliant</option>
-                    </select>
-
-                    <label class="info-label" for="status">Status</label>
-                    <input class="info" type="text" id="status" name="status">
-
-                    <label class="info-label" for="actionTaken">Action Taken</label>
-                    <input class="info" type="text" id="actionTaken" name="actionTaken">
-
-                    <label class="info-label" for="buildingType">Building Type</label>
-                    <select class="info" name="buildingType" id="buildingType">
-                        @php
-                            $buildingType = [
-                            'Small',
-                            'Medium',
-                            'Large',
-                            'High Rise'
-                        ];
-                        @endphp
-                        $@foreach ($buildingType as $item)
-                            <option value="{{$item}}">{{$item}}</option>
-                        @endforeach
-                    </select>
-            </fieldset>
-
-            <div class="d-flex justify-content-end mt-3">
-                <input class="btn btn-success" type="submit" value="Save"/>
+        <x-pageWrapper>
+            {{-- Owner Info & Selected Establishment --}}
+            <x-headingInfo :establishment="$establishment" :owner="$owner" />
+            {{-- FSIC Action --}}
+            <div class="d-flex mt-5 w-100">
+                <x-action.link href="/establishments/fsic/{{ $establishment->id }}" text="Inspection" :active="true" />
+                {{-- <x-action.link href="/establishments/fsic/payment/{{ $establishment->id }}" text="Payment" /> --}}
+                <x-action.link href="/establishments/fsic/attachment/{{ $establishment->id }}/fsic" text="Attachments" />
             </div>
-            </form>
-            
-        </div>
+
+            {{-- Inspection --}}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
+                    <span class="material-symbols-outlined align-middle">
+                        assignment_add
+                    </span>
+                    Add Inspection
+                </button>
+            </div>
+            <div id="inspection" class="h-75 overflow-y-auto mt-4 border-3">
+                <table class="table">
+                    <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+                        <th>Inspection Date</th>
+                        <th>OR No.</th>
+                        <th>Registration Status</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($inspections as $inspection)
+                            <tr class="align-middle">
+                                <td>{{ date('m-d-Y', strtotime($inspection->inspection_date)) }}</td>
+                                <td>{{ $inspection->receipt->or_no }}</td>
+                                <td>{{ $inspection->registration_status }}</td>
+                                <td>{{ $inspection->expiry_date === null ? 'After Release' : $inspection->expiry_date }}
+                                </td>
+                                <td>{{ $inspection->status }}</td>
+                                <td class="text-center">
+                                    <button class="btn fw-bold btn-success" onclick="showDetail(event)"
+                                        value={{ $inspection->id }}>
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </x-pageWrapper>
+
+        <!-- Modal -->
+        {{-- Inspection --}}
+        <x-modal id="addInspectionModal" width="70" topLocation="2">
+            <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
+        </x-modal>
+
+        <!-- Modal -->
+        {{-- Detail --}}
+        <x-modal id="detailInspectionModal" width="70" topLocation="2">
+            <x-inspectionForm :establishment="$establishment" inputAttr="detail-inspect" key="1" :isDetail="true" />
+        </x-modal>
+
+        <x-modal id="modalOwner" width="70" topLocation="5">
+            <x-ownerInfo :establishment="$establishment" :owner="$owner" />
+        </x-modal>
     </div>
+    {{-- Import Script --}}
+    <script src="{{ asset('js/selectOptions.js') }}"></script>
+    <script src="{{ asset('js/fetch.js') }}"></script>
 
-    <x-modal id="modalOwner" width="70" location="5">
-        <x-ownerInfo :establishment="$establishment" :owner="$owner"/>
-    </x-modal>
-</div>
+    {{-- Page Script --}}
+    <script>
+        const natureOfPaymentSelect = document.querySelector("#natureOfPayment")
+        const regStatusSelect = document.querySelector("#registrationStatus")
+        const issuedForSelect = document.querySelector("#issuedFor")
+        const natureOfPaymentSelect1 = document.querySelector("#natureOfPayment1")
+        const regStatusSelect1 = document.querySelector("#registrationStatus1")
+        const issuedForSelect1 = document.querySelector("#issuedFor1")
+        const btnSave = document.querySelector('#btnSave')
 
+        async function showDetail() {
+            const inspectionDetails = await getInspectionById("{{ env('APP_URL') }}", event.target.value);
+
+            console.log(document.querySelector('#natureOfPayment1'))
+
+            document.querySelector('#inspectionDate1').value = inspectionDetails.inspectionDate;
+            document.querySelector('#buildingConditions1').value = inspectionDetails.buildingCondtions;
+            document.querySelector('#buildingStructures1').value = inspectionDetails.buildingStructures;
+            document.querySelector('#orNo1').value = inspectionDetails.orNo;
+            document.querySelector('#natureOfPayment1').value = inspectionDetails.natureOfPayment;
+            document.querySelector('#amountPaid1').value = inspectionDetails.amount;
+            document.querySelector('#dateOfPayment1').value = inspectionDetails.dateOfPayment;
+            document.querySelector('#registrationStatus1').value = inspectionDetails.registrationStatus;
+            document.querySelector('#issuedFor1').value = inspectionDetails.issuedFor;
+
+            openModal('detailInspectionModal');
+        }
+
+        populateNatueOfPaymentSelect(natureOfPaymentSelect, natureOfPayments)
+        populateSelect(regStatusSelect, regStatus)
+        populateSelect(issuedForSelect, issuances)
+        populateNatueOfPaymentSelect(natureOfPaymentSelect1, natureOfPayments)
+        populateSelect(regStatusSelect1, regStatus)
+        populateSelect(issuedForSelect1, issuances)
+
+        natureOfPaymentSelect.selectedIndex = 0
+        regStatusSelect.selectedIndex = 0
+        issuedForSelect.selectedIndex = 0
+
+        var orNo = document.getElementById("orNo")
+        var savePayment = document.getElementById("savePayment")
+        var id = {!! $establishment->id !!}
+
+        orNo.addEventListener("change", function() {
+            savePayment.action = "/establishments/fsic/payment/" + id
+        })
+    </script>
 @endsection

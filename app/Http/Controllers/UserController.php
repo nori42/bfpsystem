@@ -10,6 +10,6 @@ class UserController extends Controller
 {
     public function authenticate() {
         
-        return redirect('/establishments');
+        return redirect('/search/establishment');
     }
 }

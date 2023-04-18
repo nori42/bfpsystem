@@ -12,5 +12,15 @@ class Owner extends Model
     {
         return $this->hasMany(Establishment::class);
     }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+
+    public function corporate()
+    {
+        return $this->belongsTo(Corporate::class);
+    }
     use HasFactory;
 }

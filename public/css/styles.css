@@ -26,11 +26,15 @@ input, button, select{
     font:inherit;
 }
 
+[form-input]{
+    text-transform: uppercase;
+}
+
 
 /* style */
 nav {
     background-color: var(--primary-color);
-    min-width: 17%;
+    max-width: 15%;
 }
 
 .page-container, .page-content{
@@ -91,7 +95,7 @@ nav .btn:hover {
 }
 
 .top-panel {
-    background-color: #363636;
+    background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgb(28, 59, 99) 100%);
 }
 
 .dropdown-profile-menu {

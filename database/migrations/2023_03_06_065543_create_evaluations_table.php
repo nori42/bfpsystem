@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime('date_of_payment');
             $table->dateTime('date_release');
             $table->string('evaluator')->nullable();;
-            $table->string('boq')->nullable();;
+            $table->string('billOfMaterials')->nullable();;
             $table->string('remarks')->nullable();;
             $table->string('purpose')->nullable();;
             $table->timestamps();

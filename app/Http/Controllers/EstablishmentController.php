@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Corporate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 // USE Establishment Mode to communicate with the database
 use App\Models\Establishment;
 use App\Models\Owner;
+use App\Models\Person;
 use Illuminate\Support\Arr;
 
 class EstablishmentController extends Controller
@@ -44,30 +46,9 @@ class EstablishmentController extends Controller
             $isSearch = true;
         }
 
-        // Used for autocomplete
-        $barangays= [];
-        $estabName= [];
-        $substations= [];
-        $names= [];
-
-        // foreach (Owner::all() as $owner) {
-        //     array_push($names,$owner->first_name." ".$owner->last_name);
-            
-        //     foreach($owner->establishment as $establishment)
-        //     {
-        //         array_push($estabName,$establishment->establishment_name);
-        //         array_push($substations,$establishment->substation);
-        //         array_push($barangays,$establishment->barangay);
-        //     }
-        // }
-
-        $barangaysUnq = array_unique($barangays);
-        $substationsUnq = array_unique($substations);
-
         return view('establishments.index', [
             'establishments' => $establishments,
             'isSearch' => $isSearch,
-            'searchList' => ['estabName' => $estabName, 'names' => $names, 'substations' => $substationsUnq, 'barangays' => $barangaysUnq],
             'totalRecords' => $totalRecords,
             'page_title' => "Establishments"
         ]);
@@ -110,23 +91,24 @@ class EstablishmentController extends Controller
         
         // instantiate model
         $establishment = new Establishment();
+        $person = new Person();
+        $corporate = new Corporate();
         $owner = new Owner();
-
-        //this id is store_from_owner route
-        // $request->store_from_owner_id
-
-        //this id is from store route for autocomplete to work
-        // $request->ownerId
-        
         //get Data
+        $person->first_name = strtoupper($request->firstName);
+        $person->last_name = strtoupper($request->lastName);
+        $person->middle_name =  strtoupper($request->middleName);
+        $person->contact_no = $request->contactNoPerson;
 
-        if(!isset($request->store_from_owner_id) && !isset($request->ownerId)){
-            $owner->first_name = strtoupper($request->firstName);
-            $owner->last_name = strtoupper($request->lastName);
-            $owner->middle_name =  strtoupper($request->middleName);
-            $owner->contact_no = $request->contactNo;
-            $owner->corporate_name = strtoupper($request->corporateName);
-        }
+        
+        $corporate->corporate_name = strtoupper($request->corporateName);
+        $corporate->contact_no = ($request->contactNoCorporate);
+
+        $person->save();
+        $corporate->save();
+        $owner->person_id = $person->id;
+        $owner->corporate_id = $corporate->id;
+        $owner->save();
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
         $establishment->substation = strtoupper($request->substation);
@@ -136,39 +118,16 @@ class EstablishmentController extends Controller
         $establishment->createdBy = strtoupper("admin");
         $establishment->building_permit_no = $request->buildingPermitNo; 
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
-        $establishment->latest_permit = $request->latestPermit; 
+        $establishment->latest_mayors_permit = $request->latestPermit; 
         $establishment->barangay =  strtoupper($request->barangay);
         $establishment->address = strtoupper($request->address);
-        $establishment->status = "Pending"; 
         $establishment->height = $request->height;
         $establishment->occupancy = strtoupper($request->occupancy);
-        //instantiate foreign id
-        //Save owner first to get the id
-        $owner->save();
-
-        if(!isset($request->store_from_owner_id) && !isset($request->ownerId)){
-            $establishment->owner_id = $owner->id;
-        }
-        else
-        {
-            //When using the new establishment for creating
-            if(isset($request->ownerId))
-            {
-                //When using the new establishment for creating
-                $establishment->owner_id = $request->ownerId;
-            }
-            else
-            {
-                //When using the add new establishment for this owner
-                $establishment->owner_id = $request->store_from_owner_id;
-            }
-        }
+        $establishment->owner_id = $owner->id;
 
         //save establishment data to database
         $establishment->save();
-        
-
-        return redirect('/establishments'.'/'.$establishment->id)->with(['newPost'=> true,'mssg'=>'New Record Added']);
+        return redirect('/establishments');        
     }
 
     //get single record
@@ -205,7 +164,7 @@ class EstablishmentController extends Controller
         $establishment->no_of_storey = strtoupper($request->no_of_storey );
         $establishment->building_permit_no = strtoupper($request->buildingPermitNo );
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
-        $establishment->latest_permit = strtoupper($request->latestPermit);
+        $establishment->latest_mayors_permit = strtoupper($request->latestPermit);
         $establishment->barangay = strtoupper( $request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = strtoupper($request->height);
@@ -260,7 +219,7 @@ class EstablishmentController extends Controller
         $establishment->createdBy = strtoupper("admin");
         $establishment->building_permit_no = $request->buildingPermitNo; 
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
-        $establishment->latest_permit = $request->latestPermit; 
+        $establishment->latest_mayors_permit = $request->latestPermit; 
         $establishment->barangay =  strtoupper($request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->status = "Pending"; 

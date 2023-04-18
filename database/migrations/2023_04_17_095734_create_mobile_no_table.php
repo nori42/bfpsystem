@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Corporate;
-use App\Models\Person;
+use App\Models\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('owners', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignIdFor(Person::class);
-            $table->foreignIdFor(Corporate::class);
+        Schema::create('mobile_no', function (Blueprint $table) {
+            $table->id('mobile_no');
+            $table->string('owned_by');
+            $table->foreignIdFor(Owner::class);
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('mobile_no');
     }
 };

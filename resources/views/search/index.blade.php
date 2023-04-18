@@ -6,5 +6,6 @@
     <div class="page-content">
 
         {{-- Put page content here --}}
+        <h1>Hello World</h1>
     </div>
 @endsection

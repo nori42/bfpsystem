@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Establishment;
 use App\Models\File;
 use App\Models\Owner;
+use App\Models\Receipt;
 use Carbon\Carbon;
 
 
@@ -40,23 +41,33 @@ class FsicController extends Controller
     public function store(Request $request){
         // instantiate model
         $inspection = new Inspection();
+        $receipt = new Receipt();
 
+        $receipt->or_no = $request->orNo;
+        $receipt->payor = $request->payor;
+        $receipt->nature_of_payment = $request->natureOfPayment;
+        $receipt->amount = $request->amountPaid;
+        $receipt->date_of_payment = $request->dateOfPayment;
+        $receipt->receipt_for = $request->receiptFor;
 
-        // $inspectionCount = Inspection::where('establishment_id', $request->id)->get()->count() + 1;
+        $receipt->save();
 
-        //get Data
-        $inspection->establishment_id = $request->establishmentId;
-        // $inspection->record_no = $inspectionCount;
         $inspection->inspection_date = $request->inspectionDate;
-        $inspection->status = $request->inspectionDate;
-        $inspection->compliant_status = $request->compliantStatus;
-        $inspection->action_taken = $request->actionTaken ;
-        $inspection->building_type = $request->buildingType;
+        $inspection->building_conditions = $request->buildingConditions;
+        $inspection->building_structures = $request->buildingStructures;
+        $inspection->registration_status = $request->registrationStatus;
+        $inspection->fsic_no = $request->fsicNo;
+        $inspection->issued_for = $request->issuedFor;
+        $inspection->receipt_id = $receipt->id;
+        $inspection->establishment_id = $request->establishmentId;
 
-        //save data to database
         $inspection->save();
 
-        return redirect('/establishments/fsic/'.$request->establishmentId)->with(['newPost'=> true,'mssg'=>'New Record Added']);
+        if($request->input('action') === 'save'){
+            return redirect('/establishments/fsic/'.$request->establishmentId)->with(['newPost'=> true,'mssg'=>'New Record Added']);
+        } else {
+            return redirect('/establishments/fsic/print/'.$request->establishmentId);
+        }
     }
 
     //Payment
@@ -123,7 +134,7 @@ class FsicController extends Controller
             $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
         })->get();
 
-        return view('establishments.fsic.show_attachment_fsic',[
+        return view('establishments.fsic.attachment_fsic',[
             'establishment' => $establishment,
             'owner' => $owner,
             'files' =>  $files,
@@ -140,7 +151,7 @@ class FsicController extends Controller
         // ->where('payments.or_no', $orNo)
         // ->first();
         
-        $details= Payment::find($request->id);
+        $details= Receipt::find($request->id);
 
         // reformat issued date to full month
         // $createdFormat= Carbon::parse($payment->created_at)->format('F d Y');
@@ -155,6 +166,25 @@ class FsicController extends Controller
         return view('establishments/fsic/print_fsic', [
             'details' => $details,
             'createdDate' => $createdDate
+        ]);
+    }
+
+    public function getInspection(Request $request){
+
+        $inspection= Inspection::find($request->id);
+
+        $data = ['inspectionDate' => $inspection->inspection_date,
+                 'buildingCondtions'=>$inspection->building_conditions,
+                 'buildingStructures'=>$inspection->building_structures,
+                 'orNo'=>$inspection->receipt->or_no,
+                 'natureOfPayment'=>$inspection->receipt->nature_of_payment,
+                 'amount'=>$inspection->receipt->amount,
+                 'dateOfPayment'=>$inspection->receipt->date_of_payment,
+                 'registrationStatus'=>$inspection->registration_status,
+                 'issuedFor'=>$inspection->issued_for,];
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
         ]);
     }
 }

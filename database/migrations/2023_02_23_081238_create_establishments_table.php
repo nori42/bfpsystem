@@ -23,13 +23,13 @@ return new class extends Migration
             $table->string('height')->nullable();
             $table->string('building_permit_no')->nullable();
             $table->string('fire_insurance_co')->nullable();
-            $table->string('latest_permit')->nullable();
+            $table->string('latest_mayors_permit')->nullable();
             $table->string('barangay');
             $table->string('address');
-            $table->foreignIdFor(Owner::class);
             $table->string('createdBy');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreignIdFor(Owner::class);
         });
     }
 

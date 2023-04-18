@@ -10,6 +10,7 @@ use App\Http\Controllers\FsicController;
 use App\Http\Controllers\FsecController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SearchEstablishment;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::get('/', function () {
 //Dashboard
 Route::post('/authenticate', [UserController::class, 'authenticate']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
+//Search
+Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 
 //Establishments route
 Route::get('/establishments', [EstablishmentController::class, 'index']);
@@ -74,3 +77,5 @@ Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownl
 
 //Unauathenticated Resources
 Route::get('resources/owners',[SearchController::class,'searchOwner']);
+Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
+

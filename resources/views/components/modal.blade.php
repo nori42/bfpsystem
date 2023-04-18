@@ -1,11 +1,7 @@
-@props([
-    'id',
-    'width',
-    'location'
-])
+@props(['id', 'width', 'topLocation'])
 
-<div id={{$id}} class="modal" data-modal style="padding-top:{{$location}}%;">
-    <div class="modal-content" style="width:{{$width}}%; ">
-        {{$slot}}
+<div id={{ $id }} class="modal" data-modal style="padding-top:{{ $topLocation }}%;">
+    <div class="modal-content" style="width:{{ $width }}%; ">
+        {{ $slot }}
     </div>
 </div>

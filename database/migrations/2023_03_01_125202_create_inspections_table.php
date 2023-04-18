@@ -2,6 +2,7 @@
 
 use App\Models\Establishment;
 use App\Models\Payment;
+use App\Models\Receipt;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +15,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inspections', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->date('inspection_date');
+            $table->string('building_conditions')->nullable();
+            $table->string('building_structures')->nullable();
+            $table->string('registration_status')->nullable();
+            $table->string('fsic_no')->nullable();
+            $table->string('issued_for');
+            $table->enum('status',['Not Release','Not Printed','Released'])->default("Not Printed");
+            $table->date('expiry_date')->nullable();
+            $table->foreignIdFor(Receipt::class);
             $table->foreignIdFor(Establishment::class);
-            $table->string('inspection_date');
-            $table->string('status');
-            $table->string('compliant_status');
-            $table->string('action_taken');
-            $table->string('building_type');
             $table->timestamps();
         });
     }
