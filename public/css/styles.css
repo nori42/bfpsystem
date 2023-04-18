@@ -223,6 +223,14 @@ nav .btn {
     width: 60%;
 }
 
+.w-35{
+    width: 35%;
+}
+
+.w-20{
+    width: 20%;
+}
+
 .h-85{
     height: 85%;
 }
@@ -233,6 +241,14 @@ nav .btn {
 
 .h-60{
     height: 60%;
+}
+
+.h-35{
+    height: 35%;
+}
+
+.h-20{
+    height: 20%;
 }
 
 .btn-primary {

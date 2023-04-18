@@ -58,6 +58,7 @@ Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::cl
 //Fsic routes
 Route::get('/establishments/fsic/{id}', [FsicController::class, 'index']);
 Route::post('/establishments/fsic/{id}', [FsicController::class, 'store']);
+Route::put('/establishments/fsic/{id}', [FsicController::class, 'update']);
 
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);

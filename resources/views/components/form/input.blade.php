@@ -2,5 +2,5 @@
 <x-form.inputWrapper>
     <label class="info-label">{{ $label }}</label>
     <input type="{{ $type }}" id="{{ $name }}" name="{{ $name }}" value=""
-        {{ $attributes->merge(['class' => 'form-control']) }} {{ $customAttr }} required>
+        {{ $attributes->merge(['class' => 'form-control']) }} {{ $customAttr }} form-input required>
 </x-form.inputWrapper>

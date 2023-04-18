@@ -13,7 +13,7 @@ use App\Models\File;
 use App\Models\Owner;
 use App\Models\Receipt;
 use Carbon\Carbon;
-
+use DateTime;
 
 class FsicController extends Controller
 {
@@ -63,11 +63,61 @@ class FsicController extends Controller
 
         $inspection->save();
 
-        if($request->input('action') === 'save'){
-            return redirect('/establishments/fsic/'.$request->establishmentId)->with(['newPost'=> true,'mssg'=>'New Record Added']);
-        } else {
-            return redirect('/establishments/fsic/print/'.$request->establishmentId);
+        $establishment = $inspection->establishment;
+
+        $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
+
+        switch($request->input('action'))
+        {
+            case 'add':
+                return view('establishments.fsic.index',[
+                'newPost'=> true,
+                'mssg'=>'New Record Added',
+                'establishment' => $establishment,
+                'inspections' => $inspectionDetail,
+                'owner' => $inspection->establishment->owner,
+                'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
+                ]);
+            case 'addandprint':
+                return redirect('/establishments/fsic/print/'.$inspection->id);
         }
+
+    }
+
+    public function update(Request $request){
+        $inspection = Inspection::find($request->id);
+        $receipt = Receipt::find($inspection->id);
+
+        $receipt->or_no = $request->orNoDetail;
+        $receipt->nature_of_payment = $request->natureOfPaymentDetail;
+        $receipt->amount = $request->amountPaidDetail;
+        $receipt->date_of_payment = $request->dateOfPaymentDetail;
+
+        $receipt->save();
+
+        $inspection->inspection_date = $request->inspectionDateDetail;
+        $inspection->building_conditions = $request->buildingConditionsDetail;
+        $inspection->building_structures = $request->buildingStructuresDetail;
+        $inspection->registration_status = $request->registrationStatusDetail;
+        $inspection->fsic_no = $request->fsicNoDetail;
+        $inspection->issued_for = $request->issuedForDetail;
+
+        $inspection->save();
+
+        $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
+        switch($request->input('action'))
+        {
+            case 'save':
+                return view('establishments.fsic.index',[
+                    'establishment' => $inspection->establishment,
+                    'inspections' =>  $inspectionDetail,
+                    'owner' => $inspection->establishment->owner,
+                    'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
+                ]);
+            case 'saveandprint':
+                return redirect('/establishments/fsic/print/'.$inspection->id);
+        }
+        
     }
 
     //Payment
@@ -150,22 +200,25 @@ class FsicController extends Controller
         // ->join('payments', 'payments.establishment_id', '=', 'establishments.id')
         // ->where('payments.or_no', $orNo)
         // ->first();
-        
-        $details= Receipt::find($request->id);
+        $inspection = Inspection::find($request->id);
+        $establishment = $inspection->establishment;
+        $personName = $establishment->owner->person->first_name.' '.$establishment->owner->person->last_name;
+        $corporateName = $establishment->owner->corporate->corporate_name;
+        $details = [
+            'personName' => $personName,
+            'corporateName' => $corporateName, 
+            'dateToday' => date("F d, Y",time()),
+            'inspection' => $inspection,
+            'expiryDate' => date("F d, Y",strtotime("+1 year")),
+            'dateOfPayment' => date("m/d/Y",strtotime($inspection->receipt->date_of_payment))
+        ];
 
-        // reformat issued date to full month
-        // $createdFormat= Carbon::parse($payment->created_at)->format('F d Y');
-        $createdDate = Carbon::parse($details->created_at)->format('F d Y');
 
-        $expireFormat = Carbon::parse($details->expiry_date)->format('m/d/Y');
-        $details->expiry_date = $expireFormat;
-
-        $datePaymentFormat = Carbon::parse($details->date_of_payment)->format('m/d/Y');
-        $details->date_of_payment = $datePaymentFormat;
         
         return view('establishments/fsic/print_fsic', [
             'details' => $details,
-            'createdDate' => $createdDate
+            'inspection' => $inspection,
+            'establishment' => $establishment
         ]);
     }
 
@@ -179,6 +232,7 @@ class FsicController extends Controller
                  'orNo'=>$inspection->receipt->or_no,
                  'natureOfPayment'=>$inspection->receipt->nature_of_payment,
                  'amount'=>$inspection->receipt->amount,
+                 'fsicNo'=>$inspection->fsic_no,
                  'dateOfPayment'=>$inspection->receipt->date_of_payment,
                  'registrationStatus'=>$inspection->registration_status,
                  'issuedFor'=>$inspection->issued_for,];

@@ -12,4 +12,8 @@ class Inspection extends Model
     public function receipt(){
         return $this->belongsTo(Receipt::class);
     }
+
+    public function establishment(){
+        return $this->belongsTo(Establishment::class);
+    }
 }

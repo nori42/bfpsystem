@@ -17,24 +17,27 @@
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
     </div>
 
-    {{-- <div class="nav">
-        <a id="back" href="/establishments/fsic/payment/{{$details->establishment->id}}">
+    <div class="nav">
+        <a id="back" href="/establishments/fsic/{{ $establishment->id }}">
             Back
         </a>
-        <button id="printBtn"><div>Print Certificate</div><span class="material-symbols-outlined print-ico" style="background-color: #FFC900;">print</span></button>
+        <button id="printBtn">
+            <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+                style="background-color: #FFC900;">print</span>
+        </button>
         <div class="printby">
-            <strong>Establishment: </strong> <span>{{$details->establishment->establishment_name }}</span>
+            <strong>Establishment: </strong> <span>{{ $establishment->establishment_name }}</span>
         </div>
         <div class="printby">
-            <strong>Owned By: </strong> <span>{{$details->establishment->owner->first_name}} {{$details->establishment->owner->last_name}} </span>
+            <strong>Owned By: </strong> <span>{{ $details['personName'] }} </span>
         </div>
         <div class="printby">
-            <strong>Issued For: </strong> <span>{{$details->issued_for}}</span>
+            <strong>Issued For: </strong> <span>{{ $inspection->issued_for }}</span>
         </div>
         <div class="printby">
             <strong>Printing as: </strong> <span>Admin</span>
         </div>
-    </div> --}}
+    </div>
 
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
@@ -45,7 +48,7 @@
         </div>
 
         <div data-draggable="true" class="date-container bold">
-            {{-- {{$createdDate}} --}}
+            {{ $details['dateToday'] }}
         </div>
 
 
@@ -75,9 +78,10 @@
             <div class="c-3 check hidden" id="c3">
                 <div>&check;</div>
                 <div class="others bold">
-                    @if ($details->status != 'NEW' && $details->status != 'RENEWAL' && $details->status != 'OCCUPANCY')
+                    {{-- @if ($details->status != 'NEW' && $details->status != 'RENEWAL' && $details->status != 'OCCUPANCY')
                         {{ $details->issued_for }}
-                    @endif
+                    @endif --}}
+                    {{-- {{ $inspection->issued_for }} --}}
                     <div data-draggable="true" data-editable="true" class="others-info">
                         <span>&nbsp;</span>
                     </div>
@@ -86,18 +90,17 @@
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>{{ $details->establishment->establishment_name }}</span>
+            <span>{{ $inspection->establishment->establishment_name }}</span>
         </div>
         <div data-draggable="true" class="rep-name bold">
-            <span>{{ $details->establishment->owner->first_name }} {{ $details->establishment->owner->middle_name }}
-                {{ $details->establishment->owner->last_name }}</span>
+            <span>{{ $details['personName'] != null ? $details['personName'] : $details['corporateName'] }}</span>
         </div>
         <div data-draggable="true" class="address bold">
-            <span>{{ $details->establishment->address }}</span>
+            <span>{{ $establishment->address }}</span>
         </div>
 
         <div data-draggable="true" class="issued-for bold">
-            <span>{{ $details->issued_for }} </span>
+            <span>{{ $inspection->issued_for }} </span>
         </div>
 
         <div data-draggable="true" data-editable="true" class="more-info" id="moreInfo">
@@ -105,13 +108,13 @@
         </div>
 
         <div data-draggable="true" class="validity bold">
-            <span>{{ $details->expiry_date }}</span>
+            <span>{{ $details['expiryDate'] }}</span>
         </div>
 
         <div data-draggable="true" class="fc-fee bold">
-            <div id="amount">{{ $details->amount_paid }}.00</div>
-            <div id="or_no">{{ $details->or_no }}</div>
-            <div id="date">{{ $details->date_of_payment }}</div>
+            <div id="amount">{{ $inspection->receipt->amount }}.00</div>
+            <div id="or_no">{{ $inspection->receipt->or_no }}</div>
+            <div id="date">{{ $details['dateOfPayment'] }}</div>
         </div>
 
         <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SP04 Philip K Layug, BFP

@@ -51,50 +51,48 @@
 
             <!-- The Modal -->
             {{-- Attachment --}}
-            <div id="addAttachmentModal" class="modal" data-modal>
+            <x-modal id="addAttachmentModal" width="50" topLocation="5">
                 <!-- Modal content -->
-                <div class="modal-content" style="font-size: 0.9rem;">
-                    <div class="bg-secondary-subtle filelist-container" style="display: none;">
-                        <div class="overflow-y-auto pb-0" style="height: 150px;">
-                            <ul class="list-unstyled filelist p-3 fw-bold text-center">
-                            </ul>
-                        </div>
-                        <button id="submitFile" class="btn btn-success float-start" type="button"
-                            onclick="uploadFile()">Submit Files</button>
+
+                <div class="bg-secondary-subtle filelist-container" style="display: none;">
+                    <div class="overflow-y-auto pb-0" style="height: 150px;">
+                        <ul class="list-unstyled filelist p-3 fw-bold text-center">
+                        </ul>
                     </div>
-                    <form id="fileFormFsic" class="rounded-2 d-flex flex-column justify-content-center gap-3 mx-auto w-100"
-                        action="/establishments/attachment/fsic/{{ $establishment->id }}/upload" method="POST"
-                        enctype="multipart/form-data" style="height: 250px;">
-                        @csrf
-                        <div class="h-100 d-flex flex-column gap-3 mt-2">
-                            <button id="submitFile" class="btn btn-success ml-auto" type="submit"
-                                style="display: none;">Submit Files</button>
-                            <div class="h-100 position-relative">
-                                <div class="fileuploadicon d-flex flex-column text-center p-2 position-absolute h-100 w-100"
-                                    style="pointer-events:none;">
-                                    <div class="my-auto">
-                                        <span class="material-symbols-outlined fs-2">description</span>
-                                        <span class="material-symbols-outlined fs-2">image</span>
-                                        <span class="material-symbols-outlined fs-2">folder</span>
-                                    </div>
-                                    <div class="my-auto">
-                                        <span>Click To Upload File(s)</span>
-                                    </div>
-                                </div>
-
-                                {{-- This is hidden it used for reference --}}
-                                {{-- <input class="d-none" id="attachFor" name="attachFor" type="text" value="fsic"/> --}}
-
-                                <input id="fileUpload" name="fileUpload[]" class="btn bg-secondary-subtle h-100"
-                                    type="file" value="Add" accept="image/*,.docx,.pdf,.doc,.xlsx,.xls,.txt" multiple
-                                    style="width: 100%; opacity: 1%;" />
-                            </div>
-                        </div>
-                    </form>
+                    <button id="submitFile" class="btn btn-success float-start" type="button" onclick="uploadFile()">Submit
+                        Files</button>
                 </div>
-            </div>
+                <form id="fileFormFsic" class="rounded-2 d-flex flex-column justify-content-center gap-3 mx-auto w-100"
+                    action="/establishments/attachment/fsic/{{ $establishment->id }}/upload" method="POST"
+                    enctype="multipart/form-data" style="height: 250px;">
+                    @csrf
+                    <div class="h-100 d-flex flex-column gap-3 mt-2">
+                        <button id="submitFile" class="btn btn-success ml-auto" type="submit" style="display: none;">Submit
+                            Files</button>
+                        <div class="h-100 position-relative">
+                            <div class="fileuploadicon d-flex flex-column text-center p-2 position-absolute h-100 w-100"
+                                style="pointer-events:none;">
+                                <div class="my-auto">
+                                    <span class="material-symbols-outlined fs-2">description</span>
+                                    <span class="material-symbols-outlined fs-2">image</span>
+                                    <span class="material-symbols-outlined fs-2">folder</span>
+                                </div>
+                                <div class="my-auto">
+                                    <span>Click To Upload File(s)</span>
+                                </div>
+                            </div>
 
-            <x-modal id="modalOwner" width="70" topLocation="5">
+                            {{-- This is hidden it used for reference --}}
+                            {{-- <input class="d-none" id="attachFor" name="attachFor" type="text" value="fsic"/> --}}
+
+                            <input id="fileUpload" name="fileUpload[]" class="btn bg-secondary-subtle h-100" type="file"
+                                value="Add" accept="image/*,.docx,.pdf,.doc,.xlsx,.xls,.txt" multiple
+                                style="width: 100%; opacity: 1%;" />
+                        </div>
+                    </div>
+                </form>
+            </x-modal>
+            <x-modal id="modalOwner" width="50" topLocation="5">
                 <x-ownerInfo :establishment="$establishment" :owner="$owner" />
             </x-modal>
     </div>

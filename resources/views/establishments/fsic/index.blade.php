@@ -42,7 +42,7 @@
                                 <td>{{ date('m-d-Y', strtotime($inspection->inspection_date)) }}</td>
                                 <td>{{ $inspection->receipt->or_no }}</td>
                                 <td>{{ $inspection->registration_status }}</td>
-                                <td>{{ $inspection->expiry_date === null ? 'After Release' : $inspection->expiry_date }}
+                                <td>{{ $inspection->expiry_date === null ? 'After Print' : $inspection->expiry_date }}
                                 </td>
                                 <td>{{ $inspection->status }}</td>
                                 <td class="text-center">
@@ -60,14 +60,14 @@
 
         <!-- Modal -->
         {{-- Inspection --}}
-        <x-modal id="addInspectionModal" width="70" topLocation="2">
+        <x-modal id="addInspectionModal" width="50" topLocation="2">
             <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
         </x-modal>
 
         <!-- Modal -->
         {{-- Detail --}}
-        <x-modal id="detailInspectionModal" width="70" topLocation="2">
-            <x-inspectionForm :establishment="$establishment" inputAttr="detail-inspect" key="1" :isDetail="true" />
+        <x-modal id="detailInspectionModal" width="50" topLocation="2">
+            <x-inspectionForm :establishment="$establishment" inputAttr="detail-inspect" key="Detail" :isDetail="true" />
         </x-modal>
 
         <x-modal id="modalOwner" width="70" topLocation="5">
@@ -83,25 +83,26 @@
         const natureOfPaymentSelect = document.querySelector("#natureOfPayment")
         const regStatusSelect = document.querySelector("#registrationStatus")
         const issuedForSelect = document.querySelector("#issuedFor")
-        const natureOfPaymentSelect1 = document.querySelector("#natureOfPayment1")
-        const regStatusSelect1 = document.querySelector("#registrationStatus1")
-        const issuedForSelect1 = document.querySelector("#issuedFor1")
+        const natureOfPaymentSelectDetail = document.querySelector("#natureOfPaymentDetail")
+        const regStatusSelectDetail = document.querySelector("#registrationStatusDetail")
+        const issuedForSelectDetail = document.querySelector("#issuedForDetail")
         const btnSave = document.querySelector('#btnSave')
 
         async function showDetail() {
             const inspectionDetails = await getInspectionById("{{ env('APP_URL') }}", event.target.value);
 
-            console.log(document.querySelector('#natureOfPayment1'))
+            console.log(inspectionDetails.fsicNo)
 
-            document.querySelector('#inspectionDate1').value = inspectionDetails.inspectionDate;
-            document.querySelector('#buildingConditions1').value = inspectionDetails.buildingCondtions;
-            document.querySelector('#buildingStructures1').value = inspectionDetails.buildingStructures;
-            document.querySelector('#orNo1').value = inspectionDetails.orNo;
-            document.querySelector('#natureOfPayment1').value = inspectionDetails.natureOfPayment;
-            document.querySelector('#amountPaid1').value = inspectionDetails.amount;
-            document.querySelector('#dateOfPayment1').value = inspectionDetails.dateOfPayment;
-            document.querySelector('#registrationStatus1').value = inspectionDetails.registrationStatus;
-            document.querySelector('#issuedFor1').value = inspectionDetails.issuedFor;
+            document.querySelector('#inspectionDateDetail').value = inspectionDetails.inspectionDate;
+            document.querySelector('#buildingConditionsDetail').value = inspectionDetails.buildingCondtions;
+            document.querySelector('#buildingStructuresDetail').value = inspectionDetails.buildingStructures;
+            document.querySelector('#orNoDetail').value = inspectionDetails.orNo;
+            document.querySelector('#natureOfPaymentDetail').value = inspectionDetails.natureOfPayment;
+            document.querySelector('#amountPaidDetail').value = inspectionDetails.amount;
+            document.querySelector('#fsicNoDetail').value = inspectionDetails.fsicNo;
+            document.querySelector('#dateOfPaymentDetail').value = inspectionDetails.dateOfPayment;
+            document.querySelector('#registrationStatusDetail').value = inspectionDetails.registrationStatus;
+            document.querySelector('#issuedForDetail').value = inspectionDetails.issuedFor;
 
             openModal('detailInspectionModal');
         }
@@ -109,9 +110,9 @@
         populateNatueOfPaymentSelect(natureOfPaymentSelect, natureOfPayments)
         populateSelect(regStatusSelect, regStatus)
         populateSelect(issuedForSelect, issuances)
-        populateNatueOfPaymentSelect(natureOfPaymentSelect1, natureOfPayments)
-        populateSelect(regStatusSelect1, regStatus)
-        populateSelect(issuedForSelect1, issuances)
+        populateNatueOfPaymentSelect(natureOfPaymentSelectDetail, natureOfPayments)
+        populateSelect(regStatusSelectDetail, regStatus)
+        populateSelect(issuedForSelectDetail, issuances)
 
         natureOfPaymentSelect.selectedIndex = 0
         regStatusSelect.selectedIndex = 0

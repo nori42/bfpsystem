@@ -6,7 +6,7 @@
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 8%; /* Location of the box */
-    padding-bottom:100px; /*Space below the modal*/
+    padding-bottom:150px; /*Space below the modal*/
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -19,11 +19,11 @@
   /* Modal Content */
   .modal-content {
     background-color: #fefefe;
-    margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 70%;
-    margin-right: 5%;
+    margin: 0;
+    margin-left: calc(30%);
   }
 
   .modal-content-dialog {

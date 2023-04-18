@@ -89,11 +89,26 @@
                 {{-- This is hidden only use for reference --}}
                 <input type="text" id="ownerId" name="ownerId" hidden value="">
                 <fieldset>
-                    <legend>Personal Information</legend>
+                    <legend>Name Of Owner/Representative</legend>
                     <x-form.input type="text" label="Last Name" name="lastName" />
                     <x-form.input type="text" label="First Name" name="firstName" />
                     <x-form.input type="text" label="Middle Name" name="middleName" />
+
+                    <label for="suffix">Suffix</label>
+                    <select class="form-control" name="suffix" id="suffix">
+                        <option value="" disabled selected>Select Suffix(Optional)</option>
+                        <option value="Dr.">Dr.</option>
+                        <option value="Jr.">Jr.</option>
+                        <option value="Sr.">Sr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="I">I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                    </select>
                     <x-form.input type="text" label="Contact No." name="contactNoPerson" />
+
                 </fieldset>
                 <hr>
                 <fieldset>
