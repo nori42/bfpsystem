@@ -25,13 +25,9 @@ class FsicController extends Controller
         $inspections = Inspection::where('establishment_id', $request->id)->get();
         $owner = Owner::find($request->id);
 
-        //load json files
-        $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/natureOfPayment.json"), true);
-
         return view('establishments.fsic.index',[
             'establishment' => $establishment,
             'inspections' => $inspections,
-            'natureOfPayment' => $natureOfPayment,
             'owner' => $owner,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
@@ -67,6 +63,16 @@ class FsicController extends Controller
 
         $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
 
+        //load json files
+        $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/selectOptions/natureOfPayment.json"), true);
+        $regStatus = json_decode(file_get_contents(public_path() . "/json/selectOptions/registrationStatus.json"), true);
+        $issuedFor = json_decode(file_get_contents(public_path() . "/json/selectOptions/issuedFor.json"), true);
+        $selectOptions = [
+            "natureOfPayment"=>$natureOfPayment,
+            "registrationStatus"=>$regStatus,
+            "issuedFor"=>$issuedFor
+        ];
+
         switch($request->input('action'))
         {
             case 'add':
@@ -75,6 +81,7 @@ class FsicController extends Controller
                 'mssg'=>'New Record Added',
                 'establishment' => $establishment,
                 'inspections' => $inspectionDetail,
+                'selectOptions' => $selectOptions,
                 'owner' => $inspection->establishment->owner,
                 'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
@@ -85,8 +92,8 @@ class FsicController extends Controller
     }
 
     public function update(Request $request){
-        $inspection = Inspection::find($request->id);
-        $receipt = Receipt::find($inspection->id);
+        $inspection = Inspection::find($request->inspectionId);
+        $receipt = Receipt::find($request->receiptId);
 
         $receipt->or_no = $request->orNoDetail;
         $receipt->nature_of_payment = $request->natureOfPaymentDetail;
@@ -105,6 +112,7 @@ class FsicController extends Controller
         $inspection->save();
 
         $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
+
         switch($request->input('action'))
         {
             case 'save':
@@ -118,6 +126,16 @@ class FsicController extends Controller
                 return redirect('/establishments/fsic/print/'.$inspection->id);
         }
         
+    }
+
+    public function print_fsic(Request $request){
+        $inspection = Inspection::find($request->id);
+
+        $inspection->expiry_date = date("m/d/Y",strtotime("+1 year"));
+        $inspection->status ='Printed';
+        $inspection->save();
+
+        return redirect('/establishments/fsic/'.$inspection->id);        
     }
 
     //Payment
@@ -194,7 +212,7 @@ class FsicController extends Controller
 
 
     //Print
-    public function print_fsic(Request $request){
+    public function show_print_fsic(Request $request){
         // $details = DB::table('establishments')
         // ->join('owners', 'establishments.owner_id', '=', 'owners.id')
         // ->join('payments', 'payments.establishment_id', '=', 'establishments.id')
@@ -213,6 +231,10 @@ class FsicController extends Controller
             'dateOfPayment' => date("m/d/Y",strtotime($inspection->receipt->date_of_payment))
         ];
 
+        if($inspection->expiry_date != null)
+        {
+            return redirect('404');
+        }
 
         
         return view('establishments/fsic/print_fsic', [

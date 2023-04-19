@@ -59,9 +59,7 @@
         }
     </style>
 
-    <a href="/establishments" class="material-symbols-outlined mt-5 btn-back">
-        arrow_back
-    </a>
+    <x-backBtn />
 
     <div class="page-content">
         {{-- Put page content here --}}

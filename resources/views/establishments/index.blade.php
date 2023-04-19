@@ -99,6 +99,9 @@
                                                 <a href="/establishments/fsec/{{ $establishment->id }}"
                                                     class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire
                                                     Safety Evaluation</a>
+                                                <a href="/establishments/firedrill/{{ $establishment->id }}"
+                                                    class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire
+                                                    Drill</a>
                                             </div>
                                         </div>
                                     </div>

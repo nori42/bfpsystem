@@ -5,6 +5,19 @@
     @if ($isDetail)
         @method('PUT')
     @endif
+
+    @php
+        //load json files
+        $natureOfPayment = json_decode(file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'), true);
+        $regStatus = json_decode(file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'), true);
+        $issuedFor = json_decode(file_get_contents(public_path() . '/json/selectOptions/issuedFor.json'), true);
+        $selectOptions = [
+            'natureOfPayment' => $natureOfPayment,
+            'registrationStatus' => $regStatus,
+            'issuedFor' => $issuedFor,
+        ];
+    @endphp
+
     <fieldset class="d-flex flex-column">
         <legend>Inspection</legend>
         {{-- This is hidden, only used for post request --}}
@@ -27,22 +40,31 @@
     <fieldset>
         <legend>Certificate Issuance</legend>
 
-        <x-form.input name="orNo{{ $key }}" label="OR No." input-inspect type="text" />
+        <x-form.input name="fsicNo{{ $key }}" label="Fire Safety Inspection No. (FSIC No.)"
+            customAttr="{{ $inputAttr }}" type="text" />
+        <x-form.select label="Registration Status" name="registrationStatus{{ $key }}"
+            customAttr="{{ $inputAttr }}" placeholder="Select Registration Status">
+            <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" />
+        </x-form.select>
 
+        <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
+            customAttr="{{ $inputAttr }}">
+            <x-form.selectOptions.options :options="$selectOptions['issuedFor']" />
+        </x-form.select>
+    </fieldset>
+    <hr>
+    <fieldset>
+        <legend>Receipt</legend>
+        <x-form.input name="orNo{{ $key }}" label="OR No." input-inspect type="text" />
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
-            customAttr="{{ $inputAttr }}" placeholder="Select Nature Of Payment" />
-        <div class="d-flex gap-2">
-            <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
-                type="text" />
-            <x-form.input name="fsicNo{{ $key }}" label="Fire Safety Inspection No. (FSIC No.)"
-                customAttr="{{ $inputAttr }}" type="text" />
-        </div>
+            customAttr="{{ $inputAttr }}" placeholder="Select Nature Of Payment">
+            <x-form.selectOptions.options :options="$selectOptions['natureOfPayment']" />
+        </x-form.select>
         <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment" customAttr="{{ $inputAttr }}"
             type="date" class="w-50" />
-        <x-form.select label="Registration Status" name="registrationStatus{{ $key }}"
-            customAttr="{{ $inputAttr }}" placeholder="Select Registration Status" />
-        <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
-            customAttr="{{ $inputAttr }}" />
+
+        <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
+            type="text" />
     </fieldset>
 
     @if (!$isDetail)

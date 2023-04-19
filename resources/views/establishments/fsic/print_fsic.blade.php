@@ -11,6 +11,10 @@
 </head>
 
 <body>
+    <form id="print" action="{{ $inspection->id }}" method="POST">
+        @csrf
+        @method('PUT')
+    </form>
     <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button>

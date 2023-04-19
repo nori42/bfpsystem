@@ -2,9 +2,7 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
-    <a href="/establishments/{{ $establishment->id }}" class="material-symbols-outlined btn-back mt-5">
-        arrow_back
-    </a>
+    <x-backBtn />
     <div class="page-content">
         {{-- Put page content here --}}
 
@@ -14,7 +12,7 @@
             <x-headingInfo :establishment="$establishment" :owner="$owner" />
 
             {{-- FSIC Action --}}
-            <div class="d-flex  w-100 mt-5">
+            <div class="d-flex  w-100 mt-3">
                 <x-action.link href="/establishments/fsic/{{ $establishment->id }}" text="Inspection" />
                 {{-- <x-action.link href="/establishments/fsic/payment/{{ $establishment->id }}" text="Payment" /> --}}
                 <x-action.link href="/establishments/fsic/attachment/{{ $establishment->id }}/fsic" text="Attachments"

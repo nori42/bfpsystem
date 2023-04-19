@@ -60,14 +60,15 @@ Route::get('/establishments/fsic/{id}', [FsicController::class, 'index']);
 Route::post('/establishments/fsic/{id}', [FsicController::class, 'store']);
 Route::put('/establishments/fsic/{id}', [FsicController::class, 'update']);
 
+Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'show_print_fsic']);
+Route::put('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);
+
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment']);
 Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::class);
 
-Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);
-
 //Firedrill
-Route::get('/establishments/firedrill/{id}', [Firedrillcontroller::class, 'index']);
+Route::get('/establishments/firedrill/{id}', [FiredrillController::class, 'index']);
 
 
 //Archived routes

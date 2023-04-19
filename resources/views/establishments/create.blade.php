@@ -94,9 +94,9 @@
                     <x-form.input type="text" label="First Name" name="firstName" />
                     <x-form.input type="text" label="Middle Name" name="middleName" />
 
-                    <label for="suffix">Suffix</label>
+                    <label class="info-label" for="suffix">Suffix</label>
                     <select class="form-control" name="suffix" id="suffix">
-                        <option value="" disabled selected>Select Suffix(Optional)</option>
+                        <option value="" disabled selected>Select Suffix</option>
                         <option value="Dr.">Dr.</option>
                         <option value="Jr.">Jr.</option>
                         <option value="Sr.">Sr.</option>
@@ -143,30 +143,31 @@
             <x-form.input type="text" label="Building Permit No." name="buildingPermitNo" />
 
 
-            <div class="d-flex gap-2">
-                <x-form.inputWrapper>
-                    <div>
+            <x-form.inputWrapper>
+                <div class="d-flex gap-2">
+                    <div class="w-100">
                         <label class="info-label">Occupancy</label>
-                        <select class="form-select px-5" name="occupancy" id="occupancy" data-establishment-input required>
+                        <select class="form-control" name="occupancy" id="occupancy" data-establishment-input required>
                             <option value="" disabled selected>Select Occupancy</option>
                             {{-- Options is populated in script --}}
                         </select>
                     </div>
-                    <div>
+                    <div class="w-100">
                         <label class="info-label">Sub Type</label>
-                        <select class="form-select px-5" name="subType" id="subType" data-establishment-input required>
+                        <select class="form-control" name="subType" id="subType" data-establishment-input required>
                             <option value="" disabled selected>Select Occupancy First</option>
                             {{-- Options is populated in script --}}
                         </select>
                     </div>
-                </x-form.inputWrapper>
-            </div>
+
+                </div>
+            </x-form.inputWrapper>
+
             <x-form.inputWrapper>
                 <div class="d-flex gap-2">
-                    <div class="my-2 w-100">
+                    <div class="w-100">
                         <label class="info-label">Substation</label>
-                        <select class="form-select px-5" name="substation" id="substation" data-establishment-input
-                            required>
+                        <select class="form-control" name="substation" id="substation" data-establishment-input required>
                             <option value="" disabled selected>Select Substation</option>
                             {{-- @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
@@ -174,9 +175,9 @@
                         </select>
                     </div>
 
-                    <div class="my-2 w-100">
+                    <div class="w-100">
                         <label class="info-label">Building Type</label>
-                        <select class="form-select px-5" name="buildingType" id="buildingType" data-establishment-input
+                        <select class="form-control" name="buildingType" id="buildingType" data-establishment-input
                             required>
                             <option value="" disabled selected>Select Building Type</option>
                             {{-- @foreach ($building_type as $btype)
@@ -192,13 +193,15 @@
                 <x-form.input type="text" label="Height" name="height" />
             </div>
 
-            <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer" name="fireInsuranceCo" />
-            <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />
+            <div class="d-flex gap-2">
+                <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer" name="fireInsuranceCo" />
+                <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />
+            </div>
 
             <x-form.inputWrapper>
                 <label class="info-label">Barangay</label>
                 {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
-                <select class="form-select px-5" name="barangay" id="barangay">
+                <select class="form-control " name="barangay" id="barangay">
                     <option value="" disabled selected>Select Barangay</option>
                 </select>
             </x-form.inputWrapper>

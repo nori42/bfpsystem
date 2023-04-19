@@ -1,5 +1,7 @@
 document.getElementById("printBtn").addEventListener("click", function(){
     window.print();
+
+    document.querySelector('#print').submit();
 })
 
 function handleMove(btn){

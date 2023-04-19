@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('fsic_no')->nullable();
             $table->string('issued_for');
             $table->enum('status',['Not Printed','Printed'])->default("Not Printed");
-            $table->date('expiry_date')->nullable();
+            $table->string('expiry_date')->nullable();
             $table->foreignIdFor(Receipt::class);
             $table->foreignIdFor(Establishment::class);
             $table->timestamps();

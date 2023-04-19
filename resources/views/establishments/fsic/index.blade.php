@@ -3,15 +3,15 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
-        <a href="/establishments/{{ $establishment->id }}" class="material-symbols-outlined btn-back mt-5">
-            arrow_back
-        </a>
+
+        <x-backBtn />
 
         <x-pageWrapper>
+
             {{-- Owner Info & Selected Establishment --}}
             <x-headingInfo :establishment="$establishment" :owner="$owner" />
             {{-- FSIC Action --}}
-            <div class="d-flex mt-5 w-100">
+            <div class="d-flex mt-3 w-100">
                 <x-action.link href="/establishments/fsic/{{ $establishment->id }}" text="Inspection" :active="true" />
                 {{-- <x-action.link href="/establishments/fsic/payment/{{ $establishment->id }}" text="Payment" /> --}}
                 <x-action.link href="/establishments/fsic/attachment/{{ $establishment->id }}/fsic" text="Attachments" />
@@ -46,12 +46,14 @@
                                 </td>
                                 <td>{{ $inspection->status }}</td>
                                 <td class="text-center">
-                                    <button class="btn fw-bold btn-success" onclick="showDetail(event)"
-                                        value={{ $inspection->id }}>
+                                    <button class="btn fw-bold btn-success"
+                                        onclick="openModal(`inspection{{ $inspection->id }}`)" value={{ $inspection->id }}>
                                         Details
                                     </button>
                                 </td>
                             </tr>
+
+                            <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}" :establishment="$establishment" />
                         @endforeach
                     </tbody>
                 </table>
@@ -64,13 +66,8 @@
             <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
         </x-modal>
 
-        <!-- Modal -->
-        {{-- Detail --}}
-        <x-modal id="detailInspectionModal" width="50" topLocation="2">
-            <x-inspectionForm :establishment="$establishment" inputAttr="detail-inspect" key="Detail" :isDetail="true" />
-        </x-modal>
 
-        <x-modal id="modalOwner" width="70" topLocation="5">
+        <x-modal id="modalOwner" width="50" topLocation="5">
             <x-ownerInfo :establishment="$establishment" :owner="$owner" />
         </x-modal>
     </div>
@@ -107,12 +104,9 @@
             openModal('detailInspectionModal');
         }
 
-        populateNatueOfPaymentSelect(natureOfPaymentSelect, natureOfPayments)
-        populateSelect(regStatusSelect, regStatus)
-        populateSelect(issuedForSelect, issuances)
-        populateNatueOfPaymentSelect(natureOfPaymentSelectDetail, natureOfPayments)
-        populateSelect(regStatusSelectDetail, regStatus)
-        populateSelect(issuedForSelectDetail, issuances)
+        // populateNatueOfPaymentSelect(natureOfPaymentSelect, natureOfPayments)
+        // populateSelect(regStatusSelect, regStatus)
+        // populateSelect(issuedForSelect, issuances)
 
         natureOfPaymentSelect.selectedIndex = 0
         regStatusSelect.selectedIndex = 0

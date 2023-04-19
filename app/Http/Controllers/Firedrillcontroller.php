@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Establishment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Firedrillcontroller extends Controller
+class FiredrillController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
-        //Owners Information 
-        $establishment = DB::table('establishments')
-        ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        ->where('establishments.id', (int)request('id'))
-        ->where('establishments.id', (int)request('id'))
-        ->first();
+        $establishment = Establishment::find($request->id);
+        $owner = $establishment->owner;
    
         return view('establishments.firedrill.index',[
             'establishment' => $establishment,
+            'owner' => $owner,
             'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);
     }
