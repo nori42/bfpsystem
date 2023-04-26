@@ -33,3 +33,24 @@ async function getInspectionById(baseURL,id){
     }
 
 }
+
+async function populateEstablSearchSuggestion(baseURL,search,datalist){
+
+    try
+    {
+        const hostUrl = baseURL
+        const response = await fetch(hostUrl+`/resources/establishments?search=${search}`)
+        const json = await response.json();
+        console.log(json)
+        datalist.innerHTML = ""
+        json.data.forEach(establishment => {
+            const nameOpt = document.createElement("option")
+            nameOpt.setAttribute("value",`${establishment.building_permit_no}-${establishment.establishment_name}`)
+            datalist.appendChild(nameOpt)
+
+        });
+    }
+    catch (err){
+    }
+
+}

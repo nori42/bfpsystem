@@ -135,7 +135,7 @@ class FsicController extends Controller
         $inspection->status ='Printed';
         $inspection->save();
 
-        return redirect('/establishments/fsic/'.$inspection->id);        
+        return redirect('/establishments/fsic/'.$inspection->establishment->id);        
     }
 
     //Payment

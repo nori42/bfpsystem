@@ -27,25 +27,11 @@
         <!--Nav Heading  -->
         <div class="p-4 d-flex flex-column align-items-center justify-content-center">
             <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
-            <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Bureau of Fire Protection Management System</h1>
+            <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Cebu City Fire Station</h1>
         </div>
 
 
         <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
-
-        <!-- button dashboard-->
-        {{--         
-        <div class="m-2">
-            <a class="btn w-100 text-end text-white" href="/dashboard">
-                <!-- button icon -->
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn-icon" viewBox="0 0 16 16">
-                    <path d="M7.462 0H0v7.19h7.462V0zM16 0H8.538v7.19H16V0zM7.462 8.211H0V16h7.462V8.211zm8.538 0H8.538V16H16V8.211z"/>
-                    </svg>
-                </span>
-                Dashboard
-            </a>
-        </div> --}}
 
         <!-- Nav Links -->
         <div class="nav-links overflow-y-auto ">
@@ -83,34 +69,9 @@
                                     d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
                             </svg>
                         </span>
-                        Propose Project
+                        Building Plan
                     </a>
                 </li>
-
-                <!-- button -->
-                {{-- <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
-                        <!-- button Icon -->
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
-                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                            </svg>
-                        </span>
-                        FSIC
-                    </a>
-                </li> --}}
-
-                <!-- button -->
-                {{-- <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="">
-                        <!-- button Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                        Fire Drill Inspection
-                    </a>
-                </li> --}}
 
                 <!-- button -->
                 <li class="m-2">
@@ -124,19 +85,6 @@
                         Personnel
                     </a>
                 </li>
-
-                <!-- button -->
-                {{-- <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="#"disabled>
-                        <!-- button Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon" viewBox="0 0 16 16">
-                        <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
-                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                        </svg>
-                        Fire Incidents Statistics
-                    </a>
-                </li> --}}
 
                 <!-- button -->
                 <li class="m-2">
@@ -226,15 +174,8 @@
                 </div>
             </div>
         </div>
-
-        {{-- page panel --}}
-        {{-- This panel will be use through all the pages --}}
-        {{-- <div class="page-panel px-5 py-3">
-            <h1 class="fs-4 text-white fw-bold">{{ $page_title }}</h1>
-        </div> --}}
-
         {{-- DUMP CONTENT HERE --}}
-        <div class="overflow-y-auto" id="scrollable">
+        <div class="overflow-y-auto h-100" id="scrollable">
             @yield('content')
         </div>
     </div>

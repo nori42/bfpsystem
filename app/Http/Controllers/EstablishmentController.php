@@ -46,7 +46,7 @@ class EstablishmentController extends Controller
             $isSearch = true;
         }
 
-        return view('establishments.index', [
+        return view('establishments.indexNew', [
             'establishments' => $establishments,
             'isSearch' => $isSearch,
             'totalRecords' => $totalRecords,
@@ -98,6 +98,7 @@ class EstablishmentController extends Controller
         $person->first_name = strtoupper($request->firstName);
         $person->last_name = strtoupper($request->lastName);
         $person->middle_name =  strtoupper($request->middleName);
+        $person->suffix = strtoupper($request->suffix);
         $person->contact_no = $request->contactNoPerson;
 
         
@@ -135,8 +136,8 @@ class EstablishmentController extends Controller
         $establishment = Establishment::find($request->id);
         $owner = Owner::find($establishment->owner_id);
         
-        $occupancies = json_decode(file_get_contents(public_path() . "/json/occupancy.json"), true);
-        $sub_type = json_decode(file_get_contents(public_path() . "/json/subtype.json"), true);
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
         $building_type = [
             'Small', 'Medium', 'Large', 'High Rise'
         ];       

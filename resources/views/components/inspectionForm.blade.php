@@ -54,17 +54,19 @@
     </fieldset>
     <hr>
     <fieldset>
-        <legend>Receipt</legend>
+        <legend>Receipt Information</legend>
         <x-form.input name="orNo{{ $key }}" label="OR No." input-inspect type="text" />
+        <div class="d-flex gap-2">
+            <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
+                type="text" />
+            <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment"
+                customAttr="{{ $inputAttr }}" type="date" class="w-50" />
+        </div>
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
             customAttr="{{ $inputAttr }}" placeholder="Select Nature Of Payment">
             <x-form.selectOptions.options :options="$selectOptions['natureOfPayment']" />
         </x-form.select>
-        <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment" customAttr="{{ $inputAttr }}"
-            type="date" class="w-50" />
 
-        <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
-            type="text" />
     </fieldset>
 
     @if (!$isDetail)

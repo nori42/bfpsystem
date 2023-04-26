@@ -15,18 +15,18 @@ return new class extends Migration
         Schema::create('establishments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('establishment_name');
-            $table->string('substation');
-            $table->string('occupancy');
-            $table->string('sub_type');
-            $table->string('building_type');
+            $table->string('substation')->nullable();;
+            $table->string('occupancy')->nullable();;
+            $table->string('sub_type')->nullable();;
+            $table->string('building_type')->nullable();;
             $table->string('no_of_storey')->nullable();
             $table->string('height')->nullable();
             $table->string('building_permit_no')->nullable();
             $table->string('fire_insurance_co')->nullable();
             $table->string('latest_mayors_permit')->nullable();
-            $table->string('barangay');
-            $table->string('address');
-            $table->string('createdBy');
+            $table->string('barangay')->nullable();;
+            $table->string('address')->nullable();;
+            $table->string('createdBy')->nullable();;
             $table->softDeletes();
             $table->timestamps();
             $table->foreignIdFor(Owner::class);

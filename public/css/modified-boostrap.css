@@ -1,6 +1,7 @@
 :root{
     --primary-color:#672424;
     --secondary-color:#1C3B64;
+    --secondary-subtle-color:#dee0e2;
     --success:#1C3B64;
     /* --success:#53A3D8; */
     --success-subtle:#4d94c4;
@@ -9,6 +10,14 @@
 
 .overflow-y-scroll{
     overflow-y: hidden;
+}
+
+.text-primary {
+    color: var(--secondary-color)!important;
+}
+
+.bg-secondary-subtle {
+    background-color: var(--secondary-subtle-color) !important;
 }
 
 .btn-success {

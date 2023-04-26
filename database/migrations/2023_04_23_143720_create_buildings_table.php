@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('person', function (Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('first_name')->nullable();
-            $table->string('middle_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('contact_no')->nullable();
-            $table->string('suffix')->nullable();
+            $table->string('occupancy')->nullable();
+            $table->string('building_structure')->nullable();
+            $table->string('height')->nullable();
+            $table->string('building_story')->nullable();
+            $table->string('floor_area')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('persons');
+        Schema::dropIfExists('buildings');
     }
 };

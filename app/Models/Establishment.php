@@ -23,5 +23,6 @@ class Establishment extends Model
     {
         return $this->hasMany(Evaluation::class);
     }
+
     use HasFactory, SoftDeletes;
 }

@@ -22,7 +22,12 @@
         <input class="d-none" name="receiptId" type="text" value="{{ $inspection->receipt_id }}">
 
         <fieldset class="d-flex flex-column">
-            <legend>Inspection</legend>
+            <div class="d-flex justify-content-between align-items-center">
+                <legend>Inspection</legend>
+                @if ($printed)
+                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                @endif
+            </div>
             {{-- This is hidden, only used for post request --}}
             <input class="info d-none" type="text" id="establishmentId" name="establishmentId"
                 value="{{ $establishment->id }}">
@@ -59,9 +64,17 @@
         </fieldset>
         <hr>
         <fieldset>
-            <legend>Receipt</legend>
+            <legend>Receipt Information</legend>
             <x-form.input name="orNoDetail" label="OR No." input-inspect type="text"
                 value="{{ $inspection->receipt->or_no }}" :readonly="$printed" />
+            <div class="d-flex gap-2">
+                <x-form.input name="amountPaidDetail" label="Amount Paid" customAttr="{{ $inputAttr }}"
+                    type="text" value="{{ $inspection->receipt->amount }}" :readonly="$printed" />
+
+                <x-form.input name="dateOfPaymentDetail" label="Date Of Payment" customAttr="{{ $inputAttr }}"
+                    type="date" class="w-50" value="{{ $inspection->receipt->date_of_payment }}"
+                    :readonly="$printed" />
+            </div>
 
             <x-form.select label="Nature Of Payment" name="natureOfPaymentDetail" customAttr="{{ $inputAttr }}"
                 :readonly="$printed" placeholder="Select Nature Of Payment"
@@ -69,11 +82,7 @@
                 <x-form.selectOptions.options :options="$selectOptions['natureOfPayment']" :selected="$inspection->receipt->nature_of_payment" />
             </x-form.select>
 
-            <x-form.input name="dateOfPaymentDetail" label="Date Of Payment" customAttr="{{ $inputAttr }}"
-                type="date" class="w-50" value="{{ $inspection->receipt->date_of_payment }}" :readonly="$printed" />
 
-            <x-form.input name="amountPaidDetail" label="Amount Paid" customAttr="{{ $inputAttr }}" type="text"
-                value="{{ $inspection->receipt->amount }}" :readonly="$printed" />
         </fieldset>
 
         @if ($inspection->expiry_date == null)

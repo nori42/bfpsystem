@@ -16,10 +16,16 @@ class FsecController extends Controller
         $establishment = Establishment::find($request->id);
         $evaluations = Evaluation::where('establishment_id', $request->id)->get();
 
-        return view('establishments.fsec.index', [
+        return view('fsec.index', [
             'establishment' => $establishment, 
             'page_title' => 'Fire Safety Evaluation Certificate', // use to set page title inside the panel
             'evaluations' => $evaluations
+        ]);
+    }
+
+    public function create(){
+        return view('fsec.create',[
+            'page_title' => "Add Building Plan",
         ]);
     }
 
@@ -54,7 +60,7 @@ class FsecController extends Controller
             $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
         })->get();
 
-        return view('establishments.fsec.show_attachment_fsec',[
+        return view('fsec.show_attachment_fsec',[
             'establishment' => $establishment,
             'owner' => $owner,
             'files' =>  $files,
@@ -66,7 +72,7 @@ class FsecController extends Controller
 
         $evaluation = Evaluation::find($request->id);
         error_log($evaluation);
-        return view('establishments.fsec.print_fsec',[
+        return view('fsec.print_fsec',[
             'evaluation'=> $evaluation
         ]);
     }

@@ -18,7 +18,8 @@
             </div>
 
             {{-- Inspection --}}
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="fs-5">Building Structure: <b> {{ $establishment->building_type }}</b></div>
                 <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
                     <span class="material-symbols-outlined align-middle">
                         assignment_add
@@ -29,22 +30,23 @@
             <div id="inspection" class="h-75 overflow-y-auto mt-4 border-3">
                 <table class="table">
                     <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
-                        <th>Inspection Date</th>
-                        <th>OR No.</th>
-                        <th>Registration Status</th>
-                        <th>Expiry Date</th>
-                        <th>Status</th>
-                        <th></th>
+                        <th class="text-primary">Inspection Date</th>
+                        <th class="text-primary">OR No.</th>
+                        <th class="text-primary">Registration Status</th>
+                        <th class="text-primary">Expiry Date</th>
+                        <th class="text-primary">Status</th>
+                        <th class="text-primary"></th>
                     </thead>
                     <tbody>
                         @foreach ($inspections as $inspection)
                             <tr class="align-middle">
-                                <td>{{ date('m-d-Y', strtotime($inspection->inspection_date)) }}</td>
+                                <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
                                 <td>{{ $inspection->receipt->or_no }}</td>
                                 <td>{{ $inspection->registration_status }}</td>
-                                <td>{{ $inspection->expiry_date === null ? 'After Print' : $inspection->expiry_date }}
+                                <td>{{ $inspection->expiry_date }}
                                 </td>
-                                <td>{{ $inspection->status }}</td>
+                                <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
+                                    {{ $inspection->status }}</td>
                                 <td class="text-center">
                                     <button class="btn fw-bold btn-success"
                                         onclick="openModal(`inspection{{ $inspection->id }}`)" value={{ $inspection->id }}>
@@ -53,7 +55,8 @@
                                 </td>
                             </tr>
 
-                            <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}" :establishment="$establishment" />
+                            <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}"
+                                :establishment="$establishment" />
                         @endforeach
                     </tbody>
                 </table>

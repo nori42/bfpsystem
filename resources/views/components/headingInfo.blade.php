@@ -1,10 +1,16 @@
 @props(['establishment', 'owner'])
 
+
+@php
+    $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name . ' ' . $owner->person->suffix;
+    $company = $owner->corporate->corporate_name;
+    $representative = $personName != null ? $personName : $company;
+@endphp
 <div class="">
     <div class="fs-5">Record No.: {{ $establishment->id }}</div>
     <div>
-        <p class="fs-5 mb-0"> Owner:
-            {{ $establishment->owner->person->last_name . ', ' . $establishment->owner->person->first_name . ' ' . $establishment->owner->person->middle_name }}
+        <p class="fs-5 mb-0"> Owner/Representative:
+            {{ $representative }}
         </p>
         <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
     </div>

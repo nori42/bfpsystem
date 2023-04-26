@@ -14,13 +14,7 @@
         @csrf
         <style>
             .inputCreate {
-                border: 1px solid gray;
-                padding: .4em .3em;
-                background: white;
-                border-radius: .5em;
-                width: 100%;
                 text-transform: uppercase;
-                font-size: .7rem
             }
 
             select {
@@ -89,7 +83,7 @@
                 {{-- This is hidden only use for reference --}}
                 <input type="text" id="ownerId" name="ownerId" hidden value="">
                 <fieldset>
-                    <legend>Name Of Owner/Representative</legend>
+                    <legend>Person</legend>
                     <x-form.input type="text" label="Last Name" name="lastName" />
                     <x-form.input type="text" label="First Name" name="firstName" />
                     <x-form.input type="text" label="Middle Name" name="middleName" />
@@ -111,9 +105,11 @@
 
                 </fieldset>
                 <hr>
+                <legend class="text-secondary">Either or both</legend>
+                <hr>
                 <fieldset>
-                    <legend>Corporate Information</legend>
-                    <x-form.input type="text" label="Corporate Name" name="corporateName" />
+                    <legend>Company</legend>
+                    <x-form.input type="text" label="Company Name" name="corporateName" />
                     <x-form.input type="text" label="Contact No." name="contactNoCorporate" />
                 </fieldset>
             @else
@@ -189,10 +185,10 @@
             </x-form.inputWrapper>
 
             <div class="d-flex gap-2">
-                <x-form.input type="text" label="No Of Storey" name="noOfStory" />
+                <x-form.input type="text" label="No. of Storey" name="noOfStory" />
                 <x-form.input type="text" label="Height" name="height" />
             </div>
-
+            <x-form.input class="w-50" type="text" label="Floor Area" name="floorArea" />
             <div class="d-flex gap-2">
                 <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer" name="fireInsuranceCo" />
                 <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />

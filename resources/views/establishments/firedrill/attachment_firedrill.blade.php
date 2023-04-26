@@ -5,6 +5,6 @@
     <x-backBtn />
     <div class="page-content">
         {{-- Put page content here --}}
-        <x-attachment for='fsic' :establishment="$establishment" :owner="$owner" :files="$files" page="Inspection" />
+        <x-attachment for='firedrill' :establishment="$establishment" :owner="$owner" :files="$files" page="Firedrill" />
     </div>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Establishment;
 use App\Models\Owner;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,26 @@ class SearchController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $owners
+        ]);
+
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => 'no data'
+        ]);
+    }
+
+    public function searchEstablishment(Request $request){
+        if($request->search != "")
+        {
+            
+        // $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?'",["%{$request->searchQuerye}%"])->get();
+        $establishment = Establishment::whereRaw("CONCAT(building_permit_no, '-', establishment_name) LIKE '%{$request->search}%'")->limit(10)->get();
+        // $owners = Owner::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => $establishment
         ]);
 
         }

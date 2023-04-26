@@ -42,7 +42,7 @@
                     class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
         </div>
 
-        <div class="w-90 overflow-auto mx-auto px-2" style="height: 670px;">
+        <div class="w-90 overflow-auto mx-auto px-2 h-100">
             @if (session('mssg'))
                 <h5 class="text-success w-90">{{ session('mssg') }}</h5>
             @endif
@@ -56,7 +56,7 @@
                     <tr style="background-color: #1c3b64; color: white;">
                         <th class="p-3">Building Permit No.</th>
                         <th class="p-3">Establishment</th>
-                        <th class="p-3">Name</th>
+                        <th class="p-3">Representative</th>
                         <th class="p-3">Barangay</th>
                         <th class="p-3">Substation</th>
                         <th class="p-3">Actions</th>
@@ -71,11 +71,16 @@
                     @endif
 
                     @foreach ($establishments as $establishment)
+                        @php
+                            $owner = $establishment->owner;
+                            $person = $owner->person->suffix . ' ' . $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name;
+                            $company = $owner->corporate->corporate_name;
+                            $representative = $person ? $person : $company;
+                        @endphp
                         <tr class="align-middle">
                             <td> {{ $establishment->building_permit_no }} </td>
                             <td> {{ $establishment->establishment_name }} </td>
-                            <td> {{ $establishment->owner->person->first_name }}
-                                {{ $establishment->owner->person->last_name }}</td>
+                            <td>{{ $representative }}</td>
                             <td> {{ $establishment->barangay }} </td>
                             <td> {{ $establishment->substation }} </td>
                             <td class="px-4 position-relative">
@@ -96,9 +101,6 @@
                                                 <a href="/establishments/fsic/{{ $establishment->id }}"
                                                     class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire
                                                     Safety Inspection</a>
-                                                <a href="/establishments/fsec/{{ $establishment->id }}"
-                                                    class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire
-                                                    Safety Evaluation</a>
                                                 <a href="/establishments/firedrill/{{ $establishment->id }}"
                                                     class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire
                                                     Drill</a>
@@ -109,7 +111,6 @@
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>

@@ -75,8 +75,6 @@ function handleFsicActions (e){
 }
 
 
-
-
 // //Upload Script
 // function uploadFile(){
 //     const modalContent = document.querySelector('#addAttachmentModal').children[0]
