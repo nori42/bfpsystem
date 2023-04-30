@@ -49,7 +49,7 @@
         </fieldset>
         <fieldset class="py-3">
             <legend>Receipt Information</legend>
-            <x-form.input name="orNo" label="OR No." type="text" />
+            <x-form.input name="orNo" label="OR No." type="text" :required="true" />
             <div class="d-flex gap-2">
                 <x-form.input name="amountPaid" label="Amount Paid" type="text" value="" />
                 <x-form.input name="dateOfPayment" label="Date of Payment" type="date" class="w-50"

@@ -81,6 +81,6 @@ class FileUpload extends Controller
             return redirect('/establishments/fsec/attachment/'.$request->id.'/fsec')->with(['mssg' => 'File Uploaded']);
         }
 
-        return redirect('/establishments/firedrill/attachment/'.$request->id.'/firedrill')->with(['mssg' => 'File Uploaded']);
+        return redirect('/establishments'.'/'.$request->id.'/'.'/firedrill/attachment')->with(['mssg' => 'File Uploaded']);
     }
 }

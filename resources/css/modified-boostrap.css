@@ -23,7 +23,7 @@
 .btn-success {
     background-color: var(--success)!important;
     border: none !important;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 .btn-success:hover {
@@ -33,7 +33,7 @@
 .btn-outline-success {
     color: var(--success)!important;
     border-color: var(--success) !important;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 .btn-outline-success:hover {

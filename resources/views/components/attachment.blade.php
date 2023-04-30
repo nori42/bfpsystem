@@ -6,10 +6,10 @@
 
     {{-- FSIC Action --}}
     <div class="d-flex  w-100 mt-3">
-        <x-action.link href="/establishments/{{ $for }}/{{ $establishment->id }}" text="{{ $page }}" />
+        <x-action.link href="/establishments/{{ $establishment->id }}/{{ $for }}" text="{{ $page }}" />
         {{-- <x-action.link href="/establishments/fsic/payment/{{ $establishment->id }}" text="Payment" /> --}}
-        <x-action.link href="/establishments/{{ $for }}/attachment/{{ $establishment->id }}/{{ $for }}"
-            text="Attachments" :active="true" />
+        <x-action.link href="/establishments/{{ $establishment->id }}/{{ $for }}/attachment/" text="Attachments"
+            :active="true" />
     </div>
 
     <div class="d-flex justify-content-end pt-3">
@@ -50,7 +50,7 @@
                 <ul class="list-unstyled filelist p-3 fw-bold text-center">
                 </ul>
             </div>
-            <button id="submitFile" class="btn btn-success float-start" type="button" onclick="uploadFile()"
+            <button id="submitFile" class="btn btn-success float-end" type="button" onclick="uploadFile()"
                 value="{{ $for }}">Submit
                 Files</button>
         </div>

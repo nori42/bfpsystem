@@ -143,14 +143,14 @@
                 <div class="d-flex gap-2">
                     <div class="w-100">
                         <label class="info-label">Occupancy</label>
-                        <select class="form-control" name="occupancy" id="occupancy" data-establishment-input required>
+                        <select class="form-select" name="occupancy" id="occupancy" data-establishment-input required>
                             <option value="" disabled selected>Select Occupancy</option>
                             {{-- Options is populated in script --}}
                         </select>
                     </div>
                     <div class="w-100">
                         <label class="info-label">Sub Type</label>
-                        <select class="form-control" name="subType" id="subType" data-establishment-input required>
+                        <select class="form-select" name="subType" id="subType" data-establishment-input required>
                             <option value="" disabled selected>Select Occupancy First</option>
                             {{-- Options is populated in script --}}
                         </select>
@@ -163,7 +163,7 @@
                 <div class="d-flex gap-2">
                     <div class="w-100">
                         <label class="info-label">Substation</label>
-                        <select class="form-control" name="substation" id="substation" data-establishment-input required>
+                        <select class="form-select" name="substation" id="substation" data-establishment-input required>
                             <option value="" disabled selected>Select Substation</option>
                             {{-- @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
@@ -173,7 +173,7 @@
 
                     <div class="w-100">
                         <label class="info-label">Building Type</label>
-                        <select class="form-control" name="buildingType" id="buildingType" data-establishment-input
+                        <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
                             required>
                             <option value="" disabled selected>Select Building Type</option>
                             {{-- @foreach ($building_type as $btype)

@@ -12,7 +12,7 @@
             <x-headingInfo :establishment="$establishment" :owner="$owner" />
             {{-- FSIC Action --}}
             <div class="d-flex mt-3 w-100">
-                <x-action.link href="/establishments/fsic/{{ $establishment->id }}" text="Inspection" :active="true" />
+                <x-action.link href="/establishments/{{ $establishment->id }}/fsic" text="Inspection" :active="true" />
                 {{-- <x-action.link href="/establishments/fsic/payment/{{ $establishment->id }}" text="Payment" /> --}}
                 <x-action.link href="/establishments/fsic/attachment/{{ $establishment->id }}/fsic" text="Attachments" />
             </div>
@@ -29,13 +29,13 @@
             </div>
             <div id="inspection" class="h-75 overflow-y-auto mt-4 border-3">
                 <table class="table">
-                    <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
-                        <th class="text-primary">Inspection Date</th>
-                        <th class="text-primary">OR No.</th>
-                        <th class="text-primary">Registration Status</th>
-                        <th class="text-primary">Expiry Date</th>
-                        <th class="text-primary">Status</th>
-                        <th class="text-primary"></th>
+                    <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle textPrimary">
+                        <th>Inspection Date</th>
+                        <th>OR No.</th>
+                        <th>Registration Status</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         @foreach ($inspections as $inspection)

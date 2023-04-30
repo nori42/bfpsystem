@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('firedrills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('control_no');
-            $table->string('validity_term');
+            $table->string('control_no')->nullable();
+            $table->string('validity_term')->nullable();
             $table->date('date_claimed')->nullable();
             $table->string('issued_on')->nullable();
             $table->string('date_made')->nullable();
-            $table->string('year');
+            $table->string('year')->nullable();
             $table->foreignIdFor(Establishment::class);
             $table->foreignIdFor(Receipt::class);
             $table->timestamps();

@@ -1,10 +1,10 @@
 {{-- GET LAYOUT/TEMPLATE --}}
-@extends('layouts.layout')
+@extends('layouts.app')
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">
-        
+
         {{-- Put page content here --}}
 
         <table class="table">
@@ -16,10 +16,10 @@
             <tbody>
                 @foreach ($establishments as $establishment)
                     <tr class="align-middle">
-                        <td> {{ $establishment->id}} </td>
+                        <td> {{ $establishment->id }} </td>
                         <td> {{ $establishment->establishment_name }} </td>
-                        <td> {{$establishment->owner->first_name}} {{$establishment->owner->last_name}}</td>
-                    </tr>  
+                        <td> {{ $establishment->owner->first_name }} {{ $establishment->owner->last_name }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

@@ -128,12 +128,45 @@ class EstablishmentController extends Controller
 
         //save establishment data to database
         $establishment->save();
-        return redirect('/establishments');        
+
+        return redirect('/establishments'.'/'.$establishment->id.'/'.'fsic/');        
     }
 
     //get single record
     public function show(Request $request) {
+        
         $establishment = Establishment::find($request->id);
+
+        if($establishment == null)
+            return redirect('/404');
+
+        $owner = Owner::find($establishment->owner_id);
+        
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
+        $building_type = [
+            'Small', 'Medium', 'Large', 'High Rise'
+        ];       
+
+        return view('establishments.show', [
+            'establishment' => $establishment,
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
+            'owner' => $owner,
+            'buildingType' => $building_type,
+            'page_title' => 'Establishment Details' // use to set page title inside the panel
+        ]);
+    }
+
+    public function search(Request $request){
+         
+        $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
+        ->select('establishments.*','person.*')
+        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$request->search}%'")->get()->first();
+
+        if($establishment == null)
+            return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
+
         $owner = Owner::find($establishment->owner_id);
         
         $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
@@ -155,10 +188,8 @@ class EstablishmentController extends Controller
     // update establishment details
     public function update(Request $request){
         $establishment = Establishment::find($request->id);
-        $owner = Owner::find($establishment->owner->id);
         
         $establishment->establishment_name = strtoupper($request->establishmentName);
-        $owner->corporate_name = strtoupper($request->corporateName);
         $establishment->substation = strtoupper($request->substation);
         $establishment->sub_type = strtoupper($request->subType);
         $establishment->building_type = strtoupper($request->buildingType);
@@ -170,7 +201,6 @@ class EstablishmentController extends Controller
         $establishment->address = strtoupper($request->address);
         $establishment->height = strtoupper($request->height);
 
-        $owner->save();
         $establishment->save();
 
         // Establishment::where('id', $request->id)->update([
@@ -187,7 +217,7 @@ class EstablishmentController extends Controller
         //     'height' => $request->height
         // ]);
 
-        return redirect('/establishments'. "/" . $request->id)->with(["mssg" => "Record Updated"]);
+        return redirect('/establishments'. "/" . $establishment->id)->with(["mssg" => "Record Updated"]);
     }
 
     public function destroy(Request $request){

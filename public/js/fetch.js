@@ -41,14 +41,16 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
         const hostUrl = baseURL
         const response = await fetch(hostUrl+`/resources/establishments?search=${search}`)
         const json = await response.json();
-        console.log(json)
+        
         datalist.innerHTML = ""
         json.data.forEach(establishment => {
             const nameOpt = document.createElement("option")
-            nameOpt.setAttribute("value",`${establishment.building_permit_no}-${establishment.establishment_name}`)
+            const personName = `${establishment.first_name} ${establishment.middle_name[0]} ${establishment.last_name}`
+            nameOpt.setAttribute("value",`${establishment.building_permit_no}-${establishment.establishment_name}-${personName}`)
             datalist.appendChild(nameOpt)
-
+            
         });
+
     }
     catch (err){
     }

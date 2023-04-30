@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/modified-boostrap.css">
+    @vite(['resources/sass/main.scss'])
     <style>
-
-        .container{
+        .container {
             width: 27% !important;
             background-color: #e2e2e2;
             padding: 1px;
             margin-top: 5%;
             box-shadow: 1px 1px 6px #b5b5b5;
         }
-        body{
+
+        body {
             background-color: white !important;
             height: 100vh;
             overflow-y: auto;
         }
 
-        .btn-login{
+        .btn-login {
             background-color: #1C3B64;
             color: white;
             font-weight: bold;
@@ -37,15 +33,18 @@
             margin: 0;
             border: 1px solid white;
         }
-        .btn-login:hover{
+
+        .btn-login:hover {
             background-color: #1C3B64;
             color: white;
         }
-        .btn-login:active{
+
+        .btn-login:active {
             background-color: #1C3B64 !important;
             color: white !important;
         }
-        .field-container input{
+
+        .field-container input {
             padding-top: 5px !important;
             padding-bottom: 5px !important;
             padding-left: 8px;
@@ -54,9 +53,10 @@
         }
     </style>
 </head>
+
 <body>
     <div class="top-panel text-center p-3">
-        <div class="fs-6 text-white fw-bold">Bureau of Fire Protection  Management System</div>
+        <div class="fs-6 text-white fw-bold">Bureau of Fire Protection Management System</div>
     </div>
     <div class="container mx-auto">
         <form action="/authenticate" method="POST" class="p-5">
@@ -69,7 +69,7 @@
             <input class="form-control my-4 d-block w-100 py-3" type="password" name="password" placeholder="PASSWORD">
 
             <div class="field-container m-2 text-center">
-                <button class="btn btn-login mt-4 py-3 rounded-2 w-85">LOGIN</button> 
+                <button class="btn btn-login mt-4 py-3 rounded-2 w-85">LOGIN</button>
             </div>
         </form>
     </div>
@@ -78,4 +78,5 @@
 
     </div>
 </body>
+
 </html>

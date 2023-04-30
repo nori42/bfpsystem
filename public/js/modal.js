@@ -2,13 +2,13 @@
 // Use this for showing modal
 const openModal = (modalTarget) => {
 
-    modal = document.getElementById(modalTarget);
+  const modal = document.getElementById(modalTarget);
     modal.style.display = "block"
 }
 
 const closeModal = (modalTarget) => {
 
-  modal = document.getElementById(modalTarget);
+  const modal = document.getElementById(modalTarget);
   modal.style.display = "none"
 }
 

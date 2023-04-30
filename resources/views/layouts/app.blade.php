@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BFP System</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.css">
+    <title>{{ env('APP_NAME') }}</title>
+    {{-- <link rel="stylesheet" href="/css/styles.css"> --}}
+    {{-- <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/modal.css">
-    <link rel="stylesheet" href="/css/modified-boostrap.css">
-    {{-- styles - google fonts --}}
-    <link rel="stylesheet" href="/css/googlefonts.css">
+    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css"> --}}
+    {{-- <link rel="stylesheet" href="/css/googlefonts.css"> --}}
+    @vite(['resources/sass/main.scss'])
     {{-- <script src="/js/tailwind.js"></script> --}}
 </head>
 
@@ -41,16 +39,10 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/establishments">
+                    <a class="btn w-100 text-start text-white" href="/establishments">
                         <!-- button Icon -->
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z" />
-                                <path
-                                    d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z" />
-                            </svg>
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            domain
                         </span>
                         Establishments
                     </a>
@@ -58,16 +50,10 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/fsec">
+                    <a class="btn w-100 text-start text-white" href="/fsec">
                         <!-- button Icon -->
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                                <path
-                                    d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                            </svg>
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            corporate_fare
                         </span>
                         Building Plan
                     </a>
@@ -75,29 +61,32 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="#" disabled>
+                    <a class="btn w-100 text-start text-white" href="/personnel" disabled>
                         <!-- button Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
-                        </svg>
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            group
+                        </span>
                         Personnel
                     </a>
                 </li>
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="#">
+                    <a class="btn w-100 text-start text-white" href="/users" disabled>
                         <!-- button Icon -->
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                                <path
-                                    d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                            </svg>
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            account_box
+                        </span>
+                        Users
+                    </a>
+                </li>
+
+                <!-- button -->
+                <li class="m-2">
+                    <a class="btn w-100 text-start text-white" href="#">
+                        <!-- button Icon -->
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            event_note
                         </span>
                         Activity Log
                     </a>
@@ -105,13 +94,11 @@
 
                 <!-- button -->
                 <li class="m-2">
-                    <a class="btn w-100 text-end text-white" href="/archived" disabled>
+                    <a class="btn w-100 text-start text-white" href="/archived" disabled>
                         <!-- button Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-icon"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
-                        </svg>
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            dresser
+                        </span>
                         Archive
                     </a>
                 </li>
@@ -126,10 +113,10 @@
     <div class="page-container d-flex flex-column">
 
         <!-- PANEL  -->
-        <div class="top-panel d-flex justify-content-between p-2" style="">
+        <div class="top-panel d-flex justify-content-end p-2" style="">
 
             {{-- Page Title --}}
-            <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1>
+            {{-- <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1> --}}
 
             <!-- profile button -->
             <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
@@ -156,8 +143,8 @@
                 <div id="dropdownMenu" class="dropdown-profile-menu py-2 px-3 border-1"
                     style="display:none !important;">
                     <div class="d-flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            class="btn-profile-icon" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="btn-profile-icon"
+                            viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             <path fill-rule="evenodd"
                                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
@@ -168,8 +155,8 @@
                     <hr>
                     <!-- drop down links -->
                     <div class="d-inline flex-column">
-                        <a href="#" class="btn w-100 text-end text-white fw-semibold">Info</a>
-                        <a href="/" class="btn w-100 text-end text-white fw-semibold">Logout</a>
+                        <a href="#" class="btn w-100 text-start text-white fw-semibold">Info</a>
+                        <a href="/" class="btn w-100 text-start text-white fw-semibold">Logout</a>
                     </div>
                 </div>
             </div>
@@ -182,10 +169,11 @@
 
     {{-- FOOTER --}}
     <footer></footer>
-    <script src="/js/script.js"></script>
-    <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script>
-    <script src="/js/modal.js" defer></script>
-
+    <script src="{{ asset('js/app.min.js') }}" defer></script>
+    @vite(['resources/js/app.js'])
+    {{-- <script src="/js/script.js" defer></script> --}}
+    {{-- <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script> --}}
+    {{-- <script src="/js/modal.js" defer></script> --}}
 </body>
 
 </html>

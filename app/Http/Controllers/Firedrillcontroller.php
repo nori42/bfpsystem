@@ -157,7 +157,7 @@ class FiredrillController extends Controller
         $firedrill->issued_on = date('Y-m-d');
         $firedrill->save();
 
-        return redirect('/establishments/firedrill/'.$firedrill->establishment->id);        
+        return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }
 
     //Attachment

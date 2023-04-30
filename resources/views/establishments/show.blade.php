@@ -67,8 +67,6 @@
 
         {{-- Owner Info & Selected Establishment --}}
         <div class="w-85 mx-auto ">
-            <div class="fs-5">Record No.: {{ $establishment->id }}</div>
-
             <div>
                 <p class="fs-5 m-0"> Owner:
                     {{ $establishment->owner->person->last_name . ', ' . $establishment->owner->person->first_name . ' ' . $establishment->owner->person->middle_name }}
@@ -102,7 +100,7 @@
 
         <form class="w-85 mx-auto mt-3 py-3 px-5 position-relative" style="background-color: #EFEFEF;"
             action="/establishments/{{ $establishment->id }}/update" method="POST" id="updateForm">
-
+            @csrf
             {{-- <div class="d-flex justify-content-end gap-1">
                 <span class="text-decoration-none p-2 py-1 rounded-1 text-white" id="btnEdit">
                     
@@ -136,16 +134,13 @@
                     <div class="dropdown-menus p-2" data-dropdown-menu id="detailMenu"
                         style="display:none; !important; left: -168.5px;">
                         <div class="d-inline flex-column">
-                            <a href="/establishments/fsic/{{ $establishment->id }}"
-                                class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire Safety
+                            <a href="/establishments/{{ $establishment->id }}/fsic"
+                                class="btn btn-outline-success border-0 w-100 text-start fw-semibold">Fire Safety
                                 Inspection</a>
-                            <a href="/establishments/fsec/{{ $establishment->id }}"
-                                class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire Safety
-                                Evaluation</a>
-                            <a href="/establishments/firedrill/{{ $establishment->id }}"
-                                class="btn btn-outline-success border-0 w-100 text-end fw-semibold">Fire Drill</a>
+                            <a href="/establishments/{{ $establishment->id }}/firedrill"
+                                class="btn btn-outline-success border-0 w-100 text-start fw-semibold">Fire Drill</a>
                             <hr class="my-0">
-                            <button type="button" class="btn btn-outline-danger text-end border-0 w-100"
+                            <button type="button" class="btn btn-outline-danger text-start border-0 w-100"
                                 onclick="openModal('dialogMoveToArchive')">Move To Archive</button>
                         </div>
                     </div>
@@ -175,10 +170,13 @@
                     name="establishmentName" data-input-edit readonly>
             </div>
 
-            <div class="my-2">
-                <label class="info-label">Corporate Name</label>
-                <input class="info form-control" type="text" value="{{ $owner->corporate->corporate_name }}"
-                    name="corporateName" data-input-edit readonly>
+            <x-form.input label="Occupancy" name="occupancy" :value="$establishment->occupancy" customAttr="data-input-edit"
+                :readonly="true" />
+
+            <div class="my-2 w-100">
+                <label class="info-label">Sub Type</label>
+                <input class="form-control info" type="text" value="{{ $establishment->sub_type }}" name="subType"
+                    data-input-edit readonly>
             </div>
 
             <div class="my-2">
@@ -190,7 +188,7 @@
                 @endphp
                 <div class="my-2">
                     <label class="info-label">Substation</label>
-                    <select class="form-select px-5 info" name="substation" id="substation" data-select-edit disabled>
+                    <select class="form-select info" name="substation" id="substation" data-select-edit disabled>
                         @foreach ($stations as $station)
                             @if ($establishment->substation == $station)
                                 <option value="{{ $station }}" selected>{{ $station }}</option>
@@ -203,11 +201,7 @@
             </div>
 
             <div class="d-flex gap-2">
-                <div class="my-2 w-100">
-                    <label class="info-label">Sub Type</label>
-                    <input class="form-control info" type="text" value="{{ $establishment->sub_type }}" name="subType"
-                        data-input-edit readonly>
-                </div>
+
 
                 <div class="my-2 w-100">
                     <label class="info-label">Building Type</label>
@@ -269,80 +263,9 @@
         </form>
     </div>
 
-
-    <!-- The Modal -->
-    <div id="modalOwner" class="modal" data-modal="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Owner Information</h5>
-            </div>
-
-            <form>
-                <div class="d-flex gap-2">
-                    <div class="my-2 w-100">
-                        <label class="info-label">First Name</label>
-                        <input type="text" class="form-control input-lg"
-                            value="{{ $establishment->owner->first_name }}" disabled>
-                    </div>
-
-                    <div class="my-2 w-100">
-                        <label class="info-label">Middle Name</label>
-                        <input type="text" class="form-control input-lg"
-                            value="{{ $establishment->owner->middle_name }}" disabled>
-                    </div>
-                    <div class="my-2 w-100">
-                        <label class="info-label">Last Name</label>
-                        <input type="text" class="form-control input-lg"
-                            value="{{ $establishment->owner->last_name }}" disabled>
-                    </div>
-                </div>
-
-                <div class="d-flex gap-3">
-                    <div class="my-2 w-100">
-                        <label class="info-label">Contact No.</label>
-                        <input type="text" class="form-control info-lg"
-                            value="{{ $establishment->owner->contact_no }}" disabled>
-                    </div>
-
-                </div>
-
-            </form>
-
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Owner Establishment(s)</h5>
-            </div>
-
-            <!--Establishment Table-->
-            <div class="w-100 h-75 overflow-y-auto mx-auto mt-4 border-3" style="height: 300px !important;">
-                <table class="table">
-                    <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
-                        <th>Rec No.</th>
-                        <th>Establishment Name</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        @foreach ($owner->establishment as $establishment)
-                            <tr>
-                                <td>{{ $establishment->id }}</td>
-                                <td>{{ $establishment->establishment_name }}</td>
-                                <td><a href="/establishments/{{ $establishment->id }}" class="btn btn-success">View</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{-- <a  class="btn btn-success btn-lg fs-5" href="/establishments/create/{{$establishment->owner_id}}" >Add New Establishment</a> --}}
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-success text-white px-5 py-2 align-middle"
-                        href="/establishments/create/{{ $establishment->owner_id }}"><span
-                            class="material-symbols-outlined align-middle">domain_add</span>Add New Establishment</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <x-modal id="modalOwner" width="50" topLocation="5">
+        <x-ownerInfo />
+    </x-modal>
 
 
     </div>

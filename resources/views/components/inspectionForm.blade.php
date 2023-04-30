@@ -1,6 +1,6 @@
 @props(['establishment', 'inputAttr' => '', 'key' => '', 'isDetail' => false])
 
-<form id="inspectionForm" action="/establishments/fsic/{{ $establishment->id }}" method="POST">
+<form id="inspectionForm" action="/establishments/{{ $establishment->id }}/fsic" method="POST">
     @csrf
     @if ($isDetail)
         @method('PUT')

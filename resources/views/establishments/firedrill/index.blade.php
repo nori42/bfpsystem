@@ -12,8 +12,7 @@
 
             <div class="d-flex mt-3 w-100">
                 <x-action.link href="/establishments/firedrill/{{ $establishment->id }}" text="Firedrill" :active="true" />
-                <x-action.link href="/establishments/firedrill/attachment/{{ $establishment->id }}/firedrill"
-                    text="Attachments" />
+                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" />
             </div>
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">

@@ -13,3 +13,15 @@
 .m-5 {
     margin: 1.25rem;
 }
+
+.textPrimary {
+    color: var(--secondary-color)!important;
+}
+
+.bgPrimary{
+    background-color: var(--secondary-color);
+}
+
+.btnPrimary{
+
+}

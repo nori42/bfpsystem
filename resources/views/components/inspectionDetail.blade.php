@@ -1,5 +1,4 @@
 @props(['establishment', 'inputAttr' => '', 'key', 'inspection'])
-
 <x-modal id="{{ $key }}" width="50" topLocation="2">
     @php
         $printed = $inspection->expiry_date != null;
@@ -14,7 +13,7 @@
             'issuedFor' => $issuedFor,
         ];
     @endphp
-    <form id="{{ $key }}" action="/establishments/fsic/{{ $establishment->id }}" method="POST">
+    <form id="{{ $key }}" action="/establishments/{{ $establishment->id }}/fsic" method="POST">
         @csrf
         @method('PUT')
         {{-- Hidden, Only used for id --}}
