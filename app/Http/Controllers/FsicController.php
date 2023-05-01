@@ -22,7 +22,7 @@ class FsicController extends Controller
     {
 
         $establishment = Establishment::where('id', $request->id)->first();
-        $inspections = Inspection::where('establishment_id', $request->id)->get();
+        $inspections = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
         $owner = Owner::find($request->id);
 
         return view('establishments.fsic.index',[
@@ -78,7 +78,8 @@ class FsicController extends Controller
             case 'add':
                 return view('establishments.fsic.index',[
                 'newPost'=> true,
-                'mssg'=>'New Record Added',
+                'successMssg'=>'Inspection Added Successfully',
+                'isAdd' => true,
                 'establishment' => $establishment,
                 'inspections' => $inspectionDetail,
                 'selectOptions' => $selectOptions,
@@ -111,15 +112,18 @@ class FsicController extends Controller
 
         $inspection->save();
 
-        $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
+        $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
 
         switch($request->input('action'))
         {
             case 'save':
                 return view('establishments.fsic.index',[
                     'establishment' => $inspection->establishment,
-                    'inspections' =>  $inspectionDetail,
+                    'inspections' =>  $inspectionList,
                     'owner' => $inspection->establishment->owner,
+                    'inpsectUpdatedId' => $inspection->id,
+                    'toastMssg' => "Update Successfully",
+                    'isUpdate' => true,
                     'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'saveandprint':

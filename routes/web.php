@@ -81,7 +81,7 @@ Route::put('/establishments/firedrill/print/{id}',[Firedrillcontroller::class,'p
 
 //Personnel
 Route::get('/personnel',[PersonnelController::class,'index']);
-
+Route::post('/personnel',[PersonnelController::class,'store']);
 
 //Users
 Route::get('/users',[UserController::class,'index']);

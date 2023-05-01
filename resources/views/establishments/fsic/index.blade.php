@@ -6,6 +6,9 @@
 
         <x-backBtn />
 
+        @isset($toastMssg)
+            <x-toast :message="$toastMssg" />
+        @endisset
         <x-pageWrapper>
 
             {{-- Owner Info & Selected Establishment --}}
@@ -39,7 +42,8 @@
                     </thead>
                     <tbody>
                         @foreach ($inspections as $inspection)
-                            <tr class="align-middle">
+                            <tr
+                                class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
                                 <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
                                 <td>{{ $inspection->receipt->or_no }}</td>
                                 <td>{{ $inspection->registration_status }}</td>
@@ -49,7 +53,8 @@
                                     {{ $inspection->status }}</td>
                                 <td class="text-center">
                                     <button class="btn fw-bold btn-success"
-                                        onclick="openModal(`inspection{{ $inspection->id }}`)" value={{ $inspection->id }}>
+                                        onclick="openModal(`inspection{{ $inspection->id }}`)"
+                                        value={{ $inspection->id }}>
                                         Details
                                     </button>
                                 </td>

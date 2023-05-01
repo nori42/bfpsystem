@@ -1,231 +1,203 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .inputCreate {
+            text-transform: uppercase;
+        }
+
+        select {
+            width: 100%;
+            padding: .4em .3em;
+            border-radius: .5em;
+            font-size: .9rem
+        }
+
+        #establishmentDetails,
+        #backBtn,
+        #saveBtn,
+        #validateMssg1 {
+            display: none;
+        }
+
+        .info {
+            border: 1px solid gray;
+            padding: .4rem .3rem;
+            background: white;
+            border-radius: .5rem
+        }
+
+        .info-label {
+            font-weight: 700;
+            font-size: .875rem
+        }
+
+        .finished-page {
+            background-color: #0F2D55;
+            color: #ffffff;
+        }
+
+        .current-page {
+            color: #0F2D55;
+            font-weight: bold;
+            border: 3px solid #0F2D55 !important;
+        }
+
+        .steps-title span {
+            border: 1px solid #000;
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
     <div class="page-content">
+        <x-backBtn />
+        <x-pageWrapper>
 
-
-        @if ($owner == null)
-            <form class="add-record-form mt-5" action="/establishments" method="POST">
-            @else
-                <form class="add-record-form mt-5" action="/establishments/store_from_owner/{{ $owner->id }}"
-                    method="POST">
-        @endif
-        {{-- Cross-site request forgeries  --}}
-        {{-- Add @csrf every form --}}
-        @csrf
-        <style>
-            .inputCreate {
-                text-transform: uppercase;
-            }
-
-            select {
-                width: 100%;
-                padding: .4em .3em;
-                border-radius: .5em;
-                font-size: .9rem
-            }
-
-            #establishmentDetails,
-            #backBtn,
-            #saveBtn,
-            #validateMssg1 {
-                display: none;
-            }
-
-            .info {
-                border: 1px solid gray;
-                padding: .4rem .3rem;
-                background: white;
-                border-radius: .5rem
-            }
-
-            .info-label {
-                font-weight: 700;
-                font-size: .875rem
-            }
-
-            .finished-page {
-                background-color: #0F2D55;
-                color: #ffffff;
-            }
-
-            .current-page {
-                color: #0F2D55;
-                font-weight: bold;
-                border: 3px solid #0F2D55 !important;
-            }
-
-            .steps-title span {
-                border: 1px solid #000;
-                width: 100%;
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
-        <a href="/establishments" class="material-symbols-outlined btn-back">
-            arrow_back
-        </a>
-        {{-- Details Action --}}
-        <div class="d-flex justify-content-center w-75 mx-auto steps-title" id="steps-title">
-            <span id="ownerTitle" class="py-2 current-page">Owner</span>
-            <span id="establishmentTitle" class="py-2">Establishment</span>
-            {{-- <span class="py-2">Attachments</span> --}}
-        </div>
-
-
-        {{-- Owner Info --}}
-        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails"
-            data-step="owner">
-            <div class="header">
-                <h4 id="validateMssg1" class="text-danger">Fill in the required field</h4>
-            </div>
-
-            @if ($owner == null)
-                {{-- This is hidden only use for reference --}}
-                <input type="text" id="ownerId" name="ownerId" hidden value="">
-                <fieldset>
-                    <legend>Person</legend>
-                    <x-form.input type="text" label="Last Name" name="lastName" />
-                    <x-form.input type="text" label="First Name" name="firstName" />
-                    <x-form.input type="text" label="Middle Name" name="middleName" />
-
-                    <label class="info-label" for="suffix">Suffix</label>
-                    <select class="form-control" name="suffix" id="suffix">
-                        <option value="" disabled selected>Select Suffix</option>
-                        <option value="Dr.">Dr.</option>
-                        <option value="Jr.">Jr.</option>
-                        <option value="Sr.">Sr.</option>
-                        <option value="Mrs.">Mrs.</option>
-                        <option value="Mr.">Mr.</option>
-                        <option value="I">I</option>
-                        <option value="II">II</option>
-                        <option value="III">III</option>
-                        <option value="IV">IV</option>
-                    </select>
-                    <x-form.input type="text" label="Contact No." name="contactNoPerson" />
-
-                </fieldset>
-                <hr>
-                <legend class="text-secondary">Either or both</legend>
-                <hr>
-                <fieldset>
-                    <legend>Company</legend>
-                    <x-form.input type="text" label="Company Name" name="corporateName" />
-                    <x-form.input type="text" label="Contact No." name="contactNoCorporate" />
-                </fieldset>
-            @else
-                <div class="my-2">
-                    <label class="info-label">Corporate Name</label>
-                    <input type="text" id="contactNo" name="corporateName" value="{{ $owner->corporate_name }}"
-                        data-owner-input class="form-control input" disabled>
+            <form class="add-record-form mt-5 " action="/establishments" method="POST">
+                {{-- Cross-site request forgeries  --}}
+                {{-- Add @csrf every form --}}
+                @csrf
+                {{-- Details Action --}}
+                <div class="d-flex justify-content-center mx-auto steps-title" id="steps-title">
+                    <span id="ownerTitle" class="py-2 current-page">Owner</span>
+                    <span id="establishmentTitle" class="py-2">Establishment</span>
+                    {{-- <span class="py-2">Attachments</span> --}}
                 </div>
 
-                <x-form.input type="text" label="Last Name" name="lastName" />
-                <x-form.input type="text" label="First Name" name="firstName" />
-                <x-form.input type="text" label="Middle Name" name="middleName" />
-                <x-form.input type="text" label="Contact No." name="contactNo" />
-            @endif
 
-        </div>
-
-        {{-- Establishment Info --}}
-        <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="establishmentDetails"
-            data-step="establishment">
-            <div class="header">
-                <h2>Establishment Information</h2>
-            </div>
-            <hr>
-
-            <x-form.input type="text" label="Establishment Name" name="establishmentName" />
-            <x-form.input type="text" label="Building Permit No." name="buildingPermitNo" />
-
-
-            <x-form.inputWrapper>
-                <div class="d-flex gap-2">
-                    <div class="w-100">
-                        <label class="info-label">Occupancy</label>
-                        <select class="form-select" name="occupancy" id="occupancy" data-establishment-input required>
-                            <option value="" disabled selected>Select Occupancy</option>
-                            {{-- Options is populated in script --}}
-                        </select>
+                {{-- Owner Info --}}
+                <div class="mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails"
+                    data-step="owner">
+                    <div class="header">
+                        <h4 id="validateMssg1" class="text-danger">Fill in the required field</h4>
                     </div>
-                    <div class="w-100">
-                        <label class="info-label">Sub Type</label>
-                        <select class="form-select" name="subType" id="subType" data-establishment-input required>
-                            <option value="" disabled selected>Select Occupancy First</option>
-                            {{-- Options is populated in script --}}
+                    {{-- This is hidden only use for reference --}}
+                    <input type="text" id="ownerId" name="ownerId" hidden value="">
+                    <fieldset>
+                        <legend>Person</legend>
+                        <x-form.input type="text" label="Last Name" name="lastName" />
+                        <x-form.input type="text" label="First Name" name="firstName" />
+                        <x-form.input type="text" label="Middle Name" name="middleName" />
+
+                        <label class="info-label" for="suffix">Suffix</label>
+                        <select class="form-control" name="suffix" id="suffix">
+                            <option value="" disabled selected>Select Suffix</option>
+                            <option value="DR.">DR.</option>
+                            <option value="JR.">JR.</option>
+                            <option value="SR.">SR.</option>
+                            <option value="MRS.">MRS.</option>
+                            <option value="MR.">MR.</option>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
                         </select>
-                    </div>
+                        <x-form.input type="text" label="Contact No." name="contactNoPerson" />
+
+                    </fieldset>
+                    <hr>
+                    <legend class="text-secondary">Either or both</legend>
+                    <hr>
+                    <fieldset>
+                        <legend>Company</legend>
+                        <x-form.input type="text" label="Company Name" name="corporateName" />
+                        <x-form.input type="text" label="Contact No." name="contactNoCorporate" />
+                    </fieldset>
 
                 </div>
-            </x-form.inputWrapper>
 
-            <x-form.inputWrapper>
-                <div class="d-flex gap-2">
-                    <div class="w-100">
-                        <label class="info-label">Substation</label>
-                        <select class="form-select" name="substation" id="substation" data-establishment-input required>
-                            <option value="" disabled selected>Select Substation</option>
-                            {{-- @foreach ($stations as $station)
+                {{-- Establishment Info --}}
+                <div class="mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;"
+                    id="establishmentDetails" data-step="establishment">
+                    <div class="header">
+                        <h2>Establishment Information</h2>
+                    </div>
+                    <hr>
+
+                    <x-form.input type="text" label="Establishment Name" name="establishmentName" />
+                    <x-form.input type="text" label="Building Permit No." name="buildingPermitNo" />
+
+
+                    <x-form.inputWrapper>
+                        <div class="d-flex gap-2">
+                            <div class="w-100">
+                                <label class="info-label">Occupancy</label>
+                                <select class="form-select" name="occupancy" id="occupancy" data-establishment-input
+                                    required>
+                                    <option value="" disabled selected>Select Occupancy</option>
+                                    {{-- Options is populated in script --}}
+                                </select>
+                            </div>
+                            <div class="w-100">
+                                <label class="info-label">Sub Type</label>
+                                <select class="form-select" name="subType" id="subType" data-establishment-input required>
+                                    <option value="" disabled selected>Select Occupancy First</option>
+                                    {{-- Options is populated in script --}}
+                                </select>
+                            </div>
+
+                        </div>
+                    </x-form.inputWrapper>
+
+                    <x-form.inputWrapper>
+                        <div class="d-flex gap-2">
+                            <div class="w-100">
+                                <label class="info-label">Substation</label>
+                                <select class="form-select" name="substation" id="substation" data-establishment-input
+                                    required>
+                                    <option value="" disabled selected>Select Substation</option>
+                                    {{-- @foreach ($stations as $station)
                             <option value="{{$station}}">{{$station}}</option>
                         @endforeach --}}
-                        </select>
-                    </div>
+                                </select>
+                            </div>
 
-                    <div class="w-100">
-                        <label class="info-label">Building Type</label>
-                        <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
-                            required>
-                            <option value="" disabled selected>Select Building Type</option>
-                            {{-- @foreach ($building_type as $btype)
+                            <div class="w-100">
+                                <label class="info-label">Building Type</label>
+                                <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
+                                    required>
+                                    <option value="" disabled selected>Select Building Type</option>
+                                    {{-- @foreach ($building_type as $btype)
                             <option value="{{$btype}}">{{$btype}}</option>
                         @endforeach --}}
-                        </select>
+                                </select>
+                            </div>
+                        </div>
+                    </x-form.inputWrapper>
+
+                    <div class="d-flex gap-2">
+                        <x-form.input type="text" label="No. of Storey" name="noOfStory" />
+                        <x-form.input type="text" label="Height" name="height" />
                     </div>
+                    <x-form.input class="w-50" type="text" label="Floor Area" name="floorArea" />
+                    <div class="d-flex gap-2">
+                        <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer"
+                            name="fireInsuranceCo" />
+                        <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />
+                    </div>
+
+                    <x-form.inputWrapper>
+                        <label class="info-label">Barangay</label>
+                        {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
+                        <select class="form-control " name="barangay" id="barangay">
+                            <option value="" disabled selected>Select Barangay</option>
+                        </select>
+                    </x-form.inputWrapper>
+
+                    <x-form.input type="text" label="Address" name="address" />
                 </div>
-            </x-form.inputWrapper>
 
-            <div class="d-flex gap-2">
-                <x-form.input type="text" label="No. of Storey" name="noOfStory" />
-                <x-form.input type="text" label="Height" name="height" />
-            </div>
-            <x-form.input class="w-50" type="text" label="Floor Area" name="floorArea" />
-            <div class="d-flex gap-2">
-                <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer" name="fireInsuranceCo" />
-                <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />
-            </div>
-
-            <x-form.inputWrapper>
-                <label class="info-label">Barangay</label>
-                {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
-                <select class="form-control " name="barangay" id="barangay">
-                    <option value="" disabled selected>Select Barangay</option>
-                </select>
-            </x-form.inputWrapper>
-
-            <x-form.input type="text" label="Address" name="address" />
-        </div>
-
-        {{-- Attachments --}}
-        {{-- <div class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 page"  style="background-color: #EFEFEF;" id="attachmentsDetails">
-            <div class="header">
-                <h2>Attachments</h2>
-            </div>
-            <div class="my-2">
-                <input type="file">
-            </div>
-            <hr>
-        </div>
-        --}}
-        <div class="form-footer w-75 mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
-            <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold"
-                onclick="cancel()">
-            <input type="button" value="Back" id="backBtn" class="btn btn-outline-success font-bold"
-                onclick="prevStep()">
-            <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5"
-                onclick="nextStep()">
-            <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold px-5">
-        </div>
-        </form>
+                <div class="form-footer mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
+                    <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold"
+                        onclick="cancel()">
+                    <input type="button" value="Back" id="backBtn" class="btn btn-outline-success font-bold"
+                        onclick="prevStep()">
+                    <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5"
+                        onclick="nextStep()">
+                    <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold px-5">
+                </div>
+            </form>
+        </x-pageWrapper>
     </div>
 
     {{-- Import Scripts --}}

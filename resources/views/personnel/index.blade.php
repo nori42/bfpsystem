@@ -5,33 +5,41 @@
 @section('content')
     <div class="page-content">
         <x-pageWrapper>
+
+            @isset($toastMssg)
+                <x-toast :message="$toastMssg" />
+            @endisset
             <div class="d-flex justify-content-between my-5 align-items-center">
                 <div>
-                    <span class="d-block fw-bold fs-3">3 Personnel</span>
+                    <span class="d-block fw-bold fs-3">{{ count($personnelList) }} Personnel</span>
                     <span class="d-block text-secondary ">Manage personnel</span>
                 </div>
                 <button class="btn btn-success" onclick="openModal('addPersonnel')">Add Personnel</button>
             </div>
             {{-- Put page content here --}}
+
             <x-personnel.cardList>
-                <x-personnel.card />
-                <x-personnel.card />
-                <x-personnel.card />
+                @foreach ($personnelList as $personnel)
+                    <x-personnel.card :personnel="$personnel" />
+                @endforeach
             </x-personnel.cardList>
         </x-pageWrapper>
 
         <x-modal id="addPersonnel" width="50" topLocation="8">
 
-            <div class="d-flex gap-3">
-                <x-form.input label="First Name" name="firstName" />
-                <x-form.input label="Middle Name" name="middleName" />
-                <x-form.input label="Last Name" name="lastName" />
-            </div>
+            <form action="/personnel" method="POST">
+                @csrf
+                <div class="d-flex gap-3">
+                    <x-form.input label="First Name" name="firstName" />
+                    <x-form.input label="Middle Name" name="middleName" />
+                    <x-form.input label="Last Name" name="lastName" />
+                </div>
+                <x-form.input class="w-25" label="Suffix" name="suffix" />
+                <x-form.input label="Position" name="position" />
 
-            <x-form.input label="Position" name="position" />
-            <x-form.input label="Contact No." name="contactNo" />
-
-            <button class="btn btn-success w-25 ml-auto mt-3" onclick="openModal('addPersonnel')">Add</button>
+                <button class="btn btn-success w-25 ml-auto mt-3" onclick="openModal('addPersonnel')"
+                    type="submit">Add</button>
+            </form>
         </x-modal>
     </div>
 @endsection

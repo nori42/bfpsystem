@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('personnel', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('position');
+            $table->string('position')->nullable();
             $table->foreignIdFor(Person::class)->unique();
             $table->timestamps();
         });

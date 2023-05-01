@@ -1,6 +1,6 @@
-@props(['firedrill'])
+@props(['firedrill', 'newRecord' => false])
 
-<tr>
+<tr class="{{ $newRecord ? 'record-highlight' : '' }}">
     <td>{{ $firedrill->control_no }}</td>
     <td>{{ $firedrill->validity_term }}</td>
     <td>{{ $firedrill->receipt->or_no }}</td>

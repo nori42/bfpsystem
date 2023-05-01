@@ -6,8 +6,12 @@
         <x-backBtn />
 
         <x-pageWrapper>
-            {{-- FSIC Action --}}
+            {{-- Firedrill Action --}}
             {{-- Owner Info & Selected Establishment --}}
+            @isset($toastMssg)
+                <x-toast :message="$toastMssg" />
+            @endisset
+
             <x-headingInfo :establishment="$establishment" :owner="$owner" />
 
             <div class="d-flex mt-3 w-100">
@@ -24,7 +28,11 @@
             </div>
             <x-firedrill>
                 @foreach ($firedrills as $firedrill)
-                    <x-firedrill.item :firedrill="$firedrill" />
+                    @if (($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $firedrill->id == $firedrillUpdatedId))
+                        <x-firedrill.item :firedrill="$firedrill" :newRecord="true" />
+                    @else
+                        <x-firedrill.item :firedrill="$firedrill" />
+                    @endif
                 @endforeach
             </x-firedrill>
 

@@ -37,16 +37,26 @@ nav {
     background-color: var(--primary-color);
     min-width: 16%;
 }
-
+/* 
 
 .page-container, .page-content{
     width: 100%;
     height: 100%;
+} */
+
+.page-container {
+    overflow-y: auto;
 }
 
 .page-content {
     padding-bottom: 160px;
-    overflow-y: auto;
+}
+
+
+.top-panel {
+    background-color: #123B5A;
+    top: 0;
+    z-index: 10;
 }
 
 .page-panel {
@@ -98,10 +108,6 @@ nav .btn:hover {
     display: inline !important;
 }
 
-.top-panel {
-    background-color: #123B5A;
-}
-
 .dropdown-profile-menu {
     position: absolute;
     left: 0;
@@ -133,11 +139,6 @@ nav .btn:hover {
 
 .add-record-form input {
     margin-bottom: .75rem;
-}
-
-.toast {
-    background-color: whitesmoke;
-    color: gray;
 }
 
 nav .btn {
@@ -236,6 +237,18 @@ nav .btn {
     opacity: 0.2;
     z-index: -1;
 }
+
+.record-highlight{
+    background-color: #39c839;
+    animation: newrecord 0.5s 2s;
+    animation-fill-mode: forwards;
+}
+
+  
+@keyframes newrecord {
+    from {background-color: #39c839;}
+    to {background-color: white;}
+  }
 
 
 /* Utilities */

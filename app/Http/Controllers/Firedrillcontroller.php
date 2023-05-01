@@ -17,7 +17,7 @@ class FiredrillController extends Controller
     {   
         $establishment = Establishment::find($request->id);
         $owner = $establishment->owner;
-        $firedrills= Firedrill::where('establishment_id', $request->id)->get();
+        $firedrills= Firedrill::where('establishment_id', $request->id)->orderBy('id','desc')->get();
 
 
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
@@ -59,7 +59,7 @@ class FiredrillController extends Controller
         
         $firedrill->save();
         
-        $firedrills = Firedrill::where('establishment_id', $request->estabId)->get();
+        $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
 
         $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
@@ -69,6 +69,8 @@ class FiredrillController extends Controller
             return view('establishments.firedrill.index',[
                 'firedrills' => $firedrills,
                 'establishment' => $establishment,
+                'isAdd'=>true,
+                'toastMssg' => 'Firedrill Added',
                 'owner' => $owner,
                 'controlNo' => $newControlNo,
                 'page_title' => 'Fire Drill' // use to set page title inside the panel
@@ -104,7 +106,7 @@ class FiredrillController extends Controller
         $firedrill->save();
 
 
-        $firedrills = Firedrill::where('establishment_id', $request->estabId)->get();
+        $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
         
         $establishment = Establishment::find($request->estabId);
@@ -118,6 +120,9 @@ class FiredrillController extends Controller
                 'firedrills' => $firedrills,
                 'establishment' => $establishment,
                 'owner' => $owner,
+                'isUpdate' =>true,
+                'toastMssg' => 'Updated Successfully',
+                'firedrillUpdatedId' => $firedrill->id,
                 'controlNo' => $newControlNo,
                 'page_title' => 'Fire Drill' // use to set page title inside the panel
             ]);

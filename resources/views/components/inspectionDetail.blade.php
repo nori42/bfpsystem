@@ -50,6 +50,11 @@
                 customAttr="{{ $inputAttr }}" type="text" value="{{ $inspection->fsic_no }}"
                 :readonly="$printed" />
 
+            @if ($inspection->expiry_date != null)
+                <x-form.input name="expiryDate" customAttr="{{ $inputAttr }}" label="Expiry Date"
+                    value="{{ $inspection->expiry_date }}" type="text" :readonly="$printed" />
+            @endif
+
             <x-form.select label="Registration Status" name="registrationStatusDetail" customAttr="{{ $inputAttr }}"
                 placeholder="Select Registration Status" :isDetail="true" :readonly="$printed">
                 <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" :selected="$inspection->registration_status" :readonly="$printed" />
