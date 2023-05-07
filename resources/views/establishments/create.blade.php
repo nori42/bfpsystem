@@ -66,8 +66,7 @@
 
 
                 {{-- Owner Info --}}
-                <div class="mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;" id="ownerDetails"
-                    data-step="owner">
+                <div class="mx-auto mt-3 py-3 px-5 rounded-2 form-wrapper" id="ownerDetails" data-step="owner">
                     <div class="header">
                         <h4 id="validateMssg1" class="text-danger">Fill in the required field</h4>
                     </div>
@@ -75,47 +74,67 @@
                     <input type="text" id="ownerId" name="ownerId" hidden value="">
                     <fieldset>
                         <legend>Person</legend>
-                        <x-form.input type="text" label="Last Name" name="lastName" />
-                        <x-form.input type="text" label="First Name" name="firstName" />
-                        <x-form.input type="text" label="Middle Name" name="middleName" />
+                        {{-- Name --}}
+                        <div class="d-flex gap-2">
+                            <x-form.input type="text" label="Last Name" name="lastName" />
+                            <x-form.input type="text" label="First Name" name="firstName" />
+                            <x-form.input type="text" label="Middle Name" name="middleName" />
+                        </div>
 
-                        <label class="info-label" for="suffix">Suffix</label>
-                        <select class="form-control" name="suffix" id="suffix">
-                            <option value="" disabled selected>Select Suffix</option>
-                            <option value="DR.">DR.</option>
-                            <option value="JR.">JR.</option>
-                            <option value="SR.">SR.</option>
-                            <option value="MRS.">MRS.</option>
-                            <option value="MR.">MR.</option>
-                            <option value="I">I</option>
-                            <option value="II">II</option>
-                            <option value="III">III</option>
-                            <option value="IV">IV</option>
-                        </select>
+                        {{-- Title and Suffix --}}
+                        <div class="d-flex gap-2 w-25">
+                            {{-- <div>
+                                <label class="info-label" for="suffix">Title</label>
+                                <select class="form-control" name="suffix" id="suffix">
+                                    <option value="" disabled selected>Select Title</option>
+                                    <option value="JR.">DR.</option>
+                                    <option value="JR.">ATTY.</option>
+                                    <option value="JR.">Type value...</option>
+                                    <input class="form-control" id="titleInput" name="titleInput" type="text"
+                                        style="font-size: 0.8rem">
+                                </select>
+                            </div>
+                            <div>
+                                <label class="info-label" for="suffix">Suffix</label>
+                                <select class="form-control" name="suffix" id="suffix">
+                                    <option value="" disabled selected>Select Suffix</option>
+                                    <option value="JR.">JR.</option>
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                </select>
+                            </div> --}}
+                            <x-form.input type="text" label="Title" name="title" />
+                            <x-form.input type="text" label="Name Suffix" name="nameSuffix" />
+                        </div>
                         <x-form.input type="text" label="Contact No." name="contactNoPerson" />
 
                     </fieldset>
                     <hr>
-                    <legend class="text-secondary">Either or both</legend>
-                    <hr>
+                    {{-- Corporate --}}
                     <fieldset>
-                        <legend>Company</legend>
-                        <x-form.input type="text" label="Company Name" name="corporateName" />
+                        <legend>Corporate</legend>
+                        <x-form.input type="text" label="Corporate Name" name="corporateName" />
                         <x-form.input type="text" label="Contact No." name="contactNoCorporate" />
                     </fieldset>
 
                 </div>
 
                 {{-- Establishment Info --}}
-                <div class="mx-auto mt-3 py-3 px-5 rounded-2 page" style="background-color: #EFEFEF;"
-                    id="establishmentDetails" data-step="establishment">
+                <div class="mx-auto mt-3 py-3 px-5 rounded-2 form-wrapper" id="establishmentDetails"
+                    data-step="establishment">
                     <div class="header">
                         <h2>Establishment Information</h2>
                     </div>
                     <hr>
 
                     <x-form.input type="text" label="Establishment Name" name="establishmentName" />
-                    <x-form.input type="text" label="Building Permit No." name="buildingPermitNo" />
+                    <label class="fw-bold fs-6" for="isCompanyName"><input class="form-check-inline" type="checkbox"
+                            name="isCompanyName" id="isCompanyName">Establishment
+                        Name is
+                        Corporate Name</label>
+                    <x-form.input type="text" label="Business Permit No." name="buildingPermitNo" />
 
 
                     <x-form.inputWrapper>
@@ -184,7 +203,7 @@
                         </select>
                     </x-form.inputWrapper>
 
-                    <x-form.input type="text" label="Address" name="address" />
+                    <x-form.input type="text" label="Address" name="address" :required="true" />
                 </div>
 
                 <div class="form-footer mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
@@ -208,13 +227,6 @@
 
     {{-- Page Script --}}
     <script>
-        // Autocomplte
-        // const firstName = document.querySelector("#firstName")
-        // const datalist = document.querySelector("#listNames")
-        // firstName.addEventListener("input",(ev)=>{
-        //     populateSearchSuggestion("{{ env('APP_URL') }}",ev.target.value,datalist)
-        // })
-
         // Populate Select Options
         const barangaySelect = document.querySelector("#barangay")
         const occupancySelect = document.querySelector("#occupancy")
@@ -244,36 +256,5 @@
         barangaySelect.selectedIndex = 0
         occupancySelect.selectedIndex = 0
         subtypeSelect.selectedIndex = 0
-
-        // //Show the list of recorded owners when typed
-        //     const allOwners = {}
-        //     const arrNames = [];
-
-        //     const firstName = document.getElementById('firstName')
-        //     firstName.onchange = () =>{
-
-        //     var arrName = firstName.value.split(",").map(word => word.trim());
-
-        //     //Get the selected owner that exist in record
-        //     const resOwner = allOwners.find(owner => owner.first_name === arrName[0] && owner.middle_name === arrName[1] && owner.last_name === arrName[2])
-        //     // Auto fill if owner exist in the record
-        //     if(resOwner)
-        //     {
-        //         const ownerId = document.getElementById('ownerId')
-        //         const lastName = document.getElementById('lastName');
-        //         const middleName = document.getElementById('middleName'); 
-        //         const contactNo = document.getElementById('contactNo');
-        //         const corporateName = document.getElementById('corporateName');
-
-        //         firstName.value = resOwner.first_name
-        //         middleName.value = resOwner.middle_name
-        //         lastName.value = resOwner.last_name
-        //         contactNo.value = resOwner.contact_no
-        //         corporateName.value = resOwner.corporate_name
-        //         ownerId.value = resOwner.id
-        //     }
-
-
-        // }
     </script>
 @endsection

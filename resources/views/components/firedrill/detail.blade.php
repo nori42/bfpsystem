@@ -8,6 +8,7 @@
         $payer = $establishment->owner->person !== null ? $personName : $establishment->owner->corporate->corporate_name;
         $issued = $firedrill->issued_on != null;
         $claimed = $firedrill->date_claimed != null;
+        [$number, $term] = explode(' ', $firedrill->validity_term);
     @endphp
 
     <form id="firedrillDetail{{ $firedrill->id }}" action="/establishments/firedrill/{{ $establishment->id }}"
@@ -33,37 +34,42 @@
             </div>
             <x-form.input name="controlNo" label="Control No." type="text" value="{{ $firedrill->control_no }}"
                 :readonly="true" />
-            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term">
-                <option value="QUARTERLY" selected>QUARTERLY</option>
-                {{-- <option value="SEMESTER">SEMESTER</option>
-                <option value="ANNUAL">ANNUAL</option> --}}
+            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"
+                customAttr="validity">
+                <option value="QUARTERLY" {{ $term == 'QUARTER' ? 'selected' : '' }}>QUARTERLY</option>
+                <option value="SEMESTER" {{ $term == 'SEMESTER' ? 'selected' : '' }}>SEMESTER</option>
+                {{-- <option value="ANNUAL">ANNUAL</option> --}}
             </x-form.select>
-            <div class="py-3" id="firedrillQuarter" style="display:grid; grid-template-columns: 80px 80px 80px 80px;">
+            <div class="py-3" validity-quarter
+                style="display:{{ $term == 'QUARTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px 80px 80px;">
                 <div>1ST</div>
                 <div>2ND</div>
                 <div>3RD</div>
                 <div>4TH</div>
-                <div><input value="1ST QUARTER" type="radio" name="quarter"
+                <div><input value="1ST QUARTER" type="radio" name="validityTerm"
                         {{ $issued && $firedrill->validity_term != '1ST QUARTER' ? 'disabled' : '' }}
                         {{ $firedrill->validity_term == '1ST QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="2ND QUARTER" type="radio" name="quarter"
+                <div><input value="2ND QUARTER" type="radio" name="validityTerm"
                         {{ $issued && $firedrill->validity_term != '2ND QUARTER' ? 'disabled' : '' }}
                         {{ $firedrill->validity_term == '2ND QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="3RD QUARTER" type="radio" name="quarter"
+                <div><input value="3RD QUARTER" type="radio" name="validityTerm"
                         {{ $issued && $firedrill->validity_term != '3RD QUARTER' ? 'disabled' : '' }}
                         {{ $firedrill->validity_term == '3RD QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="4TH QUARTER" type="radio" name="quarter"
+                <div><input value="4TH QUARTER" type="radio" name="validityTerm"
                         {{ $issued && $firedrill->validity_term != '4TH QUARTER' ? 'disabled' : '' }}
                         {{ $firedrill->validity_term == '4TH QUARTER' ? 'checked' : '' }}></div>
             </div>
-
-            <div class="py-3" id="firedrillSemester" style="display:none; grid-template-columns: 80px 80px">
+            <div class="py-3" validity-semester
+                style="display:{{ $term == 'SEMESTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px">
                 <div>1ST</div>
                 <div>2ND</div>
-                <div><input value="1ST SEMESTER" type="radio" name="semester"></div>
-                <div><input value="2ND SEMESTER" type="radio" name="semester"></div>
+                <div><input value="1ST SEMESTER" type="radio" name="validityTerm"
+                        {{ $issued && $firedrill->validity_term != '1ST SEMESTER' ? 'disabled' : '' }}
+                        {{ $firedrill->validity_term == '1ST SEMESTER' ? 'checked' : '' }}></div>
+                <div><input value="2ND SEMESTER" type="radio" name="validityTerm"
+                        {{ $issued && $firedrill->validity_term != '2ND SEMESTER' ? 'disabled' : '' }}
+                        {{ $firedrill->validity_term == '2ND SEMESTER' ? 'checked' : '' }}></div>
             </div>
-
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
             <x-form.input name="dateMade" label="Date Made" type="date" class="w-50" :readonly="$issued"
                 value="{{ $firedrill->date_made }}" />

@@ -16,33 +16,36 @@
         <input class="d-none" name="receiptFor" type="text" value="Firedrill">
         <input class="d-none" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
         <input class="d-none" name="year" type="text" value="{{ $yearNow }}">
-
+        <legend class="mb-3">Add Firedrill</legend>
         <fieldset>
             <Legend>Firedrill</Legend>
-            <x-form.input name="controlNo" label="Control No." type="text" value="{{ $controlNo }}"
-                :readonly="true" />
-            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term">
-                <option value="QUARTERLY" selected>QUARTERLY</option>
-                {{-- <option value="SEMESTER">SEMESTER</option>
-                <option value="ANNUAL">ANNUAL</option> --}}
-            </x-form.select>
-            <div class="py-3" id="firedrillQuarter" style="display:grid; grid-template-columns: 80px 80px 80px 80px;">
-                <div>1ST</div>
-                <div>2ND</div>
-                <div>3RD</div>
-                <div>4TH</div>
-                <div><input value="1ST QUARTER" type="radio" name="quarter"></div>
-                <div><input value="2ND QUARTER" type="radio" name="quarter"></div>
-                <div><input value="3RD QUARTER" type="radio" name="quarter"></div>
-                <div><input value="4TH QUARTER" type="radio" name="quarter"></div>
-            </div>
 
-            <div class="py-3" id="firedrillSemester" style="display:none; grid-template-columns: 80px 80px">
-                <div>1ST</div>
-                <div>2ND</div>
-                <div><input value="1ST SEMESTER" type="radio" name="semester"></div>
-                <div><input value="2ND SEMESTER" type="radio" name="semester"></div>
-            </div>
+            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"
+                customAttr="validity">
+                <option value="QUARTERLY">QUARTERLY</option>
+                <option value="SEMESTER">SEMESTER</option>
+            </x-form.select>
+
+            <fieldset>
+
+                <div class="py-3" validity-quarter style="display:none; grid-template-columns: 80px 80px 80px 80px;">
+                    <div>1ST</div>
+                    <div>2ND</div>
+                    <div>3RD</div>
+                    <div>4TH</div>
+                    <div><input value="1ST QUARTER" type="radio" name="validityTerm"></div>
+                    <div><input value="2ND QUARTER" type="radio" name="validityTerm"></div>
+                    <div><input value="3RD QUARTER" type="radio" name="validityTerm"></div>
+                    <div><input value="4TH QUARTER" type="radio" name="validityTerm"></div>
+                </div>
+
+                <div class="py-3" validity-semester style="display:none; grid-template-columns: 80px 80px">
+                    <div>1ST</div>
+                    <div>2ND</div>
+                    <div><input value="1ST SEMESTER" type="radio" name="validityTerm"></div>
+                    <div><input value="2ND SEMESTER" type="radio" name="validityTerm"></div>
+                </div>
+            </fieldset>
 
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
             <x-form.input name="dateMade" label="Date Made" type="date" class="w-50" />
@@ -64,15 +67,17 @@
 </x-modal>
 
 <script>
-    // const firedrillQuarter = document.querySelector("#firedrillQuarter")
-    // const firedrillSemester = document.querySelector("#firedrillSemester")
-    // const firedrillTerm = document.querySelector("#validity")
+    const firedrillQuarter = document.querySelectorAll("[validity-quarter]")
+    const firedrillSemester = document.querySelectorAll("[validity-semester]")
+    const firedrillTerm = document.querySelectorAll("[validity]")
 
-    // firedrillTerm.addEventListener("change", () => {
-    //     (firedrillTerm.value === "QUARTERLY") ? firedrillQuarter.style.display = "grid": firedrillQuarter.style
-    //         .display = "none";
+    firedrillTerm.forEach((element, index) => {
+        element.addEventListener("change", () => {
+            (element.value === "QUARTERLY") ? firedrillQuarter[index].style.display = "grid":
+                firedrillQuarter[index].style.display = "none";
 
-    //     (firedrillTerm.value === "SEMESTER") ? firedrillSemester.style.display = "grid": firedrillSemester.style
-    //         .display = "none";
-    // })
+            (element.value === "SEMESTER") ? firedrillSemester[index].style.display = "grid":
+                firedrillSemester[index].style.display = "none";
+        })
+    });
 </script>

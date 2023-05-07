@@ -59,12 +59,18 @@
         <div class="fs-6 text-white fw-bold">Bureau of Fire Protection Management System</div>
     </div>
     <div class="container mx-auto">
-        <form action="/authenticate" method="POST" class="p-5">
+
+        <form action="/login" method="POST" class="p-5">
             @csrf
             <div class="">
                 <img class="mx-auto" src="/img/LOGO.PNG" alt="logo">
             </div>
 
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="text-danger">{{ $error }}</div>
+                @endforeach
+            @endif
             <input class="form-control my-4 d-block w-100 py-3" type="text" name="username" placeholder="USERNAME">
             <input class="form-control my-4 d-block w-100 py-3" type="password" name="password" placeholder="PASSWORD">
 

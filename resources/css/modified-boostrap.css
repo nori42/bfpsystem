@@ -26,7 +26,13 @@
     font-weight: bold !important;
 }
 
+
 .btn-success:hover {
+    background-color: var(--success-subtle)!important;
+}
+
+a.btn-success:hover {
+    color: white;
     background-color: var(--success-subtle)!important;
 }
 

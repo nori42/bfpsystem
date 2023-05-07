@@ -160,29 +160,45 @@ class EstablishmentController extends Controller
 
     public function search(Request $request){
          
+        //Escaped special char like ', ", %, ;
+        $preparedQueryString = addslashes($request->search);
+
         $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
         ->select('establishments.*','person.*')
-        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$request->search}%'")->get()->first();
+        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
 
         if($establishment == null)
-            return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
+        return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
 
-        $owner = Owner::find($establishment->owner_id);
+        switch($request->userType)
+        {
+            
+            case "FIREDRILL":
+                return redirect('/establishments'.'/'.$establishment->id.'/firedrill');
+            case"FSIC":
+                return redirect('/establishments'.'/'.$establishment->id.'/fsic');
+            default:
+            {
+
+                $owner = Owner::find($establishment->owner_id);
+                
+                $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+                $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
+                $building_type = [
+                    'Small', 'Medium', 'Large', 'High Rise'
+                ];       
+
+                return view('establishments.show', [
+                    'establishment' => $establishment,
+                    'occupancies' => $occupancies,
+                    'subtype' => $sub_type,
+                    'owner' => $owner,
+                    'buildingType' => $building_type,
+                    'page_title' => 'Establishment Details' // use to set page title inside the panel
+                ]);
+            }
+        }
         
-        $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
-        $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
-        $building_type = [
-            'Small', 'Medium', 'Large', 'High Rise'
-        ];       
-
-        return view('establishments.show', [
-            'establishment' => $establishment,
-            'occupancies' => $occupancies,
-            'subtype' => $sub_type,
-            'owner' => $owner,
-            'buildingType' => $building_type,
-            'page_title' => 'Establishment Details' // use to set page title inside the panel
-        ]);
     }
     
     // update establishment details

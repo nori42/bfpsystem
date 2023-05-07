@@ -26,7 +26,7 @@
     </div>
 
     <div class="nav">
-        <a id="back" href="/establishments/firedrill/{{ $estabId }}">
+        <a id="back" href="/establishments/{{ $estabId }}/firedrill">
             Back
         </a>
         <button id="printBtn">
@@ -43,7 +43,7 @@
             <strong>Issued For: </strong> <span>Firedrill</span>
         </div>
         <div class="printby">
-            <strong>Printing as: </strong> <span>Admin</span>
+            <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
             <div id="date">{{ $payment['datePayment'] }}</div>
         </div>
 
-        {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SP04 Philip K Layug, BFP
+        {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
         </div>
         <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
             BFP</div> --}}

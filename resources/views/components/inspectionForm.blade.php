@@ -17,7 +17,7 @@
             'issuedFor' => $issuedFor,
         ];
     @endphp
-
+    <legend class="mb-3">Add Inspection</legend>
     <fieldset class="d-flex flex-column">
         <legend>Inspection</legend>
         {{-- This is hidden, only used for post request --}}
@@ -30,10 +30,10 @@
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
             type="date" class="w-50" />
-        <x-form.input name="buildingConditions{{ $key }}" input-inspect label="Building Condtions"
-            type="text" customAttr="{{ $inputAttr }}" />
-        <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
-            type="text" customAttr="{{ $inputAttr }}" />
+        <x-form.input name="buildingConditions{{ $key }}" input-inspect label="Note" type="text"
+            customAttr="{{ $inputAttr }}" />
+        {{-- <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
+            type="text" customAttr="{{ $inputAttr }}" /> --}}
 
     </fieldset>
     <hr>

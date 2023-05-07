@@ -36,7 +36,7 @@
                 @endforeach
             </x-firedrill>
 
-            <x-form.firedrillAdd :controlNo="$controlNo" :establishment="$establishment" />
+            <x-form.firedrillAdd :establishment="$establishment" />
         </x-pageWrapper>
     </div>
 @endsection

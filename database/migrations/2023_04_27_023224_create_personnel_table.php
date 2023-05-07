@@ -14,7 +14,12 @@ return new class extends Migration
     {
         Schema::create('personnel', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('position')->nullable();
+            $table->string('rank')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('pagibig_no')->nullable();
+            $table->string('philhealth_no')->nullable();
+            $table->string('TINNo')->nullable();
+            $table->boolean('has_user')->nullable();
             $table->foreignIdFor(Person::class)->unique();
             $table->timestamps();
         });

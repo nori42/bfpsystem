@@ -3,6 +3,20 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
+    @php
+        $personnelCINSP = $personnelList->where('rank', '=', 'CINSP');
+        $personnelINSP = $personnelList->where('rank', '=', 'INSP');
+        $personnelSFO4 = $personnelList->where('rank', '=', 'SFO4');
+        $personnelSFO3 = $personnelList->where('rank', '=', 'SFO3');
+        $personnelSFO2 = $personnelList->where('rank', '=', 'SFO2');
+        $personnelSFO1 = $personnelList->where('rank', '=', 'SFO1');
+        $personnelFO3 = $personnelList->where('rank', '=', 'FO3');
+        $personnelFO2 = $personnelList->where('rank', '=', 'FO2');
+        $personnelFO1 = $personnelList->where('rank', '=', 'FO1');
+        
+        $personnels = [$personnelCINSP, $personnelINSP, $personnelSFO4, $personnelSFO3, $personnelSFO2, $personnelSFO1, $personnelFO3, $personnelFO2, $personnelFO1];
+    @endphp
+
     <div class="page-content">
         <x-pageWrapper>
 
@@ -14,31 +28,74 @@
                     <span class="d-block fw-bold fs-3">{{ count($personnelList) }} Personnel</span>
                     <span class="d-block text-secondary ">Manage personnel</span>
                 </div>
-                <button class="btn btn-success" onclick="openModal('addPersonnel')">Add Personnel</button>
+                <button class="btn btn-success" onclick="openModal('addPersonnel')">
+                    <span class="material-symbols-outlined fs-2 align-middle">
+                        person_add
+                    </span>
+                    Add Personnel
+                </button>
             </div>
             {{-- Put page content here --}}
 
-            <x-personnel.cardList>
-                @foreach ($personnelList as $personnel)
-                    <x-personnel.card :personnel="$personnel" />
-                @endforeach
-            </x-personnel.cardList>
+            @foreach ($personnels as $personnelType)
+                @if (count($personnelType) == 0)
+                    @continue
+                @endif
+                @php
+                    $label = $personnelType->first()->rank;
+                @endphp
+                <x-personnel.cardList label="{{ $label }}">
+                    @foreach ($personnelType as $personnel)
+                        <x-personnel.card :personnel="$personnel" />
+                    @endforeach
+                </x-personnel.cardList>
+            @endforeach
+
         </x-pageWrapper>
 
         <x-modal id="addPersonnel" width="50" topLocation="8">
 
             <form action="/personnel" method="POST">
                 @csrf
-                <div class="d-flex gap-3">
-                    <x-form.input label="First Name" name="firstName" />
-                    <x-form.input label="Middle Name" name="middleName" />
-                    <x-form.input label="Last Name" name="lastName" />
-                </div>
-                <x-form.input class="w-25" label="Suffix" name="suffix" />
-                <x-form.input label="Position" name="position" />
+                <fieldset>
+                    <legend>Personal Info</legend>
+                    <hr>
+                    <div class="d-flex gap-3">
+                        <x-form.input label="First Name" name="firstName" />
+                        <x-form.input label="Middle Name" name="middleName" />
+                        <x-form.input label="Last Name" name="lastName" />
+                    </div>
+                    <div class="d-flex gap-2 w-25">
+                        <x-form.input type="text" label="Title" name="title" />
+                        <x-form.input type="text" label="Name Suffix" name="nameSuffix" />
+                    </div>
+                    <x-form.select class="w-25" name="sex" label="Sex" placeholder="SELECT SEX">
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                    </x-form.select>
+                </fieldset>
+                <fieldset>
+                    <hr>
+                    <x-form.select class="w-25" name="rank" label="Rank" placeholder="SELECT RANK">
+                        <option value="CINSP">CINSP</option>
+                        <option value="INSP">INSP</option>
+                        <option value="SFO4">SFO4</option>
+                        <option value="SFO3">SFO3</option>
+                        <option value="SFO2">SFO2</option>
+                        <option value="SFO1">SFO1</option>
+                        <option value="SFO1">FO3</option>
+                        <option value="SFO1">FO2</option>
+                        <option value="SFO1">FO1</option>
+                    </x-form.select>
+                    <x-form.input label="Designation" name="designation" />
+                </fieldset>
 
-                <button class="btn btn-success w-25 ml-auto mt-3" onclick="openModal('addPersonnel')"
-                    type="submit">Add</button>
+                <button class="btn btn-success w-25 float-end mt-3" onclick="openModal('addPersonnel')" type="submit">
+                    <span class="material-symbols-outlined fs-2 align-middle">
+                        person_add
+                    </span>
+                    Add
+                </button>
             </form>
         </x-modal>
     </div>

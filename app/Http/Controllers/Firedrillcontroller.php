@@ -18,17 +18,11 @@ class FiredrillController extends Controller
         $establishment = Establishment::find($request->id);
         $owner = $establishment->owner;
         $firedrills= Firedrill::where('establishment_id', $request->id)->orderBy('id','desc')->get();
-
-
-        $firedrillsByYear = (Firedrill::where('year',date('Y')));
-
-        $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
    
         return view('establishments.firedrill.index',[
             'firedrills' => $firedrills,
             'establishment' => $establishment,
             'owner' => $owner,
-            'controlNo' => $newControlNo,
             'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);
     }
@@ -40,6 +34,9 @@ class FiredrillController extends Controller
         $establishment = Establishment::find($request->estabId);
         $owner = $establishment->owner;
 
+        $firedrillsByYear = (Firedrill::where('year',date('Y')));
+        $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
+
         $receipt->or_no = $request->orNo;
         $receipt->payor = $request->payor;
         $receipt->amount = $request->amountPaid;
@@ -49,9 +46,9 @@ class FiredrillController extends Controller
         $receipt->date_of_payment = $request->dateOfPayment;
         
         $receipt->save();
-        $firedrill->control_no = $request->controlNo;
+        $firedrill->control_no = $newControlNo;
 
-        $firedrill->validity_term = $request->quarter;
+        $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
         $firedrill->receipt_id = $receipt->id;
         $firedrill->establishment_id = $request->estabId;
@@ -60,7 +57,6 @@ class FiredrillController extends Controller
         $firedrill->save();
         
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
-        $firedrillsByYear = (Firedrill::where('year',date('Y')));
 
         $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
 
@@ -88,6 +84,8 @@ class FiredrillController extends Controller
         $firedrill = Firedrill::find($request->firedrillId);
         $receipt = $firedrill->receipt;
 
+        error_log($request->validityTerm);
+
         $receipt->or_no = $request->orNo;
         $receipt->amount = $request->amountPaid;
         $receipt->date_of_payment = $request->dateOfPayment;
@@ -95,7 +93,7 @@ class FiredrillController extends Controller
         $receipt->save();
         $firedrill->control_no = $request->controlNo;
 
-        $firedrill->validity_term = $request->quarter;
+        $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
 
         if($request->action == "claimcertificate")

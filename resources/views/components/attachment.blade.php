@@ -1,6 +1,9 @@
 @props(['for', 'establishment', 'owner', 'files', 'page'])
 <x-pageWrapper>
 
+    @if (session('toastMssg'))
+        <x-toast :message="session('toastMssg')" />
+    @endif
     {{-- Owner Info & Selected Establishment --}}
     <x-headingInfo :establishment="$establishment" :owner="$owner" />
 

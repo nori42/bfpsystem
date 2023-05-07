@@ -29,8 +29,10 @@ class PersonnelController extends Controller
 
         $person->save();
 
-        $personnel->position = strtoupper($request->position);
+        $personnel->rank = strtoupper($request->rank);
+        $personnel->designation = strtoupper($request->designation);
         $personnel->person_id = $person->id;
+        $personnel->has_user = false;
 
         $personnel->save();
 

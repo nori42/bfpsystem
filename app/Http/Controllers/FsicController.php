@@ -61,7 +61,7 @@ class FsicController extends Controller
 
         $establishment = $inspection->establishment;
 
-        $inspectionDetail = Inspection::where('establishment_id', $request->id)->get();
+        $inspectionDetail = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
 
         //load json files
         $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/selectOptions/natureOfPayment.json"), true);
@@ -78,7 +78,7 @@ class FsicController extends Controller
             case 'add':
                 return view('establishments.fsic.index',[
                 'newPost'=> true,
-                'successMssg'=>'Inspection Added Successfully',
+                'toastMssg'=>'Inspection Added Successfully',
                 'isAdd' => true,
                 'establishment' => $establishment,
                 'inspections' => $inspectionDetail,
@@ -87,7 +87,7 @@ class FsicController extends Controller
                 'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'addandprint':
-                return redirect('/establishments/fsic/print/'.$inspection->id);
+                return redirect('/fsic/print/'.$inspection->id);
         }
 
     }
@@ -127,7 +127,7 @@ class FsicController extends Controller
                     'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'saveandprint':
-                return redirect('/establishments/fsic/print/'.$inspection->id);
+                return redirect('/fsic/print/'.$inspection->id);
         }
         
     }
@@ -139,7 +139,7 @@ class FsicController extends Controller
         $inspection->status ='Printed';
         $inspection->save();
 
-        return redirect('/establishments/fsic/'.$inspection->establishment->id);        
+        return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
     }
 
     //Payment

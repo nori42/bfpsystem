@@ -10,12 +10,11 @@
         @endif
         <x-pageWrapper>
             <div class="d-flex justify-content-center">
-                <a href="/establishments/create" class="btn btn-success mt-3 fs-5">
-                    <span class="material-symbols-outlined align-middle">
-                        domain_add
-                    </span>
-                    New Establishment
-                </a>
+
+                @if (auth()->user()->type === 'FSIC' || auth()->user()->type === 'ADMIN')
+                    <a class="btn btn-success text-white px-5 py-2 align-middle mt-3" href="/establishments/create"><span
+                            class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
+                @endif
             </div>
         </x-pageWrapper>
     </div>

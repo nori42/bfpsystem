@@ -34,9 +34,10 @@ class SearchController extends Controller
         {
             
         // $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?'",["%{$request->searchQuerye}%"])->get();
+
         $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
         ->select('establishments.*','person.*')
-        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$request->search}%'")->limit(10)->get();
+        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$request->search}%' ")->limit(10)->get();
         // $owners = Owner::all();
         return response()->json([
             'status' => 'success',

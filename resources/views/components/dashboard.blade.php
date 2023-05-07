@@ -12,8 +12,12 @@
         <form action={{ $urlResource }} method="GET">
             <div class="w-100">
 
+                {{-- Hidden Values --}}
+                <input name="userType" type="text" class="d-none" value="{{ auth()->user()->type }}">
+
                 <input type="text" id="search" name="search" class="form-control fs-4 rounded-2"
                     list="establishments" autocomplete="off">
+                <input class="visually-hidden" type="submit" value="Search">
             </div>
         </form>
         <datalist id="establishments">
@@ -24,6 +28,7 @@
 </div>
 
 @if ($for == 'establishment')
+    {{-- Fetching the establishments --}}
     <script src="{{ asset('js/fetch.js') }}"></script>
     <script>
         const searchInput = document.querySelector('#search');

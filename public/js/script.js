@@ -10,24 +10,24 @@ function toggleShow(id)
         elem.style.display ='none';
 
 }
-window.addEventListener("click",(event)=>{
-        const dropdowns = document.querySelectorAll('[data-dropdown-menu]')
+// window.addEventListener("click",(event)=>{
+//         const dropdowns = document.querySelectorAll('[data-dropdown-menu]')
 
-        const currentMenu = event.target.parentNode.nextElementSibling || event.target.parentNode.children[1] ;
+//         const currentMenu = event.target.parentNode.nextElementSibling || event.target.parentNode.children[1] ;
 
-        const currentMenuClicked = event.target.closest('[data-dropdown-menu]')
+//         const currentMenuClicked = event.target.closest('[data-dropdown-menu]')
 
-        dropdowns.forEach(dropdown => {
-            if(dropdown != currentMenu )
-            {
-                if(dropdown.style.display == "block")
-                {
-                    dropdown.style.display = "none";
-                }
-            }
-    });
+//         dropdowns.forEach(dropdown => {
+//             if(dropdown != currentMenu )
+//             {
+//                 if(dropdown.style.display == "block")
+//                 {
+//                     dropdown.style.display = "none";
+//                 }
+//             }
+//     });
 
-})
+// })
 
 function handleFsicActions (e){
     console.log(e);

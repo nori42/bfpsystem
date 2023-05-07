@@ -38,8 +38,10 @@
             </form>
 
 
-            <a class="btn btn-success text-white px-5 py-2 align-middle" href="/establishments/create"><span
-                    class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
+            @if (auth()->user()->type === 'FSIC')
+                <a class="btn btn-success text-white px-5 py-2 align-middle" href="/establishments/create"><span
+                        class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
+            @endif
         </div>
 
         <div class="w-90 overflow-auto mx-auto px-2 h-100">

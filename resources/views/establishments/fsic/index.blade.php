@@ -4,7 +4,7 @@
     <div class="page-content">
         {{-- Put page content here --}}
 
-        <x-backBtn />
+        {{-- <x-backBtn /> --}}
 
         @isset($toastMssg)
             <x-toast :message="$toastMssg" />

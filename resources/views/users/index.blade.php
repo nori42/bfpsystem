@@ -6,8 +6,21 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-            <div class="d-flex justify-content-end mt-5" onclick="openModal('addUser')">
-                <button class="btn btn-success" onclick="">Add New User</button>
+
+            @isset($toastMssg)
+                <x-toast :message="$toastMssg" />
+            @endisset
+            <div class="d-flex justify-content-between my-5 align-items-center">
+                <div>
+                    <span class="d-block fw-bold fs-3">{{ count($users) }} Users</span>
+                    <span class="d-block text-secondary ">Manage users</span>
+                </div>
+                <button class="btn btn-success" onclick="openModal('addUser')">
+                    <span class="material-symbols-outlined fs-2 align-middle">
+                        person_add
+                    </span>
+                    Add User
+                </button>
             </div>
             <table class="table">
                 <thead>
@@ -16,25 +29,84 @@
                     <th>Personnel</th>
                 </thead>
                 <tbody>
-
+                    @foreach ($users as $user)
+                        @php
+                            $personnel = null;
+                            if ($user->personnel_id != 0) {
+                                $person = $user->personnel->person;
+                                $personnel = $user->personnel_id != 0 ? $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name . ' ' . $person->suffix : '';
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{ $user->username }}</td>
+                            <td>{{ $user->type }}</td>
+                            <td>{{ $personnel }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </x-pageWrapper>
 
         <x-modal id="addUser" width="50" topLocation="8">
 
-            <form action="/users" method="POST">
+            <form action="/users" method="POST" autocomplete="off">
                 @csrf
-                <div class="d-flex gap-3">
-                    <x-form.input label="Username" name="username" />
-                    <x-form.input label="Password" name="password" />
-                    <x-form.input label="Confirm Password" name="confirmPassword" />
-                </div>
-                <x-form.input label="Type" name="suffix" />
-                <x-form.input label="Personnel" name="personnel" />
 
-                <button class="btn btn-success w-25 ml-auto mt-3" type="submit">Add</button>
+                <legend class="mb-3">Add New User</legend>
+                <div class="d-flex gap-3">
+                    {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
+                    <x-form.inputWrapper>
+                        <label class="info-label">Username</label>
+                        <input class="form-control" id="username" name="username" type="text" required
+                            autocomplete="off">
+                    </x-form.inputWrapper>
+                    <x-form.inputWrapper>
+                        <label class="info-label">Password</label>
+                        <input class="form-control" id="password" name="password" type="password" required
+                            autocomplete="off">
+                    </x-form.inputWrapper>
+                    <x-form.inputWrapper>
+                        <label class="info-label">Confirm Password</label>
+                        <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required
+                            autocomplete="off">
+                    </x-form.inputWrapper>
+                </div>
+
+                <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
+                    <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
+                    <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
+                    <option value="FIREDRILL">FIREDRILL</option>
+                </x-form.select>
+
+                <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel">
+                    @foreach ($personnelList as $personnel)
+                        @php
+                            $name = $personnel->person->last_name . ' ' . $personnel->person->suffix . ', ' . $personnel->person->first_name . ' ' . $personnel->person->middle_name[0] . '.';
+                        @endphp
+                        <option value="{{ $personnel->id }}">{{ $name }}</option>
+                    @endforeach
+                </x-form.select>
+
+                <button class="btn btn-success mt-3 float-end" type="submit">
+                    <span class="material-symbols-outlined fs-2 align-middle">
+                        person_add
+                    </span>
+                    Add
+                </button>
             </form>
         </x-modal>
     </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        confirmPasswordInput.addEventListener('input', () => {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.setCustomValidity('Passwords do not match');
+            } else {
+                confirmPasswordInput.setCustomValidity('');
+            }
+        });
+    </script>
 @endsection

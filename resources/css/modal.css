@@ -18,7 +18,7 @@
   
   /* Modal Content */
   .modal-content {
-    background-color: #fefefe;
+    background-color: #F5F8FC !important;
     padding: 40px;
     border: 1px solid #888;
     width: 70%;

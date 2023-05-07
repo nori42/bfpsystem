@@ -29,82 +29,169 @@
 
             <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
 
-            <!-- Nav Links -->
-            <div class="nav-links overflow-y-auto ">
-                <ul class="py-3 list-unstyled">
+            @if (auth()->user()->type == 'ADMIN')
+                <!-- Nav Links -->
+                <div class="nav-links overflow-y-auto ">
+                    <ul class="py-3 list-unstyled">
 
-                    {{-- <li class="mx-3 fw-bold text-white fs-6">Menu</li> --}}
+                        {{-- <li class="mx-3 fw-bold text-white fs-6">Menu</li> --}}
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="/establishments">
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                domain
-                            </span>
-                            Establishments
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="/establishments">
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    domain
+                                </span>
+                                Establishments
+                            </a>
+                        </li>
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="/fsec">
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                corporate_fare
-                            </span>
-                            Building Plan
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="/fsec">
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    corporate_fare
+                                </span>
+                                Building Plan
+                            </a>
+                        </li>
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="/personnel" disabled>
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                group
-                            </span>
-                            Personnel
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="/personnel" disabled>
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    group
+                                </span>
+                                Personnel
+                            </a>
+                        </li>
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="/users" disabled>
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                account_box
-                            </span>
-                            Users
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="/users" disabled>
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    account_box
+                                </span>
+                                Users
+                            </a>
+                        </li>
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="#">
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                event_note
-                            </span>
-                            Activity Log
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="#" disabled>
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    receipt_long
+                                </span>
+                                Reports
+                            </a>
+                        </li>
 
-                    <!-- button -->
-                    <li class="m-2">
-                        <a class="btn w-100 text-start text-white" href="/archived" disabled>
-                            <!-- button Icon -->
-                            <span class="material-symbols-outlined align-middle fs-2">
-                                dresser
-                            </span>
-                            Archive
-                        </a>
-                    </li>
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="#">
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    event_note
+                                </span>
+                                Activity Log
+                            </a>
+                        </li>
 
+                        <!-- button -->
+                        <li class="m-2">
+                            <a class="btn w-100 text-start text-white" href="/archived" disabled>
+                                <!-- button Icon -->
+                                <span class="material-symbols-outlined align-middle fs-2">
+                                    dresser
+                                </span>
+                                Archive
+                            </a>
+                        </li>
 
+                    </ul>
+                </div>
+            @endif
 
-                </ul>
-            </div>
+            @if (auth()->user()->type == 'FSIC')
+                <x-navLinks>
+                    <x-navLinks.link href="/establishments">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            domain
+                        </span>
+                        Establishments
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            receipt_long
+                        </span>
+                        Reports
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            event_note
+                        </span>
+                        Activity Log
+                    </x-navLinks.link>
+                </x-navLinks>
+            @endif
+
+            @if (auth()->user()->type == 'FIREDRILL')
+                <x-navLinks>
+                    <x-navLinks.link href="/establishments">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            domain
+                        </span>
+                        Establishments
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            receipt_long
+                        </span>
+                        Reports
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            event_note
+                        </span>
+                        Activity Log
+                    </x-navLinks.link>
+                </x-navLinks>
+            @endif
+
+            @if (auth()->user()->type == 'FSEC')
+                <x-navLinks>
+                    <x-navLinks.link href="/fsec">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            domain
+                        </span>
+                        Building Plan
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            receipt_long
+                        </span>
+                        Reports
+                    </x-navLinks.link>
+
+                    <x-navLinks.link href="#">
+                        <span class="material-symbols-outlined align-middle fs-2">
+                            event_note
+                        </span>
+                        Activity Log
+                    </x-navLinks.link>
+                </x-navLinks>
+            @endif
+
         </nav>
 
         {{-- Righ Panel --}}
@@ -119,46 +206,39 @@
                 <!-- profile button -->
                 <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
                     <button class="btn btn-profile rounded-0" onclick="toggleShow('dropdownMenu')">
-                        <span>
-                            <!-- icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                class="btn-profile-icon" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                <path fill-rule="evenodd"
-                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                            </svg>
-
-                            <!-- icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                class="btn-profile-icon" viewBox="0 0 16 16">
-                                <path
-                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                            </svg>
-                        </span>
+                        <i class="bi bi-person-fill text-white fs-3"></i>
+                        <!-- icon -->
+                        <i class="bi bi-caret-down-fill text-white fs-5"></i>
                     </button>
 
                     <!-- dropdown menu -->
                     <div id="dropdownMenu" class="dropdown-profile-menu py-2 px-3 border-1"
                         style="display:none !important;">
-                        <div class="d-flex">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                class="btn-profile-icon" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                <path fill-rule="evenodd"
-                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                            </svg>
-                            <span class="mx-3 fw-semibold text-white">User1</span>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-person-fill text-white fs-3"></i>
+                            <span class="mx-3 fw-semibold text-white align-middle">{{ auth()->user()->username }}</span>
                         </div>
 
                         <hr>
                         <!-- drop down links -->
                         <div class="d-inline flex-column">
-                            <a href="#" class="btn w-100 text-start text-white fw-semibold">Info</a>
-                            <a href="/" class="btn w-100 text-start text-white fw-semibold">Logout</a>
+                            <button class="btn w-100 text-start text-white fw-semibold nowrap"
+                                onclick="openModal('modalInfo',toggleShow('dropdownMenu'))">Account</button>
+                            <a href="/logout" class="btn w-100 text-start text-white fw-semibold">Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- User Info Modal --}}
+            <x-modal id="modalInfo" width="50" topLocation="8">
+                <h1 class="fs-4">User Info</h1>
+                <hr>
+                <div class="d-flex gap-2">
+                    <x-form.input label="Username" name="username" :value="auth()->user()->username" :readonly="true" />
+                    <x-form.input label="User Type" name="userType" :value="auth()->user()->type" :readonly="true" />
+                </div>
+            </x-modal>
+
             {{-- DUMP CONTENT HERE --}}
             <div class="overflow-y-auto h-100">
                 @yield('content')
@@ -168,6 +248,7 @@
                 <footer></footer>
             </div>
         </div>
+
 
         <!-- icons - https://icons.getbootstrap.com/ -->
 
