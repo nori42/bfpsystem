@@ -10,6 +10,9 @@
             @isset($toastMssg)
                 <x-toast :message="$toastMssg" />
             @endisset
+            @if (session('toastMssg') != null)
+                <x-toast :message="session('toastMssg')" />
+            @endif
             <div class="d-flex justify-content-between my-5 align-items-center">
                 <div>
                     <span class="d-block fw-bold fs-3">{{ count($users) }} Users</span>

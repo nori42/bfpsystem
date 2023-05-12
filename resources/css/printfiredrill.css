@@ -376,7 +376,7 @@ button:hover{
     #printablePage {
         margin-top: 0 !important;
         padding-right: 1in;
-        background-image: none !important;
+        background-image: url(../img/firedrill.png) !important;
     }
 
     .nav{

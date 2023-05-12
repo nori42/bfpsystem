@@ -36,6 +36,57 @@
                 </button>
             </div>
             {{-- Put page content here --}}
+            <div class="d-flex gap-5">
+                <div>
+                    <div class="card border-0 px-4 py-2 boxshadow"
+                        style="background-color: #F5F8FC; width: 14rem; min-height: 12rem;">
+                        <div class="d-flex align-items-center justify-content-center btn" style="height:16rem;">
+                            <i class="bi bi-person-plus-fill" style="font-size: 4rem;"></i>
+                        </div>
+                        {{-- <div class="card-img-top text-center">
+                            <span
+                                class="material-symbols-outlined border border-dark border-1 rounded-circle p-4 mt-4 bg-white"
+                                style="font-size: 3.5rem">
+                                person
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center fw-bold fs-6">Test</h5>
+                            <h6 class="card-text text-center text-secondary">Test</h6>
+                            <div class="mt-3">
+                            </div>
+                            <button class="btn btn-success border-0 w-100 fw-bold mt-4"
+                                onclick="openModal('')">Info</button>
+                        </div> --}}
+                    </div>
+                    <div class="text-center fw-semibold mt-3">CHIEF, Fire Safety Enforcement Section</div>
+                </div>
+
+                <div>
+                    <div class="card border-0 px-4 py-2 boxshadow"
+                        style="background-color: #F5F8FC; width: 14rem; min-height: 12rem;">
+                        <div class="d-flex align-items-center justify-content-center btn" style="height:16rem;">
+                            <i class="bi bi-person-plus-fill" style="font-size: 4rem;"></i>
+                        </div>
+                        {{-- <div class="card-img-top text-center">
+                            <span
+                                class="material-symbols-outlined border border-dark border-1 rounded-circle p-4 mt-4 bg-white"
+                                style="font-size: 3.5rem">
+                                person
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center fw-bold fs-6">Test</h5>
+                            <h6 class="card-text text-center text-secondary">Test</h6>
+                            <div class="mt-3">
+                            </div>
+                            <button class="btn btn-success border-0 w-100 fw-bold mt-4"
+                                onclick="openModal('')">Info</button>
+                        </div> --}}
+                    </div>
+                    <div class="text-center fw-semibold mt-3">CITY/MUNICIPAL FIRE MARSHALL</div>
+                </div>
+            </div>
 
             @foreach ($personnels as $personnelType)
                 @if (count($personnelType) == 0)

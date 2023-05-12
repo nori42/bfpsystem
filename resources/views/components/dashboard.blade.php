@@ -9,7 +9,8 @@
         @php
             $urlResource = $for == 'establishment' ? 'establishments/search' : 'resources/buildingplans';
         @endphp
-        <form action={{ $urlResource }} method="GET">
+        <form action={{ $urlResource }} method="POST">
+            @csrf
             <div class="w-100">
 
                 {{-- Hidden Values --}}
@@ -17,6 +18,14 @@
 
                 <input type="text" id="search" name="search" class="form-control fs-4 rounded-2"
                     list="establishments" autocomplete="off">
+                @if ($for == 'establishment')
+                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name or
+                        Establishment
+                        Name</div>
+                @else
+                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Building Permit or Owner Name </div>
+                @endif
+
                 <input class="visually-hidden" type="submit" value="Search">
             </div>
         </form>

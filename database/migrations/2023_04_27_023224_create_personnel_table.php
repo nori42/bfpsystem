@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('personnel', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('sex')->nullable();
             $table->string('rank')->nullable();
             $table->string('designation')->nullable();
             $table->string('pagibig_no')->nullable();

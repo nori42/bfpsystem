@@ -1,6 +1,6 @@
 @props(['personnel'])
 
-<div class="card border-0 px-4 py-2 boxshadow" style="background-color: #F5F8FC; width: 18rem;">
+<div class="card border-0 px-4 py-2 boxshadow" style="background-color: #F5F8FC; width: 14rem;">
     <div class="card-img-top text-center">
         <span class="material-symbols-outlined border border-dark border-1 rounded-circle p-4 mt-4 bg-white"
             style="font-size: 3.5rem">
@@ -16,8 +16,7 @@
         <div class="mt-3">
         </div>
 
-        <button class="btn btn-success border-0 w-100 fw-bold mt-4"
-            onclick="openModal('info{{ $personnel->id }}')">Info</button>
+        <button class="btn btn-success border-0 w-100 fw-bold mt-4" onclick="openModal('')">Info</button>
 
     </div>
     <x-modal id="info{{ $personnel->id }}" width="50" topLocation="8">

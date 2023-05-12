@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FSIC</title>
+    <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="/css/printfsic.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
@@ -45,7 +45,7 @@
 
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
-            <div>Cebu City Fire Station</div>
+            <div>Cebu City Fire Office</div>
             <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
             <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
             <div>Email Address: cebucityfsn@yahoo.com</div>

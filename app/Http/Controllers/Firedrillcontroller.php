@@ -74,7 +74,7 @@ class FiredrillController extends Controller
         }
         else
         {
-            return redirect('/establishments/firedrill/print/'.$firedrill->id);
+            return redirect('/establishments/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
         }
         
     }
@@ -96,9 +96,22 @@ class FiredrillController extends Controller
         $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
 
+        $establishment = Establishment::find($request->estabId);
+        $owner = $establishment->owner;
+        
         if($request->action == "claimcertificate")
         {
             $firedrill->date_claimed = Carbon::now();
+            
+            if($request->claimedBy == null)
+            {
+                $personName = $owner->person->first_name.' '.$owner->person->middle_name[0].' '.$owner->person->last_name;
+                $firedrill->claimed_by = $personName;
+            }
+            else
+            {
+                $firedrill->claimed_by = $request->claimedBy;
+            }
         }
         
         $firedrill->save();
@@ -107,8 +120,6 @@ class FiredrillController extends Controller
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
         
-        $establishment = Establishment::find($request->estabId);
-        $owner = $establishment->owner;
 
         $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
 
@@ -127,7 +138,7 @@ class FiredrillController extends Controller
         }
         else
         {
-            return redirect('/establishments/firedrill/print/'.$firedrill->id);
+            return redirect('/establishments/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
         }
     }
 

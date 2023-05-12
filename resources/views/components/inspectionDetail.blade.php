@@ -37,8 +37,8 @@
 
             <x-form.input name="inspectionDateDetail" label="Inspection Date" customAttr="{{ $inputAttr }}"
                 type="date" class="w-50" value="{{ $inspection->inspection_date }}" :readonly="$printed" />
-            <x-form.input name="buildingConditionsDetail" input-inspect label="Note" type="text"
-                customAttr="{{ $inputAttr }}" value="{{ $inspection->building_conditions }}" :readonly="$printed" />
+            <x-form.input name="noteDetail" input-inspect label="Note" type="text"
+                customAttr="{{ $inputAttr }}" value="{{ $inspection->note }}" :readonly="$printed" />
             {{-- <x-form.input name="buildingStructuresDetail" input-inspect label="Building Structures" type="text"
                 customAttr="{{ $inputAttr }}" value="{{ $inspection->building_structures }}" :readonly="$printed" /> --}}
 

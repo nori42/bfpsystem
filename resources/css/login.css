@@ -1,0 +1,37 @@
+:root{
+    --primary-color:#672424;
+    --secondary-color:#1C3B64;
+    --secondary-color-dark:#21303D;
+    --success:#53A3D8;
+    --btn-link-hover:#C94747;
+}
+
+.rightPanel {
+
+}
+
+.leftPanel {
+    background-color: var(--secondary-color);
+    position: relative !important;
+}
+
+.motto {
+    color: white;
+    position: absolute;
+    bottom: 100px;
+    font-size:1.225rem;
+    font-style: italic;
+    right: 85px;
+}
+
+.motto::before{
+    content: "-";
+}
+
+.input{
+    display: block;
+    border-radius: 15px;
+}
+
+.label{
+}

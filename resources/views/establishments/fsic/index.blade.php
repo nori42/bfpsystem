@@ -73,11 +73,6 @@
         <x-modal id="addInspectionModal" width="50" topLocation="2">
             <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
         </x-modal>
-
-
-        <x-modal id="modalOwner" width="50" topLocation="5">
-            <x-ownerInfo :establishment="$establishment" :owner="$owner" />
-        </x-modal>
     </div>
     {{-- Import Script --}}
     <script src="{{ asset('js/selectOptions.js') }}"></script>

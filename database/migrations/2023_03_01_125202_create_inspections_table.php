@@ -17,8 +17,9 @@ return new class extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('inspection_date');
-            $table->string('building_conditions')->nullable();
-            $table->string('building_structures')->nullable();
+            // $table->string('building_conditions')->nullable();
+            $table->string('note')->nullable();
+            // $table->string('building_structures')->nullable();
             $table->string('registration_status')->nullable();
             $table->string('fsic_no')->nullable();
             $table->string('issued_for');

@@ -3,10 +3,8 @@
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">
-
-        <form class="w-75 mx-auto mt-3 py-3 px-5 rounded-2 p-5" action="">
-            <div class="p-5 page" style="background-color: #EFEFEF;" id="establishmentDetails" data-step="establishment">
-
+        <x-pageWrapper>
+            <form class="p-4 form-wrapper" action="">
                 <fieldset class="my-3">
                     <legend>Permit Applicant</legend>
                     <hr>
@@ -28,7 +26,7 @@
                     </label>
                     <textarea class="form-control" name="nameOfBuilding" id="nameOfBuilding" value="" cols="30" rows="10">
 
-            </textarea>
+                    </textarea>
                     <x-form.inputWrapper>
                         <div class="d-flex gap-2 align-items-center">
                             <div class="w-100">
@@ -53,7 +51,6 @@
 
                     <x-form.input type="text" label="Address" name="address" />
                 </fieldset>
-
                 <fieldset>
                     <legend>Permit</legend>
                     <hr>
@@ -87,7 +84,7 @@
                         <x-form.input type="text" label="Amount Paid" name="amountPaid" />
                     </div>
                 </fieldset>
-            </div>
-        </form>
+            </form>
+        </x-pageWrapper>
     </div>
 @endsection

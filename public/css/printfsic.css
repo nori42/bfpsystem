@@ -154,19 +154,25 @@ li{
 .establishment-name{
     position: absolute;
     top:475px;
-    left: 500px;
+    left: 220px;
+    width: 690px;
+    text-align: center;
 }
 
 .rep-name{
     position: absolute;
     top:510px;
-    left: 460px;
+    left: 390px;
+    text-align: center;
+    width: 380px;
 }
 
 .address{
     position: absolute;
     top:550px;
-    left: 470px;
+    left: 220px;
+    width: 690px;
+    text-align: center;
 }
 
 .issued-for{
@@ -179,6 +185,7 @@ li{
     position: absolute;
     top:690px;
     left: 280px;
+    font-weight: bold;
     min-width: 152px;
 }
 

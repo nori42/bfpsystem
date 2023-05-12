@@ -1,6 +1,7 @@
 :root{
     --primary-color:#672424;
     --secondary-color:#1C3B64;
+    --secondary-color-dark:#21303D;
     --success:#53A3D8;
     --btn-link-hover:#C94747;
 }
@@ -10,7 +11,7 @@ body {
     font-size: 16px !important;
     overflow: hidden;
     height: 100vh;
-    font-family: Inter,Arial, Helvetica, sans-serif;
+    font-family: Inter ,Arial, Helvetica, sans-serif;
 }
 
 *, *::after , *::before {
@@ -34,8 +35,14 @@ input, button, select{
 
 /* style */
 nav {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color-dark);
     min-width: 16%;
+}
+
+.link-active{
+    border-right: 10px solid var(--btn-link-hover) !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
 /* 
 
@@ -84,10 +91,30 @@ nav {
     border: 1px solid blue !important;
 }
 
-nav .btn:hover {
-    background-color: var(--btn-link-hover) !important;
+nav a{
+    position: relative;
+    z-index: 1;
+}
+
+nav a:hover {
     color:white !important;
 }
+
+nav a::before{
+    content: "";
+    background-color: var(--btn-link-hover);
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    transition: 0.425s;
+}
+
+nav a:hover::before {
+    width: 100%;
+  }
 
 .btn-icon{
     width: 24px;
@@ -111,7 +138,7 @@ nav .btn:hover {
 .dropdown-profile-menu {
     position: absolute;
     left: 0;
-    background-color: #363636;
+    background-color: var(--secondary-color-dark);
     z-index: 9999;
 }
 
@@ -122,6 +149,7 @@ nav .btn:hover {
     border-radius: 8px;
     color: var(--success);
     box-shadow: 1px 1px 6px #b5b5b5;
+    transition: all 0.3s ease;
 }
 
 .dropdown-menus a:hover{
@@ -244,12 +272,45 @@ nav .btn {
     animation-fill-mode: forwards;
 }
 
+.info-detail:hover {
+ background-color: #cecece;
+}
+
+/* Tooltip container */
+.tooltip-nb {
+position: relative;
+display: inline-block;
+}
+  
+/* Tooltip text */
+.tooltip-nb .tooltiptext-nb {
+visibility: hidden;
+width: 220px;
+background-color:var(--secondary-color-dark);
+color: #F6F8FC;
+text-align: center;
+padding: 5px 0;
+border-radius: 6px;
+
+/* tooltip position */
+position: absolute;
+z-index: 1;
+top:-5px;
+left: 100%; 
+}
+
+.tooltip-nb:hover .tooltiptext-nb {
+visibility: visible;
+}
   
 @keyframes newrecord {
     from {background-color: #39c839;}
     to {background-color: white;}
   }
 
+.notif-time {
+    color: #bfd4ee;
+}
 
 /* Utilities */
 

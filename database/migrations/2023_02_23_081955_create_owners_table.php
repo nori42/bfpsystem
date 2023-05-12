@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignIdFor(Person::class);
-            $table->foreignIdFor(Corporate::class);
+            $table->foreignIdFor(Person::class)->nullable();
+            $table->foreignIdFor(Corporate::class)->nullable();
             $table->timestamps();
         });
     }

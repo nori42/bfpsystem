@@ -7,7 +7,7 @@ const btnCancel = document.getElementById("cancelBtn")
 const btnBack = document.getElementById("backBtn")
 const btnNext = document.getElementById("nextBtn")
 const btnSave = document.getElementById("saveBtn")
-const pageIndicator = document.getElementById("steps-title").children
+const pageIndicator = document.querySelectorAll(".indicator")
 const validateMssg1 = document.querySelector('#validateMssg1')
 
 const ownerStep = document.querySelector('[data-step="owner"]');
@@ -15,6 +15,7 @@ const establishmentStep = document.querySelector('[data-step="establishment"]');
 const ownerInputs = document.querySelectorAll('[data-owner-input]')
 const establishmentInputs = document.querySelectorAll('[data-establishment-input]')
 
+console.log(pageIndicator)
 
 let currentIndex = 1;
 

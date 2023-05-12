@@ -43,10 +43,11 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 
 //Establishments route
-Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware('auth');
-Route::get('/establishments/search', [EstablishmentController::class, 'search'])->middleware('auth');
+Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware('auth')->name("establishments");
+Route::post('/establishments/search', [EstablishmentController::class, 'search'])->middleware('auth');
 Route::get('/establishments/create', [EstablishmentController::class, 'create'])->middleware('auth');
 Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->middleware('auth');
+Route::get('/establishments/{id}/edit', [EstablishmentController::class, 'edit'])->middleware('auth');
 Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
 Route::post('/establishments/store_from_owner/{store_from_owner_id}', [EstablishmentController::class, 'store']);
@@ -62,8 +63,8 @@ Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::cl
 
 //Fsec routes
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
-Route::get('/fsec', [FsecController::class, 'index']);
-Route::get('/fsec/create',[FsecController::class,'create']);
+Route::get('/fsec', [FsecController::class, 'index'])->middleware('auth')->name('fsec');
+Route::get('/fsec/create',[FsecController::class,'create'])->middleware('auth');
 Route::post('/establishments/fsec/{id}', [FsecController::class, 'store']);
 
 //Fsic routes
@@ -94,15 +95,22 @@ Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_fire
 Route::put('/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
 
 //Personnel
-Route::get('/personnel',[PersonnelController::class,'index'])->middleware('auth');
+Route::get('/personnel',[PersonnelController::class,'index'])->middleware('auth')->name('personnel');
 Route::post('/personnel',[PersonnelController::class,'store']);
 
 //Users
-Route::get('/users',[UserController::class,'index'])->middleware('auth');
+Route::get('/users',[UserController::class,'index'])->middleware('auth')->name('users');
 Route::post('/users',[UserController::class,'store']);
+Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
+
+//Reports
+Route::get('/reports',function(){ return view('reports');})->middleware('auth')->name('reports');
+
+//Activity Log
+Route::get('/activity',function(){ return view('activityLog');})->middleware('auth')->name('activity');
 
 //Archived routes
-Route::get('/archived',ArchivedEstablishments::class)->middleware('auth');
+Route::get('/archived',ArchivedEstablishments::class)->middleware('auth')->name('archived');
 
 //Download routes
 Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownload::class);

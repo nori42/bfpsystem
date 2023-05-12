@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }}</title>
+
     {{-- <link rel="stylesheet" href="/css/styles.css"> --}}
     {{-- <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
@@ -25,183 +26,78 @@
                 <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
                 <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Cebu City Fire Station</h1>
             </div>
-
-
             <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
+            @switch(auth()->user()->type)
+                @case('FSIC')
+                    <x-roleLinks.fsic />
+                @break
 
-            @if (auth()->user()->type == 'ADMIN')
-                <!-- Nav Links -->
-                <div class="nav-links overflow-y-auto ">
-                    <ul class="py-3 list-unstyled">
+                @case('FIREDRILL')
+                    <x-roleLinks.firedrill />
+                @break
 
-                        {{-- <li class="mx-3 fw-bold text-white fs-6">Menu</li> --}}
+                @case('FSEC')
+                    <x-roleLinks.fsec />
+                @break
 
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="/establishments">
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    domain
-                                </span>
-                                Establishments
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="/fsec">
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    corporate_fare
-                                </span>
-                                Building Plan
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="/personnel" disabled>
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    group
-                                </span>
-                                Personnel
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="/users" disabled>
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    account_box
-                                </span>
-                                Users
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="#" disabled>
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    receipt_long
-                                </span>
-                                Reports
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="#">
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    event_note
-                                </span>
-                                Activity Log
-                            </a>
-                        </li>
-
-                        <!-- button -->
-                        <li class="m-2">
-                            <a class="btn w-100 text-start text-white" href="/archived" disabled>
-                                <!-- button Icon -->
-                                <span class="material-symbols-outlined align-middle fs-2">
-                                    dresser
-                                </span>
-                                Archive
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            @endif
-
-            @if (auth()->user()->type == 'FSIC')
-                <x-navLinks>
-                    <x-navLinks.link href="/establishments">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            domain
-                        </span>
-                        Establishments
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            receipt_long
-                        </span>
-                        Reports
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            event_note
-                        </span>
-                        Activity Log
-                    </x-navLinks.link>
-                </x-navLinks>
-            @endif
-
-            @if (auth()->user()->type == 'FIREDRILL')
-                <x-navLinks>
-                    <x-navLinks.link href="/establishments">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            domain
-                        </span>
-                        Establishments
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            receipt_long
-                        </span>
-                        Reports
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            event_note
-                        </span>
-                        Activity Log
-                    </x-navLinks.link>
-                </x-navLinks>
-            @endif
-
-            @if (auth()->user()->type == 'FSEC')
-                <x-navLinks>
-                    <x-navLinks.link href="/fsec">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            domain
-                        </span>
-                        Building Plan
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            receipt_long
-                        </span>
-                        Reports
-                    </x-navLinks.link>
-
-                    <x-navLinks.link href="#">
-                        <span class="material-symbols-outlined align-middle fs-2">
-                            event_note
-                        </span>
-                        Activity Log
-                    </x-navLinks.link>
-                </x-navLinks>
-            @endif
-
+                @default
+                    <x-roleLinks.admin />
+            @endswitch
         </nav>
-
         {{-- Righ Panel --}}
         <div class="page-container d-flex flex-column w-100">
 
             <!-- PANEL  -->
-            <div class="top-panel d-flex justify-content-end p-2" style="position: sticky;">
+            <div class="top-panel d-flex justify-content-end p-2 align-items-center" style="position: sticky;">
 
                 {{-- Page Title --}}
                 {{-- <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1> --}}
+                <!-- profile button -->
+                <div class="position-relative py-0" data-dropdown-nb>
+                    <button class="btn btn-profile rounded-0" onclick="toggleShow('notificationMenu')">
+                        <i class="bi bi-bell-fill text-white fs-4"></i>
+                    </button>
+
+                    <!-- dropdown menu -->
+                    <div id="notificationMenu" class="dropdown-profile-menu py-2 px-2 border-1 text-white" dropdown-menu
+                        style="display:none !important; width:280px; left:calc(-1 * (100% + 180px));">
+                        <ul class="list-unstyled">
+                            <li class="fw-bold fs-5 ml-5 my-2"> Today </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                </a>
+                            </li>
+
+                            <li class="fw-bold fs-5 ml-5 my-2"> Earlier </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        yesterday
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 <!-- profile button -->
                 <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
@@ -212,19 +108,30 @@
                     </button>
 
                     <!-- dropdown menu -->
-                    <div id="dropdownMenu" class="dropdown-profile-menu py-2 px-3 border-1"
-                        style="display:none !important;">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-person-fill text-white fs-3"></i>
-                            <span class="mx-3 fw-semibold text-white align-middle">{{ auth()->user()->username }}</span>
-                        </div>
-
-                        <hr>
+                    <div id="dropdownMenu" dropdown-menu class="dropdown-profile-menu py-2 px-3 border-1"
+                        style="display:none !important; left:calc(-1 * (100% + 75px));">
+                        @if (auth()->user()->personnel_id == 0)
+                            <div class="mx-3 fs-6 fw-semibold text-white text-center align-middle">
+                                {{ auth()->user()->username }}
+                            </div>
+                        @else
+                            @php
+                                $name = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
+                            @endphp
+                            <div class="fs-6 fw-semibold text-white text-center align-middle">
+                                {{ $name }}
+                            </div>
+                        @endif
+                        <div class="my-0 text-center text-white">{{ auth()->user()->type }}</div>
+                        <hr class="text-white">
                         <!-- drop down links -->
                         <div class="d-inline flex-column">
-                            <button class="btn w-100 text-start text-white fw-semibold nowrap"
-                                onclick="openModal('modalInfo',toggleShow('dropdownMenu'))">Account</button>
-                            <a href="/logout" class="btn w-100 text-start text-white fw-semibold">Logout</a>
+                            <a href="/users/{{ auth()->user()->id }}"
+                                class="btn w-100 text-start text-white fw-semibold"><i
+                                    class="bi bi-person-fill text-white fs-5"></i> <span class="mx-3">
+                                    Account</span></a>
+                            <a href="/logout" class="btn w-100 text-start text-white fw-semibold"><i
+                                    class="bi bi-box-arrow-left fs-5"></i> <span class="mx-3">Logout</span></a>
                         </div>
                     </div>
                 </div>

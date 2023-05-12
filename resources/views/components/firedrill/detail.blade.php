@@ -34,7 +34,7 @@
             </div>
             <x-form.input name="controlNo" label="Control No." type="text" value="{{ $firedrill->control_no }}"
                 :readonly="true" />
-            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"
+            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term" :readonly="$issued"
                 customAttr="validity">
                 <option value="QUARTERLY" {{ $term == 'QUARTER' ? 'selected' : '' }}>QUARTERLY</option>
                 <option value="SEMESTER" {{ $term == 'SEMESTER' ? 'selected' : '' }}>SEMESTER</option>
@@ -71,7 +71,7 @@
                         {{ $firedrill->validity_term == '2ND SEMESTER' ? 'checked' : '' }}></div>
             </div>
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
-            <x-form.input name="dateMade" label="Date Made" type="date" class="w-50" :readonly="$issued"
+            <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" :readonly="$issued"
                 value="{{ $firedrill->date_made }}" />
 
             @if ($issued)
@@ -80,8 +80,15 @@
             @endif
 
             @if ($claimed)
-                <x-form.input name="dateClaimed" label="Date Claimed" type="date" class="w-50" :readonly="$issued"
-                    value="{{ $firedrill->date_claimed }}" />
+                <div class="d-flex gap-2">
+                    <x-form.input name="dateClaimed" label="Date Claimed" type="date" :readonly="$issued"
+                        value="{{ $firedrill->date_claimed }}" />
+                    <x-form.input name="claimedBy" label="Claimed By" type="text" :readonly="$issued"
+                        value="{{ $firedrill->claimed_by }}" />
+                </div>
+            @endif
+            @if (!$issued)
+                <x-form.input name="nameExtension" label="Name Extension" type="text" />
             @endif
         </fieldset>
         <fieldset class="py-3">
@@ -97,8 +104,11 @@
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">
             @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
-                <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
-                    Certificate</button>
+                <div class="d-flex align-items-center gap-2">
+                    <x-form.input name="claimedBy" label="Claimed By" />
+                    <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
+                        Certificate</button>
+                </div>
             @endif
             @if ($firedrill->issued_on == null)
                 <button class="btn btn-success" type="submit" name="action" value="add">Save</button>

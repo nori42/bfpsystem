@@ -30,7 +30,7 @@
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
             type="date" class="w-50" />
-        <x-form.input name="buildingConditions{{ $key }}" input-inspect label="Note" type="text"
+        <x-form.input name="note{{ $key }}" input-inspect label="Note" type="text"
             customAttr="{{ $inputAttr }}" />
         {{-- <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
             type="text" customAttr="{{ $inputAttr }}" /> --}}

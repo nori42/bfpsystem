@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date_claimed')->nullable();
             $table->string('issued_on')->nullable();
             $table->string('date_made')->nullable();
+            $table->string('claimed_by')->nullable();
             $table->string('year')->nullable();
             $table->foreignIdFor(Establishment::class);
             $table->foreignIdFor(Receipt::class);

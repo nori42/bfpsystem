@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Establishment;
 use App\Models\Owner;
 use App\Models\Person;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 
 class EstablishmentController extends Controller
@@ -117,12 +118,13 @@ class EstablishmentController extends Controller
         $establishment->building_type = strtoupper($request->buildingType);
         $establishment->no_of_storey = $request->noOfStory;
         $establishment->createdBy = strtoupper("admin");
-        $establishment->building_permit_no = $request->buildingPermitNo; 
+        $establishment->business_permit_no = $request->businessPermitNo; 
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
         $establishment->latest_mayors_permit = $request->latestPermit; 
         $establishment->barangay =  strtoupper($request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = $request->height;
+        $establishment->floor_area = $request->floorArea;
         $establishment->occupancy = strtoupper($request->occupancy);
         $establishment->owner_id = $owner->id;
 
@@ -148,7 +150,32 @@ class EstablishmentController extends Controller
             'Small', 'Medium', 'Large', 'High Rise'
         ];       
 
-        return view('establishments.show', [
+        return view('establishments.newShow', [
+            'establishment' => $establishment,
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
+            'owner' => $owner,
+            'buildingType' => $building_type,
+            'page_title' => 'Establishment Details' // use to set page title inside the panel
+        ]);
+    }
+
+    public function edit(Request $request) {
+        
+        $establishment = Establishment::find($request->id);
+
+        if($establishment == null)
+            return redirect('/404');
+
+        $owner = Owner::find($establishment->owner_id);
+        
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
+        $building_type = [
+            'Small', 'Medium', 'Large', 'High Rise'
+        ];       
+
+        return view('establishments.edit', [
             'establishment' => $establishment,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
@@ -165,7 +192,7 @@ class EstablishmentController extends Controller
 
         $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
         ->select('establishments.*','person.*')
-        ->whereRaw("CONCAT(building_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
+        ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
 
         if($establishment == null)
         return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
@@ -188,7 +215,7 @@ class EstablishmentController extends Controller
                     'Small', 'Medium', 'Large', 'High Rise'
                 ];       
 
-                return view('establishments.show', [
+                return view('establishments.newShow', [
                     'establishment' => $establishment,
                     'occupancies' => $occupancies,
                     'subtype' => $sub_type,
@@ -209,13 +236,14 @@ class EstablishmentController extends Controller
         $establishment->substation = strtoupper($request->substation);
         $establishment->sub_type = strtoupper($request->subType);
         $establishment->building_type = strtoupper($request->buildingType);
-        $establishment->no_of_storey = strtoupper($request->no_of_storey );
-        $establishment->building_permit_no = strtoupper($request->buildingPermitNo );
+        $establishment->no_of_storey = strtoupper($request->noOfStory );
+        $establishment->business_permit_no = strtoupper($request->businessPermitNo );
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
         $establishment->latest_mayors_permit = strtoupper($request->latestPermit);
         $establishment->barangay = strtoupper( $request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = strtoupper($request->height);
+        $establishment->floor_area = strtoupper($request->floorArea);
 
         $establishment->save();
 

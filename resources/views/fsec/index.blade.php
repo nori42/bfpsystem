@@ -7,7 +7,7 @@
         <x-dashboard for='building plan' />
         <x-pageWrapper>
             <div class="d-flex justify-content-center">
-                <a href="/fsec/create" class="btn btn-success mt-3 fs-5">
+                <a href="/fsec/create" class="btn btn-success px-5 py-2 mt-3">
                     <span class="material-symbols-outlined align-middle">
                         assignment_add
                     </span>

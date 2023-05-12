@@ -58,12 +58,17 @@
         <div data-draggable="true" class="date-container bold">
             {{ date('F d, Y') }}
         </div>
-
+        <img src="{{ asset('img/firedrill.png') }}" alt="" style="width: 100%; height: 100%;">
 
         <div data-draggable="true" class="control-no bold">
             {{ $controlNo }}
         </div>
 
+        @php
+            if (session('nameExtension')) {
+                $establishment = $establishment . ' ' . strtoupper(session('nameExtension'));
+            }
+        @endphp
         <div data-draggable="true" id="estabName" class="establishment-name bold">
             <span>{{ $establishment }}</span>
         </div>

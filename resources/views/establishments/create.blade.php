@@ -1,54 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <style>
-        .inputCreate {
-            text-transform: uppercase;
-        }
-
-        select {
-            width: 100%;
-            padding: .4em .3em;
-            border-radius: .5em;
-            font-size: .9rem
-        }
-
-        #establishmentDetails,
-        #backBtn,
-        #saveBtn,
-        #validateMssg1 {
-            display: none;
-        }
-
-        .info {
-            border: 1px solid gray;
-            padding: .4rem .3rem;
-            background: white;
-            border-radius: .5rem
-        }
-
-        .info-label {
-            font-weight: 700;
-            font-size: .875rem
-        }
-
-        .finished-page {
-            background-color: #0F2D55;
-            color: #ffffff;
-        }
-
-        .current-page {
-            color: #0F2D55;
-            font-weight: bold;
-            border: 3px solid #0F2D55 !important;
-        }
-
-        .steps-title span {
-            border: 1px solid #000;
-            width: 100%;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
     <div class="page-content">
         <x-backBtn />
         <x-pageWrapper>
@@ -58,9 +9,15 @@
                 {{-- Add @csrf every form --}}
                 @csrf
                 {{-- Details Action --}}
-                <div class="d-flex justify-content-center mx-auto steps-title" id="steps-title">
-                    <span id="ownerTitle" class="py-2 current-page">Owner</span>
-                    <span id="establishmentTitle" class="py-2">Establishment</span>
+                <div class="d-flex justify-content-center gap-2 mx-auto steps-title" id="steps-title">
+                    <div>
+                        <div class="indicator"></div>
+                        <span id="ownerTitle" class="py-2 fw-bold">Owner</span>
+                    </div>
+                    <div>
+                        <div class="indicator"></div>
+                        <span id="establishmentTitle" class="py-2 fw-bold">Establishment</span>
+                    </div>
                     {{-- <span class="py-2">Attachments</span> --}}
                 </div>
 
@@ -134,7 +91,7 @@
                             name="isCompanyName" id="isCompanyName">Establishment
                         Name is
                         Corporate Name</label>
-                    <x-form.input type="text" label="Business Permit No." name="buildingPermitNo" />
+                    <x-form.input type="text" label="Business Permit No." name="businessPermitNo" />
 
 
                     <x-form.inputWrapper>
@@ -185,7 +142,7 @@
                     </x-form.inputWrapper>
 
                     <div class="d-flex gap-2">
-                        <x-form.input type="text" label="No. of Storey" name="noOfStory" />
+                        <x-form.input type="text" label="No. of Story" name="noOfStory" />
                         <x-form.input type="text" label="Height" name="height" />
                     </div>
                     <x-form.input class="w-50" type="text" label="Floor Area" name="floorArea" />
@@ -233,11 +190,26 @@
         const subtypeSelect = document.querySelector("#subType")
         const substationSelect = document.querySelector("#substation")
         const buildingTypeSelect = document.querySelector("#buildingType")
+        const isCompanyName = document.querySelector('#isCompanyName')
 
         populateSelect(barangaySelect, barangays)
         populateSelect(occupancySelect, occupancy)
         populateSelect(substationSelect, stations)
         populateSelect(buildingTypeSelect, buildingType)
+
+        //if checkbox is checked
+        isCompanyName.addEventListener("change", function() {
+            if (isCompanyName.checked == true) {
+                const CORPORATE_NAME = document.querySelector('#corporateName').value;
+                const establishmentName = document.querySelector('#establishmentName');
+
+                establishmentName.setAttribute('readonly', true)
+                establishmentName.value = CORPORATE_NAME
+            } else {
+                establishmentName.removeAttribute('readonly')
+                establishmentName.value = ""
+            }
+        })
 
         occupancySelect.addEventListener("change", function() {
             // Reset Subtype

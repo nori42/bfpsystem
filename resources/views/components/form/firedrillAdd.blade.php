@@ -48,7 +48,8 @@
             </fieldset>
 
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
-            <x-form.input name="dateMade" label="Date Made" type="date" class="w-50" />
+            <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" />
+            <x-form.input name="nameExtension" label="Name Extension" type="text" value="" />
         </fieldset>
         <fieldset class="py-3">
             <legend>Receipt Information</legend>

@@ -26,9 +26,8 @@ body{
     background: #FFFFFF;
     width: 8.5in;
     height: 11in;
-    padding: 0.86in 0.79in 0.19in 1.19in;
-
-    background-image: url(../img/firedrill.png);
+    /* padding: 0.86in 0.79in 0.19in 1.19in; */
+    /* background-image: url(../img/firedrill.png); */
     background-position: 125px 12px;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:contain;
@@ -51,14 +50,16 @@ li{
 .date-container{
     position: absolute;
     font-size: 11pt;
-    left: 667px;
-    top:406px;
+    top: 313px;
+    left: 513px;
+    border-bottom: 2px solid var(--default);
 }
 
 .control-no{
     position: absolute;
-    left: 293px;
-    top:280px;
+    top: 192px;
+    left: 138px;
+    text-decoration: underline;
 }
 
 
@@ -109,8 +110,10 @@ li{
 
 .establishment-name{
     position: absolute;
-    top:513px;
-    left: 485px;
+    top: 426px;
+    left: 75px;
+    width: 640px;
+    text-align: center;
 }
 
 .establishment-name span {
@@ -120,8 +123,8 @@ li{
 
 .rep-name{
     position: absolute;
-    top:579px;
-    left: 455px;
+    top: 498px;
+    left: 280px;
 }
 
 .rep-name span {
@@ -130,14 +133,14 @@ li{
 
 .address{
     position: absolute;
-    top:550px;
-    left: 470px;
+    top: 463px;
+    left: 399px;
 }
 
 .date-made{
     position: absolute;
-    top:550px;
-    left: 245px;
+    top: 464px;
+    left: 121px;
 }
 
 .issued-for{
@@ -155,22 +158,22 @@ li{
 
 .issuedDay {
     position: absolute;
-    top:640px;
-    left: 308px;
+    top: 556px;
+    left: 171px;
     text-decoration: underline;
 }
 
 .issuedMonth {
     position: absolute;
-    top:640px;
-    left: 417px;
+    top: 558px;
+    left: 281px;
     text-decoration: underline;
 }
 
 .validity {
     position: absolute;
-    top:662px;
-    left: 371px;
+    top: 578px;
+    left: 210px;
     text-decoration: underline;
 }
 
@@ -181,8 +184,8 @@ li{
 
 .fc-fee{
     position: absolute;
-    top:755px;
-    left: 285px;
+    top: 659px;
+    left: 153px;
 }
 
 .chiefName{
@@ -368,15 +371,16 @@ button:hover{
 }
 @media print {
     html, body {
-        width: 210mm; /* 210mm */
-        height: 297mm;    
+        /* width: 210mm; 
+        height: 297mm;     */
+        width: 8.5in;
+        height: 11in;
         -webkit-print-color-adjust: exact;
         -moz-print-color-adjust: exact;
     }
     #printablePage {
         margin-top: 0 !important;
-        padding-right: 1in;
-        background-image: none !important;
+        /* padding-right: 1in; */
     }
 
     .nav{

@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Corporate;
 use App\Models\Owner;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -24,11 +26,8 @@ class OwnerFactory extends Factory
     public function definition(): array
     {       
         return [
-            'first_name' => strtoupper(fake()->firstName()),
-            'middle_name' => strtoupper(fake()->lastName()),
-            'last_name' => strtoupper(fake()->lastName()),
-            'contact_no' => fake()->phoneNumber,
-            'corporate_name' => strtoupper(fake()->company())
+            'person_id' => Person::factory(),
+            'corporate_id' => Corporate::factory()
         ];
     }
 }

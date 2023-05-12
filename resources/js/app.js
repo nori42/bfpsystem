@@ -5,29 +5,32 @@ import scriptModal from '../js/modal.js';
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-
     // Modal variable
     const modals = document.querySelectorAll('[data-modal]')
     const modalContent = event.target.closest('.modal-content')
 
     //Dropdown variable
     const dropdowns = document.querySelectorAll('[dropdown-menu]')
-    const currentMenu = event.target.nextElementSibling
-    const currentMenuClicked = event.target.closest('[dropdown-menu]')
+    let currentMenu = event.target.closest('[dropdown-menu]');
 
-    console.log(currentMenu);
-    
-  // dropdown menu script 
+    try{
+      currentMenu = event.target.closest('.btn').nextElementSibling
+    }
+    catch{}
+
+    console.log(currentMenu)
+    // dropdown menu script 
     dropdowns.forEach(dropdown => {
-      if(dropdown != currentMenu && dropdown != currentMenuClicked)
-
-        {dropdown.style.display = "none";
-          if(dropdown.style.display == "block")
-          {
-              dropdown.style.display = "none";
-          }
+      if(dropdown != currentMenu)
+        {
+          dropdown.style.display = "none";
+          // dropdown.style.display = "none";
+          // if(dropdown.style.display == "block")
+          // {
+          //     dropdown.style.display = "none";
+          // }
       }
-  });
+    });
 
     //If clicked inside the modal content dont close
     if(modalContent !== null)

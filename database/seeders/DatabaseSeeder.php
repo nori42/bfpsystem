@@ -25,5 +25,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         Establishment::factory()->count(100)->create();
+        \App\Models\User::create([
+            'username' => 'admin01',
+            'password' => Hash::make('admin'),
+            'personnel_id' => 0,
+            'type' => strtoupper('admin'),
+        ]);
     }
 }

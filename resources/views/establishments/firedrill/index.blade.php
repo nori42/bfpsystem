@@ -3,7 +3,6 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
-        <x-backBtn />
 
         <x-pageWrapper>
             {{-- Firedrill Action --}}

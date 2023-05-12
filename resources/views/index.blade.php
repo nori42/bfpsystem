@@ -5,84 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
+    <title>{{ env('APP_NAME') }}</title>
     @vite(['resources/sass/main.scss'])
-    <style>
-        .container {
-            width: 27% !important;
-            background-color: #e2e2e2;
-            padding: 1px;
-            margin-top: 5%;
-            box-shadow: 1px 1px 6px #b5b5b5;
-        }
-
-        body {
-            background-color: white !important;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .btn-login {
-            background-color: #1C3B64;
-            color: white;
-            font-weight: bold;
-        }
-
-        form {
-            margin: 0;
-            border: 1px solid white;
-        }
-
-        .btn-login:hover {
-            background-color: #1C3B64;
-            color: white;
-        }
-
-        .btn-login:active {
-            background-color: #1C3B64 !important;
-            color: white !important;
-        }
-
-        .field-container input {
-            padding-top: 5px !important;
-            padding-bottom: 5px !important;
-            padding-left: 8px;
-            border-radius: 5px;
-            border: 1px solid !important;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="top-panel text-center p-3">
-        <div class="fs-6 text-white fw-bold">Bureau of Fire Protection Management System</div>
-    </div>
-    <div class="container mx-auto">
-
-        <form action="/login" method="POST" class="p-5">
-            @csrf
-            <div class="">
-                <img class="mx-auto" src="/img/LOGO.PNG" alt="logo">
+    <div class="d-flex vh-100 vw-100">
+        <div class="leftPanel w-100 ">
+            <h2 class="motto">To Save Live And Proporties</h2>
+            <div class="d-flex flex-column align-items-center justify-content-center h-100 pb-5">
+                <img src="{{ asset('img/LOGO.png') }}" width="220px" height="220px" alt="">
+                <h3 class="fw-bold text-white">Bureau of Fire Protection</h3>
+                <p class="text-white w-85 text-center">We commit to prevent and suppress destructive fires, investigate
+                    its causes;enforce Fire Code and other related laws; respond
+                    to man-made and natural disasters and other emergencies.
+                </p>
+                <p class="text-white">A modern fire service fully capable of ensuring a fire safe
+                    nation by 2034.</p>
             </div>
-
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div class="text-danger">{{ $error }}</div>
-                @endforeach
-            @endif
-            <input class="form-control my-4 d-block w-100 py-3" type="text" name="username" placeholder="USERNAME">
-            <input class="form-control my-4 d-block w-100 py-3" type="password" name="password" placeholder="PASSWORD">
-
-            <div class="field-container m-2 text-center">
-                <button class="btn btn-login mt-4 py-3 rounded-2 w-85">LOGIN</button>
+        </div>
+        <div class="rightPanel w-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="w-60 mb-3">
+                <h3 class="fw-semibold text-start">Login</h3>
+                <div class="text-secondary text-start">Please enter your details.</div>
             </div>
-        </form>
-    </div>
+            <form class="w-60 mx-auto" action="/login" method="POST">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="text-danger"></div>
+                        <div class="fs-5 text-danger my-2">{{ $error }}</div>
+                    @endforeach
+                @endif
+                @csrf
+                <div>
+                    <label class="fs-4" for="username">Username</label>
+                    <input class="form-control d-block fs-4 w-100" type="text" name="username" autocomplete="off">
+                </div>
 
-    <div style="height:100px;">
+                <div>
+                    <label class="fs-4" for="username">Password</label>
+                    <input id="password" class="form-control d-block fs-4 w-100" type="password" name="password">
+                    <div class="mt-3">
+                        <label class="fw-bold fs-6" for="showPassword">Show Password</label>
+                        <input id="showPassword" class=" d-inline fs-4" type="checkbox" name="showPassword">
+                    </div>
+                </div>
 
+                <button class="btn btn-success fs-3 fw-normal w-100 mt-3 py-2">Login</button>
+                <div class="text-secondary text-center mt-3">If you forgot your password request new to the admin</div>
+            </form>
+        </div>
     </div>
 </body>
+<script>
+    const showPassword = document.querySelector('#showPassword')
+
+    showPassword.addEventListener('change', function() {
+        if (showPassword.checked) {
+            document.querySelector('#password').type = "text"
+        } else {
+            document.querySelector('#password').type = "password"
+        }
+    })
+</script>
 
 </html>

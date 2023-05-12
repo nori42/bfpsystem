@@ -3,7 +3,7 @@
         <th class="w-25">Control No</th>
         <th>Validity</th>
         <th>OR No.</th>
-        <th>Date Made</th>
+        <th>Date of Drill</th>
         <th>Issued On</th>
         <th>Date Claimed</th>
         <th></th>
