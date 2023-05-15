@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 // USE Establishment Mode to communicate with the database
 use App\Models\Establishment;
+use App\Models\Firedrill;
+use App\Models\Inspection;
 use App\Models\Owner;
 use App\Models\Person;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +22,7 @@ class EstablishmentController extends Controller
     {
         $isSearch = false;
         $totalRecords = Establishment::count();
+
 
         if($request->search == null)
         {
@@ -126,6 +129,8 @@ class EstablishmentController extends Controller
         $establishment->height = $request->height;
         $establishment->floor_area = $request->floorArea;
         $establishment->occupancy = strtoupper($request->occupancy);
+        $establishment->inspectionIsExpired = false;
+        $establishment->firedrillIsExpired = false;
         $establishment->owner_id = $owner->id;
 
         //save establishment data to database
@@ -143,6 +148,9 @@ class EstablishmentController extends Controller
             return redirect('/404');
 
         $owner = Owner::find($establishment->owner_id);
+
+        $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->get();
+        $firedrills = Firedrill::where('establishment_id',$establishment->id)->whereNotNull('issued_on')->get();
         
         $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
@@ -152,6 +160,8 @@ class EstablishmentController extends Controller
 
         return view('establishments.newShow', [
             'establishment' => $establishment,
+            'inspections' => $inspections,
+            'firedrills' => $firedrills,
             'occupancies' => $occupancies,
             'subtype' => $sub_type,
             'owner' => $owner,
@@ -194,6 +204,10 @@ class EstablishmentController extends Controller
         ->select('establishments.*','person.*')
         ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
 
+        //Get all inspection and firedrill that is not printed
+        $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->get();
+        $firedrills = Firedrill::where('establishment_id',$establishment->id)->whereNotNull('issued_on')->get();
+
         if($establishment == null)
         return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
 
@@ -217,6 +231,8 @@ class EstablishmentController extends Controller
 
                 return view('establishments.newShow', [
                     'establishment' => $establishment,
+                    'inspections' => $inspections,
+                    'firedrills' => $firedrills,
                     'occupancies' => $occupancies,
                     'subtype' => $sub_type,
                     'owner' => $owner,
@@ -246,20 +262,6 @@ class EstablishmentController extends Controller
         $establishment->floor_area = strtoupper($request->floorArea);
 
         $establishment->save();
-
-        // Establishment::where('id', $request->id)->update([
-        //     'establishment_name' => $request->establishmentName,    
-        //     'substation' => $request->substation,
-        //     'sub_type' => $request->subType,
-        //     'building_type' => $request->buildingType,
-        //     'no_of_storey' => $request->no_of_storey,
-        //     'building_permit_no' => $request->buildingPermitNo,
-        //     'fire_insurance_co' => $request->fireInsuranceCo,
-        //     'latest_permit' => $request->latestPermit,
-        //     'barangay' => $request->barangay,
-        //     'address' => $request->address,
-        //     'height' => $request->height
-        // ]);
 
         return redirect('/establishments'. "/" . $establishment->id)->with(["mssg" => "Record Updated"]);
     }

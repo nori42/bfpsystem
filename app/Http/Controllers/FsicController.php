@@ -49,9 +49,9 @@ class FsicController extends Controller
         $receipt->save();
 
         $inspection->inspection_date = $request->inspectionDate;
-        $inspection->building_conditions = $request->buildingConditions;
+        // $inspection->building_conditions = $request->buildingConditions;
         $inspection->note = $request->note;
-        $inspection->building_structures = $request->buildingStructures;
+        // $inspection->building_structures = $request->buildingStructures;
         $inspection->registration_status = $request->registrationStatus;
         $inspection->fsic_no = $request->fsicNo;
         $inspection->issued_for = $request->issuedFor;
@@ -105,8 +105,8 @@ class FsicController extends Controller
         $receipt->save();
 
         $inspection->inspection_date = $request->inspectionDateDetail;
-        $inspection->building_conditions = $request->buildingConditionsDetail;
-        $inspection->building_structures = $request->buildingStructuresDetail;
+        // $inspection->building_conditions = $request->buildingConditionsDetail;
+        // $inspection->building_structures = $request->buildingStructuresDetail;
         $inspection->note = $request->noteDetail;
         $inspection->registration_status = $request->registrationStatusDetail;
         $inspection->fsic_no = $request->fsicNoDetail;

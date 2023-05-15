@@ -46,7 +46,7 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
         json.data.forEach(establishment => {
             const nameOpt = document.createElement("option")
             const personName = `${establishment.first_name} ${establishment.middle_name[0]} ${establishment.last_name}`
-            nameOpt.setAttribute("value",`${establishment.business_permit_no}-${establishment.establishment_name}-${personName}`)
+            nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${personName}`)
             datalist.appendChild(nameOpt)
             
         });

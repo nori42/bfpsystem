@@ -56,6 +56,13 @@
                 @csrf
 
                 <legend class="mb-3">Add New User</legend>
+
+                <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
+                    <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
+                    <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
+                    <option value="FIREDRILL">FIREDRILL</option>
+                </x-form.select>
+
                 <div class="d-flex gap-3">
                     {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
                     <x-form.inputWrapper>
@@ -74,12 +81,6 @@
                             autocomplete="off">
                     </x-form.inputWrapper>
                 </div>
-
-                <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
-                    <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
-                    <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
-                    <option value="FIREDRILL">FIREDRILL</option>
-                </x-form.select>
 
                 <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel">
                     @foreach ($personnelList as $personnel)

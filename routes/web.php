@@ -53,7 +53,6 @@ Route::post('/establishments', [EstablishmentController::class, 'store']);
 Route::post('/establishments/store_from_owner/{store_from_owner_id}', [EstablishmentController::class, 'store']);
 Route::post('/establishments/{id}/delete', [EstablishmentController::class, 'destroy']);
 Route::post('/establishments/{id}/update', [EstablishmentController::class, 'update']);
-Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->middleware('auth');
 
 //Attachments
 Route::get('/establishments/fsec/attachment/{id}/{attachFor}', [FsecController::class, 'show_attachment']);

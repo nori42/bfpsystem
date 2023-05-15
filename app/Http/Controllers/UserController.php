@@ -88,12 +88,4 @@ class UserController extends Controller
             'userId' => $request->id
         ]);
     }
-
-    public function changePassword (){
-
-    }
-
-    public function changeUsername(){
-        
-    }
 }
