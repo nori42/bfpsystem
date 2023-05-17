@@ -68,6 +68,7 @@ Route::post('/fsec', [FsecController::class, 'store']);
 Route::get('/fsec/create',[FsecController::class,'create'])->middleware('auth');
 Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware('auth');
 Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware('auth');
+Route::put('/fsec/{id}',[FsecController::class,'update'])->middleware('auth');
 
 //Fsic routes
 Route::get('/establishments/{id}/fsic', [FsicController::class, 'index'])->middleware('auth');
@@ -97,6 +98,7 @@ Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_fire
 Route::put('/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
 
 Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove']);
+Route::put('/fsecdisapprove/print/{id}',[PrintController::class,'print_fsecdisapprove']);
 
 //Personnel
 Route::get('/personnel',[PersonnelController::class,'index'])->middleware('auth')->name('personnel');

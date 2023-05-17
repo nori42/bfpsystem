@@ -19,7 +19,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name_of_building')->nullable();
             $table->string('series_no')->nullable();
-            $table->string('evaluator')->nullable();
             $table->string('bp_application_no')->nullable();
             $table->string('bill_of_materials')->nullable();
             $table->date('date_received')->nullable();

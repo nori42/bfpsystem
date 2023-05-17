@@ -7,11 +7,18 @@
         $receipt = $buildingPlan->receipt;
         $person = $buildingPlan->owner->person;
         $corporate = $buildingPlan->owner->corporate;
-        $applicant = $person->last_name != null ? $person->first_name . ' ' . $person->last_name : $corporate->corporate_name;
+        
+        //Person Name
+        $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
+        $personName = $person->title . ' ' . $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
+        $applicant = $person->last_name != null ? $personName : $corporate->corporate_name;
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
+            @if (session('mssg'))
+                <x-toast :message="session('mssg')" />
+            @endif
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-2">
                     <h1 class="fs-3 my-2">Building Plan Application</h1>
@@ -52,7 +59,7 @@
 
                 <h2 class="fs-4">Permit</h2>
                 <div class="row">
-                    <x-info label="Applicant Name" :value="$buildingPlan->owner->person->last_name" />
+                    <x-info label="Applicant Name" :value="$applicant" />
                 </div>
                 <div class="row my-3">
                     <x-info label="Series No." :value="$buildingPlan->series_no" />
@@ -62,7 +69,7 @@
                 </div>
 
                 <h2 class="fs-4 mt-4">Building</h2>
-                <x-info label="Name of Building/Structure/Facility" value="N/A" />
+                <x-info label="Name of Building/Structure/Facility" :value="$buildingPlan->name_of_building ? $buildingPlan->name_of_building : 'N/A'" />
 
                 <div class="row my-3">
                     <x-info label="Building Story" :value="$building->building_story ? $building->building_story : 'N/A'" />
@@ -93,6 +100,17 @@
                     <th>Evaluation Date</th>
                     <th>Evaluator</th>
                 </thead>
+                <tbody>
+                    @foreach ($evaluations as $evaluation)
+                        <tr>
+                            <td><span
+                                    class="{{ $evaluation->remarks == 'DISAPPROVED' ? 'text-danger' : 'text-success' }}">{{ $evaluation->remarks }}</span>
+                            </td>
+                            <td>{{ date('m/d/Y', strtotime($evaluation->created_at)) }}</td>
+                            <td>{{ $evaluation->evaluator }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </x-pageWrapper>
     </div>

@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="page-content">
-        <x-backBtn />
         <x-pageWrapper>
-
+            <div class="mx-auto">
+                <h1>New Establishment</h1>
+                <div class="text-secondary fs-5">Complete the 2 steps to add new establishment</div>
+            </div>
             <form class="add-record-form mt-5 " action="/establishments" method="POST">
                 {{-- Cross-site request forgeries  --}}
                 {{-- Add @csrf every form --}}

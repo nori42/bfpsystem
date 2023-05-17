@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuildingPlan;
+use App\Models\Evaluation;
 use App\Models\Firedrill;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
@@ -87,6 +89,26 @@ class PrintController extends Controller
     //FSEC
     public function show_print_fsecdisapprove(Request $request)
     {
-        return view('fsec.print_fsec_disapprove');
+        $buildingPlan = BuildingPlan::find($request->id);
+
+        return view('fsec.print_fsec_disapprove',[
+            'buildingPlan' => $buildingPlan
+        ]);
+    }
+
+    public function print_fsecdisapprove(Request $request){
+        $evaluation = new Evaluation();
+
+        $buildingPlan = BuildingPlan::find($request->id);
+        $buildingPlan->status = "DISAPPROVED";
+
+        $evaluation->evaluator = $request->evaluator;
+        $evaluation->remarks = "DISAPPROVED";
+        $evaluation->building_plan_id = $buildingPlan->id;
+
+        $evaluation->save();
+        $buildingPlan->save();
+
+        return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
     }
 }

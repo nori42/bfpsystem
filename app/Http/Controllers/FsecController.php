@@ -68,6 +68,7 @@ class FsecController extends Controller
         $receipt->save();
 
         //Add Evaluation Fields
+        $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
         $buildingPlan->bp_application_no = strtoupper($request->bpApplicationNo);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
@@ -83,9 +84,11 @@ class FsecController extends Controller
     public function show(Request $request)
     {
         $buildingPlan = BuildingPlan::find($request->id);
+        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id);
 
         return view('fsec.show',[
-            'buildingPlan' => $buildingPlan
+            'buildingPlan' => $buildingPlan,
+            'evaluations' => $evaluations
         ]);
     }
 
@@ -97,6 +100,32 @@ class FsecController extends Controller
         ]);
     }
 
+    public function update(Request $request){
+        $buildingPlan = BuildingPlan::find($request->id);
+        $receipt = $buildingPlan->receipt;
+        $building = $buildingPlan->building;
+
+        //Update Evaluation Fields
+        $buildingPlan->name_of_building = strtoupper($request->buildingName);
+        $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
+        $buildingPlan->save();
+
+        //Update Building Fields
+        $building->occupancy = strtoupper($request->occupancy);
+        $building->sub_type = strtoupper($request->subType);
+        $building->building_story = strtoupper($request->buildingStory);
+        $building->floor_area = strtoupper($request->floorArea);
+        $building->address = strtoupper($request->address);
+        $building->save();
+
+        //Update Receipt Fields
+        $receipt->or_no = $request->orNo;
+        $receipt->amount = $request->amountPaid;
+        $receipt->date_of_payment = $request->dateOfPayment;
+        $receipt->save();
+
+        return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
+    }
     //Attachment
     public function show_attachment(Request $request)
     {

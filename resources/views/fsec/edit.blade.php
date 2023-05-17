@@ -2,13 +2,17 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
+    @php
+        $receipt = $buildingPlan->receipt;
+        $building = $buildingPlan->building;
+    @endphp
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-
             <h1>Edit Building Plan Application</h1>
-            <form class="form-wrapper p-5" action="/fsec/{{ $buildingPlan->id }}/update" method="POST">
+            <form class="form-wrapper p-5" action="/fsec/{{ $buildingPlan->id }}" method="POST">
                 @csrf
+                @method('PUT')
                 {{-- Hidden input --}}
                 <input class="d-none" type="text" name="evaluator" id="evaluator"
                     value="{{ auth()->user()->type == 'ADMIN' ? auth()->user()->type : auth()->user()->type->personnel->person->last_name }}">
@@ -17,6 +21,8 @@
                     <legend>Building</legend>
                     <hr>
                     <x-form.inputWrapper>
+                        <x-form.input type="text" label="Name of Building/Structure/Facility" name="buildingName"
+                            :value="$buildingPlan->name_of_building" />
                         <div class="d-flex gap-2 align-items-center">
                             <div class="w-100">
                                 <label class="info-label">Occupancy</label>
@@ -35,21 +41,22 @@
                             </div>
                         </div>
                     </x-form.inputWrapper>
+
                     <div class="d-flex gap-2 w-50">
-                        <x-form.input type="text" label="Building Story" name="buildingStory" />
-                        <x-form.input type="text" label="Floor Area" name="floorArea" />
+                        <x-form.input type="text" label="Building Story" name="buildingStory" :value="$building->building_story" />
+                        <x-form.input type="text" label="Floor Area" name="floorArea" :value="$building->floor_area" />
                     </div>
-                    <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials" />
-                    <x-form.input type="text" label="Address" name="address" />
+                    <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials" :value="$buildingPlan->bill_of_materials" />
+                    <x-form.input type="text" label="Address" name="address" :value="$building->address" />
                 </fieldset>
 
                 <fieldset>
                     <legend>Receipt Information</legend>
                     <hr>
                     <div class="d-flex gap-2">
-                        <x-form.input type="text" label="OR No." name="orNo" />
-                        <x-form.input type="text" label="Amount Paid" name="amountPaid" />
-                        <x-form.input type="date" label="Date of Payment" name="dateOfPayment" />
+                        <x-form.input type="text" label="OR No." name="orNo" :value="$receipt->or_no" />
+                        <x-form.input type="text" label="Amount Paid" name="amountPaid" :value="$receipt->amount" />
+                        <x-form.input type="date" label="Date of Payment" name="dateOfPayment" :value="$receipt->date_of_payment" />
                     </div>
                 </fieldset>
                 <div class="d-flex justify-content-between">
@@ -61,4 +68,35 @@
 
         </x-pageWrapper>
     </div>
+    {{-- Import the select options --}}
+    <script src="{{ asset('js/selectOptions.js') }}"></script>
+
+    <script>
+        // Populate Select Options
+        const occupancySelect = document.querySelector("#occupancy")
+        const subtypeSelect = document.querySelector("#subType")
+        populateSelect(occupancySelect, occupancy)
+
+        occupancySelect.addEventListener("change", function() {
+            // Reset Subtype
+            subtypeSelect.innerHTML = ""
+
+            const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === occupancySelect.value)
+            const subTypes = subTypesObj.map(obj => obj.SUBTYPE)
+            populateSelect(subtypeSelect, subTypes)
+
+            //Remove the subtype placeholder
+            if (subtypeSelect.children[0].value === "")
+                subtypeSelect.removeChild(subtypeSelect.children[0]);
+        })
+
+        // Set Value After Populating
+        occupancySelect.value = '{{ $building->occupancy }}'
+        // Set the value for the sub type
+        const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === '{{ $building->occupancy }}')
+        const subTypes = subTypesObj.map(obj => obj.SUBTYPE)
+        populateSelect(subtypeSelect, subTypes)
+
+        subtypeSelect.value = '{{ $building->sub_type }}'
+    </script>
 @endsection

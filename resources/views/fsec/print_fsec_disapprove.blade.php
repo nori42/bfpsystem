@@ -5,15 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Firedrill</title>
+    <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="/css/printfsecdisapprove.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 
+@php
+    $person = $buildingPlan->owner->person;
+    $person = $buildingPlan->owner->person;
+    $corporate = $buildingPlan->owner->corporate;
+    $receipt = $buildingPlan->receipt;
+    $evaluator =
+        auth()->user()->type != 'ADMIN'
+            ? auth()
+                    ->user()
+                    ->personnel()->first_name .
+                ' ' .
+                auth()
+                    ->user()
+                    ->personnel()->last_name
+            : 'ADMIN';
+    
+    //Person Name
+    $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
+    $personName = $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
+    $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+@endphp
+
 <body>
-    <form id="print" action="#" method="POST">
+    <form id="print" action="/fsecdisapprove/print/{{ $buildingPlan->id }}" method="POST">
         @csrf
         @method('PUT')
+        <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
     {{-- <div class="editToolBox"> --}}
     {{-- <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
@@ -37,7 +60,7 @@
             <strong>Establishment: </strong> <span></span>
         </div>
         <div class="printby">
-            <strong>Owned By: </strong> <span> </span>
+            <strong>Owned By: </strong> <span></span>
         </div>
         <div class="printby">
             <strong>Issued For: </strong> <span>FSEC Disapprove</span>
@@ -61,34 +84,28 @@
         <img src="{{ asset('img/fsec_disapprove.png') }}" alt="" style="width: 100%; height: 100%;">
 
         <div data-draggable="true" class="series-no bold">
-            R-7 013-S'2023
+            {{ $buildingPlan->series_no }}
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>Sample</span>
+            <span>{{ $buildingPlan->name_of_building }}</span>
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name-2 bold">
-            <span>Sample 2</span>
+            <span>{{ $buildingPlan->name_of_building }}</span>
         </div>
 
         <div data-draggable="true" class="rep-name bold">
-            <span>Sample Name</span>
+            <span>{{ $representative }}</span>
         </div>
         <div data-draggable="true" class="address bold">
-            <span>Looc Norte, Asturias, Cebu</span>
+            <span>{{ $buildingPlan->building->address }}</span>
         </div>
 
         <div data-draggable="true" class="address-2 bold">
-            <span>Looc Norte, Asturias, Cebu</span>
+            <span>{{ $buildingPlan->building->address }}</span>
         </div>
 
-
-        <div data-draggable="true" class="fc-fee bold">
-            <div id="amount"></div>
-            <div id="or_no"></div>
-            <div id="date"></div>
-        </div>
 
         {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
         </div> --}}

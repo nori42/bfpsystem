@@ -9,6 +9,7 @@
     @endphp
     <div class="page-content">
         <x-pageWrapper>
+            <h1 class="my-3">New Building Plan Application</h1>
             <form class="p-4 form-wrapper" action="/fsec" method="POST">
                 @csrf
                 {{-- Hidden input --}}
@@ -40,6 +41,7 @@
                 <fieldset>
                     <legend>Building</legend>
                     <hr>
+                    <x-form.input type="text" label="Name of Building/Structure/Facility" name="buildingName" />
                     <x-form.inputWrapper>
                         <div class="d-flex gap-2 align-items-center">
                             <div class="w-100">
