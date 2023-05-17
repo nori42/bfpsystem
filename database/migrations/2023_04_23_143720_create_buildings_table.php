@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('receipts', function (Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('or_no')->nullable();
-            $table->string('payor')->nullable();
-            $table->string('nature_of_payment')->nullable();
-            $table->string('amount', 15, 8)->nullable();
-            $table->date('date_of_payment')->nullable();
-            $table->string('receipt_for')->nullable();
+            $table->string('occupancy')->nullable();
+            $table->string('sub_type')->nullable();
+            $table->string('height')->nullable();
+            $table->string('building_story')->nullable();
+            $table->string('floor_area')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('receipts');
+        Schema::dropIfExists('buildings');
     }
 };

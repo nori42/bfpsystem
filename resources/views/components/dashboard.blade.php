@@ -4,7 +4,7 @@
 <div class="dashboardSearch">
     <div style="width:50%;">
         <h1 class="text-white text-center py-5" style="font-size: 3rem;">
-            {{ $for == 'establishment' ? 'Search Establishments' : 'Search Building Plan' }}</h1>
+            {{ $for == 'establishment' ? 'Search Establishments' : 'Search Building Plan Application' }}</h1>
 
         @php
             $urlResource = $for == 'establishment' ? 'establishments/search' : 'resources/buildingplans';
@@ -23,7 +23,7 @@
                         Establishment
                         Name</div>
                 @else
-                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Building Permit or Owner Name </div>
+                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Applicant Name</div>
                 @endif
 
                 <input class="visually-hidden" type="submit" value="Search">

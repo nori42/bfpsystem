@@ -35,7 +35,7 @@ class FiredrillController extends Controller
         $owner = $establishment->owner;
 
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
-        $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
+        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
 
         $receipt->or_no = $request->orNo;
         $receipt->payor = $request->payor;

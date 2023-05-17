@@ -83,4 +83,10 @@ class PrintController extends Controller
 
         return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }
+
+    //FSEC
+    public function show_print_fsecdisapprove(Request $request)
+    {
+        return view('fsec.print_fsec_disapprove');
+    }
 }

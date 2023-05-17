@@ -116,7 +116,7 @@
         </div>
 
         <div data-draggable="true" class="fc-fee bold">
-            <div id="amount">{{ $inspection->receipt->amount }}.00</div>
+            <div id="amount">{{ $inspection->receipt->amount }}</div>
             <div id="or_no">{{ $inspection->receipt->or_no }}</div>
             <div id="date">{{ $details['dateOfPayment'] }}</div>
         </div>

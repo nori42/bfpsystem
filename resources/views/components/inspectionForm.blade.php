@@ -23,8 +23,7 @@
         {{-- This is hidden, only used for post request --}}
         <input class="info d-none" type="text" id="establishmentId" name="establishmentId"
             value="{{ $establishment->id }}">
-        <input class="info d-none" type="text" id="payor" name="payor"
-            value="{{ $establishment->owner->person->first_name }} {{ $establishment->owner->person->last_name }}">
+        <input class="info d-none" type="text" id="payor" name="payor" value="{{ $establishment->owner->id }}">
         <input class="info d-none" type="text" id="receiptFor" name="receiptFor"
             value="Fire Safety Inspection Certificate(FSIC)">
 

@@ -52,7 +52,8 @@
                 </div>
 
                 <button class="btn btn-success fs-3 fw-normal w-100 mt-3 py-2">Login</button>
-                <div class="text-secondary text-center mt-3">If you forgot your password request new to the admin</div>
+                <div class="text-secondary text-center mt-3">If you forgot your password request a reset to the admin
+                </div>
             </form>
         </div>
     </div>

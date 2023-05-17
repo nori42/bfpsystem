@@ -44,10 +44,10 @@
                         </div>
 
                         <div class="w-100">
-                            <label class="info-label">Building Type</label>
+                            <label class="info-label">Building Structure</label>
                             <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
                                 required>
-                                <option value="" disabled selected>Select Building Type</option>
+                                <option value="" disabled selected>Select Building Structure</option>
                                 {{-- @foreach ($building_type as $btype)
                         <option value="{{$btype}}">{{$btype}}</option>
                     @endforeach --}}

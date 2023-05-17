@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Firedrill</title>
-    <link rel="stylesheet" href="/css/printfiredrill.css">
+    <link rel="stylesheet" href="/css/printfsecdisapprove.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 
 <body>
-    <form id="print" action="/establishments/firedrill/print/{{ $firedrillId }}" method="POST">
+    <form id="print" action="#" method="POST">
         @csrf
         @method('PUT')
     </form>
@@ -21,12 +21,12 @@
 
     {{-- Do Not Delete --}}
     {{-- <button class="btnTools" id="btnEdit" onclick="handleEdit(this)"
-            style=" position: fixed; scale: 0; bottom: 0; pointer-events: none;">Add
-            Note</button> --}}
+                style=" position: fixed; scale: 0; bottom: 0; pointer-events: none;">Add
+                Note</button> --}}
     {{-- </div> --}}
 
     <div class="nav">
-        <a id="back" href="/establishments/{{ $estabId }}/firedrill">
+        <a id="back" href="#">
             Back
         </a>
         <button id="printBtn">
@@ -34,13 +34,13 @@
                 style="background-color: #FFC900;">print</span>
         </button>
         <div class="printby">
-            <strong>Establishment: </strong> <span>{{ $establishment }}</span>
+            <strong>Establishment: </strong> <span></span>
         </div>
         <div class="printby">
-            <strong>Owned By: </strong> <span>{{ $representative }} </span>
+            <strong>Owned By: </strong> <span> </span>
         </div>
         <div class="printby">
-            <strong>Issued For: </strong> <span>Firedrill</span>
+            <strong>Issued For: </strong> <span>FSEC Disapprove</span>
         </div>
         <div class="printby">
             <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
@@ -58,53 +58,43 @@
         <div data-draggable="true" class="date-container bold">
             {{ date('F d, Y') }}
         </div>
-        <img src="{{ asset('img/firedrill.png') }}" alt="" style="width: 100%; height: 100%;">
+        <img src="{{ asset('img/fsec_disapprove.png') }}" alt="" style="width: 100%; height: 100%;">
 
-        <div data-draggable="true" class="control-no bold">
-            {{ $controlNo }}
+        <div data-draggable="true" class="series-no bold">
+            R-7 013-S'2023
         </div>
 
-        @php
-            if (session('nameExtension')) {
-                $establishment = $establishment . ' ' . strtoupper(session('nameExtension'));
-            }
-        @endphp
         <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>{{ $establishment }}</span>
+            <span>Sample</span>
         </div>
+
+        <div data-draggable="true" id="estabName" class="establishment-name-2 bold">
+            <span>Sample 2</span>
+        </div>
+
         <div data-draggable="true" class="rep-name bold">
-            <span>{{ $representative }}</span>
+            <span>Sample Name</span>
         </div>
         <div data-draggable="true" class="address bold">
-            <span>{{ $address }}</span>
+            <span>Looc Norte, Asturias, Cebu</span>
         </div>
 
-        <div data-draggable="true" class="date-made bold">
-            <span>{{ date('F d, Y', strtotime($dateMade)) }}</span>
+        <div data-draggable="true" class="address-2 bold">
+            <span>Looc Norte, Asturias, Cebu</span>
         </div>
 
-        <div data-draggable="true" class="issuedDay bold">
-            <span>{{ $issuedOn['day'] }}</span>
-        </div>
-
-        <div data-draggable="true" class="issuedMonth bold">
-            <span>{{ $issuedOn['month'] }}</span>
-        </div>
-
-        <div data-draggable="true" class="validity bold">
-            <span>{{ $validity }}</span>
-        </div>
 
         <div data-draggable="true" class="fc-fee bold">
-            <div id="amount">{{ $payment['amountPaid'] }}</div>
-            <div id="or_no">{{ $payment['orNo'] }}</div>
-            <div id="date">{{ $payment['datePayment'] }}</div>
+            <div id="amount"></div>
+            <div id="or_no"></div>
+            <div id="date"></div>
         </div>
 
         {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
-        </div>
+        </div> --}}
+
         <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
-            BFP</div> --}}
+            BFP</div>
     </div>
 
 

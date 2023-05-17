@@ -201,7 +201,7 @@ class EstablishmentController extends Controller
         $preparedQueryString = addslashes($request->search);
 
         $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
-        ->select('establishments.*','person.*')
+        ->select('establishments.*')
         ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
 
         //Get all inspection and firedrill that is not printed

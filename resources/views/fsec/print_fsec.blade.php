@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FSEC</title>
+    <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="/css/printfsec.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
@@ -65,7 +65,7 @@
         </div>
 
         <div data-draggable="true" class="fc-fee">
-            <div id="amount">{{ $evaluation->amount_paid }}.00</div>
+            <div id="amount">{{ $evaluation->amount_paid }}</div>
             <div id="or_no">{{ $evaluation->or_no }}</div>
             <div id="date">{{ date('m/d/Y', strtotime($evaluation->date_of_payment)) }}</div>
         </div>

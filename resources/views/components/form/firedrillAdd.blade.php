@@ -12,7 +12,7 @@
         @csrf
         {{-- For Reference Input --}}
         <input class="d-none" name="natureOfPayment" type="text" value="Firedrill">
-        <input class="d-none" name="payor" type="text" value="{{ $payer }}">
+        <input class="d-none" name="payor" type="text" value="{{ $establishment->owner->id }}">
         <input class="d-none" name="receiptFor" type="text" value="Firedrill">
         <input class="d-none" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
         <input class="d-none" name="year" type="text" value="{{ $yearNow }}">

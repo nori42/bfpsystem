@@ -11,6 +11,7 @@ use App\Http\Controllers\FsecController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SearchEstablishment;
 use App\Http\Controllers\UserController;
@@ -63,8 +64,10 @@ Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::cl
 //Fsec routes
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
 Route::get('/fsec', [FsecController::class, 'index'])->middleware('auth')->name('fsec');
+Route::post('/fsec', [FsecController::class, 'store']);
 Route::get('/fsec/create',[FsecController::class,'create'])->middleware('auth');
-Route::post('/establishments/fsec/{id}', [FsecController::class, 'store']);
+Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware('auth');
+Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware('auth');
 
 //Fsic routes
 Route::get('/establishments/{id}/fsic', [FsicController::class, 'index'])->middleware('auth');
@@ -92,6 +95,8 @@ Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fse
 
 Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware('auth');
 Route::put('/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
+
+Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove']);
 
 //Personnel
 Route::get('/personnel',[PersonnelController::class,'index'])->middleware('auth')->name('personnel');

@@ -11,7 +11,7 @@
                     <span class="material-symbols-outlined align-middle">
                         assignment_add
                     </span>
-                    New Building Plan
+                    New Building Plan Application
                 </a>
             </div>
         </x-pageWrapper>

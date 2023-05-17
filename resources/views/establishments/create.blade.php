@@ -40,28 +40,6 @@
 
                         {{-- Title and Suffix --}}
                         <div class="d-flex gap-2 w-25">
-                            {{-- <div>
-                                <label class="info-label" for="suffix">Title</label>
-                                <select class="form-control" name="suffix" id="suffix">
-                                    <option value="" disabled selected>Select Title</option>
-                                    <option value="JR.">DR.</option>
-                                    <option value="JR.">ATTY.</option>
-                                    <option value="JR.">Type value...</option>
-                                    <input class="form-control" id="titleInput" name="titleInput" type="text"
-                                        style="font-size: 0.8rem">
-                                </select>
-                            </div>
-                            <div>
-                                <label class="info-label" for="suffix">Suffix</label>
-                                <select class="form-control" name="suffix" id="suffix">
-                                    <option value="" disabled selected>Select Suffix</option>
-                                    <option value="JR.">JR.</option>
-                                    <option value="I">I</option>
-                                    <option value="II">II</option>
-                                    <option value="III">III</option>
-                                    <option value="IV">IV</option>
-                                </select>
-                            </div> --}}
                             <x-form.input type="text" label="Title" name="title" />
                             <x-form.input type="text" label="Name Suffix" name="nameSuffix" />
                         </div>
@@ -129,10 +107,10 @@
                             </div>
 
                             <div class="w-100">
-                                <label class="info-label">Building Type</label>
+                                <label class="info-label">Building Structure</label>
                                 <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
                                     required>
-                                    <option value="" disabled selected>Select Building Type</option>
+                                    <option value="" disabled selected>Select Building Structure</option>
                                     {{-- @foreach ($building_type as $btype)
                             <option value="{{$btype}}">{{$btype}}</option>
                         @endforeach --}}
@@ -142,10 +120,10 @@
                     </x-form.inputWrapper>
 
                     <div class="d-flex gap-2">
-                        <x-form.input type="text" label="No. of Story" name="noOfStory" />
+                        <x-form.input type="text" label="Building Story" name="noOfStory" />
+                        <x-form.input type="text" label="Floor Area" name="floorArea" />
                         <x-form.input type="text" label="Height" name="height" />
                     </div>
-                    <x-form.input class="w-50" type="text" label="Floor Area" name="floorArea" />
                     <div class="d-flex gap-2">
                         <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer"
                             name="fireInsuranceCo" />

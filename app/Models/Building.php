@@ -9,11 +9,7 @@ class Building extends Model
 {
     use HasFactory;
 
-    public function establishment(){
-        $this->hasOne(Establishment::class);
-    }
-
-    public function buildingPlan(){
+    public function evaluation(){
         $this->hasOne(Evaluation::class);
     }
 }
