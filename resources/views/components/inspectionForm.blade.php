@@ -28,7 +28,7 @@
             value="Fire Safety Inspection Certificate(FSIC)">
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
-            type="date" class="w-50" />
+            type="date" class="w-50" value="{{ date('Y') }}-01-01" />
         <x-form.input name="note{{ $key }}" input-inspect label="Note" type="text"
             customAttr="{{ $inputAttr }}" />
         {{-- <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
@@ -46,10 +46,10 @@
             <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" />
         </x-form.select>
 
-        <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
+        {{-- <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
             customAttr="{{ $inputAttr }}">
             <x-form.selectOptions.options :options="$selectOptions['issuedFor']" />
-        </x-form.select>
+        </x-form.select> --}}
     </fieldset>
     <hr>
     <fieldset>
@@ -59,7 +59,7 @@
             <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
                 type="text" />
             <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment"
-                customAttr="{{ $inputAttr }}" type="date" class="w-50" />
+                customAttr="{{ $inputAttr }}" type="date" class="w-50" value="{{ date('Y') }}-01-01" />
         </div>
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
             customAttr="{{ $inputAttr }}" placeholder="Select Nature Of Payment">

@@ -13,9 +13,6 @@
             <form class="form-wrapper p-5" action="/fsec/{{ $buildingPlan->id }}" method="POST">
                 @csrf
                 @method('PUT')
-                {{-- Hidden input --}}
-                <input class="d-none" type="text" name="evaluator" id="evaluator"
-                    value="{{ auth()->user()->type == 'ADMIN' ? auth()->user()->type : auth()->user()->type->personnel->person->last_name }}">
 
                 <fieldset>
                     <legend>Building</legend>

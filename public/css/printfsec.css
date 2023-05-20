@@ -84,18 +84,23 @@ li{
     position: absolute;
     top: 468px; 
     left: 700px;
+    text-align: center;
 }
 
 .rep-name{
     position: absolute;
     top: 550px; 
-    left: 315px;
+    left: 290px;
+    width: 425px;
+    text-align: center;
 }
 
 .address{
     position: absolute;
     top: 518px; 
-    left: 461px;
+    left: 218px;
+    text-align: center;
+    width: 680px;
 }
 
 

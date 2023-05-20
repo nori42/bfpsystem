@@ -87,6 +87,15 @@ class PrintController extends Controller
     }
 
     //FSEC
+    public function show_print_fsec(Request $request)
+    {
+        $buildingPlan = BuildingPlan::find($request->id);
+
+        return view('fsec.print_fsec',[
+            'buildingPlan' => $buildingPlan
+        ]);
+    }
+
     public function show_print_fsecdisapprove(Request $request)
     {
         $buildingPlan = BuildingPlan::find($request->id);
@@ -104,6 +113,22 @@ class PrintController extends Controller
 
         $evaluation->evaluator = $request->evaluator;
         $evaluation->remarks = "DISAPPROVED";
+        $evaluation->building_plan_id = $buildingPlan->id;
+
+        $evaluation->save();
+        $buildingPlan->save();
+
+        return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
+    }
+
+    public function print_fsec(Request $request){
+        $evaluation = new Evaluation();
+
+        $buildingPlan = BuildingPlan::find($request->id);
+        $buildingPlan->status = "APPROVED";
+
+        $evaluation->evaluator = $request->evaluator;
+        $evaluation->remarks = "APPROVED";
         $evaluation->building_plan_id = $buildingPlan->id;
 
         $evaluation->save();

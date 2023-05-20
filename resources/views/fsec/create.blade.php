@@ -12,10 +12,6 @@
             <h1 class="my-3">New Building Plan Application</h1>
             <form class="p-4 form-wrapper" action="/fsec" method="POST">
                 @csrf
-                {{-- Hidden input --}}
-                <input class="d-none" type="text" name="evaluator" id="evaluator"
-                    value="{{ auth()->user()->type == 'ADMIN' ? auth()->user()->type : auth()->user()->type->personnel->person->last_name }}">
-
                 <fieldset class="my-3">
                     <legend>Permit Applicant</legend>
                     <hr>

@@ -197,12 +197,16 @@ class EstablishmentController extends Controller
 
     public function search(Request $request){
          
-        //Escaped special char like ', ", %, ;
-        $preparedQueryString = addslashes($request->search);
+        // //Escaped special char like ', ", %, ;
+        // $preparedQueryString = addslashes($request->search);
 
-        $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
-        ->select('establishments.*')
-        ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
+        // $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
+        // ->select('establishments.*')
+        // ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
+        
+        //Get the id in the last character of search string
+        $estabId = substr($request->search, -1);
+        $establishment = Establishment::find($estabId);
 
         //Get all inspection and firedrill that is not printed
         $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->get();

@@ -84,7 +84,7 @@ class FsecController extends Controller
     public function show(Request $request)
     {
         $buildingPlan = BuildingPlan::find($request->id);
-        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id);
+        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
 
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
@@ -126,6 +126,22 @@ class FsecController extends Controller
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
+
+    public function search(Request $request){
+
+        // Get the id in the search string
+        $buildPlanId = substr($request->search, -1);
+
+        $buildingPlan = BuildingPlan::find($buildPlanId);
+        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
+
+        return view('fsec.show',[
+            'buildingPlan' => $buildingPlan,
+            'evaluations' => $evaluations
+        ]);
+    }
+
+
     //Attachment
     public function show_attachment(Request $request)
     {

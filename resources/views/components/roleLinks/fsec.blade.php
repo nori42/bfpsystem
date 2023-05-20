@@ -1,4 +1,7 @@
 <x-navLinks>
+    @php
+        $currentRoute = Route::currentRouteName();
+    @endphp
     <x-navLinks.link href="/fsec" :active="$currentRoute == 'fsec'">
         <span class="material-symbols-outlined align-middle fs-2">
             domain

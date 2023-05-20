@@ -35,7 +35,7 @@
                             <x-tag bgColor="bg-warning" text="Pending" />
                     @endswitch
                 </div>
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 {{ $buildingPlan->status == 'APPROVED' ? 'd-none' : '' }}">
                     <a class="btn btn-success px-4" href="/fsec/{{ $buildingPlan->id }}/edit"> <i
                             class="bi bi-pencil-fill mx-1"></i>Update Application</a>
 
@@ -45,9 +45,11 @@
                         <div id="actionMenu" class="dropdown-menus py-3 px-2 border-1 text-white" dropdown-menu
                             style="display:none !important; width:180px; left:calc(-1 * (100% + 10px));">
                             <ul class="list-unstyled">
-                                <li><button class="btn btn-success w-100 text-start"><i
-                                            class="bi bi-clipboard-check mx-2 fs-5"></i>Approve</button></li>
-                                <li><a href="/fsecdisapprove/print/1"
+                                <li><a href="/fsec/print/{{ $buildingPlan->id }}"
+                                        class="btn btn-success w-100 text-start"><i
+                                            class="bi bi-clipboard-check mx-2 fs-5"></i>Approve</a>
+                                </li>
+                                <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                         class="btn btn-outline-danger w-100 mt-2 text-start"><i
                                             class="bi bi-clipboard-x mx-2 fs-5"></i>Disapprove</a></li>
                             </ul>

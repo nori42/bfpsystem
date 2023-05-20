@@ -43,12 +43,40 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
         const json = await response.json();
         
         datalist.innerHTML = ""
-        json.data.forEach(establishment => {
+        json.data.forEach((establishment )=> {
+
             const nameOpt = document.createElement("option")
-            const personName = `${establishment.first_name} ${establishment.middle_name[0]} ${establishment.last_name}`
-            nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${personName}`)
+            const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
+            console.log(representative)
+            nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
             datalist.appendChild(nameOpt)
             
+        });
+
+    }
+    catch (err){
+        console.log(err)
+    }
+
+}
+
+async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId = null){
+
+    try
+    {
+        const hostUrl = baseURL
+        const response = await fetch(hostUrl+`/resources/buildingplans?search=${search}`)
+        const json = await response.json();
+        
+        console.log(json.data)
+        datalist.innerHTML = ""
+        json.data.forEach(buildingPlan => {
+            if(inputId != null && index == 0)
+            inputId.value = buildingPlan.id;
+
+            const nameOpt = document.createElement("option")
+            nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
+            datalist.appendChild(nameOpt)
         });
 
     }

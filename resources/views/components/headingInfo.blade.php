@@ -2,13 +2,20 @@
 
 
 @php
-    $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name . ' ' . $owner->person->suffix;
+    $personName = null;
+    $company = null;
+    $person = null;
     
-    if ($owner->corporate != null) {
-        $company = $owner->corporate->corporate_name;
+    if ($owner->person->last_name != null) {
+        $person = $owner->person;
+        $personName = $owner->person->first_name . ' ' . $owner->person->middle_name . ' ' . $owner->person->last_name . ' ' . $owner->person->suffix;
     }
     
-    $representative = $personName != null ? $personName : $company;
+    if ($owner->corporate != null) {
+        $company = $owner->corporate;
+    }
+    
+    $representative = $personName != null ? $personName : $company->corporate_name;
 @endphp
 <div>
     <div class="fs-5">Business Permit: {{ $establishment->business_permit_no }}</div>
@@ -55,17 +62,6 @@
                     class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
             <div class="dropdown-menus position-absolute p-3" id="ownerDetail" dropdown-menu
                 style="display: none !important; min-width: 380px;">
-                @php
-                    $personName = $owner->person->first_name . ' ' . $owner->person->last_name;
-                    if ($owner->corporate != null) {
-                        $companyName = $owner->corporate->corporate_name;
-                    }
-                    $representative = $personName != null ? $personName : $companyName;
-                    $person = $owner->person;
-                    
-                    $company = $owner->corporate;
-                    
-                @endphp
                 <ul class="list-unstyled">
                     @if (auth()->user()->type != 'FIREDRILL')
                         <li class="d-flex justify-content-between"><span class="fs-4 fw-bold">Info</span><a
@@ -74,13 +70,13 @@
                         </li>
                     @endif
                     </li>
-                    <li><span class="fw-bold">Owner/Representative</li>
-                    @if ($person != null)
+                    <li><span class="fw-bold fs-5">Owner/Representative</li>
+                    @if ($personName != null)
                         <li><span class="fw-bold">Name:</span> {{ $personName }}</li>
                         <li><span class="fw-bold">Contact:</span> {{ $person->contact_no }}</li>
                     @else
-                        <li><span class="fw-bold">Corporate:</span> {{ $companyName }}</li>
-                        <li><span class="fw-bold">Contact:</span> {{ $corporate->contact_no }}</li>
+                        <li><span class="fw-bold">Corporate:</span> {{ $company->corporate_name }}</li>
+                        <li><span class="fw-bold">Contact:</span> {{ $company->contact_no }}</li>
                     @endif
                 </ul>
             </div>

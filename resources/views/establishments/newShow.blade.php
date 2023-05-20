@@ -142,15 +142,22 @@
                 <x-detailWrapper>
                     <div class="row">
                         @php
-                            $person = $establishment->owner->person;
-                            if ($owner->corporate != null) {
-                                $corporateName = $establishment->owner->corporate->corporate_name || null;
+                            $personName = null;
+                            $contactNo = null;
+                            if ($establishment->owner->person->last_name != null) {
+                                $person = $establishment->owner->person;
+                                $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
+                                $contactNo = $person->contact_no;
                             }
-                            $representative = $person != null ? $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name : $corporateName;
-                            $contactNo = $person != null ? $person->contact_no : $establishment->owner->corporate->contact_no;
+                            
+                            if ($owner->corporate != null) {
+                                $corporateName = $establishment->owner->corporate->corporate_name;
+                                $contactNo = $owner->corporate->contact_no;
+                            }
+                            $representative = $personName != null ? $personName : $corporateName;
                         @endphp
                         <x-info label="Owner/Representative" :value="$representative" />
-                        <x-info label="Contact No." :value="$establishment->owner->person->contact_no" />
+                        <x-info label="Contact No." :value="$contactNo" />
                     </div>
                 </x-detailWrapper>
             </div>

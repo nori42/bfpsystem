@@ -11,8 +11,7 @@
 <body>
     <div style="width:50%; margin: auto auto; height: 50%; text-align: center ">
         <a href={{ url()->previous() }} style="background: ">Go Back</a>
-        <h1>404</h1>
-        <h3>Page Does Not Exist</h3>
+        <h2>Unauthorized Access For The Current User Type</h2>
     </div>
     </div>
 </body>

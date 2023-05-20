@@ -39,7 +39,7 @@
             <strong>Issued For: </strong> <span>{{ $inspection->issued_for }}</span>
         </div>
         <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
+            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
         </div>
     </div>
 

@@ -11,11 +11,11 @@
     <form action="/establishments/firedrill/{{ $establishment->id }}" method="POST">
         @csrf
         {{-- For Reference Input --}}
-        <input class="d-none" name="natureOfPayment" type="text" value="Firedrill">
-        <input class="d-none" name="payor" type="text" value="{{ $establishment->owner->id }}">
-        <input class="d-none" name="receiptFor" type="text" value="Firedrill">
-        <input class="d-none" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
-        <input class="d-none" name="year" type="text" value="{{ $yearNow }}">
+        <input type="hidden" name="natureOfPayment" type="text" value="Firedrill">
+        <input type="hidden" name="payor" type="text" value="{{ $establishment->owner->id }}">
+        <input type="hidden" name="receiptFor" type="text" value="Firedrill">
+        <input type="hidden" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
+        <input type="hidden" name="year" type="text" value="{{ $yearNow }}">
         <legend class="mb-3">Add Firedrill</legend>
         <fieldset>
             <Legend>Firedrill</Legend>

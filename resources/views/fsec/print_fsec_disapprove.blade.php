@@ -12,19 +12,13 @@
 
 @php
     $person = $buildingPlan->owner->person;
-    $person = $buildingPlan->owner->person;
     $corporate = $buildingPlan->owner->corporate;
-    $receipt = $buildingPlan->receipt;
-    $evaluator =
-        auth()->user()->type != 'ADMIN'
-            ? auth()
-                    ->user()
-                    ->personnel()->first_name .
-                ' ' .
-                auth()
-                    ->user()
-                    ->personnel()->last_name
-            : 'ADMIN';
+    
+    if (auth()->user()->type != 'ADMIN') {
+        $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
+    }
+    
+    $evaluator = auth()->user()->type != 'ADMIN' ? $personnelName : 'ADMIN';
     
     //Person Name
     $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
@@ -49,7 +43,7 @@
     {{-- </div> --}}
 
     <div class="nav">
-        <a id="back" href="#">
+        <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
         <button id="printBtn">
@@ -57,16 +51,10 @@
                 style="background-color: #FFC900;">print</span>
         </button>
         <div class="printby">
-            <strong>Establishment: </strong> <span></span>
-        </div>
-        <div class="printby">
-            <strong>Owned By: </strong> <span></span>
-        </div>
-        <div class="printby">
             <strong>Issued For: </strong> <span>FSEC Disapprove</span>
         </div>
         <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
+            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
         </div>
     </div>
 
