@@ -4,11 +4,14 @@
 
     @php
         $yearNow = date('Y');
-        $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
+        if ($establishment->owner->person) {
+            $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
+        }
         $payer = $establishment->owner->person !== null ? $personName : $establishment->owner->corporate->corporate_name;
         $issued = $firedrill->issued_on != null;
         $claimed = $firedrill->date_claimed != null;
         [$number, $term] = explode(' ', $firedrill->validity_term);
+        
     @endphp
 
     <form id="firedrillDetail{{ $firedrill->id }}" action="/establishments/firedrill/{{ $establishment->id }}"
@@ -104,11 +107,17 @@
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">
             @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
-                <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2 ">
                     <x-form.input name="claimedBy" label="Claimed By" />
                     <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
                         Certificate</button>
+                    <button class="btn btn-success" type="submit" name="action" value="preview">Preview
+                        Certificate</button>
                 </div>
+            @endif
+            @if ($firedrill->date_claimed != null && $firedrill->issued_on != null)
+                <button class="btn btn-success" type="submit" name="action" value="preview">Preview
+                    Certificate</button>
             @endif
             @if ($firedrill->issued_on == null)
                 <button class="btn btn-success" type="submit" name="action" value="add">Save</button>

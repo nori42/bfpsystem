@@ -6,26 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
-    <link rel="stylesheet" href="/css/printfsic.css">
+    {{-- <link rel="stylesheet" href="/css/printfsic.css"> --}}
+    @vite(['resources/css/printfsic.css'])
+    @vite(['resources/css/bootstrap-icons.css'])
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
+@php
+    $personName = null;
+    
+    if ($establishment->owner->person->last_name != null) {
+        $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
+    }
+    
+    $corporateName = $establishment->owner->corporate->corporate_name;
+    $registrationStatus = $inspection->registration_status;
+    
+    $details = [
+        'dateToday' => date('F d, Y', time()),
+        'inspection' => $inspection,
+        'expiryDate' => date('F d, Y', strtotime('+1 year')),
+        'dateOfPayment' => date('m/d/Y', strtotime($inspection->receipt->date_of_payment)),
+    ];
+    
+    $json = resource_path('json\printSettings.json');
+    $jsonData = File::get($json);
+    $printSettings = json_decode($jsonData, true);
+    ['CityMarshal' => $marshal, 'ChiefFSES' => $chief] = $printSettings['settings'];
+@endphp
 
 <body>
+
     <form id="print" action="{{ $inspection->id }}" method="POST">
         @csrf
         @method('PUT')
     </form>
     <div class="editToolBox">
-        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
-        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
-        <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
+        <button class="btnTools button" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
+        <button class="btnTools button" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
+        <button class="btnTools button" id="btnMove" onclick="handleMove(this)">Move</button>
     </div>
 
     <div class="nav">
         <a id="back" href="/establishments/{{ $establishment->id }}/fsic">
             Back
         </a>
-        <button id="printBtn">
+        <button id="printBtn" class="button">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
@@ -33,7 +58,7 @@
             <strong>Establishment: </strong> <span>{{ $establishment->establishment_name }}</span>
         </div>
         <div class="printby">
-            <strong>Owned By: </strong> <span>{{ $details['personName'] }} </span>
+            <strong>Owned By: </strong> <span>{{ $personName ? $personName : $corporateName }} </span>
         </div>
         <div class="printby">
             <strong>Issued For: </strong> <span>{{ $inspection->issued_for }}</span>
@@ -69,13 +94,14 @@
                 <div class="highlight-renewal" onclick="checkToggle('renewal')"></div>
             </div>
 
-            <div class="c-1 check hidden" id="c1">&check;</div>
+            <div class="c-1 check {{ $registrationStatus == 'OCCUPANCY' ? '' : 'hidden' }}" id="c1">&check;</div>
 
-            <div class="c-2 check hidden" id="c2">
+            <div class="c-2 check {{ $registrationStatus == 'NEW' || $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"
+                id="c2">
                 <div>&check;</div>
                 <div class="highlight-container">
-                    <div id="new" class="highlight hidden"></div>
-                    <div id="renewal" class="highlight hidden"></div>
+                    <div id="new" class="highlight {{ $registrationStatus == 'NEW' ? '' : 'hidden' }}"></div>
+                    <div id="renewal" class="highlight {{ $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"></div>
                 </div>
             </div>
 
@@ -97,20 +123,23 @@
             <span>{{ $inspection->establishment->establishment_name }}</span>
         </div>
         <div data-draggable="true" class="rep-name bold">
-            <span>{{ $details['personName'] != null ? $details['personName'] : $details['corporateName'] }}</span>
+            <span>{{ $personName ? $personName : $corporateName }}</span>
+
         </div>
         <div data-draggable="true" class="address bold">
             <span>{{ $establishment->address }}</span>
         </div>
-
+        {{-- 
         <div data-draggable="true" class="issued-for bold">
-            <span>{{ $inspection->issued_for }} </span>
-        </div>
+            <span> </span>
+        </div> --}}
 
-        <div data-draggable="true" data-editable="true" class="more-info" id="moreInfo">
+        <div class="more-info bold" data-draggable="true" data-editable="true">
             <span>&nbsp;</span>
         </div>
-
+        <div class="more-info more-info-2 bold" data-draggable="true" data-editable="true">
+            <span>&nbsp;</span>
+        </div>
         <div data-draggable="true" class="validity bold">
             <span>{{ $details['expiryDate'] }}</span>
         </div>
@@ -121,10 +150,11 @@
             <div id="date">{{ $details['dateOfPayment'] }}</div>
         </div>
 
-        <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
+        <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">{{ $chief }}
         </div>
-        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
-            BFP</div>
+        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">
+            {{ $marshal }}
+        </div>
     </div>
 
 

@@ -22,7 +22,7 @@ class EstablishmentFactory extends Factory
 
     public function definition(): array
     {
-        $substations = array('CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN');
+        $substations = array('CBP','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN');
         $building_type = array('SMALL', 'MEDIUM', 'LARGE', 'HIGH RISE');
         $occupancy = array('RESIDENTIAL','ASSEMBLY','EDUCATIONAL','MERCANTILE','DETENTION AND CORRECTIONAL','INDUSTRIAL', 'BUSINESS', 'STORAGE', 'OTHERS');
 
@@ -35,6 +35,8 @@ class EstablishmentFactory extends Factory
             'sub_type' => Str::random(10),
             'building_type' => $building_type[array_rand($building_type)],
             'occupancy' => $occupancy[array_rand($occupancy)],
+            'inspection_is_expired' => false,
+            'firedrill_is_expired' => false,
             'no_of_storey' => random_int(1,5),
             'height' => random_int(1,15),
             'floor_area' => random_int(1,15),

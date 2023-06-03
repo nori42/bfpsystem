@@ -22,9 +22,9 @@ return new class extends Migration
             // $table->string('building_structures')->nullable();
             $table->string('registration_status')->nullable();
             $table->string('fsic_no')->nullable();
-            $table->string('issued_for');
             $table->enum('status',['Not Printed','Printed'])->default("Not Printed");
-            $table->string('expiry_date')->nullable();
+            $table->date('issued_on')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->foreignIdFor(Receipt::class);
             $table->foreignIdFor(Establishment::class);
             $table->timestamps();

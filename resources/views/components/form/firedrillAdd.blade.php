@@ -21,7 +21,7 @@
             <Legend>Firedrill</Legend>
 
             <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"
-                customAttr="validity">
+                customAttr="validity required">
                 <option value="QUARTERLY">QUARTERLY</option>
                 <option value="SEMESTER">SEMESTER</option>
             </x-form.select>
@@ -48,16 +48,16 @@
             </fieldset>
 
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
-            <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" />
+            <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" :required="true" />
             <x-form.input name="nameExtension" label="Name Extension" type="text" value="" />
         </fieldset>
         <fieldset class="py-3">
             <legend>Receipt Information</legend>
             <x-form.input name="orNo" label="OR No." type="text" :required="true" />
             <div class="d-flex gap-2">
-                <x-form.input name="amountPaid" label="Amount Paid" type="text" value="" />
-                <x-form.input name="dateOfPayment" label="Date of Payment" type="date" class="w-50"
-                    value="" />
+                <x-form.input name="amountPaid" label="Amount Paid" type="text" value="" :required="true" />
+                <x-form.input name="dateOfPayment" label="Date of Payment" type="date" class="w-50" value=""
+                    :required="true" />
             </div>
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">

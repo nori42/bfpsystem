@@ -505,7 +505,7 @@ const occupancy = [
 ]
 
 const stations = [
-    'CCSF','CPB','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
+    'CCSF','CBP','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN'
 ];
 
 const issuances = [

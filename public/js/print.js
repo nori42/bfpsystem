@@ -3,6 +3,14 @@ document.getElementById("printBtn").addEventListener("click", function(){
 
     document.querySelector('#print').submit();
 })
+function printUpdate(){
+    window.print();
+    document.querySelector('#print').submit();
+}
+
+function printOnly(){
+    window.print();
+}
 
 function handleMove(btn){
     moveables = document.querySelectorAll('[data-draggable="true"]')
@@ -44,6 +52,8 @@ function handleMove(btn){
 function handleEdit(btn){
 
     editables = document.querySelectorAll('[data-editable="true"]')
+    btnMoreInfo = document.querySelector('#btnMoreInfo')
+
 
     if(btn.innerText == 'Add Note')
     {
@@ -165,3 +175,6 @@ function makeElementDraggable(element) {
     }
 }
 
+function setFontSize(){
+    
+}

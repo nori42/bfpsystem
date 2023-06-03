@@ -9,8 +9,8 @@
         $corporate = $buildingPlan->owner->corporate;
         
         //Person Name
-        $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
-        $personName = $person->title . ' ' . $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
+        $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
+        $personName = $person->title . ' ' . $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
         $applicant = $person->last_name != null ? $personName : $corporate->corporate_name;
     @endphp
     <div class="page-content">
@@ -47,11 +47,14 @@
                             <ul class="list-unstyled">
                                 <li><a href="/fsec/print/{{ $buildingPlan->id }}"
                                         class="btn btn-success w-100 text-start"><i
-                                            class="bi bi-clipboard-check mx-2 fs-5"></i>Approve</a>
+                                            class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a>
                                 </li>
+                                <li><a href="/fsecchecklist/print/{{ $buildingPlan->id }}"
+                                        class="btn btn-success w-100 mt-2 text-start"><i
+                                            class="bi bi-clipboard-check mx-2 fs-5"></i>Checklist</a></li>
                                 <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                         class="btn btn-outline-danger w-100 mt-2 text-start"><i
-                                            class="bi bi-clipboard-x mx-2 fs-5"></i>Disapprove</a></li>
+                                            class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
                             </ul>
                         </div>
                     </div>

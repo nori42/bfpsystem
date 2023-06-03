@@ -34,21 +34,21 @@ select {
 }
 
 .finished-page {
-    color: #0F2D55;
-    font-weight: bold;
-    border-top: 12px solid #0F2D55 !important;
-}
-
-.current-page {
     /* color: #0F2D55;
     font-weight: bold;
     border-top: 12px solid #0F2D55 !important; */
 }
 
+.current-page {
+    color: #0F2D55;
+    font-weight: bold;
+    border-top: 12px solid #0F2D55 !important;
+}
+
 .indicator {
     height: 12px;
     width: 100%;
-    border: 1px solid #0F2D55;
+    /* border: 1px solid #0F2D55; */
 }
 
 .steps-title div {

@@ -12,8 +12,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\FSICReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SearchEstablishment;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use App\Models\Firedrill;
@@ -82,6 +84,10 @@ Route::put('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsi
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment'])->middleware('auth');
 
+//Owner routes
+Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
+Route::post('/owner/{id}/edit', [OwnerController::class, 'update'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
+
 //Firedrill
 Route::get('/establishments/{id}/firedrill', [FiredrillController::class, 'index'])->middleware(['auth','userType:ADMIN,FIREDRILL']);
 Route::post('/establishments/firedrill/{id}',[FiredrillController::class,'store']);
@@ -90,8 +96,8 @@ Route::get('/establishments/firedrill/print/{id}',[FiredrillController::class, '
 Route::put('/establishments/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
 
 //Print Route
-Route::get('/fsic/print/{id}', [FsicController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMIN,FSIC']);
-Route::put('/fsic/print/{id}', [FsicController::class, 'print_fsic']);
+Route::get('/fsic/print/{id}', [PrintController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMIN,FSIC']);
+Route::put('/fsic/print/{id}', [PrintController::class, 'print_fsic']);
 
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
 
@@ -104,6 +110,8 @@ Route::put('/fsec/print/{id}',[PrintController::class,'print_fsec']);
 Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::put('/fsecdisapprove/print/{id}',[PrintController::class,'print_fsecdisapprove']);
 
+Route::get('/fsecchecklist/print/{id}',[PrintController::class,'show_print_fsecchecklist'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::put('/fsecchecklist/print/{id}',[PrintController::class,'']);
 //Personnel
 Route::get('/personnel',[PersonnelController::class,'index'])->middleware(['auth','userType:ADMIN'])->name('personnel');
 Route::post('/personnel',[PersonnelController::class,'store']);
@@ -112,9 +120,10 @@ Route::post('/personnel',[PersonnelController::class,'store']);
 Route::get('/users',[UserController::class,'index'])->middleware(['auth','userType:ADMIN'])->name('users');
 Route::post('/users',[UserController::class,'store']);
 Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
+Route::put('/users/{id}',[UserController::class,'update'])->middleware('auth');
 
 //Reports
-Route::get('/reports',function(){ return view('reports');})->middleware('auth')->name('reports');
+Route::get('/reports',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
 
 //Activity Log
 Route::get('/activity',function(){ return view('activityLog');})->middleware('auth')->name('activity');
@@ -125,10 +134,17 @@ Route::get('/archived',ArchivedEstablishments::class)->middleware('auth')->name(
 //Download routes
 Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownload::class);
 
+Route::get('/settings',function () {
+    return view('printSettings');
+})->middleware(['auth','userType:ADMIN']);
+
+Route::post('/settings',[SettingsController::class,'update'])->middleware(['auth','userType:ADMIN']);
+
 //Unauathenticated Resources
 Route::get('resources/owners',[SearchController::class,'searchOwner']);
 Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
 Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);
+Route::get('resources/reports/fsic',[FSICReportController::class,'getFSICReport']);
 Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
 
 //Others

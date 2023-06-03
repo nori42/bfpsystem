@@ -3,7 +3,7 @@
     --secondary-color:#1C3B64;
     --secondary-color-dark:#21303D;
     --success:#53A3D8;
-    --btn-link-hover:#C94747;
+    --btn-link-hover:#abcbff;
 }
 
 /* initial style */
@@ -40,7 +40,7 @@ nav {
 }
 
 .link-active{
-    border-right: 10px solid var(--btn-link-hover) !important;
+    border-right: 10px solid #5675a8 !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }
@@ -102,7 +102,7 @@ nav a:hover {
 
 nav a::before{
     content: "";
-    background-color: var(--btn-link-hover);
+    background-color:#5675a8;
     width: 0%;
     height: 100%;
     position: absolute;

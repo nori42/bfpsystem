@@ -47,7 +47,7 @@
                                 <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
                                 <td>{{ $inspection->receipt->or_no }}</td>
                                 <td>{{ $inspection->registration_status }}</td>
-                                <td>{{ $inspection->expiry_date }}
+                                <td>{{ $inspection->expiry_date ? date('m/d/Y', strtotime($inspection->expiry_date)) : '' }}
                                 </td>
                                 <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
                                     {{ $inspection->status }}</td>
@@ -74,53 +74,4 @@
             <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
         </x-modal>
     </div>
-    {{-- Import Script --}}
-    <script src="{{ asset('js/selectOptions.js') }}"></script>
-    <script src="{{ asset('js/fetch.js') }}"></script>
-
-    {{-- Page Script --}}
-    <script>
-        const natureOfPaymentSelect = document.querySelector("#natureOfPayment")
-        const regStatusSelect = document.querySelector("#registrationStatus")
-        const issuedForSelect = document.querySelector("#issuedFor")
-        const natureOfPaymentSelectDetail = document.querySelector("#natureOfPaymentDetail")
-        const regStatusSelectDetail = document.querySelector("#registrationStatusDetail")
-        const issuedForSelectDetail = document.querySelector("#issuedForDetail")
-        const btnSave = document.querySelector('#btnSave')
-
-        async function showDetail() {
-            const inspectionDetails = await getInspectionById("{{ env('APP_URL') }}", event.target.value);
-
-            console.log(inspectionDetails.fsicNo)
-
-            document.querySelector('#inspectionDateDetail').value = inspectionDetails.inspectionDate;
-            document.querySelector('#buildingConditionsDetail').value = inspectionDetails.buildingCondtions;
-            document.querySelector('#buildingStructuresDetail').value = inspectionDetails.buildingStructures;
-            document.querySelector('#orNoDetail').value = inspectionDetails.orNo;
-            document.querySelector('#natureOfPaymentDetail').value = inspectionDetails.natureOfPayment;
-            document.querySelector('#amountPaidDetail').value = inspectionDetails.amount;
-            document.querySelector('#fsicNoDetail').value = inspectionDetails.fsicNo;
-            document.querySelector('#dateOfPaymentDetail').value = inspectionDetails.dateOfPayment;
-            document.querySelector('#registrationStatusDetail').value = inspectionDetails.registrationStatus;
-            document.querySelector('#issuedForDetail').value = inspectionDetails.issuedFor;
-
-            openModal('detailInspectionModal');
-        }
-
-        // populateNatueOfPaymentSelect(natureOfPaymentSelect, natureOfPayments)
-        // populateSelect(regStatusSelect, regStatus)
-        // populateSelect(issuedForSelect, issuances)
-
-        natureOfPaymentSelect.selectedIndex = 0
-        regStatusSelect.selectedIndex = 0
-        issuedForSelect.selectedIndex = 0
-
-        var orNo = document.getElementById("orNo")
-        var savePayment = document.getElementById("savePayment")
-        var id = {!! $establishment->id !!}
-
-        orNo.addEventListener("change", function() {
-            savePayment.action = "/establishments/fsic/payment/" + id
-        })
-    </script>
 @endsection

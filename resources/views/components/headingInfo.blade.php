@@ -46,17 +46,26 @@
                     <li><span class="fw-bold">Occupancy: </span>{{ $establishment->occupancy }}</li>
                     <li><span class="fw-bold">Occupancy Sub-Type: </span>{{ $establishment->sub_type }}</li>
                     <li><span class="fw-bold">Building Type: </span>{{ $establishment->building_type }}</li>
-                    <li><span class="fw-bold">No. of Story: </span>{{ $establishment->no_of_storey }}</li>
-                    <li><span class="fw-bold">Height: </span>{{ $establishment->height }}</li>
+                    <li><span class="fw-bold">Building Story: </span>{{ $establishment->no_of_storey }}</li>
+                    <li><span class="fw-bold">Floor Area: </span>{{ $establishment->floor_area }} (sq m)</li>
+                    <li><span class="fw-bold">Height: </span>{{ $establishment->height }} (m)</li>
                     <li><span class="fw-bold">Fire Insurance Co: </span>{{ $establishment->fire_insurance_co }}</li>
                     <li><span class="fw-bold">Latest Permit: </span>{{ $establishment->latest_permit }}</li>
                     <li><span class="fw-bold">Barangay: </span>{{ $establishment->barangay }}</li>
                     <li><span class="fw-bold">Address: </span>{{ $establishment->address }}</li>
+                    <li><span class="fw-bold fs-5">Owner/Representative</li>
+                    @if ($personName != null)
+                        <li><span class="fw-bold">Name:</span> {{ $personName }}</li>
+                        <li><span class="fw-bold">Contact:</span> {{ $person->contact_no }}</li>
+                    @else
+                        <li><span class="fw-bold">Corporate:</span> {{ $company->corporate_name }}</li>
+                        <li><span class="fw-bold">Contact:</span> {{ $company->contact_no }}</li>
+                    @endif
                 </ul>
             </div>
         </div>
         {{-- Owner Info --}}
-        <div class="position-relative d-inline-block" dropdown>
+        {{-- <div class="position-relative d-inline-block" dropdown>
             <button type="button" class="btn btn-outline-success" style="width:auto !important"
                 onclick="openModal('ownerDetail')"><span
                     class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
@@ -80,7 +89,7 @@
                     @endif
                 </ul>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>

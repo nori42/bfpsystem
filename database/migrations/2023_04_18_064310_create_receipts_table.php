@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('or_no')->nullable();
-            $table->string('payor')->nullable();
             $table->string('nature_of_payment')->nullable();
             $table->string('amount', 15, 8)->nullable();
             $table->date('date_of_payment')->nullable();

@@ -130,6 +130,9 @@
                                 class="btn w-100 text-start text-white fw-semibold"><i
                                     class="bi bi-person-fill text-white fs-5"></i> <span class="mx-3">
                                     Account</span></a>
+                            <a href="/settings" class="btn w-100 text-start text-white fw-semibold"><i
+                                    class="bi bi-gear-fill fs-5"></i> <span class="mx-3">Print
+                                    Settings</span></a>
                             <a href="/logout" class="btn w-100 text-start text-white fw-semibold"><i
                                     class="bi bi-box-arrow-left fs-5"></i> <span class="mx-3">Logout</span></a>
                         </div>

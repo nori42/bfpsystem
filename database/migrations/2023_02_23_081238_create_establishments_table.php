@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('barangay')->nullable();
             $table->string('address')->nullable();
             $table->string('createdBy')->nullable();
-            $table->boolean('inspectionIsExpired');
-            $table->boolean('firedrillIsExpired');
+            $table->boolean('inspection_is_expired');
+            $table->boolean('firedrill_is_expired');
             $table->softDeletes();
             $table->timestamps();
             $table->foreignIdFor(Owner::class);

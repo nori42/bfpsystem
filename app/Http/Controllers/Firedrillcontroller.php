@@ -38,11 +38,10 @@ class FiredrillController extends Controller
         $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
 
         $receipt->or_no = $request->orNo;
-        $receipt->payor = $request->payor;
+        // $receipt->payor = $request->payor;
         $receipt->amount = $request->amountPaid;
         $receipt->nature_of_payment = $request->natureOfPayment;
         $receipt->receipt_for = $request->receiptFor;
-        $receipt->payor = $request->payor;
         $receipt->date_of_payment = $request->dateOfPayment;
         
         $receipt->save();
@@ -150,11 +149,12 @@ class FiredrillController extends Controller
         $personName =  $owner->person->first_name.' '.$owner->person->middle_name.' '.$owner->person->last_name;
         $company = $owner->corporate->corporate_name;
         
-        $representative = ($personName != null) ? $personName: $company;
+        $representative = ($owner->person->last_name != null) ? $personName: $company;
 
         return view('establishments.firedrill.print_firedrill',[
             'estabId' => $establishment->id,
             'firedrillId' => $firedrill->id,
+            'firedrill' => $firedrill,
             'controlNo' => $firedrill->control_no,
             'issuedOn' =>['day' => date('dS'),'month'=> date('F')],
             'validity' => $firedrill->validity_term.' '.$firedrill->year,

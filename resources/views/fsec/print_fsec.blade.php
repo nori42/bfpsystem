@@ -24,6 +24,12 @@
     $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
     $personName = $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
     $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    
+    //Marshal and Chief Name
+    $json = resource_path('json\printSettings.json');
+    $jsonData = File::get($json);
+    $printSettings = json_decode($jsonData, true);
+    ['CityMarshal' => $marshal, 'ChiefFSES' => $chief] = $printSettings['settings'];
 @endphp
 
 <body>
@@ -49,11 +55,11 @@
         </button>
 
         <div class="printby">
-            <strong>Issued For: </strong> <span>FSEC</span>
+            <strong>Issued For: </strong> <span>Fire Safety Evaluation Clearance</span>
         </div>
 
         <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
+            <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
         </div>
     </div>
 
@@ -88,8 +94,8 @@
             <div id="date">{{ date('m/d/Y', strtotime($receipt->date_of_payment)) }}</div>
         </div>
 
-        <div data-draggable="true" id="chiefName" class="chiefName">SP04 Philip K Layug, BFP</div>
-        <div data-draggable="true" id="marshalName" class="marshalName">SUPT REYNALDO D ENOC, BFP</div>
+        <div data-draggable="true" id="chiefName" class="chiefName">{{ $chief }}</div>
+        <div data-draggable="true" id="marshalName" class="marshalName">{{ $marshal }}</div>
     </div>
 
 

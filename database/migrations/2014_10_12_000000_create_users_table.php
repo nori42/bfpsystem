@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('type');
-            $table->foreignIdFor(Personnel::class)->unique();
+            $table->string('name');
+            $table->foreignIdFor(Personnel::class)->unique()->nullable();
             $table->timestamps();
         });
     }

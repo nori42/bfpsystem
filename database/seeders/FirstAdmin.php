@@ -18,7 +18,7 @@ class FirstAdmin extends Seeder
         \App\Models\User::create([
             'username' => 'admin01',
             'password' => Hash::make('admin'),
-            'personnel_id' => 0,
+            'name' => 'admin',
             'type' => strtoupper('admin'),
         ]);
     }

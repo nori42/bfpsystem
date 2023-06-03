@@ -29,7 +29,7 @@
                 <thead>
                     <th>Username</th>
                     <th>User Type</th>
-                    <th>Personnel</th>
+                    <th>Name</th>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
@@ -43,7 +43,7 @@
                         <tr>
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->type }}</td>
-                            <td>{{ $personnel }}</td>
+                            <td>{{ strtoupper($user->name) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -82,14 +82,19 @@
                     </x-form.inputWrapper>
                 </div>
 
-                <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel">
+                <label class="info-label">Name</label>
+                <input class="form-control text-uppercase" id="name" name="name" type="text" required
+                    autocomplete="off">
+
+                {{-- <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel"
+                    customAttr="required">
                     @foreach ($personnelList as $personnel)
                         @php
                             $name = $personnel->person->last_name . ' ' . $personnel->person->suffix . ', ' . $personnel->person->first_name . ' ' . $personnel->person->middle_name[0] . '.';
                         @endphp
                         <option value="{{ $personnel->id }}">{{ $name }}</option>
                     @endforeach
-                </x-form.select>
+                </x-form.select> --}}
 
                 <button class="btn btn-success mt-3 float-end" type="submit">
                     <span class="material-symbols-outlined fs-2 align-middle">

@@ -11,4 +11,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+          'chart.js': '../node_modules/chart.js', // Add this alias for Chart.js
+        },
+      },
 });

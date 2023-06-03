@@ -14,7 +14,7 @@
             <x-headingInfo :establishment="$establishment" :owner="$owner" />
 
             <div class="d-flex mt-3 w-100">
-                <x-action.link href="/establishments/firedrill/{{ $establishment->id }}" text="Firedrill" :active="true" />
+                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />
                 <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" />
             </div>
             <div class="d-flex justify-content-end">

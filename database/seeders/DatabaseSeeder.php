@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Establishment;
+use App\Models\Inspection;
 use App\Models\Owner;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -24,12 +25,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Establishment::factory()->count(100)->create();
         \App\Models\User::create([
             'username' => 'admin01',
             'password' => Hash::make('admin'),
-            'personnel_id' => 0,
+            'name' => 'admin',
             'type' => strtoupper('admin'),
         ]);
+
+        Establishment::factory()->count(1000)->create();
+        Inspection::factory()->count(1000)->create();
     }
 }

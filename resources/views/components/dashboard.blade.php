@@ -16,8 +16,11 @@
                 {{-- Hidden Values --}}
                 <input name="userType" type="hidden" value="{{ auth()->user()->type }}">
 
-                <input type="text" id="search" name="search" class="form-control fs-4 rounded-2"
-                    list="searchSuggestion" autocomplete="off">
+                <div class="d-flex">
+                    <input type="text" id="search" name="search" class="form-control fs-4 rounded-2 bg-white"
+                        list="searchSuggestion" autocomplete="off">
+                    <button class="btn bg-white fs-4" style="translate:-100% 0;"><i class="bi bi-search"></i></button>
+                </div>
                 @if ($for == 'establishment')
                     <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name or
                         Establishment

@@ -21,9 +21,14 @@
     $evaluator = auth()->user()->type != 'ADMIN' ? $personnelName : 'ADMIN';
     
     //Person Name
-    $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
-    $personName = $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
+    $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
+    $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
     $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    
+    $json = resource_path('json\printSettings.json');
+    $jsonData = File::get($json);
+    $printSettings = json_decode($jsonData, true);
+    ['CityMarshal' => $marshal, 'ChiefFSES' => $chief] = $printSettings['settings'];
 @endphp
 
 <body>
@@ -32,14 +37,15 @@
         @method('PUT')
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
+
+    {{-- Tool For Debugging --}}
+
     {{-- <div class="editToolBox"> --}}
     {{-- <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button> --}}
 
     {{-- Do Not Delete --}}
-    {{-- <button class="btnTools" id="btnEdit" onclick="handleEdit(this)"
-                style=" position: fixed; scale: 0; bottom: 0; pointer-events: none;">Add
-                Note</button> --}}
+    {{-- <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button> --}}
     {{-- </div> --}}
 
     <div class="nav">
@@ -69,7 +75,8 @@
         <div data-draggable="true" class="date-container bold">
             {{ date('F d, Y') }}
         </div>
-        <img src="{{ asset('img/fsec_disapprove.png') }}" alt="" style="width: 100%; height: 100%;">
+        <img class="certificate" src="{{ asset('img/fsec_disapprove.png') }}" alt=""
+            style="width: 100%; height: 100%;">
 
         <div data-draggable="true" class="series-no bold">
             {{ $buildingPlan->series_no }}
@@ -86,6 +93,17 @@
         <div data-draggable="true" class="rep-name bold">
             <span>{{ $representative }}</span>
         </div>
+
+        {{-- <div class="deficiency" id="moreInfo" data-draggable="true" data-editable="true">
+        </div>
+        <div class="deficiency deficiency-right" id="moreInfo" data-draggable="true" data-editable="true">
+        </div> --}}
+        <textarea class="deficiency" maxlength="288">
+        </textarea>
+        <textarea class="deficiency deficiency-right" maxlength="288">
+        </textarea>
+
+
         <div data-draggable="true" class="address bold">
             <span>{{ $buildingPlan->building->address }}</span>
         </div>
@@ -98,12 +116,13 @@
         {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
         </div> --}}
 
-        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
-            BFP</div>
+        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">{{ $marshal }}
+        </div>
     </div>
 
 
     <script src="/js/print.js"></script>
+    <script></script>
 </body>
 
 </html>

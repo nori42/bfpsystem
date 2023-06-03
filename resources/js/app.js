@@ -2,7 +2,6 @@
 import scriptModule from '../js/script.js';
 import scriptModal from '../js/modal.js';
 
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     // Modal variable
@@ -18,7 +17,6 @@ window.onclick = function(event) {
     }
     catch{}
 
-    console.log(currentMenu)
     // dropdown menu script 
     dropdowns.forEach(dropdown => {
       if(dropdown != currentMenu)
@@ -44,6 +42,12 @@ window.onclick = function(event) {
     });
   }
 
+  // Prevent submitting form when enter is press except in the search page
+  window.addEventListener('keypress',(e)=>{
+    const search = document.querySelector('#search') ? document.querySelector('#search') : null;
+      if(e.key == "Enter" && search == null)
+        e.preventDefault();
+  })
 
 
 window.toggleShow = scriptModule.toggleShow;

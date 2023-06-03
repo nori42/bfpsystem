@@ -71,7 +71,7 @@
                 <x-form.inputWrapper>
                     <label class="info-label">Barangay</label>
                     {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
-                    <select class="form-control " name="barangay" id="barangay">
+                    <select class="form-select" name="barangay" id="barangay">
                         <option value="" disabled selected>Select Barangay</option>
                     </select>
                 </x-form.inputWrapper>

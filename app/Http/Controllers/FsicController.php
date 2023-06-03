@@ -40,7 +40,6 @@ class FsicController extends Controller
         $receipt = new Receipt();
 
         $receipt->or_no = $request->orNo;
-        $receipt->payor = $request->payor;
         $receipt->nature_of_payment = $request->natureOfPayment;
         $receipt->amount = $request->amountPaid;
         $receipt->date_of_payment = $request->dateOfPayment;
@@ -54,7 +53,7 @@ class FsicController extends Controller
         // $inspection->building_structures = $request->buildingStructures;
         $inspection->registration_status = $request->registrationStatus;
         $inspection->fsic_no = $request->fsicNo;
-        $inspection->issued_for = $request->issuedFor;
+        // $inspection->issued_for = $request->issuedFor;
         $inspection->receipt_id = $receipt->id;
         $inspection->establishment_id = $request->establishmentId;
 
@@ -110,7 +109,7 @@ class FsicController extends Controller
         $inspection->note = $request->noteDetail;
         $inspection->registration_status = $request->registrationStatusDetail;
         $inspection->fsic_no = $request->fsicNoDetail;
-        $inspection->issued_for = $request->issuedForDetail;
+        // $inspection->issued_for = $request->issuedForDetail;
 
         $inspection->save();
 
@@ -134,68 +133,6 @@ class FsicController extends Controller
         
     }
 
-    public function print_fsic(Request $request){
-        $inspection = Inspection::find($request->id);
-
-        $inspection->expiry_date = date("m/d/Y",strtotime("+1 year"));
-        $inspection->status ='Printed';
-        $inspection->save();
-
-        return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
-    }
-
-    //Payment
-    public function show_payment(Request $request)
-    {   
-        // Retrieve Data
-        $establishment = Establishment::where('id', $request->id)->first();
-        $owner = Owner::where('id', $request->id)->first();
-        $payments = Payment::where('establishment_id', $request->id)->get();
-
-        foreach($payments as $payment)
-        {
-            $date = Carbon::parse($payment->created_at)->format('m/d/Y');
-            $payment->created_at = $date;
-        }
-
-        //load json files
-        $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/natureOfPayment.json"), true);
-
-        return view('establishments.fsic.show_payment',[
-            'establishment' => $establishment,
-            'owner' =>$owner,
-            'payments' => $payments,
-            'page_title' => 'Fire Safety Inspection Certificate', // use to set page title inside the panel
-            'natureOfPayment' => $natureOfPayment
-        ]);
-    }
-
-    //Payment
-    public function store_payment(Request $request){
-        // instantiate model
-        $payment = new Payment();
-
-        //get Data
-        $payment->establishment_id = $request->establishmentId;
-        $payment->record_no = Payment::where('establishment_id', $request->establishmentId)->get()->count() + 1;
-        $payment->or_no = $request->orNo;
-        $payment->nature_of_Payment = $request->natureOfPayment;
-        $payment->amount_paid = $request->amountPaid;
-        $payment->certification = $request->certification ;
-        $payment->status  = $request->status;
-        $payment->printed_by = 'admin';
-        $payment->issued_for = $request->issuedFor;
-        $payment->building_condition = $request->buildingConditions;
-        $payment->building_structures = $request->buildingStructures;
-        $payment->expiry_date = $request->expiry_date;
-        $payment->date_of_payment = $request->date_of_payment;
-        //save data to database
-        
-        $payment->save();
-
-        // return redirect('/establishments/fsic/payment/'.$request->establishmentId)->with(['newPost'=> true,'mssg'=>'New Record Added']);
-        return redirect('/establishments/fsic/print/'.$payment->id);
-    }
 
     //Attachment
     public function show_attachment(Request $request)
@@ -213,40 +150,6 @@ class FsicController extends Controller
             'owner' => $owner,
             'files' =>  $files,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
-        ]);
-    }
-
-
-    //Print
-    public function show_print_fsic(Request $request){
-        // $details = DB::table('establishments')
-        // ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        // ->join('payments', 'payments.establishment_id', '=', 'establishments.id')
-        // ->where('payments.or_no', $orNo)
-        // ->first();
-        $inspection = Inspection::find($request->id);
-        $establishment = $inspection->establishment;
-        $personName = $establishment->owner->person->first_name.' '.$establishment->owner->person->last_name;
-        $corporateName = $establishment->owner->corporate->corporate_name;
-        $details = [
-            'personName' => $personName,
-            'corporateName' => $corporateName, 
-            'dateToday' => date("F d, Y",time()),
-            'inspection' => $inspection,
-            'expiryDate' => date("F d, Y",strtotime("+1 year")),
-            'dateOfPayment' => date("m/d/Y",strtotime($inspection->receipt->date_of_payment))
-        ];
-
-        if($inspection->expiry_date != null)
-        {
-            return redirect('404');
-        }
-
-        
-        return view('establishments/fsic/print_fsic', [
-            'details' => $details,
-            'inspection' => $inspection,
-            'establishment' => $establishment
         ]);
     }
 

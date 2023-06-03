@@ -86,9 +86,9 @@
                         <x-form.input label="Middle Name" name="middleName" />
                         <x-form.input label="Last Name" name="lastName" />
                     </div>
-                    <div class="d-flex gap-2 w-25">
-                        <x-form.input type="text" label="Title" name="title" />
-                        <x-form.input type="text" label="Name Suffix" name="nameSuffix" />
+                    <div class="d-flex gap-2">
+                        {{-- <x-form.input type="text" label="Title" name="title" /> --}}
+                        <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-25" />
                     </div>
                     <x-form.select class="w-25" name="sex" label="Sex" placeholder="SELECT SEX">
                         <option value="MALE">MALE</option>

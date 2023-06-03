@@ -106,8 +106,8 @@
 
                 <div class="row my-3">
                     <x-info label="No. of Story" :value="$establishment->no_of_storey" />
-                    <x-info label="Height" :value="$establishment->height" />
-                    <x-info label="Floor Area" :value="$establishment->floor_area == null ? 'N/A' : $establishment->floor_area" />
+                    <x-info label="Height (m)" :value="$establishment->height" />
+                    <x-info label="Floor Area (sq m)" :value="$establishment->floor_area == null ? 'N/A' : $establishment->floor_area" />
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
@@ -134,26 +134,31 @@
                     <i class="bi bi-caret-down-fill"></i></button>
 
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMIN')
-                    {{-- <a class="btn btn-success px-5" href="#">Edit</a> --}}
+                    <a class="btn btn-success px-5" href="/owner/{{ $establishment->owner->id }}/edit">
+                        <i class="bi bi-pencil-fill"></i>
+                        Edit</a>
                 @endif
             </div>
 
             <div id="ownerDetail"style="display: none !important;">
                 <x-detailWrapper>
+
                     <div class="row">
                         @php
                             $personName = null;
                             $contactNo = null;
-                            if ($establishment->owner->person->last_name != null) {
-                                $person = $establishment->owner->person;
-                                $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
-                                $contactNo = $person->contact_no;
-                            }
                             
                             if ($owner->corporate != null) {
                                 $corporateName = $establishment->owner->corporate->corporate_name;
                                 $contactNo = $owner->corporate->contact_no;
                             }
+                            
+                            if ($owner->person->last_name != null) {
+                                $person = $establishment->owner->person;
+                                $contactNo = $establishment->owner->person->contact_no;
+                                $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
+                            }
+                            
                             $representative = $personName != null ? $personName : $corporateName;
                         @endphp
                         <x-info label="Owner/Representative" :value="$representative" />

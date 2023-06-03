@@ -13,7 +13,7 @@
                 {{-- Details Action --}}
                 <div class="d-flex justify-content-center gap-2 mx-auto steps-title" id="steps-title">
                     <div>
-                        <div class="indicator"></div>
+                        <div class="indicator current-page"></div>
                         <span id="ownerTitle" class="py-2 fw-bold">Owner</span>
                     </div>
                     <div>
@@ -38,12 +38,12 @@
                             <x-form.input type="text" label="Last Name" name="lastName" />
                             <x-form.input type="text" label="First Name" name="firstName" />
                             <x-form.input type="text" label="Middle Name" name="middleName" />
+                            <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" />
                         </div>
 
                         {{-- Title and Suffix --}}
                         <div class="d-flex gap-2 w-25">
-                            <x-form.input type="text" label="Title" name="title" />
-                            <x-form.input type="text" label="Name Suffix" name="nameSuffix" />
+                            {{-- <x-form.input type="text" label="Title" name="title" /> --}}
                         </div>
                         <x-form.input type="text" label="Contact No." name="contactNoPerson" />
 
@@ -123,14 +123,11 @@
 
                     <div class="d-flex gap-2">
                         <x-form.input type="text" label="Building Story" name="noOfStory" />
-                        <x-form.input type="text" label="Floor Area" name="floorArea" />
-                        <x-form.input type="text" label="Height" name="height" />
+                        <x-form.input type="text" label="Floor Area(sq m)" name="floorArea" />
+                        <x-form.input type="text" label="Height(m)" name="height" />
                     </div>
-                    <div class="d-flex gap-2">
-                        <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer"
-                            name="fireInsuranceCo" />
-                        <x-form.input type="text" label="Latest Mayor's/Business Permit" name="latestPermit" />
-                    </div>
+
+                    <x-form.input type="text" label="Name of Fire Insurance Co/Co-Insurer" name="fireInsuranceCo" />
 
                     <x-form.inputWrapper>
                         <label class="info-label">Barangay</label>

@@ -124,7 +124,9 @@ li{
 .rep-name{
     position: absolute;
     top: 498px;
-    left: 280px;
+    left: 75px;
+    width: 640px;
+    text-align: center;
 }
 
 .rep-name span {
@@ -140,7 +142,9 @@ li{
 .date-made{
     position: absolute;
     top: 464px;
-    left: 121px;
+    left: 90px;
+    width: 135px;
+    text-align: center;
 }
 
 .issued-for{
@@ -311,6 +315,21 @@ button:hover{
     background-color: #a1a1a1;
 }
 
+.printBtn {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding:0 0 0 10px; 
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
+}
+
+.printBtn:hover {
+    background-color: #a1a1a1;
+}
 
 .print-ico{
     font-size: 24px !important;

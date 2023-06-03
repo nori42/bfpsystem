@@ -189,6 +189,10 @@ li{
     min-width: 152px;
 }
 
+.more-info-2 {
+    top: 600px;
+}
+
 .validity {
     position: absolute;
     top:690px;
@@ -329,7 +333,6 @@ button:hover{
     background-color: #a1a1a1;
 }
 
-
 .print-ico{
     font-size: 24px !important;
     color: #000 !important;
@@ -372,7 +375,7 @@ button:hover{
 }
 
 .editable {
-    border: 3px rgb(57, 150, 57) solid;
+    border: 1px rgb(57, 150, 57) solid;
     border-radius: 6px;
     padding: 3px;
 }

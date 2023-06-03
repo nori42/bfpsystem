@@ -130,9 +130,17 @@ class FsecController extends Controller
     public function search(Request $request){
 
         // Get the id in the search string
-        $buildPlanId = substr($request->search, -1);
+        $search = explode("-", $request->search);
+        $buildPlanId = end($search);
 
         $buildingPlan = BuildingPlan::find($buildPlanId);
+
+        if($buildingPlan == null)
+        {
+            return redirect()->back()->with('searchQuery',$request->search);
+        }
+        
+
         $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
 
         return view('fsec.show',[

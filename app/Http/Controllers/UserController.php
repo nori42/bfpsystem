@@ -34,7 +34,7 @@ class UserController extends Controller
 
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
-        $user->personnel_id = $request->personnelId;
+        $user->name = $request->name;
         $user->type = $request->type;
 
         try{
@@ -43,7 +43,6 @@ class UserController extends Controller
         catch(QueryException $e)
         {
             if ($e->errorInfo[1] == 1062) {
-            $message = 'The record already exists in the database.';
 
             $users = User::all();
 
@@ -62,11 +61,11 @@ class UserController extends Controller
         }
 
         // Update Has User
-        $personnel = Personnel::find($request->personnelId);
+        // $personnel = Personnel::find($request->personnelId);
 
-        $personnel->has_user = true;
+        // $personnel->has_user = true;
 
-        $personnel->save();
+        // $personnel->save();
         
         $users = User::all();
 
@@ -82,10 +81,61 @@ class UserController extends Controller
             'toastMssg' => "Added new personnel"
          ]);
     }
+    
+    public function update(Request $request){
+        $user = User::find($request->id);
+
+        switch($request->action){
+            case 'updateUsername':
+                {
+                    if(User::where('username', $request->username)->exists()){
+
+                        return view('users.show',[
+                            'userId' => $request->id,
+                            'user' => $user,
+                            'toastMssg' => "Username already exist try again"
+                        ]);
+                    }
+                    else
+                    {
+                        $user->username = $request->username;
+                        $user->save();
+
+                        return view('users.show',[
+                            'userId' => $request->id,
+                            'user' => $user,
+                            'toastMssg' => "Username changed"
+                        ]);
+                    }
+                }
+                break;
+            case 'updatePassword':
+                {
+                    if (!Hash::check($request->passwordCurrent, $user->password)) {
+                        return view('users.show',[
+                            'userId' => $request->id,
+                            'user' => $user,
+                            'toastMssg' => "Enter the correct password and try again"
+                        ]);
+                    }
+
+                    $user->password = Hash::make($request->passwordNew);
+                    $user->save();
+
+                    return view('users.show',[
+                        'userId' => $request->id,
+                        'user' => $user,
+                        'toastMssg' => "Password changed"
+                    ]);
+                }
+                break;
+        }
+    }
 
     public function show(Request $request){
         return view('users.show',[
-            'userId' => $request->id
+            'userId' => $request->id,
+            'user' => User::find($request->id)
         ]);
     }
 }

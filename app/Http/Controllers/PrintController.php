@@ -19,25 +19,9 @@ class PrintController extends Controller
         // ->first();
         $inspection = Inspection::find($request->id);
         $establishment = $inspection->establishment;
-        $personName = $establishment->owner->person->first_name.' '.$establishment->owner->person->last_name;
-        $corporateName = $establishment->owner->corporate->corporate_name;
-        $details = [
-            'personName' => $personName,
-            'corporateName' => $corporateName, 
-            'dateToday' => date("F d, Y",time()),
-            'inspection' => $inspection,
-            'expiryDate' => date("F d, Y",strtotime("+1 year")),
-            'dateOfPayment' => date("m/d/Y",strtotime($inspection->receipt->date_of_payment))
-        ];
-
-        if($inspection->expiry_date != null)
-        {
-            return redirect('404');
-        }
 
         
         return view('establishments/fsic/print_fsic', [
-            'details' => $details,
             'inspection' => $inspection,
             'establishment' => $establishment
         ]);
@@ -46,7 +30,8 @@ class PrintController extends Controller
     public function print_fsic(Request $request){
         $inspection = Inspection::find($request->id);
 
-        $inspection->expiry_date = date("m/d/Y",strtotime("+1 year"));
+        $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
+        $inspection->issued_on = date("Y-m-d");
         $inspection->status ='Printed';
         $inspection->save();
 
@@ -72,6 +57,7 @@ class PrintController extends Controller
             'validity' => $firedrill->validity_term.' '.$firedrill->year,
             'establishment' => $establishment->establishment_name,
             'dateMade' => $firedrill->date_made,
+            'preview' => $request->action === 'preview' ? true : false,
             'address' => $firedrill->establishment->address,
             'representative' => $representative,
             'payment' => ['orNo' => $receipt->or_no,'amountPaid'=>$receipt->amount, 'datePayment' => date('m/d/Y',strtotime($receipt->date_of_payment))]
@@ -101,6 +87,13 @@ class PrintController extends Controller
         $buildingPlan = BuildingPlan::find($request->id);
 
         return view('fsec.print_fsec_disapprove',[
+            'buildingPlan' => $buildingPlan
+        ]);
+    }
+
+    public function show_print_fsecchecklist(Request $request){
+        $buildingPlan = BuildingPlan::find($request->id);
+        return view('fsec.print_fsec_checklist',[
             'buildingPlan' => $buildingPlan
         ]);
     }

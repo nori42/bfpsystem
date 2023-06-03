@@ -14,47 +14,31 @@ use App\Models\Owner;
 use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+use PHPUnit\TextUI\Help;
 
 class EstablishmentController extends Controller
 {
     // load index page
     public function index(Request $request)
     {
-        $isSearch = false;
-        $totalRecords = Establishment::count();
+        $issuedThisMonth = [
+            'Guadalupe' => Helper::getIssuedFSIC('GUADALUPE',now()->year,now()->month),
+            'Labangon' => Helper::getIssuedFSIC('LABANGON',now()->year,now()->month),
+            'Lahug' => Helper::getIssuedFSIC('LAHUG',now()->year,now()->month),
+            'Mabolo' => Helper::getIssuedFSIC('MABOLO',now()->year,now()->month),
+            'Pahina Central' => Helper::getIssuedFSIC('PAHINA CENTRAL',now()->year,now()->month),
+            'Pardo' => Helper::getIssuedFSIC('PARDO',now()->year,now()->month),
+            'Pari-an' => Helper::getIssuedFSIC('PARI-AN',now()->year,now()->month),
+            'San Nicolas' => Helper::getIssuedFSIC('SAN NICOLAS',now()->year,now()->month),
+            'Talamban' => Helper::getIssuedFSIC('TALAMBAN',now()->year,now()->month),
+            'CBP' => Helper::getIssuedFSIC('CBP',now()->year,now()->month)
+        ];
 
-
-        if($request->search == null)
-        {
-            // $establishments = Establishment::all()->sortDesc();
-            $establishments = Establishment::all()->take(25)->sortDesc();
-        }
-        else if($request->searchFilter != 'name'){
-            $establishments = Establishment::where($request->searchFilter,'LIKE','%'.$request->search.'%')->get()->sortDesc();
-            $isSearch = true;
-        }
-        else
-        {   
-
-            $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '{$request->search}%'")->get()->sortDesc();
-            
-            $establishments = [];
-
-            foreach ($owners as $owner) {
-                foreach($owner->establishment as $establishment)
-                {
-                    array_push($establishments,$establishment);
-                }
-            }
-
-            $isSearch = true;
-        }
 
         return view('establishments.indexNew', [
-            'establishments' => $establishments,
-            'isSearch' => $isSearch,
-            'totalRecords' => $totalRecords,
-            'page_title' => "Establishments"
+            'issuedThisMonth' => $issuedThisMonth,
+            'issuedNewThisMonth' => Helper::getIssuedNewByMonthNFSIC(now()->year,now()->month),
+            'issuedThisMonthAll' => Helper::getIssuedAllByMonthFSIC(now()->year,now()->month)
         ]);
     }
 
@@ -196,7 +180,6 @@ class EstablishmentController extends Controller
     }
 
     public function search(Request $request){
-         
         // //Escaped special char like ', ", %, ;
         // $preparedQueryString = addslashes($request->search);
 
@@ -205,8 +188,17 @@ class EstablishmentController extends Controller
         // ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
         
         //Get the id in the last character of search string
-        $estabId = substr($request->search, -1);
+        $search = explode("-", $request->search);
+        $estabId = end($search);
+
         $establishment = Establishment::find($estabId);
+        
+        //If record does not exist
+        if($establishment == null)
+        {
+            return redirect()->back()->with('searchQuery',$request->search);
+        }
+         
 
         //Get all inspection and firedrill that is not printed
         $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->get();

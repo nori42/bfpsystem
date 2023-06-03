@@ -1,6 +1,6 @@
 
 :root{
-    --default: #113350;
+    --default: black;
     --red: red;
     --green: green;
 }
@@ -25,13 +25,13 @@ body{
     position: relative;
     background: #FFFFFF;
     width: 8.5in;
-    height: 11in;
+    height: 10.9in;
     /* padding: 0.86in 0.79in 0.19in 1.19in; */
     /* background-image: url(../img/firedrill.png); */
     background-position: 125px 12px;
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:contain;
-    
+    box-sizing: border-box;
 }
 
 li{
@@ -65,50 +65,9 @@ li{
     visibility: hidden;
 }
 
-.c-2{
-    display: flex;
-}
-
-.c-3{
-    display: flex;
-}
-
-.highlight-container {
-    display: flex;
-    position: absolute;
-    right: 10px;
-}
-
-
-.others{
-    position: absolute;
-    left: 100px;
-}
-
-.others-info{
-    position: absolute;
-    top:-1px;
-    left: 2px;
-    min-width: 152px;
-}
-
-#new{
-    background-color: #FFD900 !important;
-    width: 45px;
-    height: 17pt;
-    opacity: .7;
-}
-
-#renewal{
-    background-color: #FFD900;
-    width: 92px;
-    height: 17pt;
-    opacity: .7;
-}
-
 .establishment-name{
     position: absolute;
-    top: 424px;
+    top: 420px;
     left: 250px;
     width: 410px;
     text-align: center;
@@ -120,7 +79,7 @@ li{
 
 .establishment-name-2{
     position: absolute;
-    top: 260px;
+    top: 257px;
     left: 110px;
     text-align: center;
 }
@@ -131,7 +90,7 @@ li{
 
 .rep-name{
     position: absolute;
-    top: 235px;
+    top: 233px;
     left: 110px;
 }
 
@@ -141,7 +100,7 @@ li{
 
 .address{
     position: absolute;
-    top: 452px;
+    top: 447px;
     left: 116px;
     width: 420px;
     text-align: center;
@@ -153,7 +112,7 @@ li{
 
 .address-2 {
     position: absolute;
-    top: 284px;
+    top: 280px;
     left: 110px;
     text-align: center;
 }
@@ -168,39 +127,25 @@ li{
     left: 121px;
 }
 
-.issued-for{
+
+.deficiency{
+    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
-    top:655px;
-    left: 470px;
+    outline: none;
+    top: 514px;
+    left: 144px;
+    min-width: 230px;
+    height: 155px;
+    font-size: 10pt !important;
+    white-space: pre-wrap;
+    overflow:hidden;
+    resize: none;
 }
 
-.more-info{
-    position: absolute;
-    top:690px;
-    left: 280px;
-    min-width: 152px;
+.deficiency-right{
+    left: 440px;
 }
 
-.issuedDay {
-    position: absolute;
-    top: 556px;
-    left: 171px;
-    text-decoration: underline;
-}
-
-.issuedMonth {
-    position: absolute;
-    top: 558px;
-    left: 281px;
-    text-decoration: underline;
-}
-
-.validity {
-    position: absolute;
-    top: 578px;
-    left: 210px;
-    text-decoration: underline;
-}
 
 .footer{
     display: flex;
@@ -220,10 +165,15 @@ li{
     text-transform: uppercase;
 }
 
+.certificate {
+    margin: 0;
+    padding: 0;
+}
+
 .marshalName{
     position: absolute;
-    top: 634px;
-    left: 444px;
+    top: 765px;
+    left: 447px;
     text-transform: uppercase;
 }
 
@@ -379,7 +329,7 @@ button:hover{
 }
 
 .editable {
-    border: 3px rgb(57, 150, 57) solid;
+    border: 1px black solid;
     border-radius: 6px;
     padding: 3px;
 }
@@ -391,22 +341,28 @@ button:hover{
 }
 @media print {
     @page {
-        size: 8.5in 11in;
+        size: letter;
         margin: 0;
     }
     html, body {
         /* width: 210mm; 
         height: 297mm;     */
-        width: 8.5in;
-        height: 11in;
+        /* width: 8.5in;
+        height: 11in; */
+        overflow: hidden;
         -webkit-print-color-adjust: exact;
         -moz-print-color-adjust: exact;
     }
     #printablePage {
-        margin-top: 0 !important;
+        margin: 0 !important;
+        height: 10.9in;
+        box-sizing: border-box;
         /* padding-right: 1in; */
     }
 
+    .deficiency {
+        border: none;
+    }
     .nav{
         display: none;
     }

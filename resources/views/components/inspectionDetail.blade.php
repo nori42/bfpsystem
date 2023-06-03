@@ -52,17 +52,15 @@
 
             @if ($inspection->expiry_date != null)
                 <x-form.input name="expiryDate" customAttr="{{ $inputAttr }}" label="Expiry Date"
-                    value="{{ $inspection->expiry_date }}" type="text" :readonly="$printed" />
+                    value="{{ date('m/d/Y', strtotime($inspection->expiry_date)) }}" type="text"
+                    :readonly="$printed" />
+                <x-form.input name="issuedOn" customAttr="{{ $inputAttr }}" label="Issued On"
+                    value="{{ date('m/d/Y', strtotime($inspection->issued_on)) }}" type="text" :readonly="$printed" />
             @endif
 
             <x-form.select label="Registration Status" name="registrationStatusDetail" customAttr="{{ $inputAttr }}"
                 placeholder="Select Registration Status" :isDetail="true" :readonly="$printed">
                 <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" :selected="$inspection->registration_status" :readonly="$printed" />
-            </x-form.select>
-
-            <x-form.select label="Issued For" name="issuedForDetail" placeholder="Select Issued For"
-                customAttr="{{ $inputAttr }}" :readonly="$printed">
-                <x-form.selectOptions.options :options="$selectOptions['issuedFor']" :selected="$inspection->issued_for" :readonly="$printed" />
             </x-form.select>
 
         </fieldset>
@@ -92,10 +90,10 @@
         @if ($inspection->expiry_date == null)
             <div class="d-flex justify-content-end mt-3 gap-2">
                 <button class="btn btn-success" type="submit" name="action" value="save">Save</button>
-                <button class="btn btn-success" type="submit" name="action" value="saveandprint">Save and
-                    Print</button>
+                <button class="btn btn-success" type="submit" name="action" value="saveandprint">Print</button>
             </div>
         @endif
     </form>
 
+    <script></script>
 </x-modal>
