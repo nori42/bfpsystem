@@ -20,6 +20,7 @@
                     <x-form.inputWrapper>
                         <x-form.input type="text" label="Name of Building/Structure/Facility" name="buildingName"
                             :value="$buildingPlan->name_of_building" />
+                        <x-form.input type="text" label="Project Title" name="projectTitle" :value="$buildingPlan->project_title" />
                         <div class="d-flex gap-2 align-items-center">
                             <div class="w-100">
                                 <label class="info-label">Occupancy</label>

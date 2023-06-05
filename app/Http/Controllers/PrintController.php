@@ -47,7 +47,8 @@ class PrintController extends Controller
         $personName =  $owner->person->first_name.' '.$owner->person->middle_name.' '.$owner->person->last_name;
         $company = $owner->corporate->corporate_name;
         
-        $representative = ($personName != null) ? $personName: $company;
+        // $representative = ($personName != null) ? $personName: $company;
+        $representative = Helper::getRepresentativeName($establishment->owner_id);
 
         return view('establishments.firedrill.print_firedrill',[
             'estabId' => $establishment->id,
@@ -94,7 +95,8 @@ class PrintController extends Controller
     public function show_print_fsecchecklist(Request $request){
         $buildingPlan = BuildingPlan::find($request->id);
         return view('fsec.print_fsec_checklist',[
-            'buildingPlan' => $buildingPlan
+            'buildingPlan' => $buildingPlan,
+            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
         ]);
     }
 

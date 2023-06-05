@@ -37,6 +37,7 @@
                 <fieldset>
                     <legend>Building</legend>
                     <hr>
+                    <x-form.input type="text" label="Project Title" name="projectTitle" />
                     <x-form.input type="text" label="Name of Building/Structure/Facility" name="buildingName" />
                     <x-form.inputWrapper>
                         <div class="d-flex gap-2 align-items-center">

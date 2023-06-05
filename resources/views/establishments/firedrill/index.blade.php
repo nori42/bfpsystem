@@ -11,7 +11,7 @@
                 <x-toast :message="$toastMssg" />
             @endisset
 
-            <x-headingInfo :establishment="$establishment" :owner="$owner" />
+            <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
             <div class="d-flex mt-3 w-100">
                 <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />

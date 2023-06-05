@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inspection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,9 +30,17 @@ class FSICReportController extends Controller
             $reports[$item->year] = $yearlyReports;
         }
 
+        $reports2 = Inspection::join('establishments','inspections.establishment_id','=','establishments.id')
+        ->select(DB::raw('COUNT(*) as COUNT, establishments.substation'))
+        ->whereYear('issued_on','=', 2022)
+        ->whereMonth('issued_on','=',1)
+        ->groupBy('substation')
+        ->get();
+
         return view('reports',[
             'yearReports' => $yearReports,
-            'reports' => $reports
+            'reports' => $reports,
+            'reports2' => $reports2
         ]);
     }
 

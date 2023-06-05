@@ -31,7 +31,7 @@ class OwnerController extends Controller
         $person->contact_no = $request->contactNoPerson;
         $person->save();
 
-        $corporate->corporate_name = strtoupper($request->corporate_name);
+        $corporate->corporate_name = strtoupper($request->corporateName);
 
         $corporate->contact_no = $request->contactNoCorp;
         $corporate->save();

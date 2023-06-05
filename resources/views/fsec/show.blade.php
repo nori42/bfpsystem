@@ -11,7 +11,7 @@
         //Person Name
         $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
         $personName = $person->title . ' ' . $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
-        $applicant = $person->last_name != null ? $personName : $corporate->corporate_name;
+        $applicant = $representative;
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
@@ -74,8 +74,12 @@
                 </div>
 
                 <h2 class="fs-4 mt-4">Building</h2>
-                <x-info label="Name of Building/Structure/Facility" :value="$buildingPlan->name_of_building ? $buildingPlan->name_of_building : 'N/A'" />
-
+                <div class="row">
+                    <x-info label="Name of Building/Structure/Facility" :value="$buildingPlan->name_of_building ? $buildingPlan->name_of_building : 'N/A'" />
+                    <x-info label="Project Title" :value="$buildingPlan->project_title ? $buildingPlan->project_title : 'N/A'" />
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
                 <div class="row my-3">
                     <x-info label="Building Story" :value="$building->building_story ? $building->building_story : 'N/A'" />
                     <x-info label="Floor Area" :value="$building->floor_area ? $building->floor_area : 'N/A'" />

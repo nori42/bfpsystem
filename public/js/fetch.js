@@ -41,17 +41,24 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
         const hostUrl = baseURL
         const response = await fetch(hostUrl+`/resources/establishments?search=${search}`)
         const json = await response.json();
+        const result = [];
+
         
         datalist.innerHTML = ""
         json.data.forEach((establishment )=> {
 
-            const nameOpt = document.createElement("option")
+
+            // const nameOpt = document.createElement("option")
             const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
-            console.log(representative)
-            nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
-            datalist.appendChild(nameOpt)
+
+            // nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+            // datalist.appendChild(nameOpt)
+
+            result.push(`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
             
         });
+
+        showAutocomplete(result)
 
     }
     catch (err){
@@ -67,6 +74,8 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
         const hostUrl = baseURL
         const response = await fetch(hostUrl+`/resources/buildingplans?search=${search}`)
         const json = await response.json();
+        const result = [];
+
         
         console.log(json.data)
         datalist.innerHTML = ""
@@ -74,11 +83,14 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
             if(inputId != null && index == 0)
             inputId.value = buildingPlan.id;
 
-            const nameOpt = document.createElement("option")
-            nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
-            datalist.appendChild(nameOpt)
+            // const nameOpt = document.createElement("option")
+            // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
+            // datalist.appendChild(nameOpt)
+
+            result.push(`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`);
         });
 
+        showAutocomplete(result)
     }
     catch (err){
     }

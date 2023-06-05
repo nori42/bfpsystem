@@ -8,7 +8,6 @@
 *{
     font-family: Arial, Helvetica, sans-serif !important;
     color: var(--default);
-    font-size: 11pt !important;
     white-space: nowrap;
 }
 
@@ -31,6 +30,7 @@ body{
     box-sizing: border-box;
     scale: 1.5;
     page-break-after: always;
+    font-size: 7.5pt !important;
 }
 
 .page-break {
@@ -63,66 +63,60 @@ li{
     left: 166px;
 }
 
+.evaluator{
+    position: absolute;
+    top: 198px;
+    left: 179px;
+}
+
+.evaluator-2 {
+    position: absolute;
+    top: 701px;
+    left: 584px;
+}
 
 .hidden {
     visibility: hidden;
 }
 
+.series-no{
+    position: absolute;
+    top: 171px;
+    left: 155px;
+}
+
 .establishment-name{
     position: absolute;
-    top: 420px;
-    left: 250px;
+    top: 231px;
+    left: 268px;
     width: 410px;
-    text-align: center;
 }
 
-.establishment-name span {
-    font-size: 0.90rem !important;
-}
-
-.establishment-name-2{
+.building-story{
     position: absolute;
-    top: 257px;
-    left: 110px;
-    text-align: center;
+    top: 273px;
+    left: 180px;
 }
 
-.establishment-name-2 span {
-    font-size: 0.90rem !important;
-}
-
-.rep-name{
+.project-title{
     position: absolute;
-    top: 233px;
-    left: 110px;
+    top: 245px;
+    left: 157px;
 }
 
-.rep-name span {
-    font-size: 0.90rem !important;
+.date-received{
+    position: absolute;
+    top: 215px;
+    left: 176px;
 }
 
 .address{
     position: absolute;
-    top: 447px;
-    left: 116px;
-    width: 420px;
-    text-align: center;
+    top: 260px;
+    left: 233px;
+    width: 370px;
 }
 
-.address span{
-    font-size: 0.90rem !important;
-}
-
-.address-2 {
-    position: absolute;
-    top: 280px;
-    left: 110px;
-    text-align: center;
-}
-
-.address-2 span{
-    font-size: 0.90rem !important;
-}
 
 .date-made{
     position: absolute;
@@ -157,14 +151,20 @@ li{
 
 .fc-fee{
     position: absolute;
-    top: 659px;
-    left: 153px;
+    top: 800px;
+    left: 165px;
+}
+
+.fc-fee-font-size {
+    font-size: 0.7rem !important;
+    font-weight: bold;
 }
 
 .chiefName{
     position: absolute;
-    top:835px;
-    left: 630px;
+    top: 785px;
+    left: 442px;
+    font-size: 0.8rem;
     text-transform: uppercase;
 }
 
@@ -175,8 +175,9 @@ li{
 
 .marshalName{
     position: absolute;
-    top: 765px;
-    left: 447px;
+    top: 849px;
+    left: 450px;
+    font-size: 0.8rem;
     text-transform: uppercase;
 }
 
@@ -232,6 +233,7 @@ li{
 
 [checkmark]{
     cursor: pointer !important;
+    font-size: 0.8rem !important;
 }
 
 .btnTools{

@@ -4,6 +4,7 @@
     --secondary-color-dark:#21303D;
     --success:#53A3D8;
     --btn-link-hover:#abcbff;
+    --top-panel:#123B5A;
 }
 
 /* initial style */
@@ -61,7 +62,7 @@ nav {
 
 
 .top-panel {
-    background-color: #123B5A;
+    background-color: var(--top-panel);
     top: 0;
     z-index: 10;
 }
@@ -247,7 +248,7 @@ nav .btn {
     position: relative;
     height: 70%;
     padding:6rem;
-    background: linear-gradient(107.7deg, #091A26 0.85%, #20425C 41.99%, #154971 75.6%, #154971 75.6%);
+    background-color: var(--top-panel);
     display: flex;
     justify-content: center;
     align-items: center;

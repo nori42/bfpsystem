@@ -91,7 +91,7 @@
                 </div>
             @endif
             @if (!$issued)
-                <x-form.input name="nameExtension" label="Name Extension" type="text" />
+                {{-- <x-form.input name="nameExtension" label="Name Extension" type="text" /> --}}
             @endif
         </fieldset>
         <fieldset class="py-3">
@@ -121,8 +121,7 @@
             @endif
             @if ($firedrill->issued_on == null)
                 <button class="btn btn-success" type="submit" name="action" value="add">Save</button>
-                <button class="btn btn-success" type="submit" name="action" value="addandprint">Save and
-                    Print</button>
+                <button class="btn btn-success" type="submit" name="action" value="addandprint">Print</button>
             @endif
         </div>
     </form>

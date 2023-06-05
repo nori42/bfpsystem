@@ -113,8 +113,8 @@ class EstablishmentController extends Controller
         $establishment->height = $request->height;
         $establishment->floor_area = $request->floorArea;
         $establishment->occupancy = strtoupper($request->occupancy);
-        $establishment->inspectionIsExpired = false;
-        $establishment->firedrillIsExpired = false;
+        $establishment->inspection_is_expired = false;
+        $establishment->firedrill_is_expired = false;
         $establishment->owner_id = $owner->id;
 
         //save establishment data to database

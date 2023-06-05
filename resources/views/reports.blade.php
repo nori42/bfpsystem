@@ -61,7 +61,7 @@
                 </div>
                 <div class="bg-success text-white p-2">
                     <h1>Reports</h1>
-                    <h3> <span id="monthLabel">February</span> <span id="yearLabel">2023</span></h3>
+                    <h3> <span id="monthLabel"></span> <span id="yearLabel"></span></h3>
                 </div>
                 {{-- <div style="width: 800px;"><canvas id="certificateIssued"></canvas></div> --}}
                 <div class="px-4 py-5 bg-subtleBlue d-inline-block">
@@ -70,8 +70,6 @@
                         <div class="col"></div>
                     </div>
                     <div id="substations" class="row bg-subtleBlue" style="width: 21rem">
-                        <div class="col">test</div>
-                        <div class="col">5</div>
                     </div>
                     <div class="my-4">
                         <div class="row">
@@ -104,12 +102,6 @@
         const yearSelect = document.getElementById('year');
         const monthSelect = document.getElementById('month');
 
-        if (yearlyReports[new Date().getFullYear()].length != 0) {
-            updateMonth(new Date().getFullYear())
-        } else {
-            updateMonth(new Date().getFullYear() - 1)
-        }
-
         yearSelect.addEventListener('change', () => {
             updateMonth(yearSelect.value)
             fetchReport()
@@ -118,6 +110,13 @@
         monthSelect.addEventListener('change', () => {
             fetchReport()
         })
+
+
+        if (yearlyReports[new Date().getFullYear()]) {
+            updateMonth(new Date().getFullYear())
+        } else {
+            updateMonth(new Date().getFullYear() - 1)
+        }
 
         function updateMonth(year) {
             const months = [{
@@ -230,8 +229,11 @@
                 const json = await response.json();
                 const reports = json.data
 
+
                 displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
             } catch (err) {}
         }
+
+        fetchReport()
     </script>
 @endsection

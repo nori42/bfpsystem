@@ -12,7 +12,7 @@
         <x-pageWrapper>
 
             {{-- Owner Info & Selected Establishment --}}
-            <x-headingInfo :establishment="$establishment" :owner="$owner" />
+            <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
             {{-- FSIC Action --}}
             <div class="d-flex mt-3 w-100">
                 <x-action.link href="/establishments/{{ $establishment->id }}/fsic" text="Inspection" :active="true" />

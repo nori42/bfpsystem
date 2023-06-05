@@ -12,8 +12,16 @@
         @endisset
 
         <x-pageWrapper>
-            <div class="fs-3 fw-bold">Account</div>
-            <div class="text-secondary">Manage Account</div>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="fs-3 fw-bold">Account</div>
+                    <div class="text-secondary">Manage Account</div>
+                </div>
+                <div class="align-self-center">
+                    <button class="btn btn-success"><i class="bi bi-arrow-clockwise"></i>Reset Password</button>
+                    <button class="btn btn-danger"><i class="bi bi-trash3"></i>Deactivate</button>
+                </div>
+            </div>
             <div class="d-flex flex-column gap-3 mt-3">
                 <div>
                     <x-account.btnEdit label="Username" value="{{ $user->username }}" menuId="usernameEdit" />

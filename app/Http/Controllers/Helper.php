@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inspection;
+use App\Models\Owner;
 
 class Helper {
     
@@ -44,4 +45,35 @@ class Helper {
         ->count();
     }
 
+    public static function getRepresentativeName($ownerId){
+        $owner = Owner::find($ownerId);
+        $person = $owner->person;
+        $representative = null;
+
+        if ($person->last_name != null) {
+
+            if($person->middle_name != null)
+            $personName = $person->first_name . ' ' . $person->middle_name . ' ' . $person->last_name . ' ' . $person->suffix;
+            else {
+                $personName = $person->first_name . ' ' . $person->last_name . ' ' . $person->suffix;
+            }
+        }
+        
+        if ($owner->corporate != null) {
+            $company = $owner->corporate;
+        }
+        
+        if($company->corporate_name != null  && $person->last_name != null)
+        {
+            $representative = $personName.'/'.$company->corporate_name;
+        }
+        else if($person->last_name != null){
+            $representative = $personName;
+        }
+        else {
+            $representative = $company->corporate_name;
+        }
+
+        return $representative;
+    }
 }

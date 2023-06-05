@@ -30,6 +30,7 @@
                     <th>Username</th>
                     <th>User Type</th>
                     <th>Name</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
@@ -44,6 +45,8 @@
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->type }}</td>
                             <td>{{ strtoupper($user->name) }}</td>
+                            <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
+                                        class="bi bi-person fs-5 mx-1"></i>Account</a></td>
                         </tr>
                     @endforeach
                 </tbody>

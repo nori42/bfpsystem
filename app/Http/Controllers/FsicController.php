@@ -29,7 +29,7 @@ class FsicController extends Controller
             'establishment' => $establishment,
             'inspections' => $inspections,
             'owner' => $owner,
-            'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
+            'representative' => Helper::getRepresentativeName($establishment->owner_id)
         ]);
     }
 

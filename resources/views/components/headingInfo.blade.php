@@ -1,4 +1,4 @@
-@props(['establishment', 'owner'])
+@props(['establishment', 'owner', 'representative'])
 
 
 @php
@@ -15,7 +15,8 @@
         $company = $owner->corporate;
     }
     
-    $representative = $personName != null ? $personName : $company->corporate_name;
+    // $representative = $personName != null ? $personName : $company->corporate_name;
+    
 @endphp
 <div>
     <div class="fs-5">Business Permit: {{ $establishment->business_permit_no }}</div>

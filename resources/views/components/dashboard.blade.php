@@ -15,11 +15,18 @@
 
                 {{-- Hidden Values --}}
                 <input name="userType" type="hidden" value="{{ auth()->user()->type }}">
-
-                <div class="d-flex">
-                    <input type="text" id="search" name="search" class="form-control fs-4 rounded-2 bg-white"
-                        list="searchSuggestion" autocomplete="off">
-                    <button class="btn bg-white fs-4" style="translate:-100% 0;"><i class="bi bi-search"></i></button>
+                <div class="position-relative">
+                    <div class="d-flex">
+                        <input type="text" id="search" name="search" class="form-control fs-4 rounded-2 bg-white"
+                            list="searchSuggestion" autocomplete="off"
+                            style="border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;">
+                        <button class="btn bg-white fs-4"
+                            style="border-top-left-radius: 0; border-bottom-left-radius: 0;"><i
+                                class="bi bi-search"></i></button>
+                    </div>
+                    <ul id="autocomplete-list">
+                        <li>Item 1</li>
+                    </ul>
                 </div>
                 @if ($for == 'establishment')
                     <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name or
@@ -39,18 +46,29 @@
     </div>
 </div>
 {{-- Fetching the establishments --}}
+<script src="{{ asset('js/autocomplete.js') }}"></script>
 <script src="{{ asset('js/fetch.js') }}"></script>
 <script>
     const searchInput = document.querySelector('#search');
     const datalist = document.querySelector('#searchSuggestion')
 
     if ("{{ $for }}" == "establishment")
-        searchInput.addEventListener('input', (ev) => {
-            populateEstablSearchSuggestion("{{ env('APP_URL') }}", ev.target.value, datalist)
+        searchInput.addEventListener('input', (e) => {
+            selectedIndex = -1;
+            if (e.target.value.length != 0) {
+                populateEstablSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
+            } else {
+                hideAutocomplete();
+            }
         })
     else {
-        searchInput.addEventListener('input', (ev) => {
-            populateBuildPlanSearchSuggestion("{{ env('APP_URL') }}", ev.target.value, datalist)
+        searchInput.addEventListener('input', (e) => {
+            selectedIndex = -1;
+            if (e.target.value.length != 0)
+                populateBuildPlanSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
+            else
+                hideAutocomplete();
+
         })
     }
 </script>

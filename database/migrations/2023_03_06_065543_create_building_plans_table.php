@@ -17,6 +17,7 @@ return new class extends Migration
     {
         Schema::create('building_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('project_title')->nullable();
             $table->string('name_of_building')->nullable();
             $table->string('series_no')->nullable();
             $table->string('bp_application_no')->nullable();

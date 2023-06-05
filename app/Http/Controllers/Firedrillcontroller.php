@@ -23,6 +23,7 @@ class FiredrillController extends Controller
             'firedrills' => $firedrills,
             'establishment' => $establishment,
             'owner' => $owner,
+            'representative' => Helper::getRepresentativeName($establishment->owner_id),
             'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);
     }
@@ -149,8 +150,9 @@ class FiredrillController extends Controller
         $personName =  $owner->person->first_name.' '.$owner->person->middle_name.' '.$owner->person->last_name;
         $company = $owner->corporate->corporate_name;
         
-        $representative = ($owner->person->last_name != null) ? $personName: $company;
-
+        // $representative = ($owner->person->last_name != null) ? $personName: $company;
+        $representative = Helper::getRepresentativeName($establishment->owner_id);
+        
         return view('establishments.firedrill.print_firedrill',[
             'estabId' => $establishment->id,
             'firedrillId' => $firedrill->id,

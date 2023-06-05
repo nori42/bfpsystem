@@ -78,7 +78,7 @@ class UserController extends Controller
         return view('users.index',[
             'personnelList' => $personnelList,
             'users' => $users,
-            'toastMssg' => "Added new personnel"
+            'toastMssg' => "Added new user"
          ]);
     }
     

@@ -15,15 +15,15 @@
         @csrf
         @method('PUT')
     </form>
-    <div class="editToolBox">
+    {{-- <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
 
-        {{-- Do Not Delete --}}
+        Do Not Delete
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)"
             style=" position: fixed; scale: 0; bottom: 0; pointer-events: none;">Add
             Note</button>
-    </div>
+    </div> --}}
 
     <div class="nav">
         <a id="back" href="/establishments/{{ $estabId }}/firedrill">
@@ -69,7 +69,7 @@
                 $establishment = $establishment . ' ' . strtoupper(session('nameExtension'));
             }
         @endphp
-        <div data-draggable="true" id="estabName" class="establishment-name bold">
+        <div data-draggable="true" id="estabName" class="establishment-name bold" contenteditable="true">
             <span>{{ $establishment }}</span>
         </div>
         <div data-draggable="true" class="rep-name bold">

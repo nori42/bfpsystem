@@ -61,13 +61,13 @@ class FsecController extends Controller
         // $payor =$person != null ? $person->first_name.' '.$person->middle_name.' '.$person->last_name : $corporate->corporate_name;
 
         $receipt->or_no = $request->orNo;
-        $receipt->payor = $owner->id;
         $receipt->receipt_for = "FSEC";
         $receipt->amount = $request->amountPaid;
         $receipt->date_of_payment = $request->dateOfPayment;
         $receipt->save();
 
         //Add Evaluation Fields
+        $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
         $buildingPlan->bp_application_no = strtoupper($request->bpApplicationNo);
@@ -88,7 +88,8 @@ class FsecController extends Controller
 
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
-            'evaluations' => $evaluations
+            'evaluations' => $evaluations,
+            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
         ]);
     }
 
@@ -106,6 +107,7 @@ class FsecController extends Controller
         $building = $buildingPlan->building;
 
         //Update Evaluation Fields
+        $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
         $buildingPlan->save();
@@ -145,7 +147,8 @@ class FsecController extends Controller
 
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
-            'evaluations' => $evaluations
+            'evaluations' => $evaluations,
+            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
         ]);
     }
 

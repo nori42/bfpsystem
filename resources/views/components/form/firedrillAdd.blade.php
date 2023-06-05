@@ -49,7 +49,7 @@
 
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
             <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" :required="true" />
-            <x-form.input name="nameExtension" label="Name Extension" type="text" value="" />
+            {{-- <x-form.input name="nameExtension" label="Name Extension" type="text" value="" /> --}}
         </fieldset>
         <fieldset class="py-3">
             <legend>Receipt Information</legend>
@@ -62,7 +62,7 @@
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">
             <button class="btn btn-success" type="submit" name="action" value="add">Add</button>
-            <button class="btn btn-success" type="submit" name="action" value="addandprint">Add and Print</button>
+            <button class="btn btn-success" type="submit" name="action" value="addandprint">Print</button>
         </div>
     </form>
 </x-modal>

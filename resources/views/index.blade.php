@@ -12,10 +12,10 @@
 <body>
     <div class="d-flex vh-100 vw-100">
         <div class="leftPanel w-100 ">
-            <h2 class="motto">To Save Live And Proporties</h2>
+            <h2 class="motto">To Save Live And Properties</h2>
             <div class="d-flex flex-column align-items-center justify-content-center h-100 pb-5">
                 <img src="{{ asset('img/LOGO.png') }}" width="220px" height="220px" alt="">
-                <h3 class="fw-bold text-white">Bureau of Fire Protection</h3>
+                <h3 class="fw-bold text-white text-center">Bureau of Fire Protection <br> Cebu City Fire Station</h3>
                 <p class="text-white w-85 text-center">We commit to prevent and suppress destructive fires, investigate
                     its causes;enforce Fire Code and other related laws; respond
                     to man-made and natural disasters and other emergencies.

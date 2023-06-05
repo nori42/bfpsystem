@@ -13,6 +13,7 @@
 @php
     $person = $buildingPlan->owner->person;
     $corporate = $buildingPlan->owner->corporate;
+    $receipt = $buildingPlan->receipt;
     
     if (auth()->user()->type != 'ADMIN') {
         $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
@@ -21,9 +22,9 @@
     $evaluator = auth()->user()->type != 'ADMIN' ? $personnelName : 'ADMIN';
     
     //Person Name
-    $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
-    $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
-    $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    // $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
+    // $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
+    // $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
     
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
@@ -73,23 +74,40 @@
         <div data-draggable="true" class="date-container bold">
             {{ date('F d, Y') }}
         </div>
-        <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>{{ $buildingPlan->name_of_building }}</span>
-        </div>
+        
 
         <div data-draggable="true" class="rep-name bold">
             <span>{{ $representative }}</span>
         </div>
+         --}}
+        <div data-draggable="true" id="series-no" class="series-no bold">
+            <span>{{ $buildingPlan->series_no }}</span>
+        </div>
+
+        <div data-draggable="true" id="evaluator" class="evaluator bold">
+            <span>{{ auth()->user()->name }}</span>
+        </div>
+
+        <div data-draggable="true" id="estabName" class="establishment-name bold">
+            <span>{{ $representative }}</span>
+        </div>
+
+        <div data-draggable="true" id="projectTitle" class="project-title bold">
+            <span>{{ $buildingPlan->project_title }}</span>
+        </div>
+
+        <div data-draggable="true" id="projectTitle" class="date-received bold">
+            <span>{{ date('m/d/Y', strtotime($buildingPlan->date_received)) }}</span>
+        </div>
+
+        <div data-draggable="true" id="buildingStory" class="building-story bold">
+            <span>{{ $buildingPlan->building->building_story }}</span>
+        </div>
+
 
         <div data-draggable="true" class="address bold">
             <span>{{ $buildingPlan->building->address }}</span>
         </div>
-
-        <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">{{ $chief }}
-        </div>
-
-        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">{{ $marshal }}
-        </div> --}}
     </div>
     <div class="page-break"></div>
     <div class="printablePage" page="2">
@@ -101,6 +119,23 @@
         </textarea>
         <textarea class="deficiency deficiency-right" maxlength="288">
         </textarea>
+
+        <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">{{ $chief }}
+        </div>
+
+        <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">{{ $marshal }}
+        </div>
+
+        <div data-draggable="true" id="evaluator2" class="evaluator-2 bold">
+            <span>{{ auth()->user()->name }}</span>
+        </div>
+
+        <div data-draggable="true" class="fc-fee">
+            <div id="amount" class="fc-fee-font-size">{{ $receipt->amount }}</div>
+            <div id="or_no" class="fc-fee-font-size">{{ $receipt->or_no }}</div>
+            <div id="date" class="fc-fee-font-size">{{ date('m/d/Y', strtotime($receipt->date_of_payment)) }}
+            </div>
+        </div>
     </div>
 
 
