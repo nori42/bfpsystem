@@ -18,7 +18,6 @@
                     <div class="text-secondary">Manage Account</div>
                 </div>
                 <div class="align-self-center">
-                    <button class="btn btn-success"><i class="bi bi-arrow-clockwise"></i>Reset Password</button>
                     <button class="btn btn-danger"><i class="bi bi-trash3"></i>Deactivate</button>
                 </div>
             </div>
@@ -78,6 +77,17 @@
                 </div>
             </div>
         </x-pageWrapper>
+
+        <x-modal id="resetConfirm" width="40" topLocation="8" leftLocation="35">
+            <div class="fs-5 fw-bold text-center">Are you sure you want to initiate a password reset for this account?</div>
+            <div class="text-center">The new password for this account: <span class="fw-bold">cebucityfirestation</span>
+            </div>
+            <div class="d-flex justify-content-center py-4 gap-4 mt-3">
+                <button class="btn btn-secondary px-4" onclick="closeModal('resetConfirm')">No, I change my mind</button>
+                <button class="btn btn-danger px-4">Yes</button>
+            </div>
+        </x-modal>
+
     </div>
     <script>
         const passwordInput = document.getElementById('passwordNew');

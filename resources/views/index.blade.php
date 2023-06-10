@@ -52,9 +52,13 @@
                 </div>
 
                 <button class="btn btn-success fs-3 fw-normal w-100 mt-3 py-2">Login</button>
-                <div class="text-secondary text-center mt-3">If you forgot your password request a reset to the admin
+                <div class="text-center mt-4">
+                    <a href="/passwordreset" class="text-primary text-center fs-5">Forgot
+                        Password?
+                    </a>
                 </div>
             </form>
+
         </div>
     </div>
 </body>

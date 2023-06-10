@@ -170,8 +170,11 @@ class FiredrillController extends Controller
 
     public function print_firedrill(Request $request){
         $firedrill = Firedrill::find($request->id);
-        $firedrill->issued_on = date('Y-m-d');
-        $firedrill->save();
+
+        if($firedrill->issued_on == null) {
+            $firedrill->issued_on = date('Y-m-d');
+            $firedrill->save();
+        }
 
         return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }

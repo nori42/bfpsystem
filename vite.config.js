@@ -5,8 +5,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css', 
-                'resources/js/main.js',
-                'resources/sass/main.scss'
+                'resources/js/app.js',
+                'resources/sass/main.scss',
+                'resources/css/printfsic.css',
+                'resources/css/bootstrap-icons.css'
             ],
             refresh: true,
         }),

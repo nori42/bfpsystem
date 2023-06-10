@@ -13,12 +13,14 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\FSICReportController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SearchEstablishment;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use App\Models\Firedrill;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('login');
+
+Route::get('/passwordreset', function () {
+    return view('users.passwordReset');
+})->name('passwordreset');
 
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::post('/login', [LoginController::class, 'login']);
@@ -152,3 +158,6 @@ Route::get('/unauthorized',function () {
     return view('errors.unauthorized');
 });
 
+Route::put('/request/passwordreset',[PasswordResetController::class,'resetPassword']);
+
+Route::post('/request/passwordreset',[PasswordResetController::class,'requestPasswordReset']);

@@ -3,6 +3,7 @@ document.getElementById("printBtn").addEventListener("click", function(){
 
     document.querySelector('#print').submit();
 })
+
 function printUpdate(){
     window.print();
     document.querySelector('#print').submit();
@@ -23,8 +24,6 @@ function handleMove(btn){
         });
         document.getElementById("printBtn").disabled = true;
         document.getElementById("printBtn").classList.add('disable'); 
-        document.getElementById("btnEdit").disabled = true; 
-        document.getElementById("btnEdit").classList.add('disable'); 
 
         btn.innerText = "Save"
         btn.style.backgroundColor = "green"
@@ -39,8 +38,6 @@ function handleMove(btn){
 
         document.getElementById("printBtn").disabled = false;
         document.getElementById("printBtn").classList.remove('disable'); 
-        document.getElementById("btnEdit").disabled = false; 
-        document.getElementById("btnEdit").classList.remove('disable');
 
         btn.innerText = "Move"
         btn.style.backgroundColor = ""
@@ -64,8 +61,6 @@ function handleEdit(btn){
 
         document.getElementById("printBtn").disabled = true;
         document.getElementById("printBtn").classList.add('disable'); 
-        document.getElementById("btnMove").disabled = true; 
-        document.getElementById("btnMove").classList.add('disable'); 
 
         btn.innerText = 'Save'
         btn.style.backgroundColor = "green"
@@ -80,8 +75,6 @@ function handleEdit(btn){
 
         document.getElementById("printBtn").disabled = false;
         document.getElementById("printBtn").classList.remove('disable'); 
-        document.getElementById("btnMove").disabled = false; 
-        document.getElementById("btnMove").classList.remove('disable'); 
 
         btn.innerText = 'Add Note'
         btn.style.backgroundColor = ""

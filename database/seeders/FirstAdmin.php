@@ -19,6 +19,7 @@ class FirstAdmin extends Seeder
             'username' => 'admin01',
             'password' => Hash::make('admin'),
             'name' => 'admin',
+            'request_password_reset' => false,
             'type' => strtoupper('admin'),
         ]);
     }

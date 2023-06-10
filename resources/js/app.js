@@ -52,4 +52,4 @@ window.onclick = function(event) {
 
 window.toggleShow = scriptModule.toggleShow;
 window.openModal = scriptModal.openModal;
-window.closeModal = scriptModal.openModal;
+window.closeModal = scriptModal.closeModal;

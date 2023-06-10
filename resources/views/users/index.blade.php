@@ -30,6 +30,7 @@
                     <th>Username</th>
                     <th>User Type</th>
                     <th>Name</th>
+                    <th>Request Reset</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -42,11 +43,21 @@
                             }
                         @endphp
                         <tr>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->type }}</td>
-                            <td>{{ strtoupper($user->name) }}</td>
-                            <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
-                                        class="bi bi-person fs-5 mx-1"></i>Account</a></td>
+                            <td style="width:21rem">{{ $user->username }}</td>
+                            <td style="width:21rem">{{ $user->type }}</td>
+                            <td style="width:21rem">{{ strtoupper($user->name) }}</td>
+                            {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
+                                        class="bi bi-person fs-5 mx-1"></i>Account</a></td> --}}
+                            <td>
+                                @if ($user->request_password_reset)
+                                    <form action="/request/passwordreset" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="userId" value="{{ $user->id }}">
+                                        <button type="submit" class="btn btn-link">Reset Password</button>
+                                    </form>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

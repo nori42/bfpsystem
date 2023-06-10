@@ -11,19 +11,17 @@
 </head>
 
 <body>
+
     <form id="print" action="/establishments/firedrill/print/{{ $firedrillId }}" method="POST">
         @csrf
         @method('PUT')
     </form>
-    {{-- <div class="editToolBox">
+    <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
-
-        Do Not Delete
-        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)"
-            style=" position: fixed; scale: 0; bottom: 0; pointer-events: none;">Add
+        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add
             Note</button>
-    </div> --}}
+    </div>
 
     <div class="nav">
         <a id="back" href="/establishments/{{ $estabId }}/firedrill">
@@ -106,7 +104,6 @@
         <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
             BFP</div> --}}
     </div>
-
 
     <script src="/js/print.js"></script>
 </body>
