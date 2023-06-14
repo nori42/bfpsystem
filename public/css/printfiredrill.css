@@ -136,7 +136,9 @@ li{
 .address{
     position: absolute;
     top: 463px;
-    left: 399px;
+    left: 280px;
+    width: 470px;
+    text-align: center;
 }
 
 .date-made{

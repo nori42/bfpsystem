@@ -1,11 +1,11 @@
-@props(['for', 'establishment', 'owner', 'files', 'page'])
+@props(['for', 'establishment', 'owner', 'files', 'page', 'representative'])
 <x-pageWrapper>
 
     @if (session('toastMssg'))
         <x-toast :message="session('toastMssg')" />
     @endif
     {{-- Owner Info & Selected Establishment --}}
-    <x-headingInfo :establishment="$establishment" :owner="$owner" />
+    <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
     {{-- FSIC Action --}}
     <div class="d-flex  w-100 mt-3">

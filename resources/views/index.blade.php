@@ -44,7 +44,7 @@
 
                 <div>
                     <label class="fs-4" for="username">Password</label>
-                    <input id="password" class="form-control d-block fs-4 w-100" type="password" name="password">
+                    <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
                     <div class="mt-3">
                         <label class="fw-bold fs-6" for="showPassword">Show Password</label>
                         <input id="showPassword" class=" d-inline fs-4" type="checkbox" name="showPassword">

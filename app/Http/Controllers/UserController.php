@@ -85,6 +85,7 @@ class UserController extends Controller
     public function update(Request $request){
         $user = User::find($request->id);
 
+
         switch($request->action){
             case 'updateUsername':
                 {

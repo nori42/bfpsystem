@@ -6,6 +6,7 @@ use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\FileDownload;
 use App\Http\Controllers\FileUpload;
 use App\Http\Controllers\Firedrillcontroller;
+use App\Http\Controllers\FiredrillReportController;
 use App\Http\Controllers\FsicController;
 use App\Http\Controllers\FsecController;
 use App\Http\Controllers\LoginController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\FSICReportController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SearchEstablishment;
 use App\Http\Controllers\SettingsController;
@@ -129,7 +131,10 @@ Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
 Route::put('/users/{id}',[UserController::class,'update'])->middleware('auth');
 
 //Reports
-Route::get('/reports',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
+Route::get('/reports/fsic',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
+Route::get('/reports/firedrill',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
+Route::get('/reports/print/firedrill',[ReportsController::class,'show_firedrill'])->middleware('auth')->name('reports');
+Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middleware('auth')->name('reports');
 
 //Activity Log
 Route::get('/activity',function(){ return view('activityLog');})->middleware('auth')->name('activity');
@@ -151,6 +156,7 @@ Route::get('resources/owners',[SearchController::class,'searchOwner']);
 Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
 Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);
 Route::get('resources/reports/fsic',[FSICReportController::class,'getFSICReport']);
+Route::get('resources/reports/firedrill',[FSICReportController::class,'getFiredrillReport']);
 Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
 
 //Others

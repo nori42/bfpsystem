@@ -5,8 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Establishment;
+use App\Models\Firedrill;
 use App\Models\Inspection;
 use App\Models\Owner;
+use Database\Factories\HelperFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'type' => strtoupper('admin'),
         ]);
 
-        Establishment::factory()->count(1000)->create();
-        Inspection::factory()->count(1000)->create();
+        Establishment::factory()->count(HelperFactory::$establishmentCount)->create();
+        Inspection::factory()->count(50)->create();
     }
 }

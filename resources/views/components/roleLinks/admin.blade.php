@@ -34,7 +34,7 @@
         Users
     </x-navLinks.link>
 
-    <x-navLinks.link href="/reports" :active="$currentRoute == 'reports'">
+    <x-navLinks.link href="/reports/fsic" :active="$currentRoute == 'reports'">
         <!-- button Icon -->
         <span class="material-symbols-outlined align-middle fs-2">
             receipt_long

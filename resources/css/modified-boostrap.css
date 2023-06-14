@@ -47,7 +47,32 @@ a.btn-success:hover {
     color: white !important;
 }
 
+.btn-primary {
+    background-color: var(--success)!important;
+    border: none !important;
+    font-weight: bold !important;
+}
 
+
+.btn-primary:hover {
+    background-color: var(--success-subtle)!important;
+}
+
+a.btn-primary:hover {
+    color: white;
+    background-color: var(--success-subtle)!important;
+}
+
+.btn-outline-primary {
+    color: var(--success)!important;
+    border-color: var(--success) !important;
+    font-weight: bold !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--success)!important;
+    color: white !important;
+}
 
 .btn-active{
     color: white !important;

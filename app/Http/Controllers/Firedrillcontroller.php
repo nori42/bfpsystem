@@ -68,6 +68,7 @@ class FiredrillController extends Controller
                 'isAdd'=>true,
                 'toastMssg' => 'Firedrill Added',
                 'owner' => $owner,
+                'representative' => Helper::getRepresentativeName($establishment->owner_id),
                 'controlNo' => $newControlNo,
                 'page_title' => 'Fire Drill' // use to set page title inside the panel
             ]);
@@ -110,7 +111,7 @@ class FiredrillController extends Controller
             }
             else
             {
-                $firedrill->claimed_by = $request->claimedBy;
+                $firedrill->claimed_by = strtoupper($request->claimedBy);
             }
         }
         
@@ -129,6 +130,7 @@ class FiredrillController extends Controller
                 'firedrills' => $firedrills,
                 'establishment' => $establishment,
                 'owner' => $owner,
+                'representative' => Helper::getRepresentativeName($establishment->owner_id),
                 'isUpdate' =>true,
                 'toastMssg' => 'Updated Successfully',
                 'firedrillUpdatedId' => $firedrill->id,
@@ -193,6 +195,7 @@ class FiredrillController extends Controller
         return view('establishments.firedrill.attachment_firedrill',[
             'establishment' => $establishment,
             'owner' => $owner,
+            'representative' => Helper::getRepresentativeName($establishment->owner_id),
             'files' =>  $files,
             'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);

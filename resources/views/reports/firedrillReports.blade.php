@@ -3,22 +3,11 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
-    @php
-        $subsationsIssued = [
-            'GUADALUPE' => 279,
-            'LABANGON' => 95,
-            'LAHUG' => 109,
-            'MABOLO' => 223,
-            'PAHINA CENTRAL' => 272,
-            'PARDO' => 167,
-            'PARI-AN' => 116,
-            'SAN NICOLAS' => 185,
-            'TALAMBAN' => 145,
-        ];
-        
-        $monthsString = [];
-    @endphp
     <style>
+        #filter {
+            width: 656px;
+        }
+
         @media print {
 
             body,
@@ -32,6 +21,12 @@
                 left: 0;
                 top: 0;
                 translate: (-50%, 0);
+                page-break-after: always;
+                display: block !important;
+            }
+
+            .report-buttons {
+                display: none;
             }
         }
     </style>
@@ -39,17 +34,16 @@
         {{-- Put page content here --}}
         <x-pageWrapper>
             {{-- {{ dd($reports) }} --}}
-            <h1>Inspection Report</h1>
+            <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
+                <option value="inspection">Inspection Reports</option>
+                <option value="firedrill" selected>Firedrill Reports</option>
+                <option value="buildingplan">Building Plan Reports</option>
+            </select>
             <hr>
             <div class="d-inline-block" id="printables">
                 <div id="filter" class="my-2 d-flex align-items-center gap-2">
                     <label for="month">Month</label>
                     <select class="form-select" name="month" id="month">
-                        {{-- @foreach ($monthReports as $m)
-                            {{ array_push($monthsString, DateTime::createFromFormat('!m', $m)->format('F')) }}
-                            <option value="{{ $m }}">
-                                {{ DateTime::createFromFormat('!m', $m)->format('F') }}</option>
-                        @endforeach --}}
                     </select>
 
                     <label for="month">Year</label>
@@ -59,56 +53,29 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="bg-success text-white p-2">
-                    <h1>Reports</h1>
-                    <h3> <span id="monthLabel"></span> <span id="yearLabel"></span></h3>
-                </div>
-                {{-- <div style="width: 800px;"><canvas id="certificateIssued"></canvas></div> --}}
-                <div class="px-4 py-5 bg-subtleBlue d-inline-block">
-                    <div class="row w-100">
-                        <div class="col fw-bold">Substation</div>
-                        <div class="col"></div>
-                    </div>
-                    <div id="substations" class="row bg-subtleBlue" style="width: 21rem">
-                    </div>
-                    <div class="my-4">
-                        <div class="row">
-                            <div class="col fw-bold">CBP</div>
-                            <div id="cbp" class="col"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col fw-bold">NEW</div>
-                            <div id="newIssued" class="col"></div>
-                        </div>
-                    </div>
-
-                    <div class="my-4">
-                        <div class="row">
-                            <div class="col fw-bold">Total Substations</div>
-                            <div id="totalSubstation" class="col"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col fw-bold">Grand Total</div>
-                            <div id="totalGrand" class="col"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill" frameborder="0" width="100%"
+                height="800px"></iframe>
         </x-pageWrapper>
     </div>
+    <script src="{{ asset('js/reports/reportsScript.js') }}"></script>
     <script>
+        const APP_URL = "{{ env('APP_URL') }}";
         const yearlyReports = @json($reports);
-
         const yearSelect = document.getElementById('year');
         const monthSelect = document.getElementById('month');
 
+        const iframeFiredrill = document.querySelector("#iFrameFiredrill")
+
         yearSelect.addEventListener('change', () => {
             updateMonth(yearSelect.value)
-            fetchReport()
+            iframeFiredrill.src =
+                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
         })
 
         monthSelect.addEventListener('change', () => {
-            fetchReport()
+            iframeFiredrill.src =
+                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
         })
 
 
@@ -119,6 +86,7 @@
         }
 
         function updateMonth(year) {
+
             const months = [{
                     value: 1,
                     name: 'January'
@@ -171,6 +139,8 @@
 
             monthSelect.innerHTML = "";
 
+            console.log(yearlyReports)
+
             for (let i = 0; i < yearlyReports[year].length; i++) {
                 const month = months[yearlyReports[year][i].month - 1];
                 const option = document.createElement('option');
@@ -181,42 +151,7 @@
         }
 
         function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
-            const substations = document.querySelector('#substations')
-            const newIssued = document.querySelector('#newIssued')
-            const totalSubstationsEl = document.querySelector('#totalSubstation')
-            const totalGrand = document.querySelector('#totalGrand')
-            const cbp = document.querySelector('#cbp')
 
-            const yearLabel = document.querySelector('#yearLabel')
-            const monthLabel = document.querySelector('#monthLabel')
-
-
-            let totalSubstation = 0;
-
-            substations.innerHTML = ""
-            cbp.textContent = substation["CBP"]
-
-            newIssued.textContent = issuedInMonthNew
-            totalGrand.textContent = issuedInMonthAll
-
-            yearLabel.textContent = yearSelect.value;
-            monthLabel.textContent = monthSelect.selectedOptions[0].text;
-
-            for (const prop in substation) {
-                if (prop == "CBP")
-                    continue;
-
-                substations.innerHTML +=
-                    `
-                    <div class="row">
-                        <div class="col">${prop}</div>
-                        <div class="col">${substation[prop]}</div>
-                    </div>
-                `
-                totalSubstation += substation[prop];
-            }
-
-            totalSubstationsEl.textContent = totalSubstation;
         }
 
         async function fetchReport() {
@@ -231,9 +166,14 @@
 
 
                 displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
-            } catch (err) {}
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         fetchReport()
+
+        iframeFiredrill.src =
+            `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
     </script>
 @endsection

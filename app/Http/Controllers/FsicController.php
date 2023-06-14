@@ -84,6 +84,7 @@ class FsicController extends Controller
                 'inspections' => $inspectionDetail,
                 'selectOptions' => $selectOptions,
                 'owner' => $inspection->establishment->owner,
+                'representative' => Helper::getRepresentativeName($establishment->owner_id),
                 'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'addandprint':
@@ -122,6 +123,7 @@ class FsicController extends Controller
                     'establishment' => $inspection->establishment,
                     'inspections' =>  $inspectionList,
                     'owner' => $inspection->establishment->owner,
+                    'representative' => Helper::getRepresentativeName($inspection->establishment->owner_id),
                     'inpsectUpdatedId' => $inspection->id,
                     'toastMssg' => "Update Successfully",
                     'isUpdate' => true,
@@ -148,6 +150,7 @@ class FsicController extends Controller
         return view('establishments.fsic.attachment_fsic',[
             'establishment' => $establishment,
             'owner' => $owner,
+            'representative' => Helper::getRepresentativeName($establishment->owner_id),
             'files' =>  $files,
             'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);

@@ -30,7 +30,6 @@ class InspectionFactory extends Factory
         $dateInsp = new DateTime();
         $dateInsp->setDate($randomYear, $randomMonth, $randomDay);
 
-        
         $registrationStatus = array('NEW','RENEWAL','OCCUPANCY','ACCREDITATION','BUILDING PERMIT');
         if(rand(0,5) == 0){
 
@@ -40,7 +39,7 @@ class InspectionFactory extends Factory
                 'registration_status' => $registrationStatus[rand(0, 4)],
                 'fsic_no' => rand(1000, 99999),
                 'receipt_id' => Receipt::factory(),
-                'establishment_id' => rand(1,1000)
+                'establishment_id' => rand(1,HelperFactory::$establishmentCount)
             ];
     
         }

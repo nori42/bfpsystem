@@ -4,6 +4,7 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
-        <x-attachment for='fsic' :establishment="$establishment" :owner="$owner" :files="$files" page="Inspection" />
+        <x-attachment for='fsic' :representative="$representative" :establishment="$establishment" :owner="$owner" :files="$files"
+            page="Inspection" />
     </div>
 @endsection

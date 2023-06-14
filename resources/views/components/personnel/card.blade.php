@@ -1,18 +1,22 @@
 @props(['personnel'])
 
 <div class="card border-0 px-4 py-2 boxshadow" style="background-color: #F5F8FC; width: 14rem;">
-    <div class="card-img-top text-center">
+    {{-- <div class="card-img-top text-center">
         <span class="material-symbols-outlined border border-dark border-1 rounded-circle p-4 mt-4 bg-white"
             style="font-size: 3.5rem">
             person
         </span>
+    </div> --}}
+    <div class="bg-white rounded-circle p-3">
+        <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="150px" width="100%">
     </div>
     @php
         $name = $personnel->person->first_name . ' ' . $personnel->person->middle_name[0] . '. ' . $personnel->person->last_name;
     @endphp
     <div class="card-body">
         <h5 class="card-title text-center fw-bold fs-6">{{ $name }}</h5>
-        <h6 class="card-text text-center text-secondary">{{ $personnel->rank }}</h6>
+        <h6 class="card-text text-center text-secondary">
+            {{ $personnel->designation ? $personnel->designation : 'No Designation' }}</h6>
         <div class="mt-3">
         </div>
 

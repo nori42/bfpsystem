@@ -17,7 +17,7 @@
             }
             $inspectionCount = 0;
             $firedrillCount = 0;
-            $lastInpsectionIssued = $inspections->last() ? date('m/d/Y', strtotime($inspections->last()->inspection_date)) : 'N/A';
+            $lastInpsectionIssued = $inspections->last() ? date('m/d/Y', strtotime($inspections->last()->issued_on)) : 'N/A';
             $lastFiredrillIssued = $firedrills->last() ? date('m/d/Y', strtotime($firedrills->last()->issued_on)) : 'N/A';
             $firedrillCountThisYear = count($firedrills->filter(fn($firedrill) => $firedrill->year == date('Y')));
             // count will throw error if checks a null value
@@ -156,7 +156,12 @@
                             if ($owner->person->last_name != null) {
                                 $person = $establishment->owner->person;
                                 $contactNo = $establishment->owner->person->contact_no;
-                                $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
+                            
+                                if ($person->middle_name != null) {
+                                    $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
+                                } else {
+                                    $personName = $person->first_name . ' ' . $person->last_name;
+                                }
                             }
                             
                             $representative = $personName != null ? $personName : $corporateName;

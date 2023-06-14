@@ -44,23 +44,23 @@ class EstablishmentController extends Controller
 
 
     public function create(){
-        $owner = null;
+        // $owner = null;
         
-        $allOwners = Owner::all();
+        // $allOwners = Owner::all();
 
-        $nameList = array();
+        // $nameList = array();
         
-        foreach($allOwners as $owners)
-        {
-            array_push($nameList, $owners['first_name'].", ".$owners['middle_name'].", ".$owners['last_name']);
-        }
+        // foreach($allOwners as $owners)
+        // {
+        //     array_push($nameList, $owners['first_name'].", ".$owners['middle_name'].", ".$owners['last_name']);
+        // }
 
-        $allOwnersJson = json_encode($allOwners);
+        // $allOwnersJson = json_encode($allOwners);
 
 
         return view('establishments.create',[
-            'page_title' => "Add Establishment",
-            'owner' => $owner
+            'page_title' => "Add Establishment"
+            // 'owner' => $owner
         ]);
     }
 

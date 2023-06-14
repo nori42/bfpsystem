@@ -25,15 +25,19 @@
                     Add Firedrill
                 </button>
             </div>
-            <x-firedrill>
-                @foreach ($firedrills as $firedrill)
-                    @if (($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $firedrill->id == $firedrillUpdatedId))
-                        <x-firedrill.item :firedrill="$firedrill" :newRecord="true" />
-                    @else
-                        <x-firedrill.item :firedrill="$firedrill" />
-                    @endif
-                @endforeach
-            </x-firedrill>
+            @if ($firedrills->count() != 0)
+                <x-firedrill>
+                    @foreach ($firedrills as $firedrill)
+                        @if (($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $firedrill->id == $firedrillUpdatedId))
+                            <x-firedrill.item :firedrill="$firedrill" :newRecord="true" />
+                        @else
+                            <x-firedrill.item :firedrill="$firedrill" />
+                        @endif
+                    @endforeach
+                </x-firedrill>
+            @else
+                <h2 class="text-center text-secondary">No Firedrill</h2>
+            @endif
 
             <x-form.firedrillAdd :establishment="$establishment" />
         </x-pageWrapper>

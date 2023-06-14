@@ -6,13 +6,17 @@
     --btn-link-hover:#abcbff;
     --top-panel:#123B5A;
 }
+@font-face {
+    font-family: 'Inter';
+    src: url(../fonts/Inter/Inter-Regular.ttf);
+}
 
 /* initial style */
 body {
     font-size: 16px !important;
     overflow: hidden;
     height: 100vh;
-    font-family: Inter ,Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif !important;
 }
 
 *, *::after , *::before {

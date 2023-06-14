@@ -31,40 +31,44 @@
                 </button>
             </div>
             <div id="inspection" class="h-75 overflow-y-auto mt-4 border-3">
-                <table class="table">
-                    <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle textPrimary">
-                        <th>Inspection Date</th>
-                        <th>OR No.</th>
-                        <th>Registration Status</th>
-                        <th>Expiry Date</th>
-                        <th>Status</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        @foreach ($inspections as $inspection)
-                            <tr
-                                class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
-                                <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
-                                <td>{{ $inspection->receipt->or_no }}</td>
-                                <td>{{ $inspection->registration_status }}</td>
-                                <td>{{ $inspection->expiry_date ? date('m/d/Y', strtotime($inspection->expiry_date)) : '' }}
-                                </td>
-                                <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
-                                    {{ $inspection->status }}</td>
-                                <td class="text-center">
-                                    <button class="btn fw-bold btn-success"
-                                        onclick="openModal(`inspection{{ $inspection->id }}`)"
-                                        value={{ $inspection->id }}>
-                                        Details
-                                    </button>
-                                </td>
-                            </tr>
+                @if ($inspections->count() != 0)
+                    <table class="table">
+                        <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle textPrimary">
+                            <th>Inspection Date</th>
+                            <th>OR No.</th>
+                            <th>Registration Status</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            @foreach ($inspections as $inspection)
+                                <tr
+                                    class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
+                                    <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
+                                    <td>{{ $inspection->receipt->or_no }}</td>
+                                    <td>{{ $inspection->registration_status }}</td>
+                                    <td>{{ $inspection->expiry_date ? date('m/d/Y', strtotime($inspection->expiry_date)) : '' }}
+                                    </td>
+                                    <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
+                                        {{ $inspection->status }}</td>
+                                    <td class="text-center">
+                                        <button class="btn fw-bold btn-success"
+                                            onclick="openModal(`inspection{{ $inspection->id }}`)"
+                                            value={{ $inspection->id }}>
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
 
-                            <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}"
-                                :establishment="$establishment" />
-                        @endforeach
-                    </tbody>
-                </table>
+                                <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}"
+                                    :establishment="$establishment" />
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <h2 class="text-center text-secondary">No Inspection</h2>
+                @endif
             </div>
         </x-pageWrapper>
 
