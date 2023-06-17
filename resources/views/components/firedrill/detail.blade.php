@@ -37,42 +37,49 @@
             </div>
             <x-form.input name="controlNo" label="Control No." type="text" value="{{ $firedrill->control_no }}"
                 :readonly="true" />
-            <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term" :readonly="$issued"
-                customAttr="validity">
-                <option value="QUARTERLY" {{ $term == 'QUARTER' ? 'selected' : '' }}>QUARTERLY</option>
-                <option value="SEMESTER" {{ $term == 'SEMESTER' ? 'selected' : '' }}>SEMESTER</option>
-                {{-- <option value="ANNUAL">ANNUAL</option> --}}
-            </x-form.select>
-            <div class="py-3" validity-quarter
-                style="display:{{ $term == 'QUARTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px 80px 80px;">
-                <div>1ST</div>
-                <div>2ND</div>
-                <div>3RD</div>
-                <div>4TH</div>
-                <div><input value="1ST QUARTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '1ST QUARTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '1ST QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="2ND QUARTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '2ND QUARTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '2ND QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="3RD QUARTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '3RD QUARTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '3RD QUARTER' ? 'checked' : '' }}></div>
-                <div><input value="4TH QUARTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '4TH QUARTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '4TH QUARTER' ? 'checked' : '' }}></div>
-            </div>
-            <div class="py-3" validity-semester
-                style="display:{{ $term == 'SEMESTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px">
-                <div>1ST</div>
-                <div>2ND</div>
-                <div><input value="1ST SEMESTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '1ST SEMESTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '1ST SEMESTER' ? 'checked' : '' }}></div>
-                <div><input value="2ND SEMESTER" type="radio" name="validityTerm"
-                        {{ $issued && $firedrill->validity_term != '2ND SEMESTER' ? 'disabled' : '' }}
-                        {{ $firedrill->validity_term == '2ND SEMESTER' ? 'checked' : '' }}></div>
-            </div>
+
+            @if (!$issued)
+                <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"
+                    :readonly="$issued" customAttr="validity">
+                    <option value="QUARTERLY" {{ $term == 'QUARTER' ? 'selected' : '' }}>QUARTERLY</option>
+                    <option value="SEMESTER" {{ $term == 'SEMESTER' ? 'selected' : '' }}>SEMESTER</option>
+                    {{-- <option value="ANNUAL">ANNUAL</option> --}}
+                </x-form.select>
+                <div class="py-3" validity-quarter
+                    style="display:{{ $term == 'QUARTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px 80px 80px;">
+                    <div>1ST</div>
+                    <div>2ND</div>
+                    <div>3RD</div>
+                    <div>4TH</div>
+                    <div><input value="1ST QUARTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '1ST QUARTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '1ST QUARTER' ? 'checked' : '' }}></div>
+                    <div><input value="2ND QUARTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '2ND QUARTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '2ND QUARTER' ? 'checked' : '' }}></div>
+                    <div><input value="3RD QUARTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '3RD QUARTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '3RD QUARTER' ? 'checked' : '' }}></div>
+                    <div><input value="4TH QUARTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '4TH QUARTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '4TH QUARTER' ? 'checked' : '' }}></div>
+                </div>
+                <div class="py-3" validity-semester
+                    style="display:{{ $term == 'SEMESTER' ? 'grid' : 'none' }}; grid-template-columns: 80px 80px">
+                    <div>1ST</div>
+                    <div>2ND</div>
+                    <div><input value="1ST SEMESTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '1ST SEMESTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '1ST SEMESTER' ? 'checked' : '' }}></div>
+                    <div><input value="2ND SEMESTER" type="radio" name="validityTerm"
+                            {{ $issued && $firedrill->validity_term != '2ND SEMESTER' ? 'disabled' : '' }}
+                            {{ $firedrill->validity_term == '2ND SEMESTER' ? 'checked' : '' }}></div>
+                </div>
+            @else
+                <x-form.input name="validity" label="Validity" type="text" value="{{ $firedrill->validity_term }}"
+                    :readonly="true" />
+            @endif
+
             {{-- <x-form.input name="issuedOn" label="Issued On" type="date" class="w-50" /> --}}
             <x-form.input name="dateMade" label="Date of Drill" type="date" class="w-50" :readonly="$issued"
                 value="{{ $firedrill->date_made }}" />
@@ -106,8 +113,21 @@
             </div>
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">
+            <div class="d-flex align-items-center gap-2">
+                @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
+                    <x-form.input name="claimedBy" label="Claimed By" />
+                    <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
+                        Certificate</button>
+                @endif
+
+                @if ($firedrill->issued_on != null)
+                    <a class="btn btn-success" href="/establishments/firedrill/print/{{ $firedrill->id }}">Preview
+                        Certificate</a>
+                @endif
+            </div>
+            {{--             
             @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
-                <div class="d-flex align-items-center gap-2 ">
+                <div class="d-flex align-items-center gap-2">
                     <x-form.input name="claimedBy" label="Claimed By" />
                     <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
                         Certificate</button>
@@ -115,13 +135,15 @@
                         Certificate</button>
                 </div>
             @endif
+
             @if ($firedrill->date_claimed != null && $firedrill->issued_on != null)
                 <button class="btn btn-success" type="submit" name="action" value="preview">Preview
                     Certificate</button>
-            @endif
+            @endif --}}
+
             @if ($firedrill->issued_on == null)
-                <button class="btn btn-success" type="submit" name="action" value="add">Save</button>
-                <button class="btn btn-success" type="submit" name="action" value="addandprint">Print</button>
+                <button class="btn btn-success" type="submit" name="action" value="save">Save</button>
+                <button class="btn btn-success" type="submit" name="action" value="saveandprint">Print</button>
             @endif
         </div>
     </form>

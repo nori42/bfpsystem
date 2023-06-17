@@ -48,6 +48,11 @@
                     <div id="passwordEdit" class="fs-6 px-5 py-3 bg-subtleBlue" style="display: none !important;">
                         <div class="fw-bold my-3">Password</div>
                         <div>
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="fs-6 text-danger my-2">{{ $error }}</div>
+                                @endforeach
+                            @endif
                             <form action="/users/{{ $user->id }}" method="POST">
                                 @csrf
                                 @method('PUT')

@@ -35,7 +35,7 @@ class InspectionFactory extends Factory
 
             return [
                 //
-                'inspection_date' => $dateInsp,
+                'inspection_date' => HelperFactory::randomDate(2019,2022,01,04),
                 'registration_status' => $registrationStatus[rand(0, 4)],
                 'fsic_no' => rand(1000, 99999),
                 'receipt_id' => Receipt::factory(),
@@ -46,12 +46,16 @@ class InspectionFactory extends Factory
         else
         {
 
-            $randomDay = rand(1, 28); // Generate a random day between 1 and 28
-            $randomMonth = rand(1, 12); // Generate a random month between 1 and 12
-            $randomYear = rand(2019, 2022); // Generate a random year between 1900 and 2022
-            $nextYear = $randomYear + 1;
-            $date = new DateTime();
-            $date->setDate($randomYear, $randomMonth, $randomDay);
+            // $randomDay = rand(1, 28); // Generate a random day between 1 and 28
+            // $randomMonth = rand(1, 12); // Generate a random month between 1 and 12
+            // $randomYear = rand(2019, 2022); // Generate a random year between 1900 and 2022
+            // $nextYear = $randomYear + 1;
+            // $date = new DateTime();
+            // $date->setDate($randomYear, $randomMonth, $randomDay);
+
+            $date = HelperFactory::randomDate(2019,2022,01,04);
+
+            $nextYear = $date->format('Y') + 1;
             
             return [
                 //
@@ -60,7 +64,7 @@ class InspectionFactory extends Factory
                 'fsic_no' => rand(1000, 99999),
                 'issued_on' => $date,
                 'status' => "Printed",
-                'expiry_date' =>new DateTime("{$nextYear}-{$randomMonth}-{$randomDay}"),
+                'expiry_date' =>new DateTime("{$nextYear}-{$date->format('m')}-{$date->format('d')}"),
                 'receipt_id' => Receipt::factory(),
                 'establishment_id' => rand(1,100)
             ];

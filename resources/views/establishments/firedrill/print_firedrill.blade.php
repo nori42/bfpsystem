@@ -16,21 +16,29 @@
         @csrf
         @method('PUT')
     </form>
-    <div class="editToolBox">
+    {{-- <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add
             Note</button>
-    </div>
+    </div> --}}
 
     <div class="nav">
         <a id="back" href="/establishments/{{ $estabId }}/firedrill">
             Back
         </a>
-        <button id="printBtn">
-            <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
-                style="background-color: #FFC900;">print</span>
-        </button>
+
+        @if ($firedrill->issued_on)
+            <button id="printBtn" onclick="printOnly()">
+                <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+                    style="background-color: #FFC900;">print</span>
+            </button>
+        @else
+            <button id="printBtn" onclick="submitPrint()">
+                <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+                    style="background-color: #FFC900;">print</span>
+            </button>
+        @endif
         {{-- <div class="printby">
             <strong>Establishment: </strong> <span>{{ $establishment }}</span>
         </div>
@@ -106,6 +114,18 @@
     </div>
 
     <script src="/js/print.js"></script>
+    <script>
+        function submitPrint() {
+            window.print();
+
+            document.querySelector('#print').submit();
+        }
+
+        function printOnly() {
+            window.print();
+            history.back();
+        }
+    </script>
 </body>
 
 </html>

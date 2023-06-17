@@ -17,7 +17,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignIdFor(Person::class)->nullable();
             $table->foreignIdFor(Corporate::class)->nullable();
-            $table->timestamps();
         });
     }
 

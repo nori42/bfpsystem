@@ -17,6 +17,10 @@ class LoginController extends Controller
         
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            if(Auth::user()->is_password_default){
+                return redirect()->intended('/newpassword');
+            }
             
             if(Auth::user()->type == 'ADMIN' || Auth::user()->type == 'FSIC' || Auth::user()->type == 'FIREDRILL')
             return redirect()->intended('/establishments');

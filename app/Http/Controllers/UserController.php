@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -112,6 +113,10 @@ class UserController extends Controller
                 break;
             case 'updatePassword':
                 {
+                    $request->validate([
+                        'passwordNew' => Password::min(8)->mixedCase()->numbers()
+                    ]);
+                    
                     if (!Hash::check($request->passwordCurrent, $user->password)) {
                         return view('users.show',[
                             'userId' => $request->id,

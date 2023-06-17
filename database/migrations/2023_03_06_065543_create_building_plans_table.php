@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('bp_application_no')->nullable();
             $table->string('bill_of_materials')->nullable();
             $table->date('date_received')->nullable();
+            $table->date('date_released')->nullable();
             $table->enum('status',['APPROVED','DISAPPROVED','PENDING'])->default('PENDING');
             $table->foreignIdFor(Owner::class);
             $table->foreignIdFor(Building::class);

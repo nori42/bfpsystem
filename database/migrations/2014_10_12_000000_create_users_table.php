@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('type');
             $table->string('name');
+            $table->boolean('is_password_default')->default(true);
             $table->boolean('request_password_reset')->default(false);
             $table->foreignIdFor(Personnel::class)->unique()->nullable();
             $table->timestamps();

@@ -57,6 +57,12 @@
                                         <button type="submit" class="btn btn-link">Reset Password</button>
                                     </form>
                                 @endif
+
+                                @isset($newpassword)
+                                    @if ($user->id == $newpassword['id'])
+                                        <span class="fw-bold">Password: </span>{{ $newpassword['password'] }}
+                                    @endif
+                                @endisset
                             </td>
                         </tr>
                     @endforeach
@@ -85,15 +91,16 @@
                             autocomplete="off">
                     </x-form.inputWrapper>
                     <x-form.inputWrapper>
-                        <label class="info-label">Password</label>
-                        <input class="form-control" id="password" name="password" type="password" required
+                        <label id="labelPassword" class="info-label">Password <span class="fw-normal">Click here to generate
+                                new</span></label>
+                        <input class="form-control" id="password" name="password" type="text" required readonly
                             autocomplete="off">
                     </x-form.inputWrapper>
-                    <x-form.inputWrapper>
+                    {{-- <x-form.inputWrapper>
                         <label class="info-label">Confirm Password</label>
                         <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required
                             autocomplete="off">
-                    </x-form.inputWrapper>
+                    </x-form.inputWrapper> --}}
                 </div>
 
                 <label class="info-label">Name</label>
@@ -110,26 +117,33 @@
                     @endforeach
                 </x-form.select> --}}
 
-                <button class="btn btn-success mt-3 float-end" type="submit">
-                    <span class="material-symbols-outlined fs-2 align-middle">
-                        person_add
-                    </span>
-                    Add
-                </button>
+                <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
+                    <button class="btn btn-success" type="submit">
+                        <i class="bi bi-person-add fs-4"></i> Add
+                    </button>
+
+                </div>
             </form>
         </x-modal>
     </div>
 
     <script>
         const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
+        passwordInput.value = generatePassword();
 
-        confirmPasswordInput.addEventListener('input', () => {
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                confirmPasswordInput.setCustomValidity('Passwords do not match');
-            } else {
-                confirmPasswordInput.setCustomValidity('');
+        document.querySelector("#labelPassword").addEventListener('click', () => passwordInput.value = generatePassword())
+
+        function generatePassword() {
+            const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const passwordLength = 8;
+            let password = "";
+
+            for (let i = 0; i <= passwordLength; i++) {
+                var randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber + 1);
             }
-        });
+
+            return password;
+        }
     </script>
 @endsection

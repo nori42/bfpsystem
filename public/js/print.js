@@ -1,8 +1,8 @@
-document.getElementById("printBtn").addEventListener("click", function(){
+function submitPrint() {
     window.print();
 
     document.querySelector('#print').submit();
-})
+}
 
 function printUpdate(){
     window.print();

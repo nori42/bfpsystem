@@ -101,7 +101,13 @@
                     <x-info label="Business Permit No." :value="$establishment->business_permit_no" />
                     <x-info label="Occupancy" :value="$establishment->occupancy" />
                     <x-info label="Sub Type" :value="$establishment->sub_type" />
+                </div>
+
+                <div class="row my-3">
+                    <x-info label="Substation" :value="$establishment->substation" />
                     <x-info label="Building Structure" :value="$establishment->building_type" />
+                    <div class="col"></div>
+
                 </div>
 
                 <div class="row my-3">

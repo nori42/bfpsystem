@@ -50,7 +50,7 @@
         <a id="back" href="/establishments/{{ $establishment->id }}/fsic">
             Back
         </a>
-        <button id="printBtn" class="button">
+        <button id="printBtn" class="button" onclick="submitPrint()">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>

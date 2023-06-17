@@ -35,9 +35,16 @@
         <x-pageWrapper>
             {{-- {{ dd($reports) }} --}}
             <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
-                <option value="inspection">Inspection Reports</option>
+                {{-- I added if statement this way so that the order doesnt change --}}
+                @if (auth()->user()->type == 'ADMIN')
+                    <option value="inspection">Inspection Reports</option>
+                @endif
+
                 <option value="firedrill" selected>Firedrill Reports</option>
-                <option value="buildingplan">Building Plan Reports</option>
+
+                @if (auth()->user()->type == 'ADMIN')
+                    <option value="buildingplan">Building Plan Reports</option>
+                @endif
             </select>
             <hr>
             <div class="d-inline-block" id="printables">
@@ -52,11 +59,15 @@
                             <option value="{{ $y->year }}">{{ $y->year }}</option>
                         @endforeach
                     </select>
+
+                    <label for="claimed">Unclaimed</label>
+                    <input class="form-check" type="checkbox" name="claimed" id="claimed">
                 </div>
             </div>
             <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill" frameborder="0" width="100%"
                 height="800px"></iframe>
         </x-pageWrapper>
+
     </div>
     <script src="{{ asset('js/reports/reportsScript.js') }}"></script>
     <script>
@@ -64,18 +75,24 @@
         const yearlyReports = @json($reports);
         const yearSelect = document.getElementById('year');
         const monthSelect = document.getElementById('month');
+        const claimed = document.querySelector('#claimed')
 
         const iframeFiredrill = document.querySelector("#iFrameFiredrill")
 
         yearSelect.addEventListener('change', () => {
             updateMonth(yearSelect.value)
             iframeFiredrill.src =
-                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
+                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
         })
 
         monthSelect.addEventListener('change', () => {
             iframeFiredrill.src =
-                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
+                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
+        })
+
+        claimed.addEventListener('change', () => {
+            iframeFiredrill.src =
+                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
         })
 
 

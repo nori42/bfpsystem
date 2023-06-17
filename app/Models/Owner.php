@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Owner extends Model
 {
+    public $timestamps = false;
+
     public function establishment() : HasMany
     {
         return $this->hasMany(Establishment::class);

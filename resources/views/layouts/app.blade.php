@@ -60,19 +60,28 @@
 
                     <!-- dropdown menu -->
                     <div id="notificationMenu" class="dropdown-profile-menu py-2 px-2 border-1 text-white" dropdown-menu
-                        style="display:none !important; width:280px; left:calc(-1 * (100% + 180px));">
+                        style="display:none !important; width:380px; left:calc(-1 * (100% + 180px));">
                         <ul class="list-unstyled">
                             <li class="fw-bold fs-5 ml-5 my-2"> Today </li>
 
                             <li>
-                                <a class="btn w-100 text-start text-white" href="">This is a notification
-                                    sample
+                                <a class="btn w-100 text-start text-white" href="">
+                                    <span class="fw-bold">250 Inspections</span> will expire
+                                    today
                                 </a>
                             </li>
 
                             <li>
-                                <a class="btn w-100 text-start text-white" href="">This is a notification
-                                    sample
+                                <a class="btn w-100 text-start text-white" href="">
+                                    <span class="fw-bold">80 Establishments</span> need to
+                                    issue a quarterly firedrill
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">
+                                    <span class="fw-bold">20 Establishments</span> need to
+                                    issue a semesterly firedrill
                                 </a>
                             </li>
 
@@ -95,6 +104,52 @@
                                     </div>
                                 </a>
                             </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn w-100 text-start text-white" href="">This is a notification
+                                    sample
+                                    <div class="notif-time fw-bold">
+                                        2 days ago
+                                    </div>
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

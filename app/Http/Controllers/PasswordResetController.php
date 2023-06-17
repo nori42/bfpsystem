@@ -34,18 +34,24 @@ class PasswordResetController extends Controller
         ]);
 
     }
+    
 
+    
     public function resetPassword(Request $request){
+        $newpassword = Helper::randPass(8);
+
         $user = User::find($request->userId);
-        $user->password = Hash::make('bfpsystem!');
+        $user->password = Hash::make($newpassword);
         $user->request_password_reset = false;
+        $user->is_password_default = true;
         $user->save();
 
         $users = User::all();
 
         return view('users.index',[
            'users' => $users,
-           'toastMssg' => 'Password Reset'
+           'toastMssg' => 'Password Reset',
+           'newpassword' => ['id'=>$user->id,'password'=>$newpassword]
         ]);
     }
 }

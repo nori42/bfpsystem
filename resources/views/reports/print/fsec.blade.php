@@ -24,27 +24,23 @@
     </div>
     <div class="printables">
         <div class="d-flex align-items-center justify-content-between heading">
-            <div class="fs-3">Inpsections Issued</div>
-            <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div>
+            <div class="fs-3">Building Permit Applications</div>
+            {{-- <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div> --}}
         </div>
-        <table id="inspectionIssued" class="table">
+        <table id="evaluations" class="table">
             <thead>
-                <th><span onclick="sort(0)">Fire Safety Inspection No.(FSIC No.)</span></th>
-                <th><span onclick="sort(1)">Establishment Name</span></th>
-                <th><span onclick="sort(2)">Address</span></th>
-                <th><span onclick="sort(3)">Issued Date</span></th>
-                <th><span onclick="sort(4)">Substation</span></th>
+                <th><span onclick="sort(0)">Series No.</span></th>
+                <th><span onclick="sort(1)">Date Received</span></th>
+                <th><span onclick="sort(2)">Permit Applicant</span></th>
+                <th><span onclick="sort(3)">Address</span></th>
+                <th><span onclick="sort(4)">Date Paid</span></th>
+                <th><span onclick="sort(5)">Building Permit App. No</span></th>
+                <th><span onclick="sort(6)">Occupancy</span></th>
+                <th><span onclick="sort(7)">Evaluator</span></th>
+                <th><span onclick="sort(8)">Evaluation Date</span></th>
             </thead>
             <tbody>
-                @foreach ($inspections as $inspection)
-                    <tr>
-                        <td>{{ $inspection->fsic_no }}</td>
-                        <td>{{ $inspection->establishment->establishment_name }}</td>
-                        <td>{{ $inspection->establishment->address }}</td>
-                        <td>{{ date('m/d/Y', strtotime($inspection->issued_on)) }}</td>
-                        <td>{{ $inspection->establishment->substation }}</td>
-                    </tr>
-                @endforeach
+
             </tbody>
         </table>
     </div>
@@ -55,7 +51,7 @@
 <script src="{{ asset('js/reports/tableSort.js') }}"></script>
 <script>
     function sort(index) {
-        const tableId = 'inspectionIssued'
+        const tableId = 'evaluations'
         sortTable(index, tableId)
     }
 </script>

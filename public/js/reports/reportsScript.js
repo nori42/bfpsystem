@@ -1,8 +1,11 @@
 
-const reportsSelect = document.querySelector('#reportsSelect')
+const reportsSelect = document.querySelector('#reportsSelect');
+const pageContent = document.querySelectorAll('.page-content')[0];
+
+console.log(pageContent)
 
 reportsSelect.addEventListener('change', () => {
-    console.log(reportsSelect.value)
+    pageContent.innerHTML = `<h2 class="text-center mt-5">Fetching Reports...</h2>`
 
     switch (reportsSelect.value) {
         case 'inspection':
@@ -16,3 +19,4 @@ reportsSelect.addEventListener('change', () => {
             break;
     }
 })
+

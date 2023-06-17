@@ -39,17 +39,17 @@
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
 
-    <div class="editToolBox">
+    {{-- <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)" style="display: none;">Edit</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
-    </div>
+    </div> --}}
 
     <div class="nav">
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
-        <button id="printBtn">
+        <button id="printBtn" onclick="submitPrint()">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>

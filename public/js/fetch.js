@@ -77,7 +77,6 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
         const result = [];
 
         
-        console.log(json.data)
         datalist.innerHTML = ""
         json.data.forEach(buildingPlan => {
             if(inputId != null && index == 0)
@@ -87,7 +86,22 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
             // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
             // datalist.appendChild(nameOpt)
 
-            result.push(`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`);
+            let representative;
+
+            if(buildingPlan.name)
+            {
+                if(buildingPlan.corporate_name){
+                    representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
+                }else{
+                    representative = buildingPlan.name
+                }
+            }
+            else
+            {
+                representative = buildingPlan.corporate_name
+            }
+
+            result.push(`${representative}-${buildingPlan.status}-${buildingPlan.id}`);
         });
 
         showAutocomplete(result)

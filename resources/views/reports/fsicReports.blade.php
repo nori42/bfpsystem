@@ -48,8 +48,10 @@
             {{-- <h1>Inspection Report</h1> --}}
             <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
                 <option value="inspection">Inspection Reports</option>
-                <option value="firedrill">Firedrill Reports</option>
-                <option value="buildingplan">Building Plan Reports</option>
+                @if (auth()->user()->type == 'ADMIN')
+                    <option value="firedrill">Firedrill Reports</option>
+                    <option value="buildingplan">Building Plan Reports</option>
+                @endif
             </select>
             <hr>
 
@@ -108,156 +110,158 @@
         </x-pageWrapper>
     </div>
     <script src="{{ asset('js/reports/reportsScript.js') }}"></script>
-    <script>
-        const APP_URL = "{{ env('APP_URL') }}";
-        const yearlyReports = @json($reports);
 
-        const yearSelect = document.querySelector('#year');
-        const monthSelect = document.querySelector('#month');
+    @if (count($reports) != 0)
+        <script>
+            const APP_URL = "{{ env('APP_URL') }}";
+            const yearlyReports = @json($reports);
 
-        const iframeInpsections = document.querySelector("#iFrameInspections")
+            const yearSelect = document.querySelector('#year');
+            const monthSelect = document.querySelector('#month');
+
+            const iframeInpsections = document.querySelector("#iFrameInspections")
+
+            yearSelect.addEventListener('change', () => {
+                updateMonth(yearSelect.value)
+                fetchReport()
+
+                iframeInpsections.src =
+                    `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
+            })
+
+            monthSelect.addEventListener('change', () => {
+                fetchReport()
+                iframeInpsections.src =
+                    `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
+            })
 
 
-        yearSelect.addEventListener('change', () => {
-            updateMonth(yearSelect.value)
-            fetchReport()
-
-            iframeInpsections.src =
-                `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
-        })
-
-        monthSelect.addEventListener('change', () => {
-            fetchReport()
-            iframeInpsections.src =
-                `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
-        })
-
-
-        if (yearlyReports[new Date().getFullYear()]) {
-            updateMonth(new Date().getFullYear())
-        } else {
-            updateMonth(new Date().getFullYear() - 1)
-        }
-
-        function updateMonth(year) {
-            const months = [{
-                    value: 1,
-                    name: 'January'
-                },
-                {
-                    value: 2,
-                    name: 'February'
-                },
-                {
-                    value: 3,
-                    name: 'March'
-                },
-                {
-                    value: 4,
-                    name: 'April'
-                },
-                {
-                    value: 5,
-                    name: 'May'
-                },
-                {
-                    value: 6,
-                    name: 'June'
-                },
-                {
-                    value: 7,
-                    name: 'July'
-                },
-                {
-                    value: 8,
-                    name: 'August'
-                },
-                {
-                    value: 9,
-                    name: 'September'
-                },
-                {
-                    value: 10,
-                    name: 'October'
-                },
-                {
-                    value: 11,
-                    name: 'November'
-                },
-                {
-                    value: 12,
-                    name: 'December'
-                }
-            ];
-
-            monthSelect.innerHTML = "";
-
-            for (let i = 0; i < yearlyReports[year].length; i++) {
-                const month = months[yearlyReports[year][i].month - 1];
-                const option = document.createElement('option');
-                option.value = month.value;
-                option.textContent = month.name;
-                monthSelect.appendChild(option);
+            if (yearlyReports[new Date().getFullYear()]) {
+                updateMonth(new Date().getFullYear())
+            } else {
+                updateMonth(new Date().getFullYear() - 1)
             }
-        }
 
-        function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
-            const substations = document.querySelector('#substations')
-            const newIssued = document.querySelector('#newIssued')
-            const totalSubstationsEl = document.querySelector('#totalSubstation')
-            const totalGrand = document.querySelector('#totalGrand')
-            const cbp = document.querySelector('#cbp')
+            function updateMonth(year) {
+                const months = [{
+                        value: 1,
+                        name: 'January'
+                    },
+                    {
+                        value: 2,
+                        name: 'February'
+                    },
+                    {
+                        value: 3,
+                        name: 'March'
+                    },
+                    {
+                        value: 4,
+                        name: 'April'
+                    },
+                    {
+                        value: 5,
+                        name: 'May'
+                    },
+                    {
+                        value: 6,
+                        name: 'June'
+                    },
+                    {
+                        value: 7,
+                        name: 'July'
+                    },
+                    {
+                        value: 8,
+                        name: 'August'
+                    },
+                    {
+                        value: 9,
+                        name: 'September'
+                    },
+                    {
+                        value: 10,
+                        name: 'October'
+                    },
+                    {
+                        value: 11,
+                        name: 'November'
+                    },
+                    {
+                        value: 12,
+                        name: 'December'
+                    }
+                ];
 
-            const yearLabel = document.querySelector('#yearLabel')
-            const monthLabel = document.querySelector('#monthLabel')
+                monthSelect.innerHTML = "";
+
+                for (let i = 0; i < yearlyReports[year].length; i++) {
+                    const month = months[yearlyReports[year][i].month - 1];
+                    const option = document.createElement('option');
+                    option.value = month.value;
+                    option.textContent = month.name;
+                    monthSelect.appendChild(option);
+                }
+            }
+
+            function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
+                const substations = document.querySelector('#substations')
+                const newIssued = document.querySelector('#newIssued')
+                const totalSubstationsEl = document.querySelector('#totalSubstation')
+                const totalGrand = document.querySelector('#totalGrand')
+                const cbp = document.querySelector('#cbp')
+
+                const yearLabel = document.querySelector('#yearLabel')
+                const monthLabel = document.querySelector('#monthLabel')
 
 
-            let totalSubstation = 0;
+                let totalSubstation = 0;
 
-            substations.innerHTML = ""
-            cbp.textContent = substation["CBP"]
+                substations.innerHTML = ""
+                cbp.textContent = substation["CBP"]
 
-            newIssued.textContent = issuedInMonthNew
-            totalGrand.textContent = issuedInMonthAll
+                newIssued.textContent = issuedInMonthNew
+                totalGrand.textContent = issuedInMonthAll
 
-            yearLabel.textContent = yearSelect.value;
-            monthLabel.textContent = monthSelect.selectedOptions[0].text;
+                yearLabel.textContent = yearSelect.value;
+                monthLabel.textContent = monthSelect.selectedOptions[0].text;
 
-            for (const prop in substation) {
-                if (prop == "CBP")
-                    continue;
+                for (const prop in substation) {
+                    if (prop == "CBP")
+                        continue;
 
-                substations.innerHTML +=
-                    `
+                    substations.innerHTML +=
+                        `
                         <div>${prop}</div>
                         <div>${substation[prop]}</div>
                 `
-                totalSubstation += substation[prop];
+                    totalSubstation += substation[prop];
+                }
+
+                totalSubstationsEl.textContent = totalSubstation;
             }
 
-            totalSubstationsEl.textContent = totalSubstation;
-        }
+            async function fetchReport() {
+                try {
 
-        async function fetchReport() {
-            try {
+                    const hostUrl = "{{ env('APP_URL') }}"
+                    const response = await fetch(hostUrl +
+                        `/resources/reports/fsic?year=${yearSelect.value}&month=${monthSelect.value}`)
 
-                const hostUrl = "{{ env('APP_URL') }}"
-                const response = await fetch(hostUrl +
-                    `/resources/reports/fsic?year=${yearSelect.value}&month=${monthSelect.value}`)
-
-                const json = await response.json();
-                const reports = json.data
+                    const json = await response.json();
+                    const reports = json.data
 
 
-                displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
-            } catch (err) {
-                console.log(err)
+                    displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
 
-        fetchReport()
+            fetchReport()
 
-        iframeInpsections.src =
-            `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
-    </script>
+            iframeInpsections.src =
+                `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
+        </script>
+    @endif()
 @endsection

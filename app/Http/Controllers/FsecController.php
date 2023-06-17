@@ -129,6 +129,22 @@ class FsecController extends Controller
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
 
+    public function release(Request $request){
+        $buildingPlan = BuildingPlan::find($request->buildingPlanId);
+
+        $buildingPlan->date_released = date('Y-m-d');
+
+        $buildingPlan->save();
+
+        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
+
+        return view('fsec.show',[
+            'buildingPlan' => $buildingPlan,
+            'evaluations' => $evaluations,
+            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+        ]);
+    }
+
     public function search(Request $request){
 
         // Get the id in the search string

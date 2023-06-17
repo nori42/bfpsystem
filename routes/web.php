@@ -9,11 +9,13 @@ use App\Http\Controllers\Firedrillcontroller;
 use App\Http\Controllers\FiredrillReportController;
 use App\Http\Controllers\FsicController;
 use App\Http\Controllers\FsecController;
+use App\Http\Controllers\FSECReportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\FSICReportController;
+use App\Http\Controllers\PasswordNewController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SearchController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use App\Models\Firedrill;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +41,7 @@ use Illuminate\Support\Facades\Route;
  
 //Authenticate
 Route::get('/', function () {
+    auth()->logout();
     return view('index');
 })->name('login');
 
@@ -77,6 +81,7 @@ Route::get('/fsec', [FsecController::class, 'index'])->middleware(['auth','userT
 Route::post('/fsec', [FsecController::class, 'store']);
 Route::get('/fsec/create',[FsecController::class,'create'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::post('/fsec/search', [FsecController::class, 'search'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::put('fsec/release',[FsecController::class,'release'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::put('/fsec/{id}',[FsecController::class,'update'])->middleware(['auth','userType:ADMIN,FSEC']);
@@ -130,11 +135,21 @@ Route::post('/users',[UserController::class,'store']);
 Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
 Route::put('/users/{id}',[UserController::class,'update'])->middleware('auth');
 
+//Passwords
+
+Route::get('/newpassword',[PasswordNewController::class,'index'])->middleware('auth');
+Route::put('/updatepassword',[PasswordNewController::class,'updatePassword'])->middleware('auth');
+Route::put('/request/passwordreset',[PasswordResetController::class,'resetPassword']);
+Route::post('/request/passwordreset',[PasswordResetController::class,'requestPasswordReset']);
+
+
 //Reports
 Route::get('/reports/fsic',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/firedrill',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
+Route::get('/reports/fsec',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/print/firedrill',[ReportsController::class,'show_firedrill'])->middleware('auth')->name('reports');
 Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middleware('auth')->name('reports');
+Route::get('/reports/print/fsec',[ReportsController::class,'show_fsec'])->middleware('auth')->name('reports');
 
 //Activity Log
 Route::get('/activity',function(){ return view('activityLog');})->middleware('auth')->name('activity');
@@ -163,7 +178,3 @@ Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
 Route::get('/unauthorized',function () {
     return view('errors.unauthorized');
 });
-
-Route::put('/request/passwordreset',[PasswordResetController::class,'resetPassword']);
-
-Route::post('/request/passwordreset',[PasswordResetController::class,'requestPasswordReset']);

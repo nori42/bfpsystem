@@ -58,8 +58,6 @@ class FiredrillController extends Controller
         
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
 
-        $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
-
         if($request->action == "add")
         {
             return view('establishments.firedrill.index',[
@@ -68,9 +66,7 @@ class FiredrillController extends Controller
                 'isAdd'=>true,
                 'toastMssg' => 'Firedrill Added',
                 'owner' => $owner,
-                'representative' => Helper::getRepresentativeName($establishment->owner_id),
-                'controlNo' => $newControlNo,
-                'page_title' => 'Fire Drill' // use to set page title inside the panel
+                'representative' => Helper::getRepresentativeName($establishment->owner_id)
             ]);
         }
         else
@@ -84,22 +80,23 @@ class FiredrillController extends Controller
 
         $firedrill = Firedrill::find($request->firedrillId);
         $receipt = $firedrill->receipt;
-
-        error_log($request->validityTerm);
-
-        $receipt->or_no = $request->orNo;
-        $receipt->amount = $request->amountPaid;
-        $receipt->date_of_payment = $request->dateOfPayment;
-        
-        $receipt->save();
-        $firedrill->control_no = $request->controlNo;
-
-        $firedrill->validity_term = $request->validityTerm;
-        $firedrill->date_made = $request->dateMade;
-
         $establishment = Establishment::find($request->estabId);
         $owner = $establishment->owner;
         
+        if($request->action =='save' || $request->action == 'saveandprint')
+        {
+
+            $receipt->or_no = $request->orNo;
+            $receipt->amount = $request->amountPaid;
+            $receipt->date_of_payment = $request->dateOfPayment;
+            $receipt->save();
+    
+            $firedrill->control_no = $request->controlNo;
+            $firedrill->validity_term = $request->validityTerm;
+            $firedrill->date_made = $request->dateMade;
+        }
+
+
         if($request->action == "claimcertificate")
         {
             $firedrill->date_claimed = Carbon::now();
@@ -117,14 +114,9 @@ class FiredrillController extends Controller
         
         $firedrill->save();
 
-
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
-        $firedrillsByYear = (Firedrill::where('year',date('Y')));
-        
 
-        $newControlNo = date('Y').'-CCFO-'.$firedrillsByYear->count() + 1;
-
-        if($request->action == "add" || $request->action == "claimcertificate")
+        if($request->action == "save" || $request->action == "claimcertificate")
         {
             return view('establishments.firedrill.index',[
                 'firedrills' => $firedrills,
@@ -133,9 +125,7 @@ class FiredrillController extends Controller
                 'representative' => Helper::getRepresentativeName($establishment->owner_id),
                 'isUpdate' =>true,
                 'toastMssg' => 'Updated Successfully',
-                'firedrillUpdatedId' => $firedrill->id,
-                'controlNo' => $newControlNo,
-                'page_title' => 'Fire Drill' // use to set page title inside the panel
+                'firedrillUpdatedId' => $firedrill->id
             ]);
         }
         else
