@@ -146,7 +146,7 @@ Route::post('/request/passwordreset',[PasswordResetController::class,'requestPas
 //Reports
 Route::get('/reports/fsic',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/firedrill',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
-Route::get('/reports/fsec',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
+Route::get('/reports/fsec',[FsecReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/print/firedrill',[ReportsController::class,'show_firedrill'])->middleware('auth')->name('reports');
 Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middleware('auth')->name('reports');
 Route::get('/reports/print/fsec',[ReportsController::class,'show_fsec'])->middleware('auth')->name('reports');

@@ -11,8 +11,6 @@ export default defineConfig({
                 'resources/css/printfsic.css',
                 'resources/css/bootstrap-icons.css',
                 'resources/css/reports.css',
-                'resoruces/js/xlsx.full.min.js',
-                'resoruces/js/exportToXLSX.js'
             ],
             refresh: true,
         }),

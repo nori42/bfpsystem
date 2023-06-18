@@ -48,7 +48,7 @@ class BuildingPlanFactory extends Factory
                 'series_no' => (sprintf("%04d",self::$seriesNo++)).'-S\''.date('Y'),
                 'bp_application_no' => random_int(1000,9999),
                 'date_received' => date('Y-m-d'),
-                'status' => $status,
+                'status' => 'PENDING',
                 'owner_id' => Owner::factory(),
                 'building_id' => Building::factory(),
                 'receipt_id' => Receipt::factory()

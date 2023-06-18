@@ -1,3 +1,7 @@
+@php
+    use App\Http;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +19,7 @@
 </style>
 
 <body>
+    {{-- {{ dd($evaluations[0]->buildingPlan) }} --}}
     <div class="py-3 bg-white position-sticky w-100 top-0">
         <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
             Print</button>
@@ -40,7 +45,67 @@
                 <th><span onclick="sort(8)">Evaluation Date</span></th>
             </thead>
             <tbody>
-
+                {{-- @foreach ($buildingPlans as $plan)
+                    @php
+                        if ($plan->last_name != null) {
+                            if ($plan->middle_name == null) {
+                                $personName = $plan->first_name . ' ' . $plan->last_name;
+                            } else {
+                                $personName = $plan->first_name . ' ' . $plan->middle_name[0] . '. ' . $plan->last_name;
+                            }
+                        }
+                        
+                        if ($personName != null && $plan->corporate_name != null) {
+                            $representative = $personName . '/' . $plan->corporate_name;
+                        } elseif ($personName == null) {
+                            $representative = $plan->corporate_name;
+                        } else {
+                            $representative = $personName;
+                        }
+                    @endphp
+                    @endphp
+                    <tr>
+                        <td>{{ $plan->series_no }}</td>
+                        <td>{{ date('m/d/Y', strtotime($plan->date_received)) }}</td>
+                        <td>{{ $representative }}</td>
+                        <td>{{ $plan->address }}</td>
+                    </tr>
+                @endforeach --}}
+                @foreach ($evaluations as $evaluation)
+                    @php
+                        $buildingPlan = $evaluation->buildingPlan;
+                        $building = $evaluation->buildingPlan->building;
+                        $receipt = $evaluation->buildingPlan->receipt;
+                        $owner = $evaluation->buildingPlan->owner;
+                        
+                        if ($owner->person->last_name != null) {
+                            if ($owner->person->middle_name == null) {
+                                $personName = $owner->person->first_name . ' ' . $owner->person->last_name;
+                            } else {
+                                $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name;
+                            }
+                        }
+                        
+                        if ($personName != null && $owner->corporate->corporate_name != null) {
+                            $representative = $personName . '/' . $owner->corporate->corporate_name;
+                        } elseif ($personName == null) {
+                            $representative = $owner->corporate->corporate_name;
+                        } else {
+                            $representative = $personName;
+                        }
+                    @endphp
+                    <tr>
+                        <td>{{ $buildingPlan->series_no }}</td>
+                        <td>{{ date('m/d/Y', strtotime($buildingPlan->date_received)) }}</td>
+                        <td>{{ $representative }}</td>
+                        <td>{{ $building->address }}</td>
+                        <td>{{ date('m/d/Y', strtotime($buildingPlan->receipt->date_of_payment)) }}</td>
+                        <td>{{ $buildingPlan->bp_application_no }}</td>
+                        <td>{{ $building->occupancy }}</td>
+                        <td>{{ $evaluation->evaluator }}</td>
+                        <td>{{ date('m/d/Y', strtotime($evaluation->created_at)) }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

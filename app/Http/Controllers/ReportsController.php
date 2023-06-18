@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuildingPlan;
+use App\Models\Evaluation;
 use App\Models\Firedrill;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
@@ -42,7 +44,24 @@ class ReportsController extends Controller
     }
 
     public function show_fsec(Request $request){
-        return view('reports.print.fsec');
+        
+        $buildingPlans = BuildingPlan::join('evaluations','building_plans.id','=','evaluations.building_plan_id')
+            ->join('buildings','building_plans.building_id','=','buildings.id')
+            ->join('owners','building_plans.owner_id','=','owners.id')
+            ->join('person','owners.person_id','=','person.id')
+            ->join('corporates','owners.corporate_id','=','corporates.id')
+            ->select()
+            ->where('evaluations.remarks','APPROVED')
+            ->whereMonth('evaluations.created_at',01)
+            ->whereYear('evaluations.created_at',2022)
+            ->get();
+
+        $evaluations = Evaluation::where('remarks','APPROVED')
+        ->whereMonth('evaluations.created_at',$request->month)
+        ->whereYear('evaluations.created_at',$request->year)
+        ->get();
+
+        return view('reports.print.fsec',['buildingPlans' => $buildingPlans,'evaluations'=> $evaluations]);
     }
 
 }

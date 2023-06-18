@@ -17,7 +17,7 @@ class Evaluation extends Model
         return $this->belongsTo(Receipt::class);
     }
 
-    public function building(){
-        return $this->belongsTo(Building::class);
+    public function buildingPlan(){
+        return $this->belongsTo(BuildingPlan::class);
     }
 }

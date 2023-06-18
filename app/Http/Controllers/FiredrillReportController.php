@@ -34,8 +34,4 @@ class FiredrillReportController extends Controller
             'reports' => $reports
         ]);
     }
-
-    public function getFiredrillReport(){
-        
-    }
 }
