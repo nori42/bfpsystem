@@ -2,6 +2,14 @@
     @php
         $currentRoute = Route::currentRouteName();
     @endphp
+    <x-navLinks.link href="/dashboard" :active="$currentRoute == 'dashboard'">
+        <!-- button Icon -->
+        <span class="material-symbols-outlined align-middle fs-2">
+            dashboard
+        </span>
+        Dashboard
+    </x-navLinks.link>
+
     <x-navLinks.link href="/establishments" :active="$currentRoute == 'establishments'">
         <!-- button Icon -->
         <span class="material-symbols-outlined align-middle fs-2">

@@ -57,57 +57,54 @@
                                         <button type="submit" class="btn btn-link">Reset Password</button>
                                     </form>
                                 @endif
-
-                                @isset($newpassword)
-                                    @if ($user->id == $newpassword['id'])
-                                        <span class="fw-bold">Password: </span>{{ $newpassword['password'] }}
-                                    @endif
+                                @if ($user->reset_password)
+                                    <span class="fw-bold">Password: </span>{{ $user->reset_password }}
                                 @endisset
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </x-pageWrapper>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </x-pageWrapper>
 
-        <x-modal id="addUser" width="50" topLocation="8">
+    <x-modal id="addUser" width="50" topLocation="8">
 
-            <form action="/users" method="POST" autocomplete="off">
-                @csrf
+        <form action="/users" method="POST" autocomplete="off">
+            @csrf
 
-                <legend class="mb-3">Add New User</legend>
+            <legend class="mb-3">Add New User</legend>
 
-                <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
-                    <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
-                    <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
-                    <option value="FIREDRILL">FIREDRILL</option>
-                </x-form.select>
+            <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
+                <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
+                <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
+                <option value="FIREDRILL">FIREDRILL</option>
+            </x-form.select>
 
-                <div class="d-flex gap-3">
-                    {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
-                    <x-form.inputWrapper>
-                        <label class="info-label">Username</label>
-                        <input class="form-control" id="username" name="username" type="text" required
-                            autocomplete="off">
-                    </x-form.inputWrapper>
-                    <x-form.inputWrapper>
-                        <label id="labelPassword" class="info-label">Password <span class="fw-normal">Click here to generate
-                                new</span></label>
-                        <input class="form-control" id="password" name="password" type="text" required readonly
-                            autocomplete="off">
-                    </x-form.inputWrapper>
-                    {{-- <x-form.inputWrapper>
+            <div class="d-flex gap-3">
+                {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
+                <x-form.inputWrapper>
+                    <label class="info-label">Username</label>
+                    <input class="form-control" id="username" name="username" type="text" required
+                        autocomplete="off">
+                </x-form.inputWrapper>
+                <x-form.inputWrapper>
+                    <label id="labelPassword" class="info-label">Password <span class="fw-normal">Click here to generate
+                            new</span></label>
+                    <input class="form-control" id="password" name="password" type="text" required readonly
+                        autocomplete="off">
+                </x-form.inputWrapper>
+                {{-- <x-form.inputWrapper>
                         <label class="info-label">Confirm Password</label>
                         <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required
                             autocomplete="off">
                     </x-form.inputWrapper> --}}
-                </div>
+            </div>
 
-                <label class="info-label">Name</label>
-                <input class="form-control text-uppercase" id="name" name="name" type="text" required
-                    autocomplete="off">
+            <label class="info-label">Name</label>
+            <input class="form-control text-uppercase" id="name" name="name" type="text" required
+                autocomplete="off">
 
-                {{-- <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel"
+            {{-- <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel"
                     customAttr="required">
                     @foreach ($personnelList as $personnel)
                         @php
@@ -117,33 +114,33 @@
                     @endforeach
                 </x-form.select> --}}
 
-                <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
-                    <button class="btn btn-success" type="submit">
-                        <i class="bi bi-person-add fs-4"></i> Add
-                    </button>
+            <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
+                <button class="btn btn-success" type="submit">
+                    <i class="bi bi-person-add fs-4"></i> Add
+                </button>
 
-                </div>
-            </form>
-        </x-modal>
-    </div>
+            </div>
+        </form>
+    </x-modal>
+</div>
 
-    <script>
-        const passwordInput = document.getElementById('password');
-        passwordInput.value = generatePassword();
+<script>
+    const passwordInput = document.getElementById('password');
+    passwordInput.value = generatePassword();
 
-        document.querySelector("#labelPassword").addEventListener('click', () => passwordInput.value = generatePassword())
+    document.querySelector("#labelPassword").addEventListener('click', () => passwordInput.value = generatePassword())
 
-        function generatePassword() {
-            const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const passwordLength = 8;
-            let password = "";
+    function generatePassword() {
+        const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const passwordLength = 8;
+        let password = "";
 
-            for (let i = 0; i <= passwordLength; i++) {
-                var randomNumber = Math.floor(Math.random() * chars.length);
-                password += chars.substring(randomNumber, randomNumber + 1);
-            }
-
-            return password;
+        for (let i = 0; i <= passwordLength; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber + 1);
         }
-    </script>
+
+        return password;
+    }
+</script>
 @endsection

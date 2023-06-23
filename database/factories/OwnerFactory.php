@@ -21,10 +21,10 @@ class OwnerFactory extends Factory
      */
    
     
-
+    private static $seriesNo;
 
     public function definition(): array
-    {       
+    {    
         return [
             'person_id' => Person::factory(),
             'corporate_id' => Corporate::factory()

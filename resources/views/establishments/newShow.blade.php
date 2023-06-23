@@ -34,6 +34,9 @@
         @endphp
         <x-pageWrapper>
             {{-- {{ dd($establishment->getAttributes()) }} --}}
+            @if (session('debug'))
+                {{ dd(session('debug')) }}
+            @endif
             @if (session('mssg'))
                 <x-toast :message="session('mssg')" />
             @endif

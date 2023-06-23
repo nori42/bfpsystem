@@ -6,7 +6,7 @@ use DateTime;
 class HelperFactory {
 
     public static $establishmentCount = 1000;
-    public static $buildingPlanCount = 100;
+    public static $buildingPlanCount = 200;
 
     public static function randomDate($minYear = 2019,$maxYear = 2023,$minMonth = 01, $maxMonth = 12){
         $randomDay = rand(1, 28); // Generate a random day between 1 and 28

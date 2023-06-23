@@ -120,6 +120,9 @@ class EstablishmentController extends Controller
         //save establishment data to database
         $establishment->save();
 
+        //Added activity log
+        ActivityLogger::establishmentLog($establishment->establishment_name,Activity::AddEstablishment);
+        
         return redirect('/establishments'.'/'.$establishment->id.'/'.'fsic/');        
     }
 
@@ -257,7 +260,13 @@ class EstablishmentController extends Controller
         $establishment->height = strtoupper($request->height);
         $establishment->floor_area = strtoupper($request->floorArea);
 
+        // Only log if there are changes
+        if($establishment->isDirty()){
+            ActivityLogger::establishmentLog($establishment->establishment_name,Activity::UpdateEstablishment);
+        }
+
         $establishment->save();
+
 
         return redirect('/establishments'. "/" . $establishment->id)->with(["mssg" => "Record Updated"]);
     }

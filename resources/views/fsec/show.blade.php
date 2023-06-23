@@ -67,9 +67,9 @@
                                     <li><a href="/fsec/print/{{ $buildingPlan->id }}"
                                             class="btn btn-success w-100 text-start"><i
                                                 class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
-                                    <li><a href="/fsecchecklist/print/{{ $buildingPlan->id }}"
+                                    {{-- <li><a href="/fsecchecklist/print/{{ $buildingPlan->id }}"
                                             class="btn btn-success w-100 mt-2 text-start"><i
-                                                class="bi bi-clipboard-check mx-2 fs-5"></i>Checklist</a></li>
+                                                class="bi bi-clipboard-check mx-2 fs-5"></i>Checklist</a></li> --}}
                                     <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                             class="btn btn-outline-danger w-100 mt-2 text-start"><i
                                                 class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
@@ -121,7 +121,10 @@
                 @if ($receipt->or_no)
                     <div class="row w-50">
                         <x-info label="OR No." :value="$receipt->or_no ? $receipt->or_no : 'N/A'" />
-                        <x-info label="Amount" :value="$receipt->amount ? $receipt->amount : 'N/A'" />
+                        @php
+                            $pesoSign = '₱';
+                        @endphp
+                        <x-info label="Amount" :value="$receipt->amount ? $pesoSign . $receipt->amount : 'N/A'" />
                         <x-info label="Date of Payment" value="{{ date('m/d/Y', strtotime($receipt->date_of_payment)) }}" />
                     </div>
                 @else

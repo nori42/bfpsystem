@@ -29,7 +29,7 @@
     </div>
     <div class="printables">
         <div class="d-flex align-items-center justify-content-between heading">
-            <div class="fs-3">Building Permit Applications</div>
+            <div class="fs-3">Approved Building Permit Applications</div>
             {{-- <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div> --}}
         </div>
         <table id="evaluations" class="table">

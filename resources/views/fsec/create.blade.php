@@ -19,6 +19,7 @@
                         <x-form.input type="text" label="Last Name" name="lastName" />
                         <x-form.input type="text" label="First Name" name="firstName" />
                         <x-form.input type="text" label="Middle Name" name="middleName" />
+                        <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" />
                     </div>
                     <legend> <span class="text-secondary"> Or</span></legend>
                     <x-form.input class="w-50" type="text" label="Corporate Name" name="corporateName" />

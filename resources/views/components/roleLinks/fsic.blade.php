@@ -16,11 +16,4 @@
         </span>
         Reports
     </x-navLinks.link>
-
-    <x-navLinks.link href="/activity" :active="$currentRoute == 'activity'">
-        <span class="material-symbols-outlined align-middle fs-2">
-            event_note
-        </span>
-        Activity Log
-    </x-navLinks.link>
 </x-navLinks>

@@ -25,6 +25,7 @@ class PasswordNewController extends Controller
 
         $user = User::find(auth()->user()->id);
         $user->password = Hash::make($request->password);
+        $user->reset_password = null;
         $user->is_password_default = false;
         $user->save();
 

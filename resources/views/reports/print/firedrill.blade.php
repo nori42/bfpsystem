@@ -80,7 +80,7 @@
                         <td>{{ $firedrill->issued_on ? date('m/d/Y', strtotime($firedrill->issued_on)) : '' }}</td>
                         <td>{{ $firedrill->validity_term }}</td>
                         <td>{{ $firedrill->receipt->or_no }}</td>
-                        <td>P{{ $firedrill->receipt->amount }}</td>
+                        <td>&#8369;{{ $firedrill->receipt->amount }}</td>
                         <td>{{ date('m/d/Y', strtotime($firedrill->receipt->date_of_payment)) }}</td>
                         <td>{{ $firedrill->claimed_by }}</td>
                         <td>{{ $firedrill->claimed_by ? date('m/d/Y', strtotime($firedrill->date_claimed)) : '' }}

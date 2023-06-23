@@ -55,6 +55,8 @@ class FiredrillController extends Controller
         $firedrill->year =$request->year;
         
         $firedrill->save();
+
+        ActivityLogger::firedrillLog($establishment->establishment_name,Activity::AddFiredrill);
         
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
 

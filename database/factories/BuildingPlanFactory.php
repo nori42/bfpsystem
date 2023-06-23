@@ -43,8 +43,8 @@ class BuildingPlanFactory extends Factory
 
         return [
             //
-                'project_title' => 'Project Test',
-                'name_of_building' => 'Building Name Test',
+                'project_title' => 'PROJECT TEST',
+                'name_of_building' => 'BUILDING NAME TEST',
                 'series_no' => (sprintf("%04d",self::$seriesNo++)).'-S\''.date('Y'),
                 'bp_application_no' => random_int(1000,9999),
                 'date_received' => date('Y-m-d'),

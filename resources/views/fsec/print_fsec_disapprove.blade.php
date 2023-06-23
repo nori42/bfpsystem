@@ -52,7 +52,7 @@
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
-        <button id="printBtn">
+        <button id="printBtn" onclick="submitPrint()">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>

@@ -14,6 +14,16 @@ class BuildingPlanSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+    // Execute this sql commands to delete all duplicate approved
+    //  DELETE FROM your_table
+    // WHERE remarks = 'APPROVED' AND id NOT IN (
+    //     SELECT MIN(id)
+    //     FROM your_table
+    //     WHERE remarks = 'APPROVED'
+    //     GROUP BY building_plan_id
+    //   );
+
     public function run(): void
     {
         //

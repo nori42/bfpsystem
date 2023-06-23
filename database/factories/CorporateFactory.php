@@ -15,7 +15,7 @@ class CorporateFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
+    {   
         return [
             //
             'corporate_name' => strtoupper(fake()->company()),

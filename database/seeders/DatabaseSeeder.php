@@ -29,12 +29,15 @@ class DatabaseSeeder extends Seeder
         // ]);
         \App\Models\User::create([
             'username' => 'admin01',
-            'password' => Hash::make('admin'),
-            'name' => 'admin',
+            'password' => Hash::make('Bfpadmin01'),
+            'name' => 'JAGDON',
+            'request_password_reset' => false,
+            'is_password_default' => false,
             'type' => strtoupper('admin'),
         ]);
 
         Establishment::factory()->count(HelperFactory::$establishmentCount)->create();
-        Inspection::factory()->count(50)->create();
+        Inspection::factory()->count(200)->create();
+        Firedrill::factory()->count(200)->create();
     }
 }

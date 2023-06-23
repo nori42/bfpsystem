@@ -42,6 +42,7 @@ class PasswordResetController extends Controller
 
         $user = User::find($request->userId);
         $user->password = Hash::make($newpassword);
+        $user->reset_password = $newpassword;
         $user->request_password_reset = false;
         $user->is_password_default = true;
         $user->save();

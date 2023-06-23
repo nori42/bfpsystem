@@ -29,7 +29,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'The provided credentials does not exist in the system.',
+            'username' => 'The provided credentials is incorrect.',
         ])->onlyInput('username');
     }
 

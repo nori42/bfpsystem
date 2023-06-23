@@ -35,6 +35,8 @@ class PrintController extends Controller
         $inspection->status ='Printed';
         $inspection->save();
 
+        ActivityLogger::fsicLog($inspection->establishment->establishment_name,Activity::PrintInspection); 
+
         return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
     }
 
@@ -70,6 +72,8 @@ class PrintController extends Controller
         $firedrill->issued_on = date('Y-m-d');
         $firedrill->save();
 
+        ActivityLogger::firedrillLog($firedrill->establishment->establishment_name,Activity::PrintFiredrill);
+
         return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }
 
@@ -86,6 +90,8 @@ class PrintController extends Controller
     public function show_print_fsecdisapprove(Request $request)
     {
         $buildingPlan = BuildingPlan::find($request->id);
+        
+        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DisapporveBuildingPlan);
 
         return view('fsec.print_fsec_disapprove',[
             'buildingPlan' => $buildingPlan
@@ -113,7 +119,10 @@ class PrintController extends Controller
         $evaluation->save();
         $buildingPlan->save();
 
-        return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
+        $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+        ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::DisapporveBuildingPlan);
+
+        return redirect('/fsecchecklist/print'.'/'.$buildingPlan->id);        
     }
 
     public function print_fsec(Request $request){
@@ -128,6 +137,9 @@ class PrintController extends Controller
 
         $evaluation->save();
         $buildingPlan->save();
+
+        $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+        ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
     }

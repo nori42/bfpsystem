@@ -21,11 +21,34 @@
             <form class="mx-auto" action="/updatepassword" method="POST" style="width: 32rem;">
                 @csrf
                 @method('PUT')
-                @if ($errors->any())
+                {{-- @if ($errors->any())
+
+                    {{ dd($errors) }}
                     @foreach ($errors->all() as $error)
                         <div class="fs-6 text-danger my-2">{{ $error }}</div>
                     @endforeach
-                @endif
+                @endif --}}
+                <div class="text-secondary">
+
+                    @if ($errors->has('password'))
+                        @foreach ($errors->get('password') as $error)
+                            @if ($error === 'The password field must be at least 8 characters.')
+                                <span class="text-danger">{{ $error }}</span><br>
+                            @elseif ($error === 'The password field must contain at least one uppercase and one lowercase letter.')
+                                <span class="text-danger">{{ $error }}</span><br>
+                            @elseif ($error === 'The password field must contain at least one number.')
+                                <span class="text-danger">{{ $error }}</span><br>
+                            @else
+                                <span>{{ $error }}</span><br>
+                            @endif
+                        @endforeach
+                    @else
+                        <span>The password field must be at least 8 characters.</span><br>
+                        <span>The password field must contain at least one uppercase and one lowercase
+                            letter.</span><br>
+                        <span>The password field must contain at least one number.</span>
+                    @endif
+                </div>
                 <div>
                     <label class="fs-4">Password</label>
                     <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password"

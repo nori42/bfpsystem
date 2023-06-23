@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ArchivedEstablishments;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
@@ -53,7 +54,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::post('/login', [LoginController::class, 'login']);
 
 //Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 //Search
 Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 
@@ -81,7 +82,8 @@ Route::get('/fsec', [FsecController::class, 'index'])->middleware(['auth','userT
 Route::post('/fsec', [FsecController::class, 'store']);
 Route::get('/fsec/create',[FsecController::class,'create'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::post('/fsec/search', [FsecController::class, 'search'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::put('fsec/release',[FsecController::class,'release'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::put('/fsec/release',[FsecController::class,'release'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::get('/fsec/pending/',[FsecController::class,'pending'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware(['auth','userType:ADMIN,FSEC']);
 Route::put('/fsec/{id}',[FsecController::class,'update'])->middleware(['auth','userType:ADMIN,FSEC']);
@@ -152,7 +154,7 @@ Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middle
 Route::get('/reports/print/fsec',[ReportsController::class,'show_fsec'])->middleware('auth')->name('reports');
 
 //Activity Log
-Route::get('/activity',function(){ return view('activityLog');})->middleware('auth')->name('activity');
+Route::get('/activity',[ActivityController::class,'index'])->middleware('auth')->name('activity');
 
 //Archived routes
 Route::get('/archived',ArchivedEstablishments::class)->middleware('auth')->name('archived');

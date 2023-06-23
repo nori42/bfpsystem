@@ -39,6 +39,7 @@ class FsecController extends Controller
         $person->first_name = strtoupper($request->firstName);
         $person->middle_name = strtoupper($request->middleName);
         $person->last_name = strtoupper($request->lastName);
+        $person->last_name = strtoupper($request->nameSuffix);
         $person->save();
 
         $corporate->corporate_name = strtoupper($request->corporateName);
@@ -78,6 +79,8 @@ class FsecController extends Controller
         $buildingPlan->receipt_id = $receipt->id;
         $buildingPlan->save();
 
+        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::AddBuildingPlan);
+
         return redirect('/fsec'.'/'.$buildingPlan->id);
     }
 
@@ -110,7 +113,6 @@ class FsecController extends Controller
         $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
-        $buildingPlan->save();
 
         //Update Building Fields
         $building->occupancy = strtoupper($request->occupancy);
@@ -118,13 +120,23 @@ class FsecController extends Controller
         $building->building_story = strtoupper($request->buildingStory);
         $building->floor_area = strtoupper($request->floorArea);
         $building->address = strtoupper($request->address);
-        $building->save();
-
+        
         //Update Receipt Fields
         $receipt->or_no = $request->orNo;
         $receipt->amount = $request->amountPaid;
         $receipt->date_of_payment = $request->dateOfPayment;
+        
+        //Only log if there is a change
+        if($receipt->isDirty() || $building->isDirty() || $buildingPlan->isDirty())
+        {
+            $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+            ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::UpdateBuildingPlan);
+        }
+
         $receipt->save();
+        $building->save();
+        $buildingPlan->save();
+
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
@@ -165,6 +177,15 @@ class FsecController extends Controller
             'buildingPlan' => $buildingPlan,
             'evaluations' => $evaluations,
             'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+        ]);
+    }
+
+    public function pending(Request $request){
+
+        $buildingPlans = BuildingPlan::where('status','PENDING')->orderBy('series_no','desc')->get();
+
+        return view('fsec.pendingFsec',[
+            'buildingPlans' => $buildingPlans
         ]);
     }
 

@@ -73,6 +73,8 @@ class FsicController extends Controller
             "issuedFor"=>$issuedFor
         ];
 
+        ActivityLogger::fsicLog($establishment->establishment_name,Activity::AddInspection); 
+
         switch($request->input('action'))
         {
             case 'add':

@@ -3,21 +3,6 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
-    @php
-        $subsationsIssued = [
-            'GUADALUPE' => 279,
-            'LABANGON' => 95,
-            'LAHUG' => 109,
-            'MABOLO' => 223,
-            'PAHINA CENTRAL' => 272,
-            'PARDO' => 167,
-            'PARI-AN' => 116,
-            'SAN NICOLAS' => 185,
-            'TALAMBAN' => 145,
-        ];
-        
-        $monthsString = [];
-    @endphp
     <style>
         @media print {
 
@@ -79,7 +64,7 @@
                             {{-- <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
                             Print</button> --}}
                         </div>
-                        <div class="fs-3">Inspections Summary</div>
+                        <div class="fs-3">Inspections Issued Summary</div>
                         <div class="fw-bold"><span id="monthLabel"></span> <span id="yearLabel"></span></div>
                         <div class="mt-4 fs-4">Substation</div>
                         <div class="d-flex align-items-start gap-5">

@@ -4,7 +4,7 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
-        <x-dashboard for='building plan' />
+        <x-search for='building plan' />
         @if (session()->get('searchQuery'))
             @php
                 $message = "\"" . session()->get('searchQuery') . "\"" . ' Returns no result';
@@ -20,6 +20,8 @@
                     New Building Plan Application
                 </a>
             </div>
+            <iframe id="iFramePending" src="{{ env('APP_URL') . '/fsec/pending' }}" frameborder="0" width="100%"
+                height="800px"></iframe>
         </x-pageWrapper>
     </div>
 @endsection
