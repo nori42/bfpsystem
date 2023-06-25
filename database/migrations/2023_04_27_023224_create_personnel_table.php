@@ -12,10 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('personnel', function (Blueprint $table) {
+            $ranks = array('CINSP','INSP','SFO4','SFO3','SFO2','SFO1','FO3','FO2','FO1','NUP');
+
             $table->bigIncrements('id');
             $table->string('sex')->nullable();
-            $table->string('rank')->nullable();
+            $table->enum('rank',$ranks);
             $table->string('designation')->nullable();
             $table->string('pagibig_no')->nullable();
             $table->string('philhealth_no')->nullable();

@@ -52,8 +52,8 @@
 
                 {{-- Page Title --}}
                 {{-- <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1> --}}
-                <!-- profile button -->
-                <div class="position-relative py-0" data-dropdown-nb>
+                <!-- notification button -->
+                {{-- <div class="position-relative py-0" data-dropdown-nb>
                     <button class="btn btn-profile rounded-0" onclick="toggleShow('notificationMenu')">
                         <i class="bi bi-bell-fill text-white fs-4"></i>
                     </button>
@@ -86,7 +86,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- profile button -->
                 <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
@@ -97,11 +97,11 @@
                     </button>
 
                     <!-- dropdown menu -->
-                    <div id="dropdownMenu" dropdown-menu class="dropdown-profile-menu py-2 px-3 border-1"
+                    <div id="dropdownMenu" dropdown-menu class="dropdown-profile-menu py-3 px-3 border-1"
                         style="display:none !important; left:calc(-1 * (100% + 75px));">
                         @if (auth()->user()->personnel_id == 0)
-                            <div class="mx-3 fs-6 fw-semibold text-white text-center align-middle">
-                                {{ auth()->user()->username }}
+                            <div class="fs-6 fw-semibold text-white text-center align-middle">
+                                {{ auth()->user()->name }}
                             </div>
                         @else
                             @php

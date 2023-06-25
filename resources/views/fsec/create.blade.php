@@ -46,14 +46,14 @@
                                 <label class="info-label">Occupancy</label>
                                 <select class="form-select" name="occupancy" id="occupancy" data-establishment-input
                                     required>
-                                    <option value="" disabled selected>Select Occupancy</option>
+                                    <option value="" disabled selected>--Select Occupancy--</option>
                                     {{-- Options is populated in script --}}
                                 </select>
                             </div>
                             <div class="w-100">
                                 <label class="info-label">Sub Type</label>
                                 <select class="form-select" name="subType" id="subType" data-establishment-input required>
-                                    <option value="" disabled selected>Select Occupancy First</option>
+                                    <option value="" disabled selected>--Select Occupancy First--</option>
                                     {{-- Options is populated in script --}}
                                 </select>
                             </div>
@@ -61,7 +61,7 @@
                     </x-form.inputWrapper>
                     <div class="d-flex gap-2 w-50">
                         <x-form.input type="text" label="Building Story" name="buildingStory" />
-                        <x-form.input type="text" label="Floor Area" name="floorArea" />
+                        <x-form.input type="text" label="Floor Area(sq m)" name="floorArea" />
                     </div>
                     <x-form.input type="text" label="Address" name="address" />
                 </fieldset>

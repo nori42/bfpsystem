@@ -18,10 +18,14 @@
             <form class="bg-subtleBlue p-4" action="" method="POST">
                 @csrf
                 <legend>Print Settings</legend>
+                <div class="text-secondary">Print Signatures</div>
                 <div class="w-25">
                     <x-form.input type="text" label="City Marshal" name="cityMarshal" :value="$marshal" />
                     <x-form.input type="text" label="Chief FSES" name="chiefFSES" :value="$chief" />
                 </div>
+                @isset($success)
+                    <div class="text-success">Change Applied</div>
+                @endisset ()
                 <button class="btn btn-success my-3">Save
                     Changes</button>
             </form>

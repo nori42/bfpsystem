@@ -30,7 +30,8 @@ class SettingsController extends Controller
         }
 
         return view('printSettings',[
-            'toastMssg' => 'Settings Updated'
+            'toastMssg' => 'Settings Updated',
+            'success' => true
         ]);
     }
 }

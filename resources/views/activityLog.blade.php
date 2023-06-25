@@ -8,6 +8,7 @@
         <x-pageWrapper>
             <div>
                 <span class="d-block fw-bold fs-3">Activity log</span>
+                <span class="text-secondary">List of all user's activity</span>
             </div>
             <table class="table mt-4">
                 <thead>

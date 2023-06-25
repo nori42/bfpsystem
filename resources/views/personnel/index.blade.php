@@ -104,9 +104,10 @@
                         <option value="SFO3">SFO3</option>
                         <option value="SFO2">SFO2</option>
                         <option value="SFO1">SFO1</option>
-                        <option value="SFO1">FO3</option>
-                        <option value="SFO1">FO2</option>
-                        <option value="SFO1">FO1</option>
+                        <option value="FO3">FO3</option>
+                        <option value="FO2">FO2</option>
+                        <option value="FO1">FO1</option>
+                        <option value="NUP">NUP</option>
                     </x-form.select>
                     <x-form.input label="Designation" name="designation" />
                 </fieldset>

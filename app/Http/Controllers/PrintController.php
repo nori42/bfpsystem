@@ -120,6 +120,9 @@ class PrintController extends Controller
         $buildingPlan->save();
 
         $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+
+        error_log(Helper::getRepresentativeName($buildingPlan->owner_id));
+
         ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::DisapporveBuildingPlan);
 
         return redirect('/fsecchecklist/print'.'/'.$buildingPlan->id);        

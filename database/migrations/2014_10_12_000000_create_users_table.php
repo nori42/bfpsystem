@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('type');
+            $table->enum('type',['ADMIN','FSIC','FSEC','FIREDRILL']);
             $table->string('name');
             $table->string('reset_password')->nullable();
             $table->boolean('is_password_default')->default(true);

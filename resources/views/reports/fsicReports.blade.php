@@ -31,13 +31,20 @@
         <x-pageWrapper>
             {{-- {{ dd($reports) }} --}}
             {{-- <h1>Inspection Report</h1> --}}
-            <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
-                <option value="inspection">Inspection Reports</option>
-                @if (auth()->user()->type == 'ADMIN')
-                    <option value="firedrill">Firedrill Reports</option>
-                    <option value="buildingplan">Building Plan Reports</option>
-                @endif
-            </select>
+            <div class="d-flex align-items-center gap-3">
+                <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
+                    <option value="inspection">Inspection Reports</option>
+                    @if (auth()->user()->type == 'ADMIN')
+                        <option value="firedrill">Firedrill Reports</option>
+                        <option value="buildingplan">Building Plan Reports</option>
+                    @endif
+                </select>
+                <div class="fs-5">
+                    <input class="fs-2 align-middle" type="checkbox" name="myReport" id="myReport"
+                        style="height: 1.325rem; width: 1.325rem;">
+                    <label for="myReport">My Reports</label>
+                </div>
+            </div>
             <hr>
 
             @if (count($reports) != 0)

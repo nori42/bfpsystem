@@ -18,7 +18,7 @@
         $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
     }
     
-    $evaluator = auth()->user()->type != 'ADMIN' ? $personnelName : 'ADMIN';
+    $evaluator = $evaluator = auth()->user()->name;
     
     //Person Name
     $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';

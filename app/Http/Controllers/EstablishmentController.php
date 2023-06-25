@@ -107,7 +107,6 @@ class EstablishmentController extends Controller
         $establishment->createdBy = strtoupper("admin");
         $establishment->business_permit_no = $request->businessPermitNo; 
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
-        $establishment->latest_mayors_permit = $request->latestPermit; 
         $establishment->barangay =  strtoupper($request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = $request->height;
@@ -254,7 +253,6 @@ class EstablishmentController extends Controller
         $establishment->no_of_storey = strtoupper($request->noOfStory );
         $establishment->business_permit_no = strtoupper($request->businessPermitNo );
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
-        $establishment->latest_mayors_permit = strtoupper($request->latestPermit);
         $establishment->barangay = strtoupper( $request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = strtoupper($request->height);

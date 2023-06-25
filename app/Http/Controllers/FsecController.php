@@ -39,7 +39,7 @@ class FsecController extends Controller
         $person->first_name = strtoupper($request->firstName);
         $person->middle_name = strtoupper($request->middleName);
         $person->last_name = strtoupper($request->lastName);
-        $person->last_name = strtoupper($request->nameSuffix);
+        $person->suffix = strtoupper($request->nameSuffix);
         $person->save();
 
         $corporate->corporate_name = strtoupper($request->corporateName);

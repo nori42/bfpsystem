@@ -6,7 +6,7 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-            <h1>Edit Establishment</h1>
+            <h1>Edit Owner</h1>
             <form class="form-wrapper p-5" action="/owner/{{ $owner->id }}/edit" method="POST">
                 @csrf
                 <legend>Person Name</legend>

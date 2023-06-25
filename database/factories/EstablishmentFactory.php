@@ -42,7 +42,6 @@ class EstablishmentFactory extends Factory
             'floor_area' => random_int(1,15),
             'business_permit_no' => random_int(1000,9999),
             'fire_insurance_co' => strtoupper(fake()->company()),
-            'latest_mayors_permit' => random_int(1000,9999),
             'barangay' => $substations[array_rand($substations)],
             'address' => $substations[array_rand($substations)].', '.'Cebu City',
             'owner_id' => Owner::factory(),

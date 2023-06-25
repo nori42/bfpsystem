@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function index(){
         
-        $users = User::all();
+        $users = User::orderBy('type')->get();
         $personnelList = Personnel::whereNotNull('person_id')
         ->where('person_id', '!=', 0)
         ->where('has_user', false)
@@ -35,7 +35,7 @@ class UserController extends Controller
 
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
-        $user->name = $request->name;
+        $user->name = strtoupper($request->name);
         $user->type = $request->type;
 
         try{

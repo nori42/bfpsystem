@@ -129,7 +129,7 @@ class ActivityLogger {
         {
             case Activity::AddBuildingPlan:
                 {   
-                    $activityLog = "Added new Firedrill to {$buildingPlanApplicant}";
+                    $activityLog = "Added new Building Plan Application for {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,

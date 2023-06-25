@@ -123,9 +123,7 @@
 
                 <div class="row my-3">
                     <x-info label="Name of Fire Insurance Co/Co-Insurer" :value="$establishment->fire_insurance_co == null ? 'N/A' : $establishment->fire_insurance_co" />
-                    <x-info label="Latest Mayor's/Business Permit" :value="$establishment->latest_mayors_permit == null
-                        ? 'N/A'
-                        : $establishment->latest_mayors_permit" />
+
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>

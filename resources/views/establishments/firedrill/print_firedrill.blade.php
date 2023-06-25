@@ -39,18 +39,9 @@
                     style="background-color: #FFC900;">print</span>
             </button>
         @endif
-        {{-- <div class="printby">
-            <strong>Establishment: </strong> <span>{{ $establishment }}</span>
-        </div>
-        <div class="printby">
-            <strong>Owned By: </strong> <span>{{ $representative }} </span>
-        </div> --}}
         <div class="printby">
             <strong>Issued For: </strong> <span>Firedrill</span>
         </div>
-        {{-- <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
-        </div> --}}
     </div>
 
     <div id="printablePage">

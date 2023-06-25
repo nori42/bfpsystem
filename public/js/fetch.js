@@ -88,7 +88,7 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
 
             let representative;
 
-            if(buildingPlan.name)
+            if(buildingPlan.name != " ")
             {
                 if(buildingPlan.corporate_name){
                     representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
