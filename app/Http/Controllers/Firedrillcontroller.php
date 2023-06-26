@@ -50,6 +50,7 @@ class FiredrillController extends Controller
 
         $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
+        $firedrill->user_id = auth()->user()->id;
         $firedrill->receipt_id = $receipt->id;
         $firedrill->establishment_id = $request->estabId;
         $firedrill->year =$request->year;

@@ -54,6 +54,7 @@ class FsicController extends Controller
         $inspection->registration_status = $request->registrationStatus;
         $inspection->fsic_no = $request->fsicNo;
         // $inspection->issued_for = $request->issuedFor;
+        $inspection->user_id = auth()->user()->id;
         $inspection->receipt_id = $receipt->id;
         $inspection->establishment_id = $request->establishmentId;
 

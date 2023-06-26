@@ -17,11 +17,23 @@
             cursor: pointer !important;
         }
 
+        td,
+        th {
+            white-space: nowrap;
+        }
+
         @media print {
 
             body {
                 font-size: 6pt !important;
             }
+
+            td,
+            th {
+                white-space: normal;
+            }
+
+
         }
     </style>
 </head>
@@ -34,13 +46,18 @@
         <button class="btn btn-primary border-0" onclick="exportTableToXLSX('firedrillIssued','firedrillIssued.xlsx')">
             <i class="bi bi-filetype-xlsx"></i>
             Export to Excel</button>
+        <div class="d-inline">
+            <input class="align-middle" type="checkbox" name="myReport" id="myReport"
+                style="height: 1.325rem; width: 1.325rem;" {{ $selfReport ? 'checked' : '' }}>
+            <label for="myReport" class="fw-bold">My Reports</label>
+        </div>
     </div>
     <div class="printables">
         <div class="d-flex align-items-center justify-content-between heading">
             <div class="fs-3">Firedrill Issued</div>
             <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div>
         </div>
-        <table id="firedrillIssued" class="table">
+        <table id="firedrillIssued" class="table overflow-x-scroll">
             <thead>
                 <th><span class="cursor-pointer" onclick="sort(0)">Control No.</span></th>
                 <th><span onclick="sort(1)">Date of Drill</span></th>
@@ -97,6 +114,35 @@
 <script src="{{ asset('js/reports/exportToXLSX.js') }}"></script>
 <script src="{{ asset('js/reports/tableSort.js') }}"></script>
 <script>
+    const checkboxMyReport = document.querySelector('#myReport')
+    const year = "{{ $date['year'] }}"
+    const month = "{{ $date['monthInt'] }}"
+    const unclaimed = "{{ $unclaimed }}"
+
+    checkboxMyReport.addEventListener('change', () => {
+        if (unclaimed) {
+
+            if (checkboxMyReport.checked) {
+                location.href =
+                    `/reports/print/firedrill?month=${month}&year=${year}&selfReport=${checkboxMyReport.checked}&unclaimed=true`
+            } else {
+                location.href =
+                    `/reports/print/firedrill?month=${month}&year=${year}&unclaimed=true`
+            }
+
+        } else {
+
+            if (checkboxMyReport.checked) {
+                location.href =
+                    `/reports/print/firedrill?month=${month}&year=${year}&selfReport=${checkboxMyReport.checked}`
+
+            } else {
+                location.href = `/reports/print/firedrill?month=${month}&year=${year}`
+            }
+        }
+
+    })
+
     function sort(index) {
         const tableId = 'firedrillIssued'
         sortTable(index, tableId)

@@ -49,25 +49,83 @@
             <hr>
 
             @if (count($reports) != 0)
-                <div class="d-inline-block" id="printables">
-                    <div id="filter" class="my-2 d-flex align-items-center gap-2">
-                        <label for="month">Month</label>
-                        <select class="form-select" name="month" id="month">
-                        </select>
-
-                        <label for="month">Year</label>
-                        <select class="form-select" name="year" id="year">
-                            @foreach ($yearReports as $y)
+                <div id="filter" class="my-2 d-flex align-items-center gap-2 w-100">
+                    <label for="month">Month</label>
+                    <select class="form-select" name="month" id="month" style="width:21rem;">
+                        @foreach ($monthReports as $m)
+                            @if ($selectedReports['month'] == $m->month)
+                                <option value="{{ $m->month }}" selected>
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @else
+                                <option value="{{ $m->month }}">
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <select class="form-select" name="year" id="year" style="width:21rem;">
+                        @foreach ($yearReports as $y)
+                            @if ($selectedReports['year'] == $y->year)
+                                <option value="{{ $y->year }}" selected>{{ $y->year }}</option>
+                            @else
                                 <option value="{{ $y->year }}">{{ $y->year }}</option>
-                            @endforeach
-                        </select>
+                            @endif
+                        @endforeach
+                    </select>
 
-                        <label for="claimed">Unclaimed</label>
-                        <input class="form-check" type="checkbox" name="claimed" id="claimed">
-                    </div>
+                    <label for="unclaimed">Unclaimed</label>
+                    <input class="form-check" type="checkbox" name="unclaimed" id="unclaimed"
+                        {{ $selectedReports['unclaimed'] ? 'checked' : '' }}>
+
+                    <button class="btn btn-success" id="viewReport">View Report</button>
                 </div>
-                <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill" frameborder="0"
-                    width="100%" height="800px"></iframe>
+                <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
+                    <div class="fs-4">Firedrill Certificate Issued</div>
+                    <div>{{ DateTime::createFromFormat('!m', $selectedReports['month'])->format('F') }}
+                        {{ $selectedReports['year'] }}</div>
+                    <div class="mt-4 fs-4">Substation</div>
+                    <table style="width: 16rem;">
+                        @foreach ($firedrillIssued['issuedBySubstation'] as $key => $value)
+                            <tr>
+                                <td>{{ $key }}</td>
+                                <td>{{ $value }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <table class="mt-4" style="width:16rem;">
+                        <tr>
+                            <td class="fw-bold">CBP</td>
+                            <td>{{ $firedrillIssued['CBP'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Total Substations</td>
+                            <td>{{ $firedrillIssued['totalSubstation'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Grand Total</td>
+                            <td>{{ $firedrillIssued['totalGrand'] }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="fw-bold">Unclaimed</td>
+                            <td>{{ $firedrillIssued['unclaimed'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <hr>
+
+                @php
+                    //This is the query parameter for unclaimed firedrill
+                    $queryParam = "month={$selectedReports['month']}&year={$selectedReports['year']}";
+                    
+                    //This is the query parameter for claimed firedrill
+                    if ($selectedReports['unclaimed']) {
+                        $queryParam = "month={$selectedReports['month']}&year={$selectedReports['year']}&unclaimed=true";
+                    }
+                @endphp
+                <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill?{{ $queryParam }}"
+                    frameborder="0" width="100%" height="800px"></iframe>
             @else
                 <h2>Nothing to show</h2>
             @endif
@@ -83,34 +141,25 @@
     @if (count($reports) != 0)
         <script>
             const yearlyReports = @json($reports);
-            const yearSelect = document.getElementById('year');
-            const monthSelect = document.getElementById('month');
+            const yearSelect = document.getElementById('year')
+            const monthSelect = document.getElementById('month')
             const claimed = document.querySelector('#claimed')
+            const btnViewRerport = document.querySelector('#viewReport')
 
             const iframeFiredrill = document.querySelector("#iFrameFiredrill")
 
             yearSelect.addEventListener('change', () => {
                 updateMonth(yearSelect.value)
-                iframeFiredrill.src =
-                    `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
             })
 
-            monthSelect.addEventListener('change', () => {
-                iframeFiredrill.src =
-                    `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
+            btnViewRerport.addEventListener('click', () => {
+                if (unclaimed.checked) {
+                    location.href =
+                        `/reports/firedrill?selectedYear=${yearSelect.value}&selectedMonth=${monthSelect.value}&unclaimed=true`
+                    return
+                }
+                location.href = `/reports/firedrill?selectedYear=${yearSelect.value}&selectedMonth=${monthSelect.value}`
             })
-
-            claimed.addEventListener('change', () => {
-                iframeFiredrill.src =
-                    `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}&claimed=${claimed.checked}`
-            })
-
-
-            if (yearlyReports[new Date().getFullYear()]) {
-                updateMonth(new Date().getFullYear())
-            } else {
-                updateMonth(new Date().getFullYear() - 1)
-            }
 
             function updateMonth(year) {
 
@@ -176,32 +225,6 @@
                     monthSelect.appendChild(option);
                 }
             }
-
-            function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
-
-            }
-
-            async function fetchReport() {
-                try {
-
-                    const hostUrl = "{{ env('APP_URL') }}"
-                    const response = await fetch(hostUrl +
-                        `/resources/reports/fsic?year=${yearSelect.value}&month=${monthSelect.value}`)
-
-                    const json = await response.json();
-                    const reports = json.data
-
-
-                    displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-
-            fetchReport()
-
-            iframeFiredrill.src =
-                `${APP_URL}/reports/print/firedrill?month=${monthSelect.value}&year=${yearSelect.value}`
         </script>
     @endif
 @endsection

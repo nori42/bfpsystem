@@ -15,18 +15,24 @@
 </style>
 
 <body>
+
     <div class="py-3 bg-white position-sticky w-100 top-0">
         <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
             Print</button>
         <button class="btn btn-primary border-0"
             onclick="exportTableToXLSX('inspectionIssued','inspectionIssued.xlsx')"> <i class="bi bi-filetype-xlsx"></i>
             Export to Excel</button>
-    </div>
-    <div class="printables">
+        <div class="d-inline">
+            <input class="align-middle" type="checkbox" name="myReport" id="myReport"
+                style="height: 1.325rem; width: 1.325rem;" {{ $selfReport ? 'checked' : '' }}>
+            <label for="myReport" class="fw-bold">My Reports</label>
+        </div>
         <div class="d-flex align-items-center justify-content-between heading">
             <div class="fs-3">Inpsections Issued</div>
             <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div>
         </div>
+    </div>
+    <div class="printables">
         <table id="inspectionIssued" class="table">
             <thead>
                 <th><span onclick="sort(0)">Fire Safety Inspection No.(FSIC No.)</span></th>
@@ -54,6 +60,21 @@
 <script src="{{ asset('js/reports/exportToXLSX.js') }}"></script>
 <script src="{{ asset('js/reports/tableSort.js') }}"></script>
 <script>
+    const checkboxMyReport = document.querySelector('#myReport')
+    const year = "{{ $date['year'] }}"
+    const month = "{{ $date['monthInt'] }}"
+
+    checkboxMyReport.addEventListener('change', () => {
+        if (checkboxMyReport.checked) {
+            location.href =
+                `/reports/print/fsic?month=${month}&year=${year}&selfReport=${checkboxMyReport.checked}`
+
+            return
+        }
+
+        location.href = `/reports/print/fsic?month=${month}&year=${year}`
+    })
+
     function sort(index) {
         const tableId = 'inspectionIssued'
         sortTable(index, tableId)

@@ -38,6 +38,7 @@ class InspectionFactory extends Factory
                 'inspection_date' => HelperFactory::randomDate(2019,2022,01,04),
                 'registration_status' => $registrationStatus[rand(0, 4)],
                 'fsic_no' => rand(1000, 99999),
+                'user_id' => 1,
                 'receipt_id' => Receipt::factory(),
                 'establishment_id' => rand(1,HelperFactory::$establishmentCount)
             ];
@@ -62,6 +63,7 @@ class InspectionFactory extends Factory
                 'inspection_date' => $dateInsp,
                 'registration_status' => $registrationStatus[rand(0, 4)],
                 'fsic_no' => rand(1000, 99999),
+                'user_id' => 1,
                 'issued_on' => $date,
                 'status' => "Printed",
                 'expiry_date' =>new DateTime("{$nextYear}-{$date->format('m')}-{$date->format('d')}"),

@@ -10,13 +10,13 @@ class FSICReportController extends Controller
 {
     //
     //
-    public function index(){
+    public function index(Request $request){
         $yearReports = DB::table('inspections')
         ->select(DB::raw('DISTINCT YEAR(issued_on) as year'))
         ->whereNotNull('issued_on')
         ->orderBy('year', 'desc')
         ->get();
-        
+
         $reports = [];
 
         foreach($yearReports as $item){
@@ -29,10 +29,56 @@ class FSICReportController extends Controller
 
             $reports[$item->year] = $yearlyReports;
         }
+
+        if(count($yearReports) != 0){
+
+            $selectedYear = $request->selectedYear ? $request->selectedYear :$yearReports->first()->year;
+            
+            $monthReports = DB::table('inspections')
+            ->select(DB::raw('DISTINCT MONTH(issued_on) as month'))
+            ->whereNotNull('issued_on')
+            ->whereYear('issued_on', '=',$selectedYear)
+            ->orderBy('month', 'asc')
+            ->get();
+
+            $selectedMonth = $request->selectedMonth ? $request->selectedMonth : $monthReports->first()->month; 
+
+            $fsicIssuedSubstation = [
+                'Guadalupe' => FSICHelper::getIssuedFSICCount('GUADALUPE',$selectedYear,$selectedMonth),
+                'Labangon' => FSICHelper::getIssuedFSICCount('LABANGON',$selectedYear,$selectedMonth),
+                'Lahug' => FSICHelper::getIssuedFSICCount('LAHUG',$selectedYear,$selectedMonth),
+                'Mabolo' => FSICHelper::getIssuedFSICCount('MABOLO',$selectedYear,$selectedMonth),
+                'Pahina Central' => FSICHelper::getIssuedFSICCount('PAHINA CENTRAL',$selectedYear,$selectedMonth),
+                'Pardo' => FSICHelper::getIssuedFSICCount('PARDO',$selectedYear,$selectedMonth),
+                'Pari-an' => FSICHelper::getIssuedFSICCount('PARI-AN',$selectedYear,$selectedMonth),
+                'San Nicolas' => FSICHelper::getIssuedFSICCount('SAN NICOLAS',$selectedYear,$selectedMonth),
+                'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$selectedYear,$selectedMonth)
+            ];
+            $substationTotalCountInspection = 0;
+            $cbpInspection = FSICHelper::getIssuedFSICCount('CBP',$selectedYear,$selectedMonth);
+
+            foreach($fsicIssuedSubstation as $key => $value){
+                $substationTotalCountInspection += $value;
+            }
+        }
+        
+        $issuedNew = FSICHelper::getIssuedNewByMonthNFSIC($selectedYear,$selectedMonth);
+
+        $fsicIssued = [
+            'issuedBySubstation' => $fsicIssuedSubstation,
+            'CBP' => $cbpInspection,
+            'new' => $issuedNew,
+            'totalSubstation' => $substationTotalCountInspection,
+            'totalGrand' => $cbpInspection + $substationTotalCountInspection + $issuedNew
+        ];
+
         
         return view('reports.fsicReports',[
             'yearReports' => $yearReports,
-            'reports' => $reports
+            'monthReports' => $monthReports,
+            'fsicIssued' =>$fsicIssued,
+            'reports' => $reports,
+            'selectedReports' => ['month' =>$selectedMonth, 'year' => $selectedYear]
         ]);
     }
 

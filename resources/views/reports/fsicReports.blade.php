@@ -29,8 +29,6 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-            {{-- {{ dd($reports) }} --}}
-            {{-- <h1>Inspection Report</h1> --}}
             <div class="d-flex align-items-center gap-3">
                 <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
                     <option value="inspection">Inspection Reports</option>
@@ -39,66 +37,84 @@
                         <option value="buildingplan">Building Plan Reports</option>
                     @endif
                 </select>
-                <div class="fs-5">
-                    <input class="fs-2 align-middle" type="checkbox" name="myReport" id="myReport"
-                        style="height: 1.325rem; width: 1.325rem;">
-                    <label for="myReport">My Reports</label>
-                </div>
             </div>
             <hr>
 
-            @if (count($reports) != 0)
-                <div class="d-inline-block" id="printables">
-                    <div id="filter" class="my-2 d-flex align-items-center gap-2">
-                        <label for="month">Month</label>
-                        <select class="form-select" name="month" id="month">
-                            {{-- @foreach ($monthReports as $m)
-                            {{ array_push($monthsString, DateTime::createFromFormat('!m', $m)->format('F')) }}
-                            <option value="{{ $m }}">
-                                {{ DateTime::createFromFormat('!m', $m)->format('F') }}</option>
-                        @endforeach --}}
-                        </select>
+            @if (count($yearReports) != 0)
+                <div id="filter" class="my-2 d-flex align-items-center gap-2">
 
-                        <label for="month">Year</label>
-                        <select class="form-select" name="year" id="year">
-                            @foreach ($yearReports as $y)
+                    <label for="month">Month</label>
+                    <select class="form-select" name="month" id="month" style="width:21rem;">
+                        @foreach ($monthReports as $m)
+                            @if ($selectedReports['month'] == $m->month)
+                                <option value="{{ $m->month }}" selected>
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @else
+                                <option value="{{ $m->month }}">
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <select class="form-select" name="year" id="year" style="width:21rem;">
+                        @foreach ($yearReports as $y)
+                            @if ($selectedReports['year'] == $y->year)
+                                <option value="{{ $y->year }}" selected>{{ $y->year }}</option>
+                            @else
                                 <option value="{{ $y->year }}">{{ $y->year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="bg-subtleBlue p-5">
-                        <div class="report-buttons">
-                            {{-- <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
-                            Print</button> --}}
-                        </div>
-                        <div class="fs-3">Inspections Issued Summary</div>
-                        <div class="fw-bold"><span id="monthLabel"></span> <span id="yearLabel"></span></div>
+                            @endif
+                        @endforeach
+                    </select>
+                    {{-- <div class="fs-6">
+                        <input class="fs-2 align-middle" type="checkbox" name="myReport" id="myReport"
+                            style="height: 1rem; width: 1.325rem;">
+                        <label for="myReport">My Reports</label>
+                    </div> --}}
+                    <button class="btn btn-success" id="viewReport">View Report</button>
+                </div>
+                <div class="d-inline-block" id="printables">
+                    <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
+                        <div class="fs-4">Inspection Certificate Issued</div>
+                        <div>{{ DateTime::createFromFormat('!m', $selectedReports['month'])->format('F') }}
+                            {{ $selectedReports['year'] }}</div>
                         <div class="mt-4 fs-4">Substation</div>
-                        <div class="d-flex align-items-start gap-5">
-                            <div id="substations"
-                                style="display: grid; grid-template-columns: auto auto; min-width: 16rem;">
-                            </div>
-                            <div style="display: grid; grid-template-columns: auto auto; min-width: 16rem;">
-                                <div class="fw-bold">CBP</div>
-                                <div id="cbp" class="mx-4">null</div>
-
-                                <div class="fw-bold">NEW</div>
-                                <div id="newIssued" class="mx-4">null</div>
-
-                                <div class="fw-bold">Total Substations</div>
-                                <div id="totalSubstation" class="mx-4">null</div>
-
-                                <div class="fw-bold">Grand Total</div>
-                                <div id="totalGrand" class="mx-4">null</div>
-                            </div>
-                        </div>
+                        <table style="width: 16rem;">
+                            @foreach ($fsicIssued['issuedBySubstation'] as $key => $value)
+                                <tr>
+                                    <td>{{ $key }}</td>
+                                    <td>{{ $value }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <table class="mt-4" style="width:16rem;">
+                            <tr>
+                                <td class="fw-bold">CBP</td>
+                                <td>{{ $fsicIssued['CBP'] }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">New</td>
+                                <td>{{ $fsicIssued['new'] }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Total Substations</td>
+                                <td>{{ $fsicIssued['totalSubstation'] }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Grand Total</td>
+                                <td>{{ $fsicIssued['totalGrand'] }}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <hr>
-                <iframe id="iFrameInspections" src="" frameborder="0" width="100%" height="800px"></iframe>
+                <iframe id="iFrameInspections"
+                    src="{{ env('APP_URL') }}/reports/print/fsic?month={{ $selectedReports['month'] }}&year={{ $selectedReports['year'] }}"
+                    frameborder="0" width="100%" height="800px"></iframe>
             @else
                 <h2>Nothing to show</h2>
             @endif
+
         </x-pageWrapper>
     </div>
     <script src="{{ asset('js/reports/reportsScript.js') }}"></script>
@@ -106,37 +122,16 @@
         const APP_URL = "{{ env('APP_URL') }}";
         initReportLink(APP_URL);
     </script>
-    @if (count($reports) != 0)
+    @if (count($yearReports) != 0)
         <script>
             const yearlyReports = @json($reports);
 
             const yearSelect = document.querySelector('#year');
-            const monthSelect = document.querySelector('#month');
-
-            const iframeInpsections = document.querySelector("#iFrameInspections")
-
-            yearSelect.addEventListener('change', () => {
-                updateMonth(yearSelect.value)
-                fetchReport()
-
-                iframeInpsections.src =
-                    `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
-            })
-
-            monthSelect.addEventListener('change', () => {
-                fetchReport()
-                iframeInpsections.src =
-                    `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
-            })
-
-
-            if (yearlyReports[new Date().getFullYear()]) {
-                updateMonth(new Date().getFullYear())
-            } else {
-                updateMonth(new Date().getFullYear() - 1)
-            }
+            const monthSelect = document.querySelector('#month')
+            const btnViewRerport = document.querySelector('#viewReport')
 
             function updateMonth(year) {
+
                 const months = [{
                         value: 1,
                         name: 'January'
@@ -188,7 +183,6 @@
                 ];
 
                 monthSelect.innerHTML = "";
-
                 for (let i = 0; i < yearlyReports[year].length; i++) {
                     const month = months[yearlyReports[year][i].month - 1];
                     const option = document.createElement('option');
@@ -198,64 +192,13 @@
                 }
             }
 
-            function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
-                const substations = document.querySelector('#substations')
-                const newIssued = document.querySelector('#newIssued')
-                const totalSubstationsEl = document.querySelector('#totalSubstation')
-                const totalGrand = document.querySelector('#totalGrand')
-                const cbp = document.querySelector('#cbp')
+            btnViewRerport.addEventListener('click', () => {
+                location.href = `/reports/fsic?selectedYear=${yearSelect.value}&selectedMonth=${monthSelect.value}`
+            })
 
-                const yearLabel = document.querySelector('#yearLabel')
-                const monthLabel = document.querySelector('#monthLabel')
-
-
-                let totalSubstation = 0;
-
-                substations.innerHTML = ""
-                cbp.textContent = substation["CBP"]
-
-                newIssued.textContent = issuedInMonthNew
-                totalGrand.textContent = issuedInMonthAll
-
-                yearLabel.textContent = yearSelect.value;
-                monthLabel.textContent = monthSelect.selectedOptions[0].text;
-
-                for (const prop in substation) {
-                    if (prop == "CBP")
-                        continue;
-
-                    substations.innerHTML +=
-                        `
-                        <div>${prop}</div>
-                        <div>${substation[prop]}</div>
-                `
-                    totalSubstation += substation[prop];
-                }
-
-                totalSubstationsEl.textContent = totalSubstation;
-            }
-
-            async function fetchReport() {
-                try {
-
-                    const hostUrl = "{{ env('APP_URL') }}"
-                    const response = await fetch(hostUrl +
-                        `/resources/reports/fsic?year=${yearSelect.value}&month=${monthSelect.value}`)
-
-                    const json = await response.json();
-                    const reports = json.data
-
-
-                    displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-
-            fetchReport()
-
-            iframeInpsections.src =
-                `${APP_URL}/reports/print/fsic?month=${monthSelect.value}&year=${yearSelect.value}`
+            yearSelect.addEventListener('change', () => {
+                updateMonth(yearSelect.value)
+            })
         </script>
     @endif()
 @endsection

@@ -3,6 +3,7 @@
 use App\Models\Establishment;
 use App\Models\Payment;
 use App\Models\Receipt;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->enum('status',['Not Printed','Printed'])->default("Not Printed");
             $table->date('issued_on')->nullable();
             $table->date('expiry_date')->nullable();
+            $table->foreignIdFor(User::class);
             $table->foreignIdFor(Receipt::class);
             $table->foreignIdFor(Establishment::class);
             $table->timestamps();

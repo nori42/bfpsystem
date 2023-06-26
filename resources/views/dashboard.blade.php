@@ -50,7 +50,7 @@
                             </tr>
                             <tr>
                                 <td class="fw-bold">New</td>
-                                <td>0</td>
+                                <td>{{ $fsicIssued['new'] }}</td>
                             </tr>
                             <tr>
                                 <td class="fw-bold">Total Substations</td>

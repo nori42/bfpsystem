@@ -60,9 +60,12 @@ class DashboardController extends Controller
             'totalGrand' => $cbpFiredrill + $substationTotalCountFiredrill
         ];
 
+        $issuedNew = FSICHelper::getIssuedNewByMonthNFSIC($yearNow,$monthNow);
+
         $fsicIssued = [
             'issuedBySubstation' => $fsicIssuedSubstation,
             'CBP' => $cbpInspection,
+            'new' => $issuedNew,
             'totalSubstation' => $substationTotalCountInspection,
             'totalGrand' => $cbpInspection + $substationTotalCountInspection
         ];

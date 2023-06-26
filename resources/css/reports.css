@@ -11,6 +11,12 @@ tbody>:nth-child(even) {
     background-color: #F6F8FC;
 }
 
+th {
+    position: sticky;
+    top: 12%;
+    background-color: white !important;
+}
+
   @media print {
 
     body,

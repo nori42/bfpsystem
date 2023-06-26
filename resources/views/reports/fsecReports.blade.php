@@ -154,9 +154,6 @@
                 ];
 
                 monthSelect.innerHTML = "";
-
-                console.log(yearlyReports)
-
                 for (let i = 0; i < yearlyReports[year].length; i++) {
                     const month = months[yearlyReports[year][i].month - 1];
                     const option = document.createElement('option');
@@ -165,29 +162,6 @@
                     monthSelect.appendChild(option);
                 }
             }
-
-            function displayReport(substation, issuedInMonthAll, issuedInMonthNew) {
-
-            }
-
-            async function fetchReport() {
-                try {
-
-                    const hostUrl = "{{ env('APP_URL') }}"
-                    const response = await fetch(hostUrl +
-                        `/resources/reports/fsic?year=${yearSelect.value}&month=${monthSelect.value}`)
-
-                    const json = await response.json();
-                    const reports = json.data
-
-
-                    displayReport(reports.substation, reports.issuedInMonthAll, reports.issuedInMonthNew)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-
-            fetchReport()
 
             iframeFsec.src =
                 `${APP_URL}/reports/print/fsec?month=${monthSelect.value}&year=${yearSelect.value}`

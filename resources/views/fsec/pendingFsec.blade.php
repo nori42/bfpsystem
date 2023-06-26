@@ -28,52 +28,55 @@
             <div class="fs-3">{{ count($buildingPlans) }} Pending</div>
             <div class="text-secondary">List of pending applications</div>
         </div>
-        {{-- <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div> --}}
     </div>
-    {{-- {{ dd($evaluations[0]->buildingPlan) }} --}}
-    <table id="evaluations" class="table">
-        <thead>
-            <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(0)">Series No.</span></th>
-            <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(1)">Date Received</span></th>
-            <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(3)">Permit Applicant</span></th>
-            <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(4)">Building Name</span></th>
-        </thead>
-        <tbody>
-            @foreach ($buildingPlans as $plan)
-                {{-- @php
+
+    @if (count($buildingPlans) != 0)
+
+        <table id="evaluations" class="table">
+            <thead>
+                <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(0)">Series No.</span></th>
+                <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(1)">Date Received</span></th>
+                <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(3)">Permit Applicant</span>
+                </th>
+                <th class="position-sticky bg-white" style="top:9%;"><span onclick="sort(4)">Building Name</span></th>
+            </thead>
+            <tbody>
+                @foreach ($buildingPlans as $plan)
+                    {{-- @php
                     $showURL = env('APP_URL') . '/fsec' . '/' . $plan->id;
                 @endphp --}}
 
-                @php
-                    $owner = $plan->owner;
-                    $personName = null;
-                    
-                    if ($owner->person->last_name != null) {
-                        if ($owner->person->middle_name == null) {
-                            $personName = $owner->person->first_name . ' ' . $owner->person->last_name;
-                        } else {
-                            $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name;
+                    @php
+                        $owner = $plan->owner;
+                        $personName = null;
+                        
+                        if ($owner->person->last_name != null) {
+                            if ($owner->person->middle_name == null) {
+                                $personName = $owner->person->first_name . ' ' . $owner->person->last_name;
+                            } else {
+                                $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name;
+                            }
                         }
-                    }
-                    
-                    if ($personName != null && $owner->corporate->corporate_name != null) {
-                        $representative = $personName . '/' . $owner->corporate->corporate_name;
-                    } elseif ($personName == null) {
-                        $representative = $owner->corporate->corporate_name;
-                    } else {
-                        $representative = $personName;
-                    }
-                @endphp
-                <tr>
-                    <td>{{ $plan->series_no }}</td>
-                    <td>{{ date('m/d/Y', strtotime($plan->date_received)) }}</td>
-                    <td>{{ $representative }}</td>
-                    <td>{{ $plan->name_of_building }}</td>
+                        
+                        if ($personName != null && $owner->corporate->corporate_name != null) {
+                            $representative = $personName . '/' . $owner->corporate->corporate_name;
+                        } elseif ($personName == null) {
+                            $representative = $owner->corporate->corporate_name;
+                        } else {
+                            $representative = $personName;
+                        }
+                    @endphp
+                    <tr>
+                        <td>{{ $plan->series_no }}</td>
+                        <td>{{ date('m/d/Y', strtotime($plan->date_received)) }}</td>
+                        <td>{{ $representative }}</td>
+                        <td>{{ $plan->name_of_building }}</td>
 
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
 </body>
 <script src="{{ asset('js/reports/tableSort.js') }}"></script>
