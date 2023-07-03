@@ -70,8 +70,8 @@
             <x-form.input name="orNoDetail" label="OR No." input-inspect type="text"
                 value="{{ $inspection->receipt->or_no }}" :readonly="$printed" />
             <div class="d-flex gap-2">
-                <x-form.input name="amountPaidDetail" label="Amount Paid" customAttr="{{ $inputAttr }}"
-                    type="text" value="₱{{ $inspection->receipt->amount }}" :readonly="$printed" />
+                <x-form.input name="amountPaidDetail" label="₱ Amount Paid" customAttr="{{ $inputAttr }}"
+                    type="text" value="{{ $inspection->receipt->amount }}" :readonly="$printed" />
 
                 <x-form.input name="dateOfPaymentDetail" label="Date Of Payment" customAttr="{{ $inputAttr }}"
                     type="date" class="w-50" value="{{ $inspection->receipt->date_of_payment }}"

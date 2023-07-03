@@ -17,7 +17,15 @@ class FSICReportController extends Controller
         ->orderBy('year', 'desc')
         ->get();
 
+        $monthReports = null;
+
         $reports = [];
+        $selectedYear = null;
+        $selectedMonth = null;
+        $fsicIssuedSubstation = null;
+        $substationTotalCountInspection = 0;
+        $cbpInspection = 0;
+        $issuedNew = 0;
 
         foreach($yearReports as $item){
             $yearlyReports = DB::table('inspections')
@@ -60,9 +68,8 @@ class FSICReportController extends Controller
             foreach($fsicIssuedSubstation as $key => $value){
                 $substationTotalCountInspection += $value;
             }
+            $issuedNew = FSICHelper::getIssuedNewByMonthNFSIC($selectedYear,$selectedMonth);
         }
-        
-        $issuedNew = FSICHelper::getIssuedNewByMonthNFSIC($selectedYear,$selectedMonth);
 
         $fsicIssued = [
             'issuedBySubstation' => $fsicIssuedSubstation,

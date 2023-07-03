@@ -47,7 +47,7 @@ class PasswordResetController extends Controller
         $user->is_password_default = true;
         $user->save();
 
-        $users = User::all();
+        $users = User::orderBy('type')->get();
 
         return view('users.index',[
            'users' => $users,

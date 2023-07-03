@@ -75,7 +75,7 @@
             <legend class="mb-3">Add New User</legend>
 
             <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
-                <option value="ADMIN">ADMIN</option>
+                <option value="ADMIN">ADMINISTRATOR</option>
                 <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
                 <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
                 <option value="FIREDRILL">FIREDRILL</option>

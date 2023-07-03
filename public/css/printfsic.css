@@ -26,12 +26,12 @@ body{
     background: #FFFFFF;
     width: 8.5in;
     height: 11in;
-    padding: 0.86in 0.79in 0.19in 1.19in;
-
-    background-image: url(../img/fsic.png);
-    background-position: 125px 12px;
+    /* padding: 0.86in 0.79in 0.19in 1.19in; */
+    padding: 0;
+    background-image: url(../assets/images/fsic.png);
+    /* background-position: 125px 12px; */
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size:contain;
+    background-size:cover;
     
 }
 
@@ -44,22 +44,22 @@ li{
     text-align: center;
     position: absolute;
     font-size: 11pt;
-    left: 409px;
-    top: 125px;
+    top: 113px;
+    left: 257px;
 }
 
 .date-container{
     position: absolute;
     font-size: 11pt;
-    left: 750px;
-    top:218px;
+    top: 189px;
+    left: 594px;
 }
 
 
 .check-container{
     position: absolute;
-    top: 315px; 
-    left: 385px;
+    top: 277px;
+    left: 240px;
     width: 385px;
 
 }
@@ -121,7 +121,7 @@ li{
 .highlight-container {
     display: flex;
     position: absolute;
-    right: 10px;
+    right: 35px;
 }
 
 
@@ -153,25 +153,25 @@ li{
 
 .establishment-name{
     position: absolute;
-    top:475px;
-    left: 220px;
-    width: 690px;
+    top: 429px;
+    left: 81px;
+    width: 670px;
     text-align: center;
 }
 
 .rep-name{
     position: absolute;
-    top:510px;
-    left: 390px;
+    top: 462px;
+    left: 231px;
+    width: 350px;
     text-align: center;
-    width: 380px;
 }
 
 .address{
     position: absolute;
-    top:550px;
-    left: 220px;
-    width: 690px;
+    top: 497px;
+    left: 82px;
+    width: 670px;
     text-align: center;
 }
 
@@ -183,20 +183,42 @@ li{
 
 .more-info{
     position: absolute;
-    top:690px;
-    left: 280px;
-    font-weight: bold;
-    min-width: 152px;
+    top: 588px;
+    left: 320px;
+    min-width:410px;
+    display: flex;
 }
 
-.more-info-2 {
-    top: 600px;
+.more-info-2{
+    top: 620px;
+    left: 89px;
+    min-width: 390px;
+}
+
+.more-info-input{
+    min-width: 160px;
+}
+
+.btn-more-info{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    outline: none;
+}
+.btn-more-info i:hover{
+    color:#61809b;
+}
+
+.more-info button i {
+    z-index: 10;
+    font-size:1.3rem !important;
 }
 
 .validity {
     position: absolute;
-    top:690px;
-    left: 760px;
+    top: 621px;
+    left: 575px;
 }
 
 .footer{
@@ -206,21 +228,21 @@ li{
 
 .fc-fee{
     position: absolute;
-    top:820px;
-    left: 350px;
+    top: 735px;
+    left: 214px;
 }
 
 .chiefName{
     position: absolute;
-    top:835px;
-    left: 630px;
+    top: 752px;
+    left: 460px;
     text-transform: uppercase;
 }
 
 .marshalName{
     position: absolute;
-    top:935px;
-    left: 630px;
+    top: 846px;
+    left: 463px;
     text-transform: uppercase;
 }
 
@@ -302,7 +324,7 @@ li{
     -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.26);
 }
 
-button{
+.button{
     z-index: 1000;
     cursor: pointer;
     background-color: #FFC900;
@@ -313,7 +335,7 @@ button{
     text-align: center;
 }
 
-button:hover{
+.button:hover{
     background-color: #d6a800;
 }
 
@@ -333,12 +355,18 @@ button:hover{
     background-color: #a1a1a1;
 }
 
+
 .print-ico{
     font-size: 24px !important;
     color: #000 !important;
     margin-left: 5px;
     margin-right: 0;
 }
+
+#btnMove {
+    /* display:none; */
+}
+
 /* utitilities */
 
 .disable {
@@ -375,9 +403,14 @@ button:hover{
 }
 
 .editable {
-    border: 1px rgb(57, 150, 57) solid;
+    border: 1px black solid;
+    background-color: #fff;
     border-radius: 6px;
     padding: 3px;
+}
+
+.editable:focus {
+    outline: none;
 }
 
 .moveable {
@@ -389,18 +422,26 @@ button:hover{
 @page {
     size: letter;
     margin: 0;
+    padding: 0;
 }
 @media print {
     html, body {
-        width: 210mm; /* 210mm */
-        height: 297mm;    
+        /* 210mm */
+        width: 8.5in; 
+        height: 10.9in;    
+        padding: 0 !important;
+        margin: 0 !important;
         -webkit-print-color-adjust: exact;
         -moz-print-color-adjust: exact;
     }
     #printablePage {
-        margin-top: 0 !important;
-        padding-right: 1in;
-        background-image: none !important;
+        margin: 0 !important;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-image:none;
     }
 
     .nav{

@@ -9,8 +9,11 @@ function printUpdate(){
     document.querySelector('#print').submit();
 }
 
-function printOnly(){
+function printOnly(callback = null){
     window.print();
+
+    if(callback != null)
+        callback();
 }
 
 function handleMove(btn){

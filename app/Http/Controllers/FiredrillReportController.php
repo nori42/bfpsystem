@@ -16,8 +16,16 @@ class FiredrillReportController extends Controller
         ->orderBy('year', 'desc')
         ->get();
 
+        $monthReports = null;
         
         $reports = [];
+        $selectedYear = null;
+        $selectedMonth = null;
+        $firedrillIssued = null;
+        $firedrillIssuedSubstation = null;
+        $substationTotalCountFiredrill = 0;
+        $cbpFiredrill = 0;
+        $unclaimed = 0;
 
         
         foreach($yearReports as $item){
@@ -56,7 +64,7 @@ class FiredrillReportController extends Controller
 
             $substationTotalCountFiredrill = 0;
             $cbpFiredrill = FiredrillHelper::getIssuedFiredrillCount('CBP',$selectedYear,$selectedMonth);
-            $unclaimed = Firedrill::whereNull('date_claimed')->get();
+            $unclaimed = Firedrill::whereNull('date_claimed')->count();
 
             foreach($firedrillIssuedSubstation as $key => $value){
                 $substationTotalCountFiredrill += $value;
@@ -67,7 +75,7 @@ class FiredrillReportController extends Controller
                 'CBP' => $cbpFiredrill,
                 'totalSubstation' => $substationTotalCountFiredrill,
                 'totalGrand' => $cbpFiredrill + $substationTotalCountFiredrill,
-                'unclaimed' => count($unclaimed)
+                'unclaimed' => $unclaimed
             ];
         }
 

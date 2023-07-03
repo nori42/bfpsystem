@@ -357,6 +357,17 @@ button:hover{
     font-size: 12pt; 
 }
 
+.fs-9pt {
+    font-size: 9pt !important;
+}
+
+.fs-8pt {
+    font-size: 8pt !important;
+}
+
+.fs-7pt {
+    font-size: 7pt !important;
+}
 
 .float-right{
     float: right;

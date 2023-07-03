@@ -26,12 +26,10 @@ body{
     background: #FFFFFF;
     width: 8.5in;
     height: 11in;
-    padding: 0.86in 0.79in 0.19in 1.19in;
-
+    padding: 0;
     background-image: url(../img/fsec.png);
-    background-position: 115px 20px;
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size:contain;
+    background-size:cover;
     
 }
 
@@ -44,8 +42,8 @@ li{
     text-align: center;
     position: absolute;
     font-size: 11pt;
-    top: 115px; 
-    left: 418px;
+    top: 95px;
+    left: 250px;
 }
 
 .header :nth-child(3){
@@ -55,8 +53,8 @@ li{
 .date-container{
     position: absolute;
     font-size: 11pt;
-    top: 235px; 
-    left: 772px;
+    top: 203px;
+    left: 592px;
 }
 
 
@@ -82,23 +80,23 @@ li{
 
 .establishment-name{
     position: absolute;
-    top: 468px; 
-    left: 700px;
+    top: 416px;
+    left: 533px;
     text-align: center;
 }
 
 .rep-name{
     position: absolute;
-    top: 550px; 
-    left: 290px;
+    top: 490px;
+    left: 144px;
     width: 425px;
     text-align: center;
 }
 
 .address{
     position: absolute;
-    top: 518px; 
-    left: 218px;
+    top: 461px;
+    left: 78px;
     text-align: center;
     width: 680px;
 }
@@ -112,21 +110,21 @@ li{
 
 .fc-fee{
     position: absolute;
-    top: 771px; 
-    left: 340px;
+    top: 686px;
+    left: 217px;
 }
 
 .chiefName{
     position: absolute;
-    top: 786px; 
-    left: 676px;
+    top: 704px;
+    left: 516px;
     text-transform: uppercase;
 }
 
 .marshalName{
     position: absolute;
-    top: 883px; 
-    left: 674px;
+    top: 790px;
+    left: 518px;
     text-transform: uppercase;
 }
 
@@ -296,18 +294,26 @@ button:hover{
 @page {
     size: letter;
     margin: 0;
+    padding: 0;
 }
 @media print {
     html, body {
-        width: 210mm; /* 210mm */
-        height: 297mm;    
+        width: 8.5in; 
+        height: 10.9in;
+        padding: 0 !important;
+        margin: 0 !important;
         -webkit-print-color-adjust: exact;
         -moz-print-color-adjust: exact;
     }
     #printablePage {
-        margin-top: 0 !important;
-        padding-right: 1in;
-        background-image: none !important;
+        margin: 0 !important;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-image:none;
+        /* background-image: none !important; */
     }
 
     .nav{

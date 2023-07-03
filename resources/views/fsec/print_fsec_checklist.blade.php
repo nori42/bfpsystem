@@ -52,13 +52,13 @@
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
-        <button onclick="printOnly()" class="printBtn">
+        <button onclick="printOnly(backToShow)" class="printBtn">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
-        <div class="printby">
+        {{-- <div class="printby">
             <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
-        </div>
+        </div> --}}
     </div>
 
     <div class="printablePage" page="1">
@@ -141,6 +141,10 @@
 
     <script src="/js/print.js"></script>
     <script>
+        const backToShow = function() {
+            location.href = `/fsec/{{ $buildingPlan->id }}`;
+        }
+
         function addCheckmark(event) {
             // Do Nothing if the button is clicked
             if (event.target.id == "btnAddCheck" || event.target.id == "btnCancel")

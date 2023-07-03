@@ -40,7 +40,7 @@ class InspectionFactory extends Factory
                 'fsic_no' => rand(1000, 99999),
                 'user_id' => 1,
                 'receipt_id' => Receipt::factory(),
-                'establishment_id' => rand(1,HelperFactory::$establishmentCount)
+                'establishment_id' => rand(1,100)
             ];
     
         }

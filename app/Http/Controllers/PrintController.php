@@ -91,8 +91,6 @@ class PrintController extends Controller
     {
         $buildingPlan = BuildingPlan::find($request->id);
         
-        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DisapporveBuildingPlan);
-
         return view('fsec.print_fsec_disapprove',[
             'buildingPlan' => $buildingPlan
         ]);

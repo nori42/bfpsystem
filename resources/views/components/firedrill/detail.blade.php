@@ -106,8 +106,8 @@
             <x-form.input name="orNo" label="OR No." type="text" value="{{ $firedrill->receipt->or_no }}"
                 :readonly="$issued" />
             <div class="d-flex gap-2">
-                <x-form.input name="amountPaid" label="Amount Paid" type="text" :readonly="$issued"
-                    value="₱{{ $firedrill->receipt->amount }}" />
+                <x-form.input name="amountPaid" label="₱ Amount Paid" type="text" :readonly="$issued"
+                    value="{{ $firedrill->receipt->amount }}" />
                 <x-form.input name="dateOfPayment" label="Date of Payment" type="date" class="w-50"
                     :readonly="$issued" value="{{ $firedrill->receipt->date_of_payment }}" />
             </div>

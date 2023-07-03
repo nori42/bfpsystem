@@ -68,7 +68,7 @@ class UserController extends Controller
 
         // $personnel->save();
         
-        $users = User::all();
+        $users = User::orderBy('type')->get();
 
         // Retrieve all personnel that has no user
         $personnelList = Personnel::whereNotNull('person_id')

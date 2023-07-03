@@ -39,11 +39,11 @@
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
 
-    {{-- <div class="editToolBox">
+    <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)" style="display: none;">Edit</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
-    </div> --}}
+    </div>
 
     <div class="nav">
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
@@ -57,10 +57,10 @@
         <div class="printby">
             <strong>Issued For: </strong> <span>Fire Safety Evaluation Clearance</span>
         </div>
-
+        {{-- 
         <div class="printby">
             <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
-        </div>
+        </div> --}}
     </div>
 
     <div id="printablePage">
