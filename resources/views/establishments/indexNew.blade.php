@@ -22,7 +22,7 @@
         <x-pageWrapper>
             <div class="d-flex justify-content-center">
 
-                @if (auth()->user()->type === 'FSIC' || auth()->user()->type === 'ADMIN')
+                @if (auth()->user()->type === 'FSIC' || auth()->user()->type === 'ADMINISTRATOR')
                     <a class="btn btn-success text-white px-5 py-2 align-middle mt-1" href="/establishments/create"><span
                             class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
                 @endif

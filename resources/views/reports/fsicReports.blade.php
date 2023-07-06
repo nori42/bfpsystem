@@ -32,7 +32,7 @@
             <div class="d-flex align-items-center gap-3">
                 <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
                     <option value="inspection">Inspection Reports</option>
-                    @if (auth()->user()->type == 'ADMIN')
+                    @if (auth()->user()->type == 'ADMINISTRATOR')
                         <option value="firedrill">Firedrill Reports</option>
                         <option value="buildingplan">Building Plan Reports</option>
                     @endif

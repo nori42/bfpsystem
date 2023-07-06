@@ -37,11 +37,11 @@
             {{-- {{ dd($reports) }} --}}
             <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
                 {{-- I added if statement this way so that the order doesnt change --}}
-                @if (auth()->user()->type == 'ADMIN')
+                @if (auth()->user()->type == 'ADMINISTRATOR')
                     <option value="inspection">Inspection Reports</option>
                 @endif
 
-                @if (auth()->user()->type == 'ADMIN')
+                @if (auth()->user()->type == 'ADMINISTRATOR')
                     <option value="firedrill">Firedrill Reports</option>
                 @endif
 

@@ -17,14 +17,17 @@ return new class extends Migration
             $ranks = array('CINSP','INSP','SFO4','SFO3','SFO2','SFO1','FO3','FO2','FO1','NUP');
 
             $table->bigIncrements('id');
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+            $table->string('name_suffix')->nullable();
             $table->string('sex')->nullable();
+            $table->date('date_of_birth');
+            $table->string('address')->nullable();
+            $table->string('contact_no')->nullable();
             $table->enum('rank',$ranks);
             $table->string('designation')->nullable();
-            $table->string('pagibig_no')->nullable();
-            $table->string('philhealth_no')->nullable();
-            $table->string('TINNo')->nullable();
             $table->boolean('has_user')->nullable();
-            $table->foreignIdFor(Person::class)->unique();
             $table->timestamps();
         });
     }

@@ -101,7 +101,7 @@ function toggleCert(btn){
 
     if (printable.style.backgroundSize === '0%') {
             btn.innerText = "Hide Certificate"
-            printable.style.backgroundSize = 'contain';
+            printable.style.backgroundSize = 'cover';
         } 
     else 
         {

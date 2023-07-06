@@ -43,7 +43,7 @@
     <div class="editToolBox">
         <button class="btnTools button" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools button" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
-        <button class="btnTools button" id="btnMove" onclick="handleMove(this)">Move</button>
+        {{-- <button class="btnTools button" id="btnMove" onclick="handleMove(this)">Move</button> --}}
     </div>
 
     <div class="nav">
@@ -55,13 +55,7 @@
                 style="background-color: #FFC900;">print</span>
         </button>
         <div class="printby">
-            <strong>Establishment: </strong> <span>{{ $establishment->establishment_name }}</span>
-        </div>
-        <div class="printby">
-            <strong>Owned By: </strong> <span>{{ $personName ? $personName : $corporateName }} </span>
-        </div>
-        <div class="printby">
-            <strong>Issued For: </strong> <span>{{ $inspection->issued_for }}</span>
+            <strong>Issued For: </strong> <span>{{ $inspection->registration_status }}</span>
         </div>
     </div>
 

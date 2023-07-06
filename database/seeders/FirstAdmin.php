@@ -16,12 +16,12 @@ class FirstAdmin extends Seeder
         //
 
         \App\Models\User::create([
-            'username' => 'admin01',
+            'username' => 'adminDev',
             'password' => Hash::make('Bfpadmin01'),
-            'name' => 'ALDRIN REY JAGDON',
+            'name' => 'DEVELOPER',
             'request_password_reset' => false,
             'is_password_default' => false,
-            'type' => strtoupper('admin'),
+            'type' => "ADMINISTRATOR",
         ]);
     }
 }

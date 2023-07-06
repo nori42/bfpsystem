@@ -41,8 +41,8 @@
                 <x-toast :message="session('mssg')" />
             @endif
             <div class="d-flex justify-content-between gap-5">
-                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMIN')
-                    <div class="{{ auth()->user()->type == 'ADMIN' ? 'w-100' : '' }}">
+                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
+                    <div class="{{ auth()->user()->type == 'ADMINISTRATOR' ? 'w-100' : '' }}">
                         <div class="d-flex align-items-center">
                             <a class="btn btn-outline-success" href="/establishments/{{ $establishment->id }}/fsic">Fire
                                 Safety
@@ -62,8 +62,8 @@
                     </div>
                 @endif
 
-                @if (auth()->user()->type == 'FIREDRILL' || auth()->user()->type == 'ADMIN')
-                    <div class="{{ auth()->user()->type == 'ADMIN' ? 'w-100' : '' }}">
+                @if (auth()->user()->type == 'FIREDRILL' || auth()->user()->type == 'ADMINISTRATOR')
+                    <div class="{{ auth()->user()->type == 'ADMINISTRATOR' ? 'w-100' : '' }}">
                         <div class="d-flex align-items-center">
                             <a class="btn btn-outline-success"
                                 href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
@@ -89,7 +89,7 @@
                         <x-tooltip label="!" tooltiptext="Incomplete details" color="warning" />
                     @endif
                 </div>
-                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMIN')
+                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <a class="btn btn-success px-5" href="/establishments/{{ $establishment->id }}/edit">
                         <i class="bi bi-pencil-fill"></i>
                         Edit</a>
@@ -140,7 +140,7 @@
                 <button class="btn btn-subtleBlue shadow-sm fw-normal fs-4" onclick="toggleShow('ownerDetail')">Owner Detail
                     <i class="bi bi-caret-down-fill"></i></button>
 
-                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMIN')
+                @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <a class="btn btn-success px-5" href="/owner/{{ $establishment->owner->id }}/edit">
                         <i class="bi bi-pencil-fill"></i>
                         Edit</a>

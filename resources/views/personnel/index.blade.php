@@ -19,10 +19,10 @@
 
     <div class="page-content">
         <x-pageWrapper>
+            @if (session('toastMssg') != null)
+                <x-toast :message="session('toastMssg')" />
+            @endif
 
-            @isset($toastMssg)
-                <x-toast :message="$toastMssg" />
-            @endisset
             <div class="d-flex justify-content-between my-5 align-items-center">
                 <div>
                     <span class="d-block fw-bold fs-3">{{ count($personnelList) }} Personnel</span>
@@ -82,18 +82,21 @@
                     <legend>Personal Info</legend>
                     <hr>
                     <div class="d-flex gap-3">
-                        <x-form.input label="First Name" name="firstName" />
+                        <x-form.input label="First Name" name="firstName" required />
                         <x-form.input label="Middle Name" name="middleName" />
-                        <x-form.input label="Last Name" name="lastName" />
+                        <x-form.input label="Last Name" name="lastName" required />
                     </div>
                     <div class="d-flex gap-2">
                         {{-- <x-form.input type="text" label="Title" name="title" /> --}}
                         <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-25" />
                     </div>
-                    <x-form.select class="w-25" name="sex" label="Sex" placeholder="SELECT SEX">
+                    <x-form.select class="w-25" name="sex" label="Sex" placeholder="SELECT SEX" required>
                         <option value="MALE">MALE</option>
                         <option value="FEMALE">FEMALE</option>
                     </x-form.select>
+                    <x-form.input class="w-25" label="Date of Birth" name="dateOfBirth" type="date" />
+                    <x-form.input class="w-50" label="Contact No." name="contactNo" />
+                    <x-form.input label="Address" name="address" />
                 </fieldset>
                 <fieldset>
                     <hr>

@@ -53,8 +53,8 @@ li{
 .date-container{
     position: absolute;
     font-size: 11pt;
-    top: 216px;
-    left: 596px;
+    top: 222px;
+    left: 594px;
 }
 
 
@@ -80,14 +80,15 @@ li{
 
 .establishment-name{
     position: absolute;
-    top: 399px;
-    left: 352px;
+    top: 405px;
+    left: 100px;
+    width: 600px;
     text-align: center;
 }
 
 .rep-name{
     position: absolute;
-    top: 484px;
+    top: 492px;
     left: 141px;
     width: 425px;
     text-align: center;
@@ -95,8 +96,8 @@ li{
 
 .address{
     position: absolute;
-    top: 453px;
-    left: 63px;
+    top: 458px;
+    left: 57px;
     text-align: center;
     width: 680px;
 }
@@ -110,20 +111,20 @@ li{
 
 .fc-fee{
     position: absolute;
-    top: 668px;
-    left: 216px;
+    top: 665px;
+    left: 217px;
 }
 
 .chiefName{
     position: absolute;
-    top: 677px;
-    left: 458px;
+    top: 681px;
+    left: 460px;
     text-transform: uppercase;
 }
 
 .marshalName{
     position: absolute;
-    top: 770px;
+    top: 775px;
     left: 448px;
     text-transform: uppercase;
 }

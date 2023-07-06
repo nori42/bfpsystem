@@ -47,12 +47,17 @@ class PasswordResetController extends Controller
         $user->is_password_default = true;
         $user->save();
 
-        $users = User::orderBy('type')->get();
+        // $users = User::orderBy('type')->get();
 
-        return view('users.index',[
-           'users' => $users,
-           'toastMssg' => 'Password Reset',
-           'newpassword' => ['id'=>$user->id,'password'=>$newpassword]
-        ]);
+        // $personnelList = Personnel::where('has_user', false)
+        // ->get();
+
+        // return view('users.index',[
+        //    'users' => $users,
+        //    'toastMssg' => 'Password Reset',
+        //    'newpassword' => ['id'=>$user->id,'password'=>$newpassword]
+        // ]);
+
+        return redirect('/users')->with('toastMssg','Password Reset');
     }
 }

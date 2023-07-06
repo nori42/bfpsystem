@@ -441,7 +441,7 @@ li{
         top: 0;
         left: 0;
         position: fixed;
-        /* background-image:none; */
+        background-image:none;
     }
 
     .nav{

@@ -105,7 +105,7 @@
                             </div>
                         @else
                             @php
-                                $name = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
+                                $name = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
                             @endphp
                             <div class="fs-6 fw-semibold text-white text-center align-middle">
                                 {{ $name }}

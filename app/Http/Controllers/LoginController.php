@@ -22,9 +22,9 @@ class LoginController extends Controller
                 return redirect()->intended('/newpassword');
             }
             
-            if(Auth::user()->type == 'ADMIN' || Auth::user()->type == 'FSIC' || Auth::user()->type == 'FIREDRILL'){
+            if(Auth::user()->type == 'ADMINISTRATOR' || Auth::user()->type == 'FSIC' || Auth::user()->type == 'FIREDRILL'){
                 
-                if(Auth::user()->type == 'ADMIN')
+                if(Auth::user()->type == 'ADMINISTRATOR')
                     return redirect()->intended('/dashboard');
                 else
                     return redirect()->intended('/establishments');

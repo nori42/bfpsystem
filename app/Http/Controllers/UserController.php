@@ -17,9 +17,7 @@ class UserController extends Controller
     public function index(){
         
         $users = User::orderBy('type')->get();
-        $personnelList = Personnel::whereNotNull('person_id')
-        ->where('person_id', '!=', 0)
-        ->where('has_user', false)
+        $personnelList = Personnel::where('has_user', false)
         ->get();
 
         return view('users.index',[
@@ -36,12 +34,20 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->name = strtoupper($request->name);
+        $user->personnel_id = $request->assignedTo;
         $user->type = $request->type;
 
         try{
 
             $user->save();
-            ActivityLogger::userLog(auth()->user()->id,$user->type,$user->name);
+
+            // Update Has User
+            $personnel = Personnel::find($request->assignedTo);
+            $personnel->has_user = true;
+            $personnel->save();
+
+            ActivityLogger::userLog(auth()->user()->id,$user->type,($personnel->first_name.' '.$personnel->last_name));
+
 
         }
         catch(QueryException $e)
@@ -53,9 +59,7 @@ class UserController extends Controller
             $users = User::all();
 
             // Retrieve all personnel that has no user
-            $personnelList = Personnel::whereNotNull('person_id')
-            ->where('person_id', '!=', 0)
-            ->where('has_user', false)
+            $personnelList = Personnel::where('has_user', false)
             ->get();
             
             return view('users.index',[
@@ -66,26 +70,21 @@ class UserController extends Controller
         }
         }
 
-        // Update Has User
-        // $personnel = Personnel::find($request->personnelId);
-
-        // $personnel->has_user = true;
-
-        // $personnel->save();
+        
         
         $users = User::orderBy('type')->get();
 
         // Retrieve all personnel that has no user
-        $personnelList = Personnel::whereNotNull('person_id')
-        ->where('person_id', '!=', 0)
-        ->where('has_user', false)
+        $personnelList = Personnel::where('has_user', false)
         ->get();
         
-        return view('users.index',[
-            'personnelList' => $personnelList,
-            'users' => $users,
-            'toastMssg' => "Added new user"
-         ]);
+        // return view('users.index',[
+        //     'personnelList' => $personnelList,
+        //     'users' => $users,
+        //     'toastMssg' => "Added new user"
+        //  ]);
+
+         return redirect('/users')->with("toastMssg","Added new user");
     }
     
     public function update(Request $request){

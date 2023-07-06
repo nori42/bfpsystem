@@ -59,11 +59,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 
 //Establishments route
-Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL'])->name("establishments");
-Route::post('/establishments/search', [EstablishmentController::class, 'search'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
-Route::get('/establishments/create', [EstablishmentController::class, 'create'])->middleware(['auth','userType:ADMIN,FSIC']);
-Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->middleware(['auth','userType:ADMIN,FSIC']);
-Route::get('/establishments/{id}/edit', [EstablishmentController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
+Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL'])->name("establishments");
+Route::post('/establishments/search', [EstablishmentController::class, 'search'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
+Route::get('/establishments/create', [EstablishmentController::class, 'create'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
+Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
+Route::get('/establishments/{id}/edit', [EstablishmentController::class, 'edit'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
 Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
 Route::post('/establishments', [EstablishmentController::class, 'store']);
 Route::post('/establishments/store_from_owner/{store_from_owner_id}', [EstablishmentController::class, 'store']);
@@ -78,61 +78,64 @@ Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::cl
 
 //Fsec routes
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
-Route::get('/fsec', [FsecController::class, 'index'])->middleware(['auth','userType:ADMIN,FSEC'])->name('fsec');
+Route::get('/fsec', [FsecController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FSEC'])->name('fsec');
 Route::post('/fsec', [FsecController::class, 'store']);
-Route::get('/fsec/create',[FsecController::class,'create'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::post('/fsec/search', [FsecController::class, 'search'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::put('/fsec/release',[FsecController::class,'release'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::get('/fsec/pending/',[FsecController::class,'pending'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware(['auth','userType:ADMIN,FSEC']);
-Route::put('/fsec/{id}',[FsecController::class,'update'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::get('/fsec/create',[FsecController::class,'create'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::post('/fsec/search', [FsecController::class, 'search'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::put('/fsec/release',[FsecController::class,'release'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::get('/fsec/pending/',[FsecController::class,'pending'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::get('/fsec/{id}/edit', [FsecController::class, 'edit'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::get('/fsec/{id}', [FsecController::class, 'show'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
+Route::put('/fsec/{id}',[FsecController::class,'update'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 
 //Fsic routes
-Route::get('/establishments/{id}/fsic', [FsicController::class, 'index'])->middleware(['auth','userType:ADMIN,FSIC']);
+Route::get('/establishments/{id}/fsic', [FsicController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
 Route::post('/establishments/{id}/fsic', [FsicController::class, 'store']);
 Route::put('/establishments/{id}/fsic', [FsicController::class, 'update']);
 
-Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMIN,FSIC']);
+Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
 Route::put('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);
 
 Route::post('/establishments/fsic/payment/{id}', [FsicController::class, 'store_payment']);
 Route::get('/establishments/fsic/payment/{id}', [FsicController::class, 'show_payment'])->middleware('auth');
 
 //Owner routes
-Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
-Route::post('/owner/{id}/edit', [OwnerController::class, 'update'])->middleware(['auth','userType:ADMIN,FSIC,FIREDRILL']);
+Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
+Route::post('/owner/{id}/edit', [OwnerController::class, 'update'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
 
 //Firedrill
-Route::get('/establishments/{id}/firedrill', [FiredrillController::class, 'index'])->middleware(['auth','userType:ADMIN,FIREDRILL']);
+Route::get('/establishments/{id}/firedrill', [FiredrillController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
 Route::post('/establishments/firedrill/{id}',[FiredrillController::class,'store']);
 Route::put('/establishments/firedrill/{id}',[Firedrillcontroller::class,'update']);
-Route::get('/establishments/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMIN,FIREDRILL']);
+Route::get('/establishments/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
 Route::put('/establishments/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
 
 //Print Route
-Route::get('/fsic/print/{id}', [PrintController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMIN,FSIC']);
+Route::get('/fsic/print/{id}', [PrintController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
 Route::put('/fsic/print/{id}', [PrintController::class, 'print_fsic']);
 
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
 
-Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMIN,FIREDRILL']);
+Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
 Route::put('/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
 
-Route::get('/fsec/print/{id}',[PrintController::class,'show_print_fsec'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::get('/fsec/print/{id}',[PrintController::class,'show_print_fsec'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsec/print/{id}',[PrintController::class,'print_fsec']);
 
-Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsecdisapprove/print/{id}',[PrintController::class,'print_fsecdisapprove']);
 
-Route::get('/fsecchecklist/print/{id}',[PrintController::class,'show_print_fsecchecklist'])->middleware(['auth','userType:ADMIN,FSEC']);
+Route::get('/fsecchecklist/print/{id}',[PrintController::class,'show_print_fsecchecklist'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsecchecklist/print/{id}',[PrintController::class,'']);
 //Personnel
-Route::get('/personnel',[PersonnelController::class,'index'])->middleware(['auth','userType:ADMIN'])->name('personnel');
+Route::get('/personnel',[PersonnelController::class,'index'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
+Route::get('/personnel/{id}',[PersonnelController::class,'show'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
+Route::get('/personnel/{id}/edit',[PersonnelController::class,'edit'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
+Route::put('/personnel/{id}/update',[PersonnelController::class,'update']);
 Route::post('/personnel',[PersonnelController::class,'store']);
 
 //Users
-Route::get('/users',[UserController::class,'index'])->middleware(['auth','userType:ADMIN'])->name('users');
+Route::get('/users',[UserController::class,'index'])->middleware(['auth','userType:ADMINISTRATOR'])->name('users');
 Route::post('/users',[UserController::class,'store']);
 Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
 Route::put('/users/{id}',[UserController::class,'update'])->middleware('auth');
@@ -164,9 +167,9 @@ Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownl
 
 Route::get('/settings',function () {
     return view('printSettings');
-})->middleware(['auth','userType:ADMIN']);
+})->middleware(['auth','userType:ADMINISTRATOR']);
 
-Route::post('/settings',[SettingsController::class,'update'])->middleware(['auth','userType:ADMIN']);
+Route::post('/settings',[SettingsController::class,'update'])->middleware(['auth','userType:ADMINISTRATOR']);
 
 //Unauathenticated Resources
 Route::get('resources/owners',[SearchController::class,'searchOwner']);

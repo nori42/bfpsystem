@@ -7,15 +7,13 @@
         {{-- Put page content here --}}
         <x-pageWrapper>
 
-            @isset($toastMssg)
-                <x-toast :message="$toastMssg" />
-            @endisset
             @if (session('toastMssg') != null)
                 <x-toast :message="session('toastMssg')" />
             @endif
+
             <div class="d-flex justify-content-between my-5 align-items-center">
                 <div>
-                    <span class="d-block fw-bold fs-3">{{ count($users) }} Users</span>
+                    <span class="d-block fw-bold fs-3">{{ count($users) - 1 }} Users</span>
                     <span class="d-block text-secondary ">Manage users</span>
                 </div>
                 <button class="btn btn-success" onclick="openModal('addUser')">
@@ -35,17 +33,29 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
+                        @if ($user->id == 1)
+                            @continue
+                        @endif
                         @php
-                            $personnel = null;
-                            if ($user->personnel_id != 0) {
-                                $person = $user->personnel->person;
-                                $personnel = $user->personnel_id != 0 ? $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name . ' ' . $person->suffix : '';
+                            $personnelName = null;
+                            if ($user->id != 1) {
+                                $personnelName = $user->personnel->first_name . ' ' . $user->personnel->last_name;
                             }
+                            
                         @endphp
                         <tr class="align-middle" style="height:3.5rem;">
                             <td style="width:21rem">{{ $user->username }}</td>
                             <td style="width:21rem">{{ $user->type }}</td>
-                            <td style="width:21rem">{{ strtoupper($user->name) }}</td>
+
+                            @if ($user->id != 1)
+                                <td style="width:21rem"><a
+                                        href="/personnel/{{ $user->personnel_id }}">{{ $personnelName ? $personnelName : $user->name }}</a>
+                                </td>
+                            @else
+                                <td style="width:21rem">{{ $personnelName ? $personnelName : $user->name }}
+                                </td>
+                            @endif
+
                             {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
                                         class="bi bi-person fs-5 mx-1"></i>Account</a></td> --}}
                             <td>
@@ -73,9 +83,18 @@
             @csrf
 
             <legend class="mb-3">Add New User</legend>
+            {{-- <label class="info-label">Assigned To</label>
+            <input class="form-control text-uppercase" id="name" name="name" type="text" required
+                autocomplete="off"> --}}
+            <x-form.select name="assignedTo" label="Assigned To" placeholder="SELECT PERSONNEL" required>
+                @foreach ($personnelList as $personnel)
+                    <option value="{{ $personnel->id }}">{{ $personnel->first_name }} {{ $personnel->last_name }}
+                    </option>
+                @endforeach
+            </x-form.select>
 
             <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
-                <option value="ADMIN">ADMINISTRATOR</option>
+                <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                 <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
                 <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
                 <option value="FIREDRILL">FIREDRILL</option>
@@ -100,11 +119,6 @@
                             autocomplete="off">
                     </x-form.inputWrapper> --}}
             </div>
-
-            <label class="info-label">Name</label>
-            <input class="form-control text-uppercase" id="name" name="name" type="text" required
-                autocomplete="off">
-
             {{-- <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel"
                     customAttr="required">
                     @foreach ($personnelList as $personnel)

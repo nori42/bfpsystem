@@ -14,7 +14,7 @@
     $person = $buildingPlan->owner->person;
     $corporate = $buildingPlan->owner->corporate;
     
-    if (auth()->user()->type != 'ADMIN') {
+    if (auth()->user()->type != 'ADMINISTRATOR') {
         $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
     }
     
