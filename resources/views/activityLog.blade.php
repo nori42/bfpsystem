@@ -6,10 +6,19 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-            <div>
-                <span class="d-block fw-bold fs-3">Activity log</span>
-                <span class="text-secondary">List of all user's activity</span>
+            <div class="d-flex align-items-center gap-4">
+                <div>
+                    <span class="d-block fw-bold fs-3">Activity log</span>
+                    <span class="text-secondary">List of all user's activity</span>
+                </div>
+                <form action="/activity" class="d-flex align-items-center gap-2" method="GET">
+                    @csrf
+                    <input class="form-control" type="date" name="activtyDate" style="width:18rem;"
+                        value="{{ $dateQuery }}">
+                    <button class="btn btn-success">View Activity</button>
+                </form>
             </div>
+
             <table class="table mt-4">
                 <thead>
                     <th>User Type</th>
@@ -28,6 +37,10 @@
                     @endforeach
                 </tbody>
             </table>
+
+            @if ($activities == null || count($activities) == 0)
+                <h2 class="text-secondary">No Activity</h2>
+            @endif
         </x-pageWrapper>
     </div>
 @endsection

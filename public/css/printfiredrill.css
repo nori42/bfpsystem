@@ -407,11 +407,20 @@ button:hover{
         height: 297mm;     */
         width: 8.5in;
         height: 11in;
+        padding: 0 !important;
+        margin: 0 !important;
         -webkit-print-color-adjust: exact;
         -moz-print-color-adjust: exact;
     }
     #printablePage {
         margin-top: 0 !important;
+        padding: 0 !important;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        page-break-after: always;
         /* padding-right: 1in; */
     }
 

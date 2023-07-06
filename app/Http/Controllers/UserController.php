@@ -39,10 +39,15 @@ class UserController extends Controller
         $user->type = $request->type;
 
         try{
+
             $user->save();
+            ActivityLogger::userLog(auth()->user()->id,$user->type,$user->name);
+
         }
         catch(QueryException $e)
-        {
+        {   
+            error_log($e->getMessage());
+
             if ($e->errorInfo[1] == 1062) {
 
             $users = User::all();

@@ -43,7 +43,7 @@ li{
     position: absolute;
     font-size: 11pt;
     top: 95px;
-    left: 250px;
+    left: 251px;
 }
 
 .header :nth-child(3){
@@ -53,8 +53,8 @@ li{
 .date-container{
     position: absolute;
     font-size: 11pt;
-    top: 203px;
-    left: 592px;
+    top: 216px;
+    left: 596px;
 }
 
 
@@ -80,23 +80,23 @@ li{
 
 .establishment-name{
     position: absolute;
-    top: 416px;
-    left: 533px;
+    top: 399px;
+    left: 352px;
     text-align: center;
 }
 
 .rep-name{
     position: absolute;
-    top: 490px;
-    left: 144px;
+    top: 484px;
+    left: 141px;
     width: 425px;
     text-align: center;
 }
 
 .address{
     position: absolute;
-    top: 461px;
-    left: 78px;
+    top: 453px;
+    left: 63px;
     text-align: center;
     width: 680px;
 }
@@ -110,21 +110,21 @@ li{
 
 .fc-fee{
     position: absolute;
-    top: 686px;
-    left: 217px;
+    top: 668px;
+    left: 216px;
 }
 
 .chiefName{
     position: absolute;
-    top: 704px;
-    left: 516px;
+    top: 677px;
+    left: 458px;
     text-transform: uppercase;
 }
 
 .marshalName{
     position: absolute;
-    top: 790px;
-    left: 518px;
+    top: 770px;
+    left: 448px;
     text-transform: uppercase;
 }
 

@@ -1,3 +1,5 @@
+let searchController;
+
 async function populateSearchSuggestion(baseURL,search,datalist){
 
     try
@@ -38,8 +40,16 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
 
     try
     {
+        if (searchController) {
+            // If there's an ongoing fetch, abort it
+            searchController.abort();
+          }
+
+        searchController = new AbortController();
+        const signal = searchController.signal; 
+
         const hostUrl = baseURL
-        const response = await fetch(hostUrl+`/resources/establishments?search=${search}`)
+        const response = await fetch(hostUrl+`/resources/establishments?search=${search}`,{ signal })
         const json = await response.json();
         const result = [];
 

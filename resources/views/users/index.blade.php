@@ -42,7 +42,7 @@
                                 $personnel = $user->personnel_id != 0 ? $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name . ' ' . $person->suffix : '';
                             }
                         @endphp
-                        <tr>
+                        <tr class="align-middle" style="height:3.5rem;">
                             <td style="width:21rem">{{ $user->username }}</td>
                             <td style="width:21rem">{{ $user->type }}</td>
                             <td style="width:21rem">{{ strtoupper($user->name) }}</td>
