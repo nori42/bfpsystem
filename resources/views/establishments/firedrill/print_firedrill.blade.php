@@ -73,11 +73,11 @@
             <span>{{ $representative }}</span>
         </div>
         <div data-draggable="true" class="address bold">
-            @if (strlen($address) > 53)
+            @if (strlen($address) >= 55)
                 <span class="fs-9pt">{{ $address }}</span>
-            @elseif (strlen($address) > 73)
+            @elseif (strlen($address) >= 66)
                 <span class="fs-8pt">{{ $address }}</span>
-            @elseif (strlen($address) > 83)
+            @elseif (strlen($address) >= 75)
                 <span class="fs-7pt">{{ $address }}</span>
             @else
                 <span>{{ $address }}</span>

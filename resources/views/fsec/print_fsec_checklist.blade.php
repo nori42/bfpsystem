@@ -15,9 +15,9 @@
     $corporate = $buildingPlan->owner->corporate;
     $receipt = $buildingPlan->receipt;
     
-    if (auth()->user()->type != 'ADMINISTRATOR') {
-        $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
-    }
+    // if (auth()->user()->type != 'ADMINISTRATOR') {
+    //     $personnelName = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
+    // }
     
     $evaluator = auth()->user()->type != 'ADMINISTRATOR' ? $personnelName : 'ADMINISTRATOR';
     
@@ -56,36 +56,17 @@
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
-        {{-- <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
-        </div> --}}
     </div>
 
     <div class="printablePage" page="1">
-        {{-- <div data-draggable="true" class="header bold">
-            <div>Cebu City Fire Office</div>
-            <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
-            <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
-            <div>Email Address: cebucityfsn@yahoo.com</div>
-        </div> --}}
         <img class="certificate" src="{{ asset('img/checklist_1.png') }}" alt=""
             style="width: 100%; height: 100%;">
-        {{-- 
-        <div data-draggable="true" class="date-container bold">
-            {{ date('F d, Y') }}
-        </div>
-        
-
-        <div data-draggable="true" class="rep-name bold">
-            <span>{{ $representative }}</span>
-        </div>
-         --}}
         <div data-draggable="true" id="series-no" class="series-no bold">
             <span>{{ $buildingPlan->series_no }}</span>
         </div>
 
         <div data-draggable="true" id="evaluator" class="evaluator bold">
-            <span>{{ auth()->user()->name }}</span>
+            <span>{{ auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name }}</span>
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
@@ -127,7 +108,7 @@
         </div>
 
         <div data-draggable="true" id="evaluator2" class="evaluator-2 bold">
-            <span>{{ auth()->user()->name }}</span>
+            <span>{{ auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name }}</span>
         </div>
 
         <div data-draggable="true" class="fc-fee">

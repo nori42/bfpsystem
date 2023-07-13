@@ -35,7 +35,8 @@
 
                         <div class="row my-3">
                             <div class="col-4 text-secondary">Designation</div>
-                            <div class="col-8">{{ $personnel->designation }}</div>
+                            <div class="col-8">{{ $personnel->designation ? $personnel->designation : 'No Designation' }}
+                            </div>
                         </div>
 
                         <div class="row my-3">

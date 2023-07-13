@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('term_type',['SEMESTER','QUARTER']);
             $table->string('claimed_by')->nullable();
             $table->string('year')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Establishment::class);
             $table->foreignIdFor(Receipt::class);
             $table->timestamps();

@@ -11,7 +11,7 @@ class PersonnelController extends Controller
     //
     public function index (){
 
-        $personnelList = Personnel::all();
+        $personnelList = Personnel::orderBy('designation')->get();
         return view('personnel.index',[
             'personnelList' => $personnelList
         ]);

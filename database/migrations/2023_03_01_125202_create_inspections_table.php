@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('status',['Not Printed','Printed'])->default("Not Printed");
             $table->date('issued_on')->nullable();
             $table->date('expiry_date')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Receipt::class);
             $table->foreignIdFor(Establishment::class);
             $table->timestamps();

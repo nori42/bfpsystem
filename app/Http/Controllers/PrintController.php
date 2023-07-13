@@ -32,6 +32,7 @@ class PrintController extends Controller
 
         $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
         $inspection->issued_on = date("Y-m-d");
+        $inspection->user_id = auth()->user()->id;
         $inspection->status ='Printed';
         $inspection->save();
 
@@ -69,6 +70,7 @@ class PrintController extends Controller
 
     public function print_firedrill(Request $request){
         $firedrill = Firedrill::find($request->id);
+        $firedrill->user_id = auth()->user()->id;
         $firedrill->issued_on = date('Y-m-d');
         $firedrill->save();
 

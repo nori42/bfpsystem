@@ -14,11 +14,11 @@
     $corporate = $buildingPlan->owner->corporate;
     $receipt = $buildingPlan->receipt;
     
-    if (auth()->user()->type != 'ADMINISTRATOR') {
-        $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
-    }
+    // if (auth()->user()->type != 'ADMINISTRATOR') {
+    //     $personnelName = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
+    // }
     
-    $evaluator = auth()->user()->name;
+    $evaluator = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
     
     //Person Name
     $middleInitial = $person->middle_name ? $person->middle_name[0] : '';

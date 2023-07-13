@@ -37,28 +37,9 @@
             </div>
             {{-- Put page content here --}}
             <div class="d-flex gap-5">
-                {{-- <div>
-                    <div class="card border-0 px-4 py-2 boxshadow"
-                        style="background-color: #F5F8FC; width: 14rem; min-height: 12rem;">
-                        <div class="d-flex align-items-center justify-content-center btn" style="height:16rem;">
-                            <i class="bi bi-person-plus-fill" style="font-size: 4rem;"></i>
-                        </div>
-                    </div>
-                    <div class="text-center fw-semibold mt-3">CHIEF, Fire Safety Enforcement Section</div>
-                </div>
-
-                <div>
-                    <div class="card border-0 px-4 py-2 boxshadow"
-                        style="background-color: #F5F8FC; width: 14rem; min-height: 12rem;">
-                        <div class="d-flex align-items-center justify-content-center btn" style="height:16rem;">
-                            <i class="bi bi-person-plus-fill" style="font-size: 4rem;"></i>
-                        </div>
-                    </div>
-                    <div class="text-center fw-semibold mt-3">CITY/MUNICIPAL FIRE MARSHALL</div>
-                </div> --}}
             </div>
 
-            @foreach ($personnels as $personnelType)
+            {{-- @foreach ($personnels as $personnelType)
                 @if (count($personnelType) == 0)
                     @continue
                 @endif
@@ -70,8 +51,12 @@
                         <x-personnel.card :personnel="$personnel" />
                     @endforeach
                 </x-personnel.cardList>
-            @endforeach
-
+            @endforeach --}}
+            <x-personnel.cardList>
+                @foreach ($personnelList as $personnel)
+                    <x-personnel.card :personnel="$personnel" />
+                @endforeach
+            </x-personnel.cardList>
         </x-pageWrapper>
 
         <x-modal id="addPersonnel" width="50" topLocation="8">
