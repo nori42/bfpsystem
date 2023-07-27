@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function personnel(){
-        return $this->belongsTo(Personnel::class);
+        return $this->hasOne(Personnel::class);
     }
     
     /**

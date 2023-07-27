@@ -36,25 +36,25 @@
                         @if ($user->id == 1)
                             @continue
                         @endif
-                        @php
-                            $personnelName = null;
-                            if ($user->id != 1) {
-                                $personnelName = $user->personnel->first_name . ' ' . $user->personnel->last_name;
-                            }
-                            
-                        @endphp
                         <tr class="align-middle" style="height:3.5rem;">
                             <td style="width:21rem">{{ $user->username }}</td>
                             <td style="width:21rem">{{ $user->type }}</td>
-
-                            @if ($user->id != 1)
+                            @if ($user->personnel != null)
+                                <td style="width:21rem">
+                                    <a href="/personnel/{{ $user->personnel_id }}">{{ $user->personnel->first_name }}
+                                        {{ $user->personnel->last_name }}</a>
+                                </td>
+                            @else
+                                <td style="width:21rem;">N/A</td>
+                            @endif
+                            {{-- @if ($user->id != 1)
                                 <td style="width:21rem"><a
                                         href="/personnel/{{ $user->personnel_id }}">{{ $personnelName ? $personnelName : $user->name }}</a>
                                 </td>
                             @else
                                 <td style="width:21rem">{{ $personnelName ? $personnelName : $user->name }}
                                 </td>
-                            @endif
+                            @endif --}}
 
                             {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
                                         class="bi bi-person fs-5 mx-1"></i>Account</a></td> --}}
@@ -86,19 +86,36 @@
             {{-- <label class="info-label">Assigned To</label>
             <input class="form-control text-uppercase" id="name" name="name" type="text" required
                 autocomplete="off"> --}}
-            <x-form.select name="assignedTo" label="Assigned To" placeholder="SELECT PERSONNEL" required>
+            {{-- <x-form.select name="assignedTo" label="Assigned To" placeholder="SELECT PERSONNEL" required>
                 @foreach ($personnelList as $personnel)
                     <option value="{{ $personnel->id }}">{{ $personnel->first_name }} {{ $personnel->last_name }}
                     </option>
                 @endforeach
-            </x-form.select>
+            </x-form.select> --}}
 
-            <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
+            {{-- <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
                 <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                 <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
                 <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
                 <option value="FIREDRILL">FIREDRILL</option>
-            </x-form.select>
+            </x-form.select> --}}
+
+            <div>
+                <label class="fw-bold" for="type">Type</label>
+                <div class="my-2">
+                    <input type="radio" name="type" id="admin" value="ADMINISTRATOR">
+                    <label for="admin">ADMINISTRATOR</label>
+                    <br>
+                    <input type="radio" name="type" id="fsic" value="FSIC">
+                    <label for="fsic">FIRE SAFETY INSPECTION CERTIFICATE (FSIC)</label>
+                    <br>
+                    <input type="radio" name="type" id="fsec" value="FSEC">
+                    <label for="fsec">FIRE SAFETY EVALUATION CERTIFICATE (FSEC)</label>
+                    <br>
+                    <input type="radio" name="type" id="firedill" value="FIREDRILL">
+                    <label for="firedill">FIREDRILL</label>
+                </div>
+            </div>
 
             <div class="d-flex gap-3">
                 {{-- <x-form.input label="Username" name="username" :required="true" /> --}}

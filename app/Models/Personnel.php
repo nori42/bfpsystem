@@ -10,7 +10,7 @@ class Personnel extends Model
     use HasFactory;
     protected $table = 'personnel';
 
-    public function person(){
-       return $this->belongsTo(Person::class);
+    public function user(){
+       return $this->belongsTo(User::class);
     }
 }

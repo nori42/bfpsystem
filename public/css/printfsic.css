@@ -206,6 +206,21 @@ li{
     border-radius: 50%;
     outline: none;
 }
+
+.btn-done {
+    background-color: rgb(42, 159, 42);
+    color: white;
+    padding: .2rem 1.5rem;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn-done:hover {
+    cursor: pointer;
+    background-color: green;
+}
 .btn-more-info i:hover{
     color:#61809b;
 }
@@ -368,6 +383,10 @@ li{
 }
 
 /* utitilities */
+
+.d-none {
+    display: none;
+}
 
 .disable {
     background-color: #a1a1a1 !important;

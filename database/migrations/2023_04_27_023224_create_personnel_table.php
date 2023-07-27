@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,8 +27,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('contact_no')->nullable();
             $table->enum('rank',$ranks);
-            $table->string('designation')->nullable();
-            $table->boolean('has_user')->nullable();
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }

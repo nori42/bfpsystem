@@ -1,4 +1,6 @@
 let searchController;
+let typingTimer; 
+const typingDelay = 350; //Add a delay so that it will not request every stroke
 
 async function populateSearchSuggestion(baseURL,search,datalist){
 
@@ -40,36 +42,40 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
 
     try
     {
-        if (searchController) {
-            // If there's an ongoing fetch, abort it
-            searchController.abort();
-          }
+        clearTimeout(typingTimer);
 
-        searchController = new AbortController();
-        const signal = searchController.signal; 
-
-        const hostUrl = baseURL
-        const response = await fetch(hostUrl+`/resources/establishments?search=${search}`,{ signal })
-        const json = await response.json();
-        const result = [];
-
-        
-        datalist.innerHTML = ""
-        json.data.forEach((establishment )=> {
-
-
-            // const nameOpt = document.createElement("option")
-            const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
-
-            // nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
-            // datalist.appendChild(nameOpt)
-
-            result.push(`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+        typingTimer = setTimeout( async ()=>{
             
-        });
+            if (searchController) {
+                // If there's an ongoing fetch, abort it
+                searchController.abort();
+            }
 
-        showAutocomplete(result)
+            searchController = new AbortController();
+            const signal = searchController.signal; 
 
+            const hostUrl = baseURL
+            const response = await fetch(hostUrl+`/resources/establishments?search=${search}`,{ signal })
+            const json = await response.json();
+            const result = [];
+
+            
+            datalist.innerHTML = ""
+            json.data.forEach((establishment )=> {
+
+                // const nameOpt = document.createElement("option")
+                const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
+
+                // nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+                // datalist.appendChild(nameOpt)
+
+                result.push(`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+                
+            });
+
+            showAutocomplete(result)
+
+        },typingDelay)
     }
     catch (err){
         console.log(err)
@@ -81,40 +87,45 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
 
     try
     {
-        const hostUrl = baseURL
-        const response = await fetch(hostUrl+`/resources/buildingplans?search=${search}`)
-        const json = await response.json();
-        const result = [];
+        clearTimeout(typingTimer);
 
-        
-        datalist.innerHTML = ""
-        json.data.forEach(buildingPlan => {
-            if(inputId != null && index == 0)
-            inputId.value = buildingPlan.id;
+        typingTimer = setTimeout(async ()=>{
+                
+            const hostUrl = baseURL
+            const response = await fetch(hostUrl+`/resources/buildingplans?search=${search}`)
+            const json = await response.json();
+            const result = [];
 
-            // const nameOpt = document.createElement("option")
-            // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
-            // datalist.appendChild(nameOpt)
+            
+            datalist.innerHTML = ""
+            json.data.forEach(buildingPlan => {
+                if(inputId != null && index == 0)
+                inputId.value = buildingPlan.id;
 
-            let representative;
+                // const nameOpt = document.createElement("option")
+                // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
+                // datalist.appendChild(nameOpt)
 
-            if(buildingPlan.name != " ")
-            {
-                if(buildingPlan.corporate_name){
-                    representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
-                }else{
-                    representative = buildingPlan.name
+                let representative;
+
+                if(buildingPlan.name != " ")
+                {
+                    if(buildingPlan.corporate_name){
+                        representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
+                    }else{
+                        representative = buildingPlan.name
+                    }
                 }
-            }
-            else
-            {
-                representative = buildingPlan.corporate_name
-            }
+                else
+                {
+                    representative = buildingPlan.corporate_name
+                }
 
-            result.push(`${representative}-${buildingPlan.status}-${buildingPlan.id}`);
-        });
+                result.push(`${representative}-${buildingPlan.status}-${buildingPlan.id}`);
+            });
 
-        showAutocomplete(result)
+            showAutocomplete(result)
+        },typingDelay)
     }
     catch (err){
     }

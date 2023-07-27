@@ -39,17 +39,18 @@
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
 
-    <div class="editToolBox">
-        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
+    {{-- For debugging --}}
+    {{-- <div class="editToolBox">
+        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Show Certificate</button>
         <button class="btnTools" id="btnEdit" onclick="handleEdit(this)" style="display: none;">Edit</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
-    </div>
+    </div> --}}
 
     <div class="nav">
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
-        <button id="printBtn" onclick="submitPrint()">
+        <button id="printBtn" onclick="printOnly(printCert)">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
@@ -57,6 +58,8 @@
         <div class="printby">
             <strong>Issued For: </strong> <span>Fire Safety Evaluation Clearance</span>
         </div>
+
+        <button id='btnDone' class="btn-done d-none" onclick="printDone()">Done &#10004;</button>
         {{-- 
         <div class="printby">
             <strong>Printing as: </strong> <span>{{ auth()->user()->type }}</span>
@@ -100,6 +103,12 @@
 
 
     <script src="/js/print.js"></script>
+    <script>
+        function printCert() {
+            document.querySelector('#back').remove()
+            document.querySelector('#btnDone').classList.remove('d-none')
+        }
+    </script>
 </body>
 
 </html>

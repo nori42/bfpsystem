@@ -4,21 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Personnel;
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class PersonnelController extends Controller
 {
     //
     public function index (){
 
-        $personnelList = Personnel::orderBy('designation')->get();
+        $usersList = User::orderBy('type')->get();
+        $personnelCount = Personnel::count();
         return view('personnel.index',[
-            'personnelList' => $personnelList
+            'usersList' => $usersList,
+            'personnelCount' => $personnelCount
         ]);
     }
 
+    public function create(){
+
+        if(auth()->user()->personnel_id != null)
+        {
+           return redirect()->back();
+        }
+
+        return view('personnel.create');
+    }
+
     public function store (Request $request){
+        $request->validate([
+            'password' => Password::min(8)->mixedCase()->numbers()
+        ]);
         
+        $user = User::find(auth()->user()->id);
+
         $personnel = new Personnel();
 
         $personnel->first_name = strtoupper($request->firstName);
@@ -31,19 +51,35 @@ class PersonnelController extends Controller
         $personnel->address = strtoupper($request->address);
         $personnel->name_suffix = strtoupper($request->nameSuffix);
         $personnel->rank = strtoupper($request->rank);
-        $personnel->designation = strtoupper($request->designation);
-        $personnel->has_user = false;
+        $personnel->user_id = $user->id;
 
         $personnel->save();
 
+        $user->personnel_id = $personnel->id;
+        $user->password = Hash::make($request->password);
+        $user->reset_password = null;
+        $user->is_password_default = false;
+        $user->save();
         // $personnelList = Personnel::all();
 
         // return view('personnel.index',[
         //     'personnelList' =>  $personnelList,
         //     'toastMssg' => "Added new personnel"
         // ]);
+        
+        if(auth()->user()->type == 'ADMINISTRATOR')
+        {
+            return redirect('/dashboard');
+        }
+        else if(auth()->user()->type == 'FSIC' || auth()->user()->type == 'FIREDRILL')
+        {
+            return redirect('/establishments');
 
-        return redirect('/personnel')->with("toastMssg","Added new personnel");
+        }
+        else
+        {
+            return redirect('/fsec');
+        }
     }
 
     public function show(Request $request){
@@ -80,7 +116,6 @@ class PersonnelController extends Controller
         $personnel->address = strtoupper($request->address);
         $personnel->name_suffix = strtoupper($request->nameSuffix);
         $personnel->rank = strtoupper($request->rank);
-        $personnel->designation = strtoupper($request->designation);
 
         $personnel->save();
 

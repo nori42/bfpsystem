@@ -35,7 +35,7 @@ class EstablishmentController extends Controller
         ];
 
 
-        return view('establishments.indexNew', [
+        return view('establishments.index', [
             'issuedThisMonth' => $issuedThisMonth,
             'issuedNewThisMonth' => Helper::getIssuedNewByMonthNFSIC(now()->year,now()->month),
             'issuedThisMonthAll' => Helper::getIssuedAllByMonthFSIC(now()->year,now()->month)
@@ -144,7 +144,7 @@ class EstablishmentController extends Controller
             'Small', 'Medium', 'Large', 'High Rise'
         ];       
 
-        return view('establishments.newShow', [
+        return view('establishments.show', [
             'establishment' => $establishment,
             'inspections' => $inspections,
             'firedrills' => $firedrills,
@@ -227,7 +227,7 @@ class EstablishmentController extends Controller
                     'Small', 'Medium', 'Large', 'High Rise'
                 ];       
 
-                return view('establishments.newShow', [
+                return view('establishments.show', [
                     'establishment' => $establishment,
                     'inspections' => $inspections,
                     'firedrills' => $firedrills,

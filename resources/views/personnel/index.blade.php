@@ -3,20 +3,6 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
-    @php
-        $personnelCINSP = $personnelList->where('rank', '=', 'CINSP');
-        $personnelINSP = $personnelList->where('rank', '=', 'INSP');
-        $personnelSFO4 = $personnelList->where('rank', '=', 'SFO4');
-        $personnelSFO3 = $personnelList->where('rank', '=', 'SFO3');
-        $personnelSFO2 = $personnelList->where('rank', '=', 'SFO2');
-        $personnelSFO1 = $personnelList->where('rank', '=', 'SFO1');
-        $personnelFO3 = $personnelList->where('rank', '=', 'FO3');
-        $personnelFO2 = $personnelList->where('rank', '=', 'FO2');
-        $personnelFO1 = $personnelList->where('rank', '=', 'FO1');
-        
-        $personnels = [$personnelCINSP, $personnelINSP, $personnelSFO4, $personnelSFO3, $personnelSFO2, $personnelSFO1, $personnelFO3, $personnelFO2, $personnelFO1];
-    @endphp
-
     <div class="page-content">
         <x-pageWrapper>
             @if (session('toastMssg') != null)
@@ -25,36 +11,24 @@
 
             <div class="d-flex justify-content-between my-5 align-items-center">
                 <div>
-                    <span class="d-block fw-bold fs-3">{{ count($personnelList) }} Personnel</span>
+                    <span class="d-block fw-bold fs-3">{{ $personnelCount }} Personnel</span>
                     <span class="d-block text-secondary ">Manage personnel</span>
                 </div>
-                <button class="btn btn-success" onclick="openModal('addPersonnel')">
+                {{-- <button class="btn btn-success" onclick="openModal('addPersonnel')">
                     <span class="material-symbols-outlined fs-2 align-middle">
                         person_add
                     </span>
                     Add Personnel
-                </button>
+                </button> --}}
             </div>
             {{-- Put page content here --}}
             <div class="d-flex gap-5">
             </div>
-
-            {{-- @foreach ($personnels as $personnelType)
-                @if (count($personnelType) == 0)
-                    @continue
-                @endif
-                @php
-                    $label = $personnelType->first()->rank;
-                @endphp
-                <x-personnel.cardList label="{{ $label }}">
-                    @foreach ($personnelType as $personnel)
-                        <x-personnel.card :personnel="$personnel" />
-                    @endforeach
-                </x-personnel.cardList>
-            @endforeach --}}
             <x-personnel.cardList>
-                @foreach ($personnelList as $personnel)
-                    <x-personnel.card :personnel="$personnel" />
+                @foreach ($usersList as $user)
+                    @if ($user->personnel != null)
+                        <x-personnel.card :personnel="$user->personnel" />
+                    @endif
                 @endforeach
             </x-personnel.cardList>
         </x-pageWrapper>

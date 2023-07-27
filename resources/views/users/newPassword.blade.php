@@ -14,9 +14,6 @@
         <div>
             <div class="w-60 mb-3">
                 <h3 class="fw-semibold text-start">Create New Password</h3>
-                <div class="text-secondary text-start">
-                    First login or Password reset is required to change the password.
-                </div>
             </div>
             <form class="mx-auto" action="/updatepassword" method="POST" style="width: 32rem;">
                 @csrf

@@ -53,40 +53,55 @@
                 {{-- Page Title --}}
                 {{-- <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1> --}}
                 <!-- notification button -->
-                {{-- <div class="position-relative py-0" data-dropdown-nb>
-                    <button class="btn btn-profile rounded-0" onclick="toggleShow('notificationMenu')">
-                        <i class="bi bi-bell-fill text-white fs-4"></i>
-                    </button>
+                @if (auth()->user()->type == 'ADMINISTRATOR' || auth()->user()->type == 'FSIC')
+                    <div class="position-relative py-0" data-dropdown-nb>
+                        <button class="btn btn-profile rounded-0" onclick="toggleShow('notificationMenu')">
+                            <i class="bi bi-bell-fill text-white fs-4"></i>
+                        </button>
 
-                    <!-- dropdown menu -->
-                    <div id="notificationMenu" class="dropdown-profile-menu py-2 px-2 border-1 text-white" dropdown-menu
-                        style="display:none !important; width:380px; left:calc(-1 * (100% + 180px));">
-                        <ul class="list-unstyled">
-                            <li class="fw-bold fs-5 ml-5 my-2"> Today </li>
+                        <!-- dropdown menu -->
+                        <div id="notificationMenu" class="dropdown-profile-menu p-3 border-1 text-white" dropdown-menu
+                            style="display:none !important; width:380px; left:calc(-1 * (100% + 180px));">
+                            <ul class="list-unstyled">
 
-                            <li>
-                                <a class="btn w-100 text-start text-white" href="">
-                                    <span class="fw-bold">250 Inspections</span> will expire
-                                    today
-                                </a>
-                            </li>
+                                <li class="fw-bold fs-6 ml-5 my-2 text-end">
+                                    <div class="d-flex justify-content-between my-3">
+                                        <div>Notifications</div>
+                                        <a href="/expired/inspections"> View expired list</a>
+                                    </div>
+                                </li>
 
-                            <li>
-                                <a class="btn w-100 text-start text-white" href="">
-                                    <span class="fw-bold">80 Establishments</span> need to
-                                    issue a quarterly firedrill
-                                </a>
-                            </li>
+                                @foreach ($expiredCount['expiredInspections'] as $key => $value)
+                                    <li>
+                                        <a class="btn w-100 text-start text-white"
+                                            href="/expired/inspections?dateFrom={{ $key }}&dateTo={{ $key }}">
+                                            <span class="fw-bold">{{ count($value) }} Inspections</span>
+                                            expired
+                                            @if ($key != date('Y-m-d'))
+                                                on
+                                            @endif
+                                            <span class="text-info">
+                                                {{ $key == date('Y-m-d') ? 'today' : date('F d, Y', strtotime($key)) }}
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endforeach
 
-                            <li>
-                                <a class="btn w-100 text-start text-white" href="">
-                                    <span class="fw-bold">20 Establishments</span> need to
-                                    issue a semesterly firedrill
-                                </a>
-                            </li>
-                        </ul>
+                                {{-- <li>
+                                    <a class="btn w-100 text-start text-white"
+                                        href="/expired/inspections?dateFrom={{ date('Y-m-d') }}&dateTo={{ date('Y-m-d') }}">
+                                        <span class="fw-bold">{{ $expiredCount['inspectionCount'] }} Inspections</span>
+                                        expired
+                                        <span class="text-info">
+                                            today
+                                        </span>
+                                    </a>
+                                </li> --}}
+
+                            </ul>
+                        </div>
                     </div>
-                </div> --}}
+                @endif
 
                 <!-- profile button -->
                 <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
@@ -119,9 +134,11 @@
                                 class="btn w-100 text-start text-white fw-semibold"><i
                                     class="bi bi-person-fill text-white fs-5"></i> <span class="mx-3">
                                     Account</span></a>
-                            <a href="/settings" class="btn w-100 text-start text-white fw-semibold"><i
-                                    class="bi bi-gear-fill fs-5"></i> <span class="mx-3">Print
-                                    Settings</span></a>
+                            @if (auth()->user()->type == 'ADMINISTRATOR')
+                                <a href="/settings" class="btn w-100 text-start text-white fw-semibold"><i
+                                        class="bi bi-gear-fill fs-5"></i> <span class="mx-3">Print
+                                        Settings</span></a>
+                            @endif
                             <a href="/logout" class="btn w-100 text-start text-white fw-semibold"><i
                                     class="bi bi-box-arrow-left fs-5"></i> <span class="mx-3">Logout</span></a>
                         </div>

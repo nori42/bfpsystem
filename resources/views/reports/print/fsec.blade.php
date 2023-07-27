@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
-    @vite(['resources/sass/bootstrap.scss', 'resources/css/reports.css'])
+    @vite(['resources/sass/main.scss', 'resources/css/reports.css'])
 </head>
 <style>
     th span {
@@ -83,6 +83,7 @@
                         $building = $evaluation->buildingPlan->building;
                         $receipt = $evaluation->buildingPlan->receipt;
                         $owner = $evaluation->buildingPlan->owner;
+                        $personName = null;
                         
                         if ($owner->person->last_name != null) {
                             if ($owner->person->middle_name == null) {

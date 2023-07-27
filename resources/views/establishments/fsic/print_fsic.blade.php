@@ -50,13 +50,14 @@
         <a id="back" href="/establishments/{{ $establishment->id }}/fsic">
             Back
         </a>
-        <button id="printBtn" class="button" onclick="submitPrint()">
+        <button id="printBtn" class="button" onclick="printOnly(printCert)">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
         <div class="printby">
             <strong>Issued For: </strong> <span>{{ $inspection->registration_status }}</span>
         </div>
+        <button id='btnDone' class="btn-done d-none" onclick="printDone()">Done &#10004;</button>
     </div>
 
     <div id="printablePage">
@@ -150,6 +151,12 @@
 
 
     <script src="/js/print.js"></script>
+    <script>
+        function printCert() {
+            document.querySelector('#back').remove()
+            document.querySelector('#btnDone').classList.remove('d-none')
+        }
+    </script>
 </body>
 
 </html>

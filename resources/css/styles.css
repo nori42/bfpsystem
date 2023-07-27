@@ -258,7 +258,7 @@ nav .btn {
     align-items: center;
     z-index: 1;
 }
-
+/* 
 .dashboardSearch::before {
     content: "";
     position: absolute;
@@ -266,10 +266,9 @@ nav .btn {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../img/pngwing.png);
     opacity: 0.2;
     z-index: -1;
-}
+} */
 
 .record-highlight{
     background-color: #39c839;
@@ -318,7 +317,9 @@ visibility: visible;
 }
 
 /* Utilities */
-
+.bg-primary-nb {
+    background-color: #35547c;
+}
 .w-85{
     width: 85%;
 }
@@ -370,6 +371,7 @@ visibility: visible;
 .mr-auto {
     margin-right: auto !important;
 }
+
 /* Loadiing Animation */
 
 /* 

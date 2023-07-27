@@ -182,9 +182,9 @@ class ActivityLogger {
         }
     }
 
-    public static function userLog($userId,$userType,$nameOfNewUser){
+    public static function userLog($userId,$userType,$username){
 
-        $activityLog = "Added a new {$userType} USER assigned to {$nameOfNewUser}";
+        $activityLog = "Added a new {$userType} USER, Username:{$username}";
 
         DB::table('activities')->insert([
             'activity' => $activityLog,

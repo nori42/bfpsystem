@@ -56,21 +56,21 @@
                             <form action="/users/{{ $user->id }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="d-flex w-35">
+                                <div class="d-flex w-35 align-items-center">
                                     <label class="text-secondary fw-bold w-100 text-end">Current</label>
-                                    <input class="w-100 mx-2" name="passwordCurrent" type="password" autocomplete="off"
+                                    <input class="mx-2" name="passwordCurrent" type="password" autocomplete="off"
                                         required>
                                 </div>
-                                <div class="d-flex w-35 my-2">
+                                <div class="d-flex w-35 my-2 align-items-center">
                                     <label class="text-secondary fw-bold w-100 text-end">New Password</label>
-                                    <input class="w-100 mx-2" id="passwordNew" name="passwordNew" type="password" required
+                                    <input class=" mx-2" id="passwordNew" name="passwordNew" type="password" required
                                         autocomplete="off">
                                 </div>
 
-                                <div class="d-flex w-35">
-                                    <label class="text-secondary fw-bold w-100 text-end">Confirm New Passowrd</label>
-                                    <input class="w-100 mx-2" id="passwordConfirmNew" name="passwordConfirmNew"
-                                        type="password" required autocomplete="off">
+                                <div class="d-flex w-35 align-items-center">
+                                    <label class="text-secondary fw-bold w-100 text-end">Confirm New Password</label>
+                                    <input class="mx-2" id="passwordConfirmNew" name="passwordConfirmNew" type="password"
+                                        required autocomplete="off">
                                 </div>
 
                                 <button class="btn btn-success my-3" name="action" value="updatePassword">Save

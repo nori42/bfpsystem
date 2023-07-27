@@ -30,7 +30,6 @@ class PasswordNewController extends Controller
         $user->save();
 
        auth()->logout();
-
        return redirect('/');
     }
 }

@@ -4,6 +4,10 @@ function submitPrint() {
     document.querySelector('#print').submit();
 }
 
+function printDone(){
+    document.querySelector('#print').submit();
+}
+
 function printUpdate(){
     window.print();
     document.querySelector('#print').submit();

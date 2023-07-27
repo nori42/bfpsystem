@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BuildingPlan;
 use App\Models\Establishment;
+use App\Models\Firedrill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -12,6 +14,11 @@ class DashboardController extends Controller
 
         $yearNow = date('Y');
         $monthNow = date('m');
+
+        DB::table('establishments')
+                    ->where('firedrill_type','QUARTERLY')
+                    ->where('firedrill_count_yearly','<',3)
+                    ->update(['firedrill_is_expired' => true]);
 
         $firedrillIssuedSubstation = [
             'Guadalupe' => FiredrillHelper::getIssuedFiredrillCount('GUADALUPE',$yearNow,$monthNow),

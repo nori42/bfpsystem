@@ -28,20 +28,18 @@
             Back
         </a>
 
-        @if ($firedrill->issued_on)
-            <button id="printBtn" onclick="printOnly()">
-                <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
-                    style="background-color: #FFC900;">print</span>
-            </button>
-        @else
-            <button id="printBtn" onclick="submitPrint()">
-                <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
-                    style="background-color: #FFC900;">print</span>
-            </button>
-        @endif
+        <button id="printBtn" onclick="printCert()">
+            <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+                style="background-color: #FFC900;">print</span>
+        </button>
         <div class="printby">
             <strong>Issued For: </strong> <span>Firedrill</span>
         </div>
+        @if ($firedrill->issued_on)
+            <button id='btnDone' class="btn-done d-none" onclick="back()">Done &#10004;</button>
+        @else
+            <button id='btnDone' class="btn-done d-none" onclick="submitPrint()">Done &#10004;</button>
+        @endif
     </div>
 
     <div id="printablePage">
@@ -115,14 +113,17 @@
     <script src="/js/print.js"></script>
     <script>
         function submitPrint() {
-            window.print();
-
             document.querySelector('#print').submit();
         }
 
-        function printOnly() {
-            window.print();
+        function back() {
             history.back();
+        }
+
+        function printCert() {
+            window.print()
+            document.querySelector('#back').remove()
+            document.querySelector('#btnDone').classList.remove('d-none')
         }
     </script>
 </body>

@@ -18,8 +18,9 @@
     // if (auth()->user()->type != 'ADMINISTRATOR') {
     //     $personnelName = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
     // }
+    $personnelName = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
     
-    $evaluator = auth()->user()->type != 'ADMINISTRATOR' ? $personnelName : 'ADMINISTRATOR';
+    $evaluator = $personnelName;
     
     //Person Name
     // $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
@@ -49,13 +50,14 @@
     </div>
 
     <div class="nav">
-        <a id="back" href="/fsec/{{ $buildingPlan->id }}">
+        {{-- <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
-        </a>
-        <button onclick="printOnly(backToShow)" class="printBtn">
-            <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+        </a> --}}
+        <button onclick="printCert()" class="printBtn">
+            <div>Print Checklist</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
+        <button id='btnDone' class="btn-done d-none" onclick="backToShow()">Done &#10004;</button>
     </div>
 
     <div class="printablePage" page="1">
@@ -192,6 +194,11 @@
             document.removeEventListener('click', addCheckmark)
             document.querySelector("#body").style.cursor = "default";
             console.log("Remove Event Listener")
+        }
+
+        function printCert() {
+            window.print()
+            document.querySelector('#btnDone').classList.remove('d-none')
         }
     </script>
 </body>

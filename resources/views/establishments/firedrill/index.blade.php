@@ -17,7 +17,12 @@
                 <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />
                 <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" />
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    @if ($establishment->firedrill_is_expired)
+                        <x-tag bgColor="bg-danger" text="Expired Firedrill" />
+                    @endif
+                </div>
                 <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">
                     <span class="material-symbols-outlined align-middle">
                         add

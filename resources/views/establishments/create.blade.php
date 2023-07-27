@@ -66,7 +66,7 @@
                     </div>
                     <hr>
 
-                    <x-form.input type="text" label="Establishment Name" name="establishmentName" />
+                    <x-form.input type="text" label="Establishment Name" name="establishmentName" :required="true" />
                     <label class="fw-bold fs-6" for="isCompanyName"><input class="form-check-inline" type="checkbox"
                             name="isCompanyName" id="isCompanyName">Establishment
                         Name is
@@ -137,7 +137,7 @@
                         </select>
                     </x-form.inputWrapper>
 
-                    <x-form.input type="text" label="Address" name="address" :required="true" />
+                    <x-form.input type="text" label="Address" name="address" />
                 </div>
 
                 <div class="form-footer mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">

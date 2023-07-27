@@ -35,8 +35,19 @@
 
                         <div class="row my-3">
                             <div class="col-4 text-secondary">Designation</div>
-                            <div class="col-8">{{ $personnel->designation ? $personnel->designation : 'No Designation' }}
-                            </div>
+                            @if ($personnel->user->type == 'FSIC')
+                                <div class="col-8">{{ 'Fire Safety Inspection Certificate (FSIC)' }}
+                                </div>
+                            @elseif($personnel->user->type == 'FSEC')
+                                <div class="col-8">{{ 'Fire Safety Evaluatioin Certificate (FSEC)' }}
+                                </div>
+                            @elseif($personnel->user->type == 'FIREDRILL')
+                                <div class="col-8">{{ $personnel->user->type }}
+                                </div>
+                            @else
+                                <div class="col-8">{{ $personnel->user->type }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="row my-3">

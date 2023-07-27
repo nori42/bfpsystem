@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('createdBy')->nullable();
             $table->boolean('inspection_is_expired');
             $table->boolean('firedrill_is_expired');
+            $table->integer('firedrill_count_yearly')->nullable();
+            $table->enum('firedrill_type',['QUARTERLY','SEMESTER'])->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreignIdFor(Owner::class);

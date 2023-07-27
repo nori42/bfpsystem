@@ -47,7 +47,6 @@ class FiredrillController extends Controller
         
         $receipt->save();
         $firedrill->control_no = $newControlNo;
-
         $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
         $firedrill->user_id = auth()->user()->id;
@@ -55,6 +54,8 @@ class FiredrillController extends Controller
         $firedrill->establishment_id = $request->estabId;
         $firedrill->year =$request->year;
         
+        $establishment->firedrill_type = $request->validity;
+        $establishment->save();
         $firedrill->save();
 
         ActivityLogger::firedrillLog($establishment->establishment_name,Activity::AddFiredrill);

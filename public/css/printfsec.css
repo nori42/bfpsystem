@@ -27,7 +27,7 @@ body{
     width: 8.5in;
     height: 11in;
     padding: 0;
-    background-image: url(../img/fsec.png);
+    /* background-image: url(../img/fsec.png); */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:cover;
     
@@ -130,6 +130,21 @@ li{
 }
 
 /*  */
+
+.btn-done {
+    background-color: rgb(42, 159, 42);
+    color: white;
+    padding: .2rem 1.5rem;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn-done:hover {
+    cursor: pointer;
+    background-color: green;
+}
 
 #back{
     background-color: #DC3545;
@@ -246,6 +261,10 @@ button:hover{
     margin-right: 0;
 }
 /* utitilities */
+
+.d-none {
+    display: none;
+}
 
 .disable {
     background-color: #a1a1a1 !important;

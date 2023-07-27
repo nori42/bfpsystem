@@ -16,11 +16,11 @@
                     <x-form.input type="text" label="Middle Name" name="middleName" :value="$owner->person->middle_name" />
                     <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" :value="$owner->person->name_suffix" />
                 </div>
-                <x-form.input type="text" label="Contact No" name="contactNoPerson" :value="$owner->person->contact_no" />
+                <x-form.input class="w-50" type="text" label="Contact No" name="contactNoPerson" :value="$owner->person->contact_no" />
                 <br>
                 <legend>Corporate Name</legend>
                 <x-form.input type="text" label="Corporate Name" name="corporateName" :value="$owner->corporate->corporate_name" />
-                <x-form.input type="text" label="Contact No" name="contactNoCorp" :value="$owner->corporate->contact_no" />
+                <x-form.input class="w-50" type="text" label="Contact No" name="contactNoCorp" :value="$owner->corporate->contact_no" />
 
                 <div class="d-flex justify-content-between">
                     <a href="/establishments/{{ $owner->establishment[0]->id }}" class="btn btn-outline-secondary mt-3 px-3"

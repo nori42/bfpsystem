@@ -52,16 +52,14 @@
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back
         </a>
-        <button id="printBtn" onclick="submitPrint()">
+        <button id="printBtn" onclick="printCert()">
             <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
                 style="background-color: #FFC900;">print</span>
         </button>
         <div class="printby">
             <strong>Issued For: </strong> <span>FSEC Disapprove</span>
         </div>
-        {{-- <div class="printby">
-            <strong>Printing as: </strong> <span>{{ auth()->user()->type }} User</span>
-        </div> --}}
+        <button id='btnDone' class="btn-done d-none" onclick="printDone()">Done &#10004;</button>
     </div>
 
     <div id="printablePage">
@@ -122,7 +120,13 @@
 
 
     <script src="/js/print.js"></script>
-    <script></script>
+    <script>
+        function printCert() {
+            window.print();
+            document.querySelector('#back').remove()
+            document.querySelector('#btnDone').classList.remove('d-none')
+        }
+    </script>
 </body>
 
 </html>

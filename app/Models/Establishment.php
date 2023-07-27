@@ -18,8 +18,13 @@ class Establishment extends Model
     {
         return $this->hasMany(Inspection::class);
     }
+    
+    public function firedrill()
+    {
+        return $this->hasMany(Firedrill::class);
+    }
 
-    public function evaluation()
+    public function evaluation()    
     {
         return $this->hasMany(Evaluation::class);
     }

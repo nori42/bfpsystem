@@ -22,7 +22,11 @@
 
             {{-- Inspection --}}
             <div class="d-flex justify-content-between align-items-center">
-                <div class="fs-5">Building Structure: <b> {{ $establishment->building_type }}</b></div>
+                <div>
+                    @if ($establishment->inspection_is_expired)
+                        <x-tag bgColor="bg-danger" text="Expired Inspection" />
+                    @endif
+                </div>
                 <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
                     <span class="material-symbols-outlined align-middle">
                         assignment_add

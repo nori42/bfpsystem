@@ -17,11 +17,8 @@ class UserController extends Controller
     public function index(){
         
         $users = User::orderBy('type')->get();
-        $personnelList = Personnel::where('has_user', false)
-        ->get();
 
         return view('users.index',[
-           'personnelList' => $personnelList,
            'users' => $users
         ]);
     }
@@ -41,48 +38,16 @@ class UserController extends Controller
 
             $user->save();
 
-            // Update Has User
-            $personnel = Personnel::find($request->assignedTo);
-            $personnel->has_user = true;
-            $personnel->save();
-
-            ActivityLogger::userLog(auth()->user()->id,$user->type,($personnel->first_name.' '.$personnel->last_name));
-
-
+            ActivityLogger::userLog(auth()->user()->id,$user->type,$user->username);
         }
         catch(QueryException $e)
         {   
             error_log($e->getMessage());
 
             if ($e->errorInfo[1] == 1062) {
-
-            $users = User::all();
-
-            // Retrieve all personnel that has no user
-            $personnelList = Personnel::where('has_user', false)
-            ->get();
-            
-            return view('users.index',[
-                'personnelList' => $personnelList,
-                'users' => $users,
-                'toastMssg' => "Username already exist"
-            ]);
+            return redirect()->back()->with("toastMssg","Username already exist");
         }
         }
-
-        
-        
-        $users = User::orderBy('type')->get();
-
-        // Retrieve all personnel that has no user
-        $personnelList = Personnel::where('has_user', false)
-        ->get();
-        
-        // return view('users.index',[
-        //     'personnelList' => $personnelList,
-        //     'users' => $users,
-        //     'toastMssg' => "Added new user"
-        //  ]);
 
          return redirect('/users')->with("toastMssg","Added new user");
     }

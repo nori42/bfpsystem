@@ -18,7 +18,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if(Auth::user()->is_password_default){
+            if(Auth::user()->is_password_default && Auth::user()->personnel_id != null){
                 return redirect()->intended('/newpassword');
             }
             

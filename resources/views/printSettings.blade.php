@@ -18,7 +18,7 @@
             <form class="bg-subtleBlue p-4" action="" method="POST">
                 @csrf
                 <legend>Print Settings</legend>
-                <div class="text-secondary">Print Signatures</div>
+                <div class="text-secondary">Print Signatory</div>
                 <div class="w-25">
                     <x-form.input type="text" label="City Marshal" name="cityMarshal" :value="$marshal" />
                     <x-form.input type="text" label="Chief FSES" name="chiefFSES" :value="$chief" />
