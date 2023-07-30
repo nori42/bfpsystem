@@ -35,7 +35,12 @@
     <div class="printables">
         <div class="d-flex align-items-center justify-content-between heading">
             <div class="fs-3">Approved Building Permit Applications</div>
-            <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div>
+            <div class="fs-4">
+                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                @if ($dateRange['from'] != $dateRange['to'])
+                    <span> - {{ date('F d, Y', strtotime($dateRange['to'])) }}</span>
+                @endif
+            </div>
         </div>
 
         <table id="evaluations" class="table">
@@ -126,15 +131,18 @@
     const year = "{{ $date['year'] }}"
     const month = "{{ $date['monthInt'] }}"
 
+    const dateFrom = "{{ $dateRange['from'] }}"
+    const dateTo = "{{ $dateRange['to'] }}"
+
     checkboxMyReport.addEventListener('change', () => {
         if (checkboxMyReport.checked) {
             location.href =
-                `/reports/print/fsec?month=${month}&year=${year}&selfReport=${checkboxMyReport.checked}`
+                `/reports/print/fsec?dateFrom=${dateFrom}&dateTo=${dateTo}&selfReport=${checkboxMyReport.checked}`
 
             return
         }
 
-        location.href = `/reports/print/fsec?month=${month}&year=${year}`
+        location.href = `/reports/print/fsec?dateFrom=${dateFrom}&dateTo=${dateTo}`
     })
 
     function sort(index) {

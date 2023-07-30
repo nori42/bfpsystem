@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
+    <link rel="stylesheet" href="/css/printutilities.css">
     <link rel="stylesheet" href="/css/printfsecdisapprove.css">
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
@@ -81,15 +82,15 @@
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>{{ $buildingPlan->name_of_building }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->name_of_building }}</span>
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name-2 bold">
-            <span>{{ $buildingPlan->name_of_building }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->name_of_building }}</span>
         </div>
 
         <div data-draggable="true" class="rep-name bold">
-            <span>{{ $representative }}</span>
+            <span class="fs-9pt">{{ $representative }}</span>
         </div>
 
         {{-- <div class="deficiency" id="moreInfo" data-draggable="true" data-editable="true">
@@ -103,11 +104,11 @@
 
 
         <div data-draggable="true" class="address bold">
-            <span>{{ $buildingPlan->building->address }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->building->address }}</span>
         </div>
 
         <div data-draggable="true" class="address-2 bold">
-            <span>{{ $buildingPlan->building->address }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->building->address }}</span>
         </div>
 
 

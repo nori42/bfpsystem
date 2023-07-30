@@ -23,7 +23,7 @@ return new class extends Migration
             // $table->string('building_structures')->nullable();
             $table->string('registration_status')->nullable();
             $table->string('fsic_no')->nullable();
-            $table->enum('status',['Not Printed','Printed'])->default("Not Printed");
+            $table->enum('status',['Not Printed','Printed','Expired'])->default("Not Printed");
             $table->date('issued_on')->nullable();
             $table->date('expiry_date')->nullable();
             $table->foreignIdFor(User::class)->nullable();

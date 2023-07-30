@@ -30,7 +30,7 @@
                 </div>
 
                 <x-form.input class="w-25" type="date" label="Date of Birth" name="dateOfBirth" :value="$personnel->date_of_birth" />
-                <x-form.input class="w-50" type="text" label="Contact No." name="contactNo" :value="$personnel->contact_no" />
+                <x-form.input class="w-25" type="text" label="Contact No." name="contactNo" :value="$personnel->contact_no" />
                 <x-form.input type="text" label="Address" name="address" :value="$personnel->address" />
                 <x-form.select class="w-25" name="rank" label="Rank" placeholder="SELECT RANK">
                     @php

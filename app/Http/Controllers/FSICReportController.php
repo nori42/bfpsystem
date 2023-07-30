@@ -10,7 +10,7 @@ class FSICReportController extends Controller
 {
     //
     //
-    public function index(Request $request){
+    public function oldIndex(Request $request){
         $yearReports = DB::table('inspections')
         ->select(DB::raw('DISTINCT YEAR(issued_on) as year'))
         ->whereNotNull('issued_on')
@@ -86,6 +86,52 @@ class FSICReportController extends Controller
             'fsicIssued' =>$fsicIssued,
             'reports' => $reports,
             'selectedReports' => ['month' =>$selectedMonth, 'year' => $selectedYear]
+        ]);
+    }
+
+    public function index(Request $request){
+        if(date('Y-m-d',strtotime($request->dateFrom)) > date('Y-m-d',strtotime($request->dateTo)))
+        {   
+            $errorMssg = "The selected date range is invalid.";
+            return redirect()->back()->with('toastMssg',$errorMssg);
+        }
+        
+        $inspections = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+        ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
+        ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+
+        // GET INSPECTIONS EXCEPT FOR CBP
+        $inspectionsSubstation = $inspections->where('substation','!=','CBP');
+
+        // GROUP SUBSTATIONS
+        $fsicIssuedSubstation = $inspectionsSubstation->groupBy('substation');
+
+        // GET REG_STAT NEW INSPTECTIONS
+        $inspectionsNew = $inspections->where('registration_status','NEW');
+
+        // GET CBP SUBSTATIONS
+        $inspectionsCBP = $inspections->where('substation','CBP');
+
+        // TOTALS
+        $totalSubstation = 0;
+        foreach($fsicIssuedSubstation as $substation){
+            $totalSubstation += count($substation);
+        }
+
+        $totalNew = count($inspectionsNew);
+        $totalCBP = count($inspectionsCBP);
+
+        $fsicIssued = [
+            'substations' => $fsicIssuedSubstation,
+            'totalCBP' => $totalCBP,
+            'totalNew' => $totalNew,
+            'totalSubstation' => $totalSubstation,
+            'totalGrand' => $totalCBP + $totalSubstation 
+        ];
+
+        return view('reports.fsicReports',[
+            'fsicIssued' => $fsicIssued,
+            'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo]
         ]);
     }
 

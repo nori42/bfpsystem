@@ -19,9 +19,9 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    @if ($establishment->firedrill_is_expired)
+                    {{-- @if ($establishment->firedrill_is_expired)
                         <x-tag bgColor="bg-danger" text="Expired Firedrill" />
-                    @endif
+                    @endif --}}
                 </div>
                 <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">
                     <span class="material-symbols-outlined align-middle">

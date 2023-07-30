@@ -15,15 +15,13 @@ class ReportsController extends Controller
         $selfReport = $request->selfReport ? true : false;
 
         if($request->selfReport){
-            $inspections = Inspection::whereYear('issued_on','=', $request->year)
-            ->whereMonth('issued_on','=',$request->month)
+            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
             ->where('user_id',auth()->user()->id)
             ->orderBy('issued_on')
             ->get();
         }
         else{
-            $inspections = Inspection::whereYear('issued_on','=', $request->year)
-            ->whereMonth('issued_on','=',$request->month)
+            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
             ->orderBy('issued_on')
             ->get();
         }
@@ -32,49 +30,46 @@ class ReportsController extends Controller
         return view('reports.print.fsic',[
             'inspections' => $inspections,
             'date' =>['year' => $request->year, 'month'=> date('F',strtotime('1975-'.$request->month.'-01')), 'monthInt' => $request->month],
+            'dateRange' => ['from' => $request->dateFrom , 'to' => $request->dateTo],
             'selfReport' => $selfReport
         ]);
     }
     public function show_firedrill(Request $request){
         $selfReport = $request->selfReport ? true : false;
+        $unclaimed = $request->unclaimed ? true : false;
 
         if($request->unclaimed){
 
             if($request->selfReport){
-                $firedrills = Firedrill::whereYear('issued_on','=',$request->year)
-                ->whereMonth('issued_on','=',$request->month)
+                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
                 ->where('user_id',auth()->user()->id)
                 ->whereNull('date_claimed')
                 ->get();
             }
             else{
-                $firedrills = Firedrill::whereYear('issued_on','=',$request->year)
-                ->whereMonth('issued_on','=',$request->month)
+                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
                 ->whereNull('date_claimed')
                 ->get();
             }
         }
         else{
             if($request->selfReport){
-                $firedrills = Firedrill::whereYear('issued_on','=',$request->year)
-                ->whereMonth('issued_on','=',$request->month)
+                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
                 ->where('user_id',auth()->user()->id)
                 ->whereNotNull('date_claimed')
                 ->get();
             }
             else{
-                $firedrills = Firedrill::whereYear('issued_on','=',$request->year)
-                ->whereMonth('issued_on','=',$request->month)
+                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
                 ->whereNotNull('date_claimed')
                 ->get();
             }
         }
 
-        $unclaimed = $request->unclaimed ? true : false;
-
         return view('reports.print.firedrill',[
             'firedrills' => $firedrills,
             'date' =>['year' => $request->year,'month'=> date('F',strtotime('1975-'.$request->month.'-01')),'monthInt' => $request->month],
+            'dateRange' => ['from' => $request->dateFrom , 'to' => $request->dateTo],
             'selfReport' => $selfReport,
             'unclaimed' => $unclaimed
         ]);
@@ -96,21 +91,20 @@ class ReportsController extends Controller
 
         if($selfReport){
             $evaluations = Evaluation::where('remarks','APPROVED')
-            ->whereMonth('evaluations.created_at',$request->month)
-            ->whereYear('evaluations.created_at',$request->year)
-            ->where('evaluator',auth()->user()->name)
+            ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
+            ->where('evaluator',auth()->user()->personnel->first_name.' '.auth()->user()->personnel->last_name)
             ->get();
         }
         else{
             $evaluations = Evaluation::where('remarks','APPROVED')
-            ->whereMonth('evaluations.created_at',$request->month)
-            ->whereYear('evaluations.created_at',$request->year)
+            ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
             ->get();
         }
 
         return view('reports.print.fsec',[
             'evaluations'=> $evaluations,
             'date' =>['year' => $request->year,'month'=> date('F',strtotime('1975-'.$request->month.'-01')),'monthInt' => $request->month],
+            'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo],
             'selfReport' => $selfReport
         ]);
     }

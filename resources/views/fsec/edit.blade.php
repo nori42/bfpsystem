@@ -45,7 +45,8 @@
                         <x-form.input type="text" label="Floor Area" name="floorArea" :value="$building->floor_area" />
                     </div>
                     <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials" :value="$buildingPlan->bill_of_materials" />
-                    <x-form.input type="text" label="Address" name="address" :value="$building->address" />
+                    <x-form.input type="text" label="Address" name="address" :value="$building->address"
+                        customAttr="maxlength=60" />
                 </fieldset>
 
                 <fieldset>

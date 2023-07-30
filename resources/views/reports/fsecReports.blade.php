@@ -47,8 +47,56 @@
 
                 <option value="buildingplan" selected>Building Plan Reports</option>
             </select>
+
+
+            <div id="filter" class="my-2 d-flex align-items-center gap-2">
+
+                {{-- <label for="month">Month</label>
+                    <select class="form-select" name="month" id="month" style="width:21rem;">
+                        @foreach ($monthReports as $m)
+                            @if ($selectedReports['month'] == $m->month)
+                                <option value="{{ $m->month }}" selected>
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @else
+                                <option value="{{ $m->month }}">
+                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <select class="form-select" name="year" id="year" style="width:21rem;">
+                        @foreach ($yearReports as $y)
+                            @if ($selectedReports['year'] == $y->year)
+                                <option value="{{ $y->year }}" selected>{{ $y->year }}</option>
+                            @else
+                                <option value="{{ $y->year }}">{{ $y->year }}</option>
+                            @endif
+                        @endforeach
+                    </select> --}}
+                <form action="/reports/fsec" class="d-flex align-items-center gap-2" method="GET">
+                    <label class="fw-bold" for="fromDate">From</label>
+                    <input class="form-control" type="date" id="dateFrom" name="dateFrom" style="width:18rem;"
+                        value="" required>
+
+                    <label class="fw-bold" for="toDate">To</label>
+                    <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
+                        value="" required>
+                    <button class="btn btn-success text-nowrap" id="viewReport">View Report</button>
+                </form>
+            </div>
+
             <hr>
-            @if (count($reports) != 0)
+            <div id="pageContent">
+                @if ($dateRange['from'] != null && $dateRange['to'] != null)
+                    <iframe id="iFrameFsec"
+                        src="{{ env('APP_URL') }}/reports/print/fsec?dateFrom={{ $dateRange['from'] }}&dateTo={{ $dateRange['to'] }}"
+                        frameborder="0" width="100%" height="800px"></iframe>
+                @else
+                    <h1 class="text-secondary fs-2 mt-3">Select a date range</h1>
+                @endif
+            </div>
+            {{-- @if (count($reports) != 0)
                 <div class="d-inline-block" id="printables">
                     <div id="filter" class="my-2 d-flex align-items-center gap-2">
                         <label for="month">Month</label>
@@ -67,7 +115,9 @@
                     height="800px"></iframe>
             @else
                 <h2>Nothing to show</h2>
-            @endif
+            @endif --}}
+
+
         </x-pageWrapper>
     </div>
     <script src="{{ asset('js/reports/reportsScript.js') }}"></script>
@@ -75,7 +125,7 @@
         const APP_URL = "{{ env('APP_URL') }}";
         initReportLink(APP_URL);
     </script>
-    @if (count($reports) != 0)
+    {{-- @if (count($reports) != 0)
         <script>
             const yearlyReports = @json($reports);
             const yearSelect = document.getElementById('year');
@@ -166,5 +216,5 @@
             iframeFsec.src =
                 `${APP_URL}/reports/print/fsec?month=${monthSelect.value}&year=${yearSelect.value}`
         </script>
-    @endif
+    @endif --}}
 @endsection

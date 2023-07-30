@@ -35,11 +35,13 @@ class ServeExtended extends Command
         $inspections = Inspection::where('expiry_date',date('Y-m-d'))->get();
         foreach ($inspections as $inspection) {
             $inspection->establishment->inspection_is_expired = true;
+            $inspection->status = "Expired";
             $establishment = $inspection->establishment;
 
             $establishment->inspection_is_expired = true;
 
             $establishment->save();
+            $inspection->save();
         };
 
         

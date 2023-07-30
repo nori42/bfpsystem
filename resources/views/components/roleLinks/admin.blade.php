@@ -58,11 +58,11 @@
         Activity Log
     </x-navLinks.link>
 
-    <x-navLinks.link href="/archived" :active="$currentRoute == 'archived'">
+    {{-- <x-navLinks.link href="/archived" :active="$currentRoute == 'archived'">
         <!-- button Icon -->
         <span class="material-symbols-outlined align-middle fs-2">
             dresser
         </span>
         Archive
-    </x-navLinks.link>
+    </x-navLinks.link> --}}
 </x-navLinks>

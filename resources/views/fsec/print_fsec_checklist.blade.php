@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="/css/printfsecchecklist.css">
+    {{-- <link rel="stylesheet" href="/css/printutilities.css"> --}}
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 

@@ -33,24 +33,25 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
-            {{-- {{ dd($reports) }} --}}
-            <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
-                {{-- I added if statement this way so that the order doesnt change --}}
-                @if (auth()->user()->type == 'ADMINISTRATOR')
-                    <option value="inspection">Inspection Reports</option>
-                @endif
+            {{-- {{ dd($debug) }} --}}
+            <div class="d-flex align-items-center gap-3">
+                <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
+                    @if (auth()->user()->type == 'ADMINISTRATOR')
+                        <option value="inspection">Inspection Reports</option>
+                    @endif
 
-                <option value="firedrill" selected>Firedrill Reports</option>
+                    <option value="firedrill" selected>Firedrill Reports</option>
 
-                @if (auth()->user()->type == 'ADMINISTRATOR')
-                    <option value="buildingplan">Building Plan Reports</option>
-                @endif
-            </select>
+                    @if (auth()->user()->type == 'ADMINISTRATOR')
+                        <option value="buildingplan">Building Plan Reports</option>
+                    @endif
+                </select>
+            </div>
             <hr>
 
-            @if (count($reports) != 0)
-                <div id="filter" class="my-2 d-flex align-items-center gap-2 w-100">
-                    <label for="month">Month</label>
+            <div id="filter" class="my-2 d-flex align-items-center gap-2">
+
+                {{-- <label for="month">Month</label>
                     <select class="form-select" name="month" id="month" style="width:21rem;">
                         @foreach ($monthReports as $m)
                             @if ($selectedReports['month'] == $m->month)
@@ -72,63 +73,83 @@
                                 <option value="{{ $y->year }}">{{ $y->year }}</option>
                             @endif
                         @endforeach
-                    </select>
+                    </select> --}}
+                <form action="/reports/firedrill" class="d-flex align-items-center gap-2" method="GET">
+                    <label class="fw-bold" for="fromDate">From</label>
+                    <input class="form-control" type="date" id="dateFrom" name="dateFrom" style="width:18rem;"
+                        value="" required>
 
-                    <label for="unclaimed">Unclaimed</label>
-                    <input class="form-check" type="checkbox" name="unclaimed" id="unclaimed"
-                        {{ $selectedReports['unclaimed'] ? 'checked' : '' }}>
+                    <label class="fw-bold" for="toDate">To</label>
+                    <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
+                        value="" required>
+                    <button class="btn btn-success text-nowrap" id="viewReport">View Report</button>
+                </form>
+            </div>
+            <div id="pageContent">
+                @if ($dateRange['from'] != null && $dateRange['to'] != null)
+                    <div class="d-inline-block" id="printables">
+                        <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
+                            <div class="fs-4">Firedrill Certificate Issued</div>
+                            <div class="fw-semibold">
+                                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                                @if ($dateRange['from'] != $dateRange['to'])
+                                    <span> - {{ date('F d, Y', strtotime($dateRange['to'])) }}</span>
+                                @endif
+                            </div>
+                            <div class="mt-4 fs-4">Substation</div>
 
-                    <button class="btn btn-success" id="viewReport">View Report</button>
-                </div>
-                <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
-                    <div class="fs-4">Firedrill Certificate Issued</div>
-                    <div>{{ DateTime::createFromFormat('!m', $selectedReports['month'])->format('F') }}
-                        {{ $selectedReports['year'] }}</div>
-                    <div class="mt-4 fs-4">Substation</div>
-                    <table style="width: 16rem;">
-                        @foreach ($firedrillIssued['issuedBySubstation'] as $key => $value)
-                            <tr>
-                                <td>{{ $key }}</td>
-                                <td>{{ $value }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
-                    <table class="mt-4" style="width:16rem;">
-                        <tr>
-                            <td class="fw-bold">CBP</td>
-                            <td>{{ $firedrillIssued['CBP'] }}</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Total Substations</td>
-                            <td>{{ $firedrillIssued['totalSubstation'] }}</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Grand Total</td>
-                            <td>{{ $firedrillIssued['totalGrand'] }}</td>
-                        </tr>
+                            @php
+                                $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban'];
+                            @endphp
 
-                        <tr>
-                            <td class="fw-bold">Unclaimed</td>
-                            <td>{{ $firedrillIssued['unclaimed'] }}</td>
-                        </tr>
-                    </table>
-                </div>
-                <hr>
+                            <table style="width: 16rem;">
+                                @foreach ($substations as $substation)
+                                    <tr>
+                                        <td>{{ $substation }}</td>
+                                        <td>{{ $firedrillIssued['substations']->get(strtoupper($substation)) ? $firedrillIssued['substations']->get(strtoupper($substation))->count() : 0 }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                            <table class="mt-4" style="width:16rem;">
+                                <tr>
+                                    <td class="fw-bold">CBP</td>
+                                    <td>{{ $firedrillIssued['totalCBP'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Total Substations</td>
+                                    <td>{{ $firedrillIssued['totalSubstation'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Grand Total</td>
+                                    <td>{{ $firedrillIssued['totalGrand'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Unclaimed</td>
+                                    <td>{{ $firedrillIssued['totalUnclaimed'] }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    @php
+                        //This is the query parameter for unclaimed firedrill
+                        $queryParam = "dateFrom={$dateRange['from']}&dateTo={$dateRange['to']}";
+                        
+                        //This is the query parameter for claimed firedrill
+                        if ($isUnclaimed) {
+                            $queryParam = "dateFrom={$dateRange['from']}&dateTo={$dateRange['to']}&unclaimed=true";
+                        }
+                    @endphp
+                    <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill?{{ $queryParam }}"
+                        frameborder="0" width="100%" height="800px"></iframe>
+                @else
+                    <h1 class="text-secondary fs-2 mt-3">Select a date range</h1>
+                @endif
+            </div>
 
-                @php
-                    //This is the query parameter for unclaimed firedrill
-                    $queryParam = "month={$selectedReports['month']}&year={$selectedReports['year']}";
-                    
-                    //This is the query parameter for claimed firedrill
-                    if ($selectedReports['unclaimed']) {
-                        $queryParam = "month={$selectedReports['month']}&year={$selectedReports['year']}&unclaimed=true";
-                    }
-                @endphp
-                <iframe id="iFrameFiredrill" src="{{ env('APP_URL') }}/reports/print/firedrill?{{ $queryParam }}"
-                    frameborder="0" width="100%" height="800px"></iframe>
-            @else
-                <h2>Nothing to show</h2>
-            @endif
+            {{-- Loading Message --}}
+            <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Reports...</h2>
         </x-pageWrapper>
 
     </div>
@@ -137,94 +158,4 @@
         const APP_URL = "{{ env('APP_URL') }}";
         initReportLink(APP_URL);
     </script>
-
-    @if (count($reports) != 0)
-        <script>
-            const yearlyReports = @json($reports);
-            const yearSelect = document.getElementById('year')
-            const monthSelect = document.getElementById('month')
-            const claimed = document.querySelector('#claimed')
-            const btnViewRerport = document.querySelector('#viewReport')
-
-            const iframeFiredrill = document.querySelector("#iFrameFiredrill")
-
-            yearSelect.addEventListener('change', () => {
-                updateMonth(yearSelect.value)
-            })
-
-            btnViewRerport.addEventListener('click', () => {
-                if (unclaimed.checked) {
-                    location.href =
-                        `/reports/firedrill?selectedYear=${yearSelect.value}&selectedMonth=${monthSelect.value}&unclaimed=true`
-                    return
-                }
-                location.href = `/reports/firedrill?selectedYear=${yearSelect.value}&selectedMonth=${monthSelect.value}`
-            })
-
-            function updateMonth(year) {
-
-                const months = [{
-                        value: 1,
-                        name: 'January'
-                    },
-                    {
-                        value: 2,
-                        name: 'February'
-                    },
-                    {
-                        value: 3,
-                        name: 'March'
-                    },
-                    {
-                        value: 4,
-                        name: 'April'
-                    },
-                    {
-                        value: 5,
-                        name: 'May'
-                    },
-                    {
-                        value: 6,
-                        name: 'June'
-                    },
-                    {
-                        value: 7,
-                        name: 'July'
-                    },
-                    {
-                        value: 8,
-                        name: 'August'
-                    },
-                    {
-                        value: 9,
-                        name: 'September'
-                    },
-                    {
-                        value: 10,
-                        name: 'October'
-                    },
-                    {
-                        value: 11,
-                        name: 'November'
-                    },
-                    {
-                        value: 12,
-                        name: 'December'
-                    }
-                ];
-
-                monthSelect.innerHTML = "";
-
-                console.log(yearlyReports)
-
-                for (let i = 0; i < yearlyReports[year].length; i++) {
-                    const month = months[yearlyReports[year][i].month - 1];
-                    const option = document.createElement('option');
-                    option.value = month.value;
-                    option.textContent = month.name;
-                    monthSelect.appendChild(option);
-                }
-            }
-        </script>
-    @endif
 @endsection

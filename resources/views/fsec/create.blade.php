@@ -63,7 +63,7 @@
                         <x-form.input type="text" label="Building Story" name="buildingStory" />
                         <x-form.input type="text" label="Floor Area(sq m)" name="floorArea" />
                     </div>
-                    <x-form.input type="text" label="Address" name="address" />
+                    <x-form.input type="text" label="Address" name="address" customAttr="maxlength=52" />
                 </fieldset>
 
                 <fieldset>

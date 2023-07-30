@@ -74,7 +74,7 @@ class DashboardController extends Controller
             'CBP' => $cbpInspection,
             'new' => $issuedNew,
             'totalSubstation' => $substationTotalCountInspection,
-            'totalGrand' => $cbpInspection + $substationTotalCountInspection
+            'totalGrand' => $cbpInspection + $substationTotalCountInspection + $issuedNew
         ];
 
         return view('dashboard',[

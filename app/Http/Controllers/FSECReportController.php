@@ -7,30 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class FSECReportController extends Controller
 {
-    public function index(){
-        $yearReports = DB::table('evaluations')
-        ->select(DB::raw('DISTINCT YEAR(created_at) AS year'))
-        ->where('remarks','APPROVED')
-        ->orderBy('year', 'desc')
-        ->get();
-
-
-        $reports = [];
-
-        foreach($yearReports as $item){
-            $yearlyReports = DB::table('evaluations')
-            ->select(DB::raw('DISTINCT MONTH(created_at) AS month'), DB::raw('COUNT(created_at) AS count'))
-            ->whereYear('created_at', '=', $item->year)
-            ->where('remarks','APPROVED')
-            ->groupBy(DB::raw('MONTH(created_at)'))
-            ->get();
-
-            $reports[$item->year] = $yearlyReports->toArray();
+    public function index(Request $request){
+        if(date('Y-m-d',strtotime($request->dateFrom)) > date('Y-m-d',strtotime($request->dateTo)))
+        {   
+            $errorMssg = "The selected date range is invalid.";
+            return redirect()->back()->with('toastMssg',$errorMssg);
         }
-
+        
         return view('reports.fsecReports',[
-            'yearReports' => $yearReports,
-            'reports' => $reports
+            'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo]
         ]);
         
     }

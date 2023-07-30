@@ -1,8 +1,24 @@
 
 const reportsSelect = document.querySelector('#reportsSelect');
-const pageContent = document.querySelectorAll('.page-content')[0];
+const pageContent = document.querySelectorAll('.page-content')[0]
+const btnViewReport = document.querySelector('#viewReport')
 
+const dateFrom = document.querySelector(["#dateFrom"])
+const dateTo = document.querySelector(["#dateTo"])
 
+const loadingMssg = document.querySelector(["#loadingMssg"])
+const activtiyContent = document.querySelector(["#pageContent"])
+
+btnViewReport.addEventListener('click',() => {
+    if (dateFrom.value != "" && dateTo.value != "") {
+        loadingMssg.classList.remove('d-none')
+        activtiyContent.classList.add('d-none')
+    }
+})
+
+dateFrom.addEventListener('change', () => {
+    dateTo.value = dateFrom.value
+})
 
 function initReportLink(APP_URL){
     reportsSelect.addEventListener('change', () => {

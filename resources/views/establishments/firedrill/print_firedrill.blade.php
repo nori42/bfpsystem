@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Firedrill</title>
     <link rel="stylesheet" href="/css/printfiredrill.css">
+    {{-- <link rel="stylesheet" href="/css/printutilities.css"> --}}
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
 
@@ -71,12 +72,12 @@
             <span>{{ $representative }}</span>
         </div>
         <div data-draggable="true" class="address bold">
-            @if (strlen($address) >= 55)
+            @if (strlen($address) >= 55 && strlen($address) < 63)
                 <span class="fs-9pt">{{ $address }}</span>
-            @elseif (strlen($address) >= 66)
-                <span class="fs-8pt">{{ $address }}</span>
-            @elseif (strlen($address) >= 75)
+            @elseif (strlen($address) >= 63 && strlen($address) < 74)
                 <span class="fs-7pt">{{ $address }}</span>
+            @elseif (strlen($address) >= 74)
+                <span class="fs-6pt">{{ $address }}</span>
             @else
                 <span>{{ $address }}</span>
             @endif

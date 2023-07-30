@@ -137,7 +137,7 @@
                         </select>
                     </x-form.inputWrapper>
 
-                    <x-form.input type="text" label="Address" name="address" />
+                    <x-form.input type="text" label="Address" name="address" customAttr='maxlength=80' />
                 </div>
 
                 <div class="form-footer mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">

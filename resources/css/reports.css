@@ -2,6 +2,7 @@ body {
     font-size: 16px !important;
     font-family: Inter ,Arial, Helvetica, sans-serif;
     position: relative;
+    overflow-y: auto;
 }
 
 td, th {
@@ -13,7 +14,7 @@ tbody>:nth-child(even) {
 
 th {
     position: sticky;
-    top: 12%;
+    top: 68px;
     background-color: white !important;
 }
 
@@ -37,7 +38,7 @@ th {
     .heading *{
         font-size: 0.825rem !important;
     }
-
+    
     .report-buttons {
         display: none;
     }

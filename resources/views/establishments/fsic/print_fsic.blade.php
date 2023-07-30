@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
-    {{-- <link rel="stylesheet" href="/css/printfsic.css"> --}}
-    @vite(['resources/css/printfsic.css'])
+    {{-- <link rel="stylesheet" href="/css/printutilities.css"> --}}
+    <link rel="stylesheet" href="/css/printfsic.css">
+    {{-- @vite(['resources/css/printfsic.css']) --}}
     @vite(['resources/css/bootstrap-icons.css'])
     <link rel="stylesheet" href="/css/googlefonts.css">
 </head>
@@ -119,7 +120,13 @@
 
         </div>
         <div data-draggable="true" class="address bold">
-            <span>{{ $establishment->address }}</span>
+            @if (strlen($establishment->address) >= 63 && strlen($establishment->address) < 76)
+                <span class="fs-9pt">{{ $establishment->address }}</span>
+            @elseif (strlen($establishment->address) >= 76 && strlen($establishment->address) < 80)
+                <span class="fs-8pt">{{ $establishment->address }}</span>
+            @else
+                <span>{{ $establishment->address }}</span>
+            @endif
         </div>
         {{-- 
         <div data-draggable="true" class="issued-for bold">

@@ -23,14 +23,14 @@
 </style>
 
 <body>
-    <div class="position-sticky top-0 d-flex align-items-center justify-content-between heading my-4 bg-white">
-        <div class="py-2">
-            <div class="fs-3">{{ count($buildingPlans) }} Pending</div>
-            <div class="text-secondary">List of pending applications</div>
-        </div>
-    </div>
 
     @if (count($buildingPlans) != 0)
+        <div class="position-sticky top-0 d-flex align-items-center justify-content-between heading my-4 bg-white">
+            <div class="py-2">
+                <div class="fs-3">{{ count($buildingPlans) }} Pending</div>
+                <div class="text-secondary">List of pending applications</div>
+            </div>
+        </div>
 
         <table id="evaluations" class="table">
             <thead>
@@ -69,7 +69,7 @@
                     <tr>
                         <td>{{ $plan->series_no }}</td>
                         <td>{{ date('m/d/Y', strtotime($plan->date_received)) }}</td>
-                        <td>{{ $representative }}</td>
+                        <td><a href="/fsec/{{ $plan->id }}" target="_parent">{{ $representative }}</a></td>
                         <td>{{ $plan->name_of_building }}</td>
 
                     </tr>

@@ -28,6 +28,9 @@
     </style>
     <div class="page-content">
         {{-- Put page content here --}}
+        @if (session('toastMssg') != null)
+            <x-toast :message="session('toastMssg')" />
+        @endif
         <x-pageWrapper>
             <div class="d-flex align-items-center gap-3">
                 <select name="reports" id="reportsSelect" class="w-50 fs-4 form-select">
@@ -40,10 +43,9 @@
             </div>
             <hr>
 
-            @if (count($yearReports) != 0)
-                <div id="filter" class="my-2 d-flex align-items-center gap-2">
+            <div id="filter" class="my-2 d-flex align-items-center gap-2">
 
-                    <label for="month">Month</label>
+                {{-- <label for="month">Month</label>
                     <select class="form-select" name="month" id="month" style="width:21rem;">
                         @foreach ($monthReports as $m)
                             @if ($selectedReports['month'] == $m->month)
@@ -65,55 +67,74 @@
                                 <option value="{{ $y->year }}">{{ $y->year }}</option>
                             @endif
                         @endforeach
-                    </select>
-                    {{-- <div class="fs-6">
-                        <input class="fs-2 align-middle" type="checkbox" name="myReport" id="myReport"
-                            style="height: 1rem; width: 1.325rem;">
-                        <label for="myReport">My Reports</label>
-                    </div> --}}
+                    </select> --}}
+                <form action="/reports/fsic" class="d-flex align-items-center gap-2" method="GET">
+                    <label class="fw-bold" for="fromDate">From</label>
+                    <input class="form-control" type="date" id="dateFrom" name="dateFrom" style="width:18rem;"
+                        value="" required>
+
+                    <label class="fw-bold" for="toDate">To</label>
+                    <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
+                        value="" required>
                     <button class="btn btn-success" id="viewReport">View Report</button>
-                </div>
-                <div class="d-inline-block" id="printables">
-                    <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
-                        <div class="fs-4">Inspection Certificate Issued</div>
-                        <div>{{ DateTime::createFromFormat('!m', $selectedReports['month'])->format('F') }}
-                            {{ $selectedReports['year'] }}</div>
-                        <div class="mt-4 fs-4">Substation</div>
-                        <table style="width: 16rem;">
-                            @foreach ($fsicIssued['issuedBySubstation'] as $key => $value)
+                </form>
+            </div>
+            <div id="pageContent">
+                @if ($dateRange['from'] != null && $dateRange['to'] != null)
+                    <div class="d-inline-block" id="printables">
+                        <div class="bg-subtleBlue p-5" style="max-width:28rem; box-shadow:0px 3px 4px gray;">
+                            <div class="fs-4">Inspection Certificate Issued</div>
+                            <div class="fw-semibold">
+                                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                                @if ($dateRange['from'] != $dateRange['to'])
+                                    <span> - {{ date('F d, Y', strtotime($dateRange['to'])) }}</span>
+                                @endif
+                            </div>
+                            <div class="mt-4 fs-4">Substation</div>
+
+                            @php
+                                $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban'];
+                            @endphp
+
+                            <table style="width: 16rem;">
+                                @foreach ($substations as $substation)
+                                    <tr>
+                                        <td>{{ $substation }}</td>
+                                        <td>{{ $fsicIssued['substations']->get(strtoupper($substation)) ? $fsicIssued['substations']->get(strtoupper($substation))->count() : 0 }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                            <table class="mt-4" style="width:16rem;">
                                 <tr>
-                                    <td>{{ $key }}</td>
-                                    <td>{{ $value }}</td>
+                                    <td class="fw-bold">CBP</td>
+                                    <td>{{ $fsicIssued['totalCBP'] }}</td>
                                 </tr>
-                            @endforeach
-                        </table>
-                        <table class="mt-4" style="width:16rem;">
-                            <tr>
-                                <td class="fw-bold">CBP</td>
-                                <td>{{ $fsicIssued['CBP'] }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">New</td>
-                                <td>{{ $fsicIssued['new'] }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">Total Substations</td>
-                                <td>{{ $fsicIssued['totalSubstation'] }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">Grand Total</td>
-                                <td>{{ $fsicIssued['totalGrand'] }}</td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <td class="fw-bold">Total Substations</td>
+                                    <td>{{ $fsicIssued['totalSubstation'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Grand Total</td>
+                                    <td>{{ $fsicIssued['totalGrand'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">New</td>
+                                    <td>{{ $fsicIssued['totalNew'] }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <iframe id="iFrameInspections"
-                    src="{{ env('APP_URL') }}/reports/print/fsic?month={{ $selectedReports['month'] }}&year={{ $selectedReports['year'] }}"
-                    frameborder="0" width="100%" height="800px"></iframe>
-            @else
-                <h2>Nothing to show</h2>
-            @endif
+                    <hr>
+                    <iframe id="iFrameInspections"
+                        src="{{ env('APP_URL') }}/reports/print/fsic?dateFrom={{ $dateRange['from'] }} &dateTo={{ $dateRange['to'] }}"
+                        frameborder="0" width="100%" height="900px"></iframe>
+                @else
+                    <h1 class="text-secondary fs-2 mt-3">Select a date range</h1>
+                @endif
+            </div>
+            {{-- Loading Message --}}
+            <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Reports...</h2>
 
         </x-pageWrapper>
     </div>
@@ -122,7 +143,7 @@
         const APP_URL = "{{ env('APP_URL') }}";
         initReportLink(APP_URL);
     </script>
-    @if (count($yearReports) != 0)
+    {{-- @if (count($yearReports) != 0)
         <script>
             const yearlyReports = @json($reports);
 
@@ -200,5 +221,5 @@
                 updateMonth(yearSelect.value)
             })
         </script>
-    @endif()
+    @endif() --}}
 @endsection

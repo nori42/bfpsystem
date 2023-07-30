@@ -19,7 +19,7 @@ class ExpiredController extends Controller
         if($request->dateFrom == null && $request->dateTo == null)
         {
             $dateToday = date('Y-m-d');
-            $inspections = Inspection::where('expiry_date',$dateToday)->get();
+            $inspections = Inspection::where('expiry_date',$dateToday)->orderBy('expiry_date')->get();
             return view('expiredList.inpsection',[
                 'expired_inspections' => $inspections,
                 'dateRange' => [$request->dateFrom,$request->dateTo],
@@ -35,7 +35,7 @@ class ExpiredController extends Controller
         //To include the dateTo 
         $dateTo = $dateTo.' 23:59:59';
 
-        $inspections = Inspection::whereBetween('expiry_date',[$dateFrom,$dateTo])->get();
+        $inspections = Inspection::whereBetween('expiry_date',[$dateFrom,$dateTo])->orderBy('expiry_date')->get();
 
         return view('expiredList.inpsection',[
             'expired_inspections' => $inspections,

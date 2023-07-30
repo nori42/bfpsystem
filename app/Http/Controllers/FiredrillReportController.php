@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class FiredrillReportController extends Controller
 {
     //
-    public function index(Request $request){
+    public function oldIndex(Request $request){
         $yearReports = DB::table('firedrills')
         ->select(DB::raw('DISTINCT YEAR(issued_on) AS year'))
         ->whereNotNull('issued_on')
@@ -87,6 +87,54 @@ class FiredrillReportController extends Controller
             'firedrillIssued' =>$firedrillIssued,
             'reports' => $reports,
             'selectedReports' => ['month' =>$selectedMonth, 'year' => $selectedYear,'unclaimed'=>$unclaimed]
+        ]);
+    }
+
+    public function index(Request $request){
+        if(date('Y-m-d',strtotime($request->dateFrom)) > date('Y-m-d',strtotime($request->dateTo)))
+        {   
+            $errorMssg = "The selected date range is invalid.";
+            return redirect()->back()->with('toastMssg',$errorMssg);
+        }
+
+        // GET ALL FIREDRILLS BASED ON DATE RANGE
+        $firedrills = Firedrill::join('establishments','establishments.id','=','firedrills.establishment_id')
+        ->select('establishments.substation','firedrills.date_claimed','firedrills.issued_on')
+        ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+
+        // GET FIREDRILLS SUBSTATION
+        $firedrillSubstation = $firedrills->where('substation','!=','CBP');
+
+        // GROUP SUBSTATIONS
+        $firedrillIssuedSubstation = $firedrillSubstation->groupBy('substation');
+
+        // GET CBP SUBSTATIONS
+        $firedrillCBP = $firedrills->where('substation','CBP');
+
+        // GET UNCLAIMED
+        $firedrillUnclaimed = $firedrills->whereNull('date_claimed')->whereNotNull('issued_on');
+
+        // TOTALS
+        $totalSubstation = 0;
+        foreach($firedrillIssuedSubstation as $substation){
+            $totalSubstation += count($substation);
+        }
+
+        $totalCBP = count($firedrillCBP);
+
+        $firedrillIssued = [
+            'substations' => $firedrillIssuedSubstation,
+            'totalCBP' => $totalCBP,
+            'totalSubstation' => $totalSubstation,
+            'totalGrand' => $totalCBP + $totalSubstation, 
+            'totalUnclaimed' => count($firedrillUnclaimed)
+        ];
+
+        return view('reports.firedrillReports',[
+            'dateRange' => ['from' => $request->dateFrom, 'to' => $request->dateTo],
+            'firedrillIssued' => $firedrillIssued,
+            'isUnclaimed' => $request->unclaimed,
+            'debug' => $firedrillUnclaimed
         ]);
     }
 }

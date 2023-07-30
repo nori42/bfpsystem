@@ -27,24 +27,31 @@
                 style="height: 1.325rem; width: 1.325rem;" {{ $selfReport ? 'checked' : '' }}>
             <label for="myReport" class="fw-bold">My Reports</label>
         </div>
-        <div class="d-flex align-items-center justify-content-between heading">
-            <div class="fs-3">Inpsections Issued</div>
-            <div class="fs-4">{{ $date['month'] }} {{ $date['year'] }}</div>
-        </div>
     </div>
     <div class="printables">
+        <div class="d-flex align-items-center justify-content-between heading">
+            <div class="fs-3">Inpsections Certificate Issued</div>
+            <div class="fs-4">
+                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                @if ($dateRange['from'] != $dateRange['to'])
+                    <span> - {{ date('F d, Y', strtotime($dateRange['to'])) }}</span>
+                @endif
+            </div>
+        </div>
         <table id="inspectionIssued" class="table">
             <thead>
                 <th><span onclick="sort(0)">Fire Safety Inspection No.(FSIC No.)</span></th>
-                <th><span onclick="sort(1)">Establishment Name</span></th>
-                <th><span onclick="sort(2)">Address</span></th>
-                <th><span onclick="sort(3)">Issued Date</span></th>
-                <th><span onclick="sort(4)">Substation</span></th>
+                <th><span onclick="sort(1)">Registration Status</span></th>
+                <th><span onclick="sort(2)">Establishment Name</span></th>
+                <th><span onclick="sort(3)">Address</span></th>
+                <th><span onclick="sort(4)">Issued Date</span></th>
+                <th><span onclick="sort(5)">Substation</span></th>
             </thead>
             <tbody>
                 @foreach ($inspections as $inspection)
-                    <tr>
+                    <tr class="align-middle">
                         <td>{{ $inspection->fsic_no }}</td>
+                        <td>{{ $inspection->registration_status }}</td>
                         <td>{{ $inspection->establishment->establishment_name }}</td>
                         <td>{{ $inspection->establishment->address }}</td>
                         <td>{{ date('m/d/Y', strtotime($inspection->issued_on)) }}</td>
@@ -64,15 +71,18 @@
     const year = "{{ $date['year'] }}"
     const month = "{{ $date['monthInt'] }}"
 
+    const dateFrom = "{{ $dateRange['from'] }}"
+    const dateTo = "{{ $dateRange['to'] }}"
+
     checkboxMyReport.addEventListener('change', () => {
         if (checkboxMyReport.checked) {
             location.href =
-                `/reports/print/fsic?month=${month}&year=${year}&selfReport=${checkboxMyReport.checked}`
+                `/reports/print/fsic?dateFrom=${dateFrom}&dateTo=${dateTo}&selfReport=${checkboxMyReport.checked}`
 
             return
         }
 
-        location.href = `/reports/print/fsic?month=${month}&year=${year}`
+        location.href = `/reports/print/fsic?dateFrom=${dateFrom}&dateTo=${dateTo}`
     })
 
     function sort(index) {
