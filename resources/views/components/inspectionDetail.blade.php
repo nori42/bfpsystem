@@ -21,10 +21,13 @@
         <input class="d-none" name="receiptId" type="text" value="{{ $inspection->receipt_id }}">
 
         <fieldset class="d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center gap-2">
                 <legend>Inspection</legend>
                 @if ($printed)
                     <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                @endif
+                @if ($inspection->status == 'Expired')
+                    <h6 class="px-2 py-1 text-bg-danger rounded-1 align-middle">Expired</h6>
                 @endif
             </div>
             {{-- This is hidden, only used for post request --}}

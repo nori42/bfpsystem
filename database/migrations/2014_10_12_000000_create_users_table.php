@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('request_password_reset')->default(false);
             $table->foreignIdFor(Personnel::class)->unique()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

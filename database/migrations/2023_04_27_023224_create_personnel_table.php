@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('contact_no')->nullable();
             $table->enum('rank',$ranks);
+            $table->string('profile_pic_path')->nullable();
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

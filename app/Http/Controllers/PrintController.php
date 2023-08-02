@@ -50,27 +50,19 @@ class PrintController extends Controller
     //Firedrill
     public function show_print_firedrill(Request $request){
         $firedrill = Firedrill::find($request->id);
-        $receipt = $firedrill->receipt;
         $establishment = $firedrill->establishment;
         $owner = $establishment->owner;
-        $personName =  $owner->person->first_name.' '.$owner->person->middle_name.' '.$owner->person->last_name;
-        $company = $owner->corporate->corporate_name;
-        
         // $representative = ($owner->person->last_name != null) ? $personName: $company;
+
         $representative = Helper::getRepresentativeName($establishment->owner_id);
         
+        $firedrillsByYear = (Firedrill::where('year',date('Y'))->whereNotNull('issued_on'));
+        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
+
         return view('establishments.firedrill.print_firedrill',[
-            'estabId' => $establishment->id,
-            'firedrillId' => $firedrill->id,
             'firedrill' => $firedrill,
-            'controlNo' => $firedrill->control_no,
-            'issuedOn' =>['day' => date('dS',strtotime($firedrill->issued_on)),'month'=> date('F',strtotime($firedrill->issued_on))],
-            'validity' => $firedrill->validity_term.' '.$firedrill->year,
-            'establishment' => $establishment->establishment_name,
-            'dateMade' => $firedrill->date_made,
-            'address' => $firedrill->establishment->address,
-            'representative' => $representative,
-            'payment' => ['orNo' => $receipt->or_no,'amountPaid'=>$receipt->amount, 'datePayment' => date('m/d/Y',strtotime($receipt->date_of_payment))]
+            'controlNo' => $newControlNo,
+            'representative' => $representative
         ]);
     }
 
@@ -81,6 +73,8 @@ class PrintController extends Controller
         $firedrill->issued_on = date('Y-m-d');
         
         $firedrillCount = $establishment->firedrill_count_yearly + 1;
+
+        $firedrill->control_no = $request->newControlNo;
 
         if($establishment->firedrill_type == 'QUARTERLY'){
 

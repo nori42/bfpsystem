@@ -13,9 +13,10 @@
 
 <body>
 
-    <form id="print" action="/establishments/firedrill/print/{{ $firedrillId }}" method="POST">
+    <form id="print" action="/establishments/firedrill/print/{{ $firedrill->id }}" method="POST">
         @csrf
         @method('PUT')
+        <input type="hidden" name="newControlNo" value="{{ $controlNo }}">
     </form>
     {{-- <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
@@ -25,7 +26,7 @@
     </div> --}}
 
     <div class="nav">
-        <a id="back" href="/establishments/{{ $estabId }}/firedrill">
+        <a id="back" href="/establishments/{{ $firedrill->establishment->id }}/firedrill">
             Back
         </a>
 
@@ -44,12 +45,15 @@
     </div>
 
     <div id="printablePage">
-        {{-- <div data-draggable="true" class="header bold">
-            <div>Cebu City Fire Office</div>
-            <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
-            <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
-            <div>Email Address: cebucityfsn@yahoo.com</div>
-        </div> --}}
+
+        @php
+            $establishment = $firedrill->establishment->establishment_name;
+            $address = $firedrill->establishment->address;
+            $issuedOn = ['day' => date('dS', strtotime($firedrill->issued_on)), 'month' => date('F', strtotime($firedrill->issued_on))];
+            $validity = $firedrill->validity_term . ' ' . $firedrill->year;
+            $receipt = $firedrill->receipt;
+            $payment = ['orNo' => $receipt->or_no, 'amountPaid' => $receipt->amount, 'datePayment' => date('m/d/Y', strtotime($receipt->date_of_payment))];
+        @endphp
 
         <div data-draggable="true" class="date-container bold">
             {{ $firedrill->issued_on ? date('F d, Y', strtotime($firedrill->issued_on)) : date('F d, Y') }}
@@ -84,7 +88,7 @@
         </div>
 
         <div data-draggable="true" class="date-made bold">
-            <span>{{ date('F d, Y', strtotime($dateMade)) }}</span>
+            <span>{{ date('F d, Y', strtotime($firedrill->date_made)) }}</span>
         </div>
 
         <div data-draggable="true" class="issuedDay bold">

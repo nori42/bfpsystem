@@ -23,9 +23,10 @@
         <input class="d-none" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
 
         <fieldset>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center gap-1">
                 <Legend>Firedrill</Legend>
                 @if ($claimed)
+                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
                     <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Claimed</h6>
                 @endif
                 @if ($issued && !$claimed)
@@ -35,8 +36,10 @@
                     </div>
                 @endif
             </div>
-            <x-form.input name="controlNo" label="Control No." type="text" value="{{ $firedrill->control_no }}"
-                :readonly="true" />
+            @if ($firedrill->issued_on != null)
+                <x-form.input name="controlNo" label="Control No." type="text" value="{{ $firedrill->control_no }}"
+                    :readonly="true" />
+            @endif
 
             @if (!$issued)
                 <x-form.select name="validity" label="Validity Term" placeholder="Select Firedrill Term"

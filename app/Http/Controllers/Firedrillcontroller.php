@@ -35,9 +35,6 @@ class FiredrillController extends Controller
         $establishment = Establishment::find($request->estabId);
         $owner = $establishment->owner;
 
-        $firedrillsByYear = (Firedrill::where('year',date('Y')));
-        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
-
         $receipt->or_no = $request->orNo;
         // $receipt->payor = $request->payor;
         $receipt->amount = $request->amountPaid;
@@ -46,7 +43,6 @@ class FiredrillController extends Controller
         $receipt->date_of_payment = $request->dateOfPayment;
         
         $receipt->save();
-        $firedrill->control_no = $newControlNo;
         $firedrill->validity_term = $request->validityTerm;
         $firedrill->date_made = $request->dateMade;
         $firedrill->user_id = auth()->user()->id;

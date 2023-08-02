@@ -137,8 +137,9 @@
             </x-detailWrapper>
             <hr>
             <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-subtleBlue shadow-sm fw-normal fs-4" onclick="toggleShow('ownerDetail')">Owner Detail
-                    <i class="bi bi-caret-down-fill"></i></button>
+                {{-- <button class="btn btn-subtleBlue shadow-sm fw-normal fs-4" onclick="toggleShow('ownerDetail')">Owner Detail
+                    <i class="bi bi-caret-down-fill"></i></button> --}}
+                <h4 class="my-4">Owner Detail</h4>
 
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <a class="btn btn-success px-5" href="/owner/{{ $establishment->owner->id }}/edit">
@@ -147,7 +148,7 @@
                 @endif
             </div>
 
-            <div id="ownerDetail"style="display: none !important;">
+            <div id="ownerDetail">
                 <x-detailWrapper>
 
                     <div class="row">
