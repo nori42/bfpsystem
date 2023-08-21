@@ -71,6 +71,12 @@
                                     </div>
                                 </li>
 
+                                @if (count($expiredCount['expiredInspections']) == 0)
+                                    <li>
+                                        There are no notifications to show
+                                    </li>
+                                @endif
+
                                 @foreach ($expiredCount['expiredInspections'] as $key => $value)
                                     <li>
                                         <a class="btn w-100 text-start text-white"
@@ -165,14 +171,8 @@
             </div>
         </div>
 
-
-        <!-- icons - https://icons.getbootstrap.com/ -->
-
-        <script src="{{ asset('js/app.min.js') }}" defer></script>
         @vite(['resources/js/app.js'])
-        {{-- <script src="/js/script.js" defer></script> --}}
-        {{-- <script src="/css/bootstrap-5.3.0/js/bootstrap.js"></script> --}}
-        {{-- <script src="/js/modal.js" defer></script> --}}
+        @yield('scripts')
     </div>
 
 </body>

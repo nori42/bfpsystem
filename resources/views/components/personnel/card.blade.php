@@ -7,8 +7,8 @@
             person
         </span>
     </div> --}}
-    <div class="bg-white rounded-circle p-3">
-        <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="150px" width="100%">
+    <div class="bg-white rounded-circle p-3 justify-content-center d-flex">
+        <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="125px">
     </div>
     @php
         $name = $personnel->first_name . ' ' . $personnel->last_name;

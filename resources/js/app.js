@@ -48,7 +48,6 @@ window.onclick = function(event) {
       if(e.key == "Enter" && search == null)
         e.preventDefault();
   })
-  
 
 window.toggleShow = scriptModule.toggleShow;
 window.openModal = scriptModal.openModal;

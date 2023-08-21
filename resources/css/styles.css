@@ -372,6 +372,20 @@ visibility: visible;
     margin-right: auto !important;
 }
 
+/* Table styles global */
+
+.table tbody tr:nth-child(odd) {
+    background-color: #edeff3 !important;
+}
+
+
+.table tbody tr:hover {
+    background-color: #ddecff !important;
+}
+
+.table thead {
+    color: var(--secondary-color) !important;
+}
 /* Loadiing Animation */
 
 /* 

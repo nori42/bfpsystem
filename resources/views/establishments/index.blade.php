@@ -19,6 +19,9 @@
             @endphp
             <x-toast :message="$message" />
         @endif
+        @if (session()->get('deleteSuccess'))
+            <x-toast :message="session()->get('deleteSuccess')" />
+        @endif
         <x-pageWrapper>
             <div class="d-flex justify-content-center">
 

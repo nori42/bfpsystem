@@ -46,30 +46,33 @@
         <div class="text-center fs-5 py-2" style="color: #CBCBCB;"></div>
     </div>
 </div>
-{{-- Fetching the establishments --}}
-<script src="{{ asset('js/autocomplete.js') }}"></script>
-<script src="{{ asset('js/fetch.js') }}"></script>
-<script>
-    const searchInput = document.querySelector('#search');
-    const datalist = document.querySelector('#searchSuggestion')
 
-    if ("{{ $for }}" == "establishment")
-        searchInput.addEventListener('input', (e) => {
-            selectedIndex = -1;
-            if (e.target.value.length != 0) {
-                populateEstablSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
-            } else {
-                hideAutocomplete();
-            }
-        })
-    else {
-        searchInput.addEventListener('input', (e) => {
-            selectedIndex = -1;
-            if (e.target.value.length != 0)
-                populateBuildPlanSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
-            else
-                hideAutocomplete();
+@section('scripts')
+    {{-- Fetching the establishments --}}
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
+    <script src="{{ asset('js/fetch.js') }}"></script>
+    <script>
+        const searchInput = document.querySelector('#search');
+        const datalist = document.querySelector('#searchSuggestion')
 
-        })
-    }
-</script>
+        if ("{{ $for }}" == "establishment")
+            searchInput.addEventListener('input', (e) => {
+                selectedIndex = -1;
+                if (e.target.value.length != 0) {
+                    populateEstablSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
+                } else {
+                    hideAutocomplete();
+                }
+            })
+        else {
+            searchInput.addEventListener('input', (e) => {
+                selectedIndex = -1;
+                if (e.target.value.length != 0)
+                    populateBuildPlanSearchSuggestion("{{ env('APP_URL') }}", e.target.value, datalist);
+                else
+                    hideAutocomplete();
+
+            })
+        }
+    </script>
+@endsection

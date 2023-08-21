@@ -34,8 +34,8 @@
     </div>
     <div class="printables">
         <div class="d-flex align-items-center justify-content-between heading">
-            <div class="fs-3">Approved Building Permit Applications</div>
-            <div class="fs-4">
+            <div class="fs-5">Approved Building Permit Applications</div>
+            <div class="fs-6">
                 <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
                 @if ($dateRange['from'] != $dateRange['to'])
                     <span> - {{ date('F d, Y', strtotime($dateRange['to'])) }}</span>

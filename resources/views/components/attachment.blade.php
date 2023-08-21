@@ -25,22 +25,26 @@
     </div>
     {{-- Attachments --}}
     <div id="attachments" class="h-75 overflow-y-auto mt-4 border-3">
-        <table class="table">
-            <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
-                <th>File</th>
-                <th>File Extension</th>
-                <th>Date Added</th>
-            </thead>
-            <tbody>
-                @foreach ($files as $file)
-                    <tr>
-                        <td><a href="/download/attachments/{{ $file->file_path }}">{{ $file->file_name }}</a></td>
-                        <td>{{ $file->file_extension }}</td>
-                        <td>{{ date('m/d/Y', strtotime($file->created_at)) }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @if (count($files) != 0)
+            <table class="table">
+                <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle">
+                    <th>File</th>
+                    <th>File Extension</th>
+                    <th>Date Added</th>
+                </thead>
+                <tbody>
+                    @foreach ($files as $file)
+                        <tr>
+                            <td><a href="/download/attachments/{{ $file->file_path }}">{{ $file->file_name }}</a></td>
+                            <td>{{ $file->file_extension }}</td>
+                            <td>{{ date('m/d/Y', strtotime($file->created_at)) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <h2 class="text-center text-secondary">No attachment</h2>
+        @endif
     </div>
 
     <!-- The Modal -->

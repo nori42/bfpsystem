@@ -1,6 +1,6 @@
 const input = document.getElementById('search');
 const list = document.getElementById('autocomplete-list');
-const items = ['apple', 'apoles', 'banana', 'cherry', 'date', 'elderberry'];
+// const items = ['apple', 'apoles', 'banana', 'cherry', 'date', 'elderberry'];
 
 let selectedIndex = -1;
 let mouseOnList = false;

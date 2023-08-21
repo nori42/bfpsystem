@@ -108,9 +108,16 @@ class UserController extends Controller
     }
 
     public function show(Request $request){
+        
+        if($request->id != auth()->user()->id){
+            return redirect()->back();
+        }
+
+        $user = User::findOrFail($request->id);
+        
         return view('users.show',[
             'userId' => $request->id,
-            'user' => User::find($request->id)
+            'user' => $user
         ]);
     }
 }

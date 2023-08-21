@@ -16,10 +16,6 @@
     th span {
         cursor: pointer !important;
     }
-
-    tbody tr:hover {
-        background-color: #ddecff;
-    }
 </style>
 
 <body>

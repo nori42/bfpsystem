@@ -108,4 +108,6 @@
 
         </x-pageWrapper>
     </div>
+
+    <script></script>
 @endsection

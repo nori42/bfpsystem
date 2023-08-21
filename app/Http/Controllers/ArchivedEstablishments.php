@@ -11,10 +11,14 @@ class ArchivedEstablishments extends Controller
     public function __invoke()
     {
         $deletedEstablishments = Establishment::onlyTrashed()->get();
-
-        return view('archived',[
+        $debug = Establishment::paginate(15);
+        $debug2 = Establishment::find(1);
+        
+        return view('archive.establishments',[
             'page_title' => "Archived",
-            'establishments' => $deletedEstablishments
+            'establishments' => $deletedEstablishments,
+            'debug' => $debug,
+            'debug2' => $debug2
         ]);
     }
 }

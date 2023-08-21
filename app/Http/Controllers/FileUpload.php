@@ -18,7 +18,6 @@ class FileUpload extends Controller
         $directory = 'estab'.$request->id.'_files';
         $for = $request->attachFor;
 
-        error_log($for.'-fileupload');
 
         // Create a folder for the establishment if does not have one
         if (!Storage::exists('attachments/'.$directory)) {

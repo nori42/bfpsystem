@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\ArchivedEstablishments;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
@@ -173,7 +174,9 @@ Route::get('/expired/firedrills',[ExpiredController::class,'firedrills'])->middl
 Route::get('/activity',[ActivityController::class,'index'])->middleware('auth')->name('activity');
 
 //Archived routes
-Route::get('/archived',ArchivedEstablishments::class)->middleware('auth')->name('archived');
+Route::get('/archived/establishments',[ArchiveController::class,'establishments'])->middleware('auth')->name('archived');
+Route::get('/archived/fsec',[ArchiveController::class,'fsec'])->middleware('auth')->name('archived');
+Route::get('/archived/users',[ArchiveController::class,'users'])->middleware('auth')->name('archived');
 
 //Download routes
 Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownload::class);
@@ -184,7 +187,7 @@ Route::get('/settings',function () {
 
 Route::post('/settings',[SettingsController::class,'update'])->middleware(['auth','userType:ADMINISTRATOR']);
 
-//Resources
+//Resources API
 Route::get('resources/owners',[SearchController::class,'searchOwner']);
 Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
 Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);

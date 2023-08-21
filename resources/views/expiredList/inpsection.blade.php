@@ -38,7 +38,7 @@
             <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Data...</h2>
 
             <div id="pageContent">
-                <div class="my-3 float-end fw-bold fs-5">
+                <div class="my-3 float-end fw-bold fs-6">
                     @if ($dateRange[0] != null && $dateRange[1] != null && $dateRange[0] != $dateRange[1])
                         <div>
                             <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>

@@ -90,9 +90,14 @@
                     @endif
                 </div>
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
-                    <a class="btn btn-success px-5" href="/establishments/{{ $establishment->id }}/edit">
-                        <i class="bi bi-pencil-fill"></i>
-                        Edit</a>
+                    <div>
+                        <a class="btn btn-success px-5" href="/establishments/{{ $establishment->id }}/edit">
+                            <i class="bi bi-pencil-fill"></i>
+                            Edit</a>
+                        <button class="btn btn-danger px-2" onclick="openModal('deleteModal')">
+                            <i class="bi bi-trash3-fill"></i>
+                            Delete</button>
+                    </div>
                 @endif
             </div>
 
@@ -180,5 +185,34 @@
                 </x-detailWrapper>
             </div>
         </x-pageWrapper>
+
+        <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
+            <x-spinner :hidden="true" />
+            <div id="deleteModalContent">
+                <div class="fs-5">Do you want to delete this establishment?</div>
+                <div class="fs-6 text-secondary">All inspections and firedrill associated with this establishment
+                    will also
+                    be
+                    deleted.</div>
+                <div class="fs-6 text-secondary">This action cannot be reverted.</div>
+                <div class="d-flex justify-content-end gap-2">
+                    <form action="/establishments/{{ $establishment->id }}/delete" method="POST">
+                        @csrf
+                        <button class="btn btn-danger px-2" onclick="showLoading()">Yes</button>
+                    </form>
+                    <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
+                </div>
+            </div>
     </div>
+    </x-modal>
+    </div>
+@endsection
+
+@section('scripts')
+    <script type="module">
+        window.showLoading = () => {
+            toggleShow('loading-bar-spinner')
+            document.querySelector('#deleteModalContent').style.visibility = 'hidden';
+        }
+    </script>
 @endsection

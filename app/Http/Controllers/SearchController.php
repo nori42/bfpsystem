@@ -53,7 +53,8 @@ class SearchController extends Controller
             'person.first_name','person.middle_name',
             'person.last_name',
             'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',person.first_name,' ',person.last_name) LIKE '%{$request->search}%' ")->limit(10)->get();
+        ->whereRaw("CONCAT(establishment_name,'-',person.first_name,' ',person.last_name) LIKE '%{$request->search}%' ")
+        ->whereNull('establishments.deleted_at')->limit(10)->get();
         
         if(count($establishment) == 0){
             $establishment = DB::table('establishments')
@@ -68,7 +69,7 @@ class SearchController extends Controller
                 'person.last_name',
                 'establishments.business_permit_no')
             ->whereRaw("CONCAT(establishment_name,'-',person.first_name,' ',person.last_name,'-',business_permit_no) LIKE '%$request->search%'")
-            ->limit(10)->get();
+            ->whereNull('establishments.deleted_at')->limit(10)->get();
         }
         
         if(count($establishment) == 0) {
@@ -83,7 +84,9 @@ class SearchController extends Controller
             'person.first_name','person.middle_name',
             'person.last_name',
             'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',corporate_name) LIKE '%{$request->search}%' ")->limit(10)->get();
+        ->whereRaw("CONCAT(establishment_name,'-',corporate_name) LIKE '%{$request->search}%' ")
+        ->whereNull('establishments.deleted_at')
+        ->limit(10)->get();
         }
 
         if(count($establishment) == 0) {
@@ -98,7 +101,9 @@ class SearchController extends Controller
             'person.first_name','person.middle_name',
             'person.last_name',
             'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',corporate_name,'-',business_permit_no) LIKE '%{$request->search}%' ")->limit(10)->get();
+        ->whereRaw("CONCAT(establishment_name,'-',corporate_name,'-',business_permit_no) LIKE '%{$request->search}%' ")
+        ->whereNull('establishments.deleted_at')
+        ->limit(10)->get();
         }
 
         

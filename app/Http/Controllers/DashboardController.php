@@ -12,6 +12,13 @@ class DashboardController extends Controller
 {
     public function index(){
 
+        // Establishment::onlyTrashed()->find(1)->restore();
+
+        // Establishment::find(2389)->delete();
+        // Establishment::where('id','<=',30)->delete();
+        // Establishment::onlyTrashed()->where('id','<=',30)->restore();
+        
+
         $yearNow = date('Y');
         $monthNow = date('m');
 

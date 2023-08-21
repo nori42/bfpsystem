@@ -87,19 +87,21 @@
                 <div class="highlight-renewal" onclick="checkToggle('renewal')"></div>
             </div>
 
-            <div class="c-1 check {{ $registrationStatus == 'OCCUPANCY' ? '' : 'hidden' }}" id="c1">&check;</div>
+            <div class="c-1 check {{ $registrationStatus == 'OCCUPANCY' ? '' : 'hidden' }}" id="c1">
+                &#x2714;
+            </div>
 
-            <div class="c-2 check {{ $registrationStatus == 'NEW' || $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"
+            <div class="c-2 {{ $registrationStatus == 'NEW' || $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"
                 id="c2">
-                <div>&check;</div>
+                <div class="check">&#x2714;</div>
                 <div class="highlight-container">
                     <div id="new" class="highlight {{ $registrationStatus == 'NEW' ? '' : 'hidden' }}"></div>
                     <div id="renewal" class="highlight {{ $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"></div>
                 </div>
             </div>
 
-            <div class="c-3 check hidden" id="c3">
-                <div>&check;</div>
+            <div class="c-3 hidden" id="c3">
+                <div class="check">&#x2714;</div>
                 <div class="others bold">
                     {{-- @if ($details->status != 'NEW' && $details->status != 'RENEWAL' && $details->status != 'OCCUPANCY')
                         {{ $details->issued_for }}

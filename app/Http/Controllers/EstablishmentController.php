@@ -271,12 +271,8 @@ class EstablishmentController extends Controller
 
     public function destroy(Request $request){
         $establishment = Establishment::find($request->id);
-
         $establishment->delete();
-
-        error_log($establishment->id." Is Archived");
-
-        return redirect('/establishments')->with(["mssg" => "Record No.".$establishment->id." is moved to archived"]);
+        return redirect('/establishments')->with(["deleteSuccess" => "Establishment successfully deleted"]);
     }
 
     //Add New Establishment for Existing Owner
