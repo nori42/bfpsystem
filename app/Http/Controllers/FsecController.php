@@ -141,6 +141,16 @@ class FsecController extends Controller
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
 
+    public function destory(Request $request){
+        $buildingPlan = BuildingPlan::find($request->id);
+
+        $buildingPlan->delete();
+
+        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DeleteBuildingPlan);
+
+        return redirect('/fsec')->with(['toastMssg' => "Application Deleted"]);
+    }
+
     public function release(Request $request){
         $buildingPlan = BuildingPlan::find($request->buildingPlanId);
 
@@ -159,15 +169,15 @@ class FsecController extends Controller
 
     public function search(Request $request){
 
-        // Get the id in the search string
-        $search = explode("-", $request->search);
-        $buildPlanId = end($search);
+        // // Get the id in the search string
+        // $search = explode("-", $request->search);
+        // $buildPlanId = end($search);
 
-        $buildingPlan = BuildingPlan::find($buildPlanId);
+        $buildingPlan = BuildingPlan::find($request->dataId);
 
         if($buildingPlan == null)
         {
-            return redirect()->back()->with('searchQuery',$request->search);
+            return redirect()->back()->with('searchQuery',strtoupper($request->search));
         }
         
 

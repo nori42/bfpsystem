@@ -190,15 +190,15 @@ class EstablishmentController extends Controller
         // ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
         
         //Get the id in the last character of search string
-        $search = explode("-", $request->search);
-        $estabId = end($search);
+        // $search = explode("-", $request->search);
+        // $estabId = end($search);
 
-        $establishment = Establishment::find($estabId);
+        $establishment = Establishment::find($request->dataId);
         
         //If record does not exist
         if($establishment == null)
         {
-            return redirect()->back()->with('searchQuery',$request->search);
+            return redirect()->back()->with('searchQuery',strtoupper($request->search));
         }
          
 
@@ -272,6 +272,7 @@ class EstablishmentController extends Controller
     public function destroy(Request $request){
         $establishment = Establishment::find($request->id);
         $establishment->delete();
+        ActivityLogger::establishmentLog($establishment->establishment_name,Activity::DeleteEstablishment);
         return redirect('/establishments')->with(["deleteSuccess" => "Establishment successfully deleted"]);
     }
 

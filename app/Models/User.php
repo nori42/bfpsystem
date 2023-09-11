@@ -16,6 +16,10 @@ class User extends Authenticatable
     public function personnel(){
         return $this->hasOne(Personnel::class);
     }
+
+    public function personnelDeleted(){
+        return $this->hasOne(Personnel::class)->withTrashed();
+    }
     
     /**
      * The attributes that are mass assignable.

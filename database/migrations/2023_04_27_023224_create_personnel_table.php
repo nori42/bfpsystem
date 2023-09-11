@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('profile_pic_path')->nullable();
             $table->foreignIdFor(User::class);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

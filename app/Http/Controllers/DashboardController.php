@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BuildingPlan;
 use App\Models\Establishment;
 use App\Models\Firedrill;
+use App\Models\Personnel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,12 @@ class DashboardController extends Controller
 {
     public function index(){
 
+        // Establishment::onlyTrashed()->find(2389)->restore();
         // Establishment::onlyTrashed()->find(1)->restore();
+
+        // User::onlyTrashed()->find(3)->restore();
+        // Personnel::onlyTrashed()->find(2)->restore();
+        // BuildingPlan::onlyTrashed()->find(1)->restore();
 
         // Establishment::find(2389)->delete();
         // Establishment::where('id','<=',30)->delete();

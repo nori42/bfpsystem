@@ -22,7 +22,8 @@
                 </div> --}}
             </div>
             <div class="d-flex flex-column gap-3 mt-3">
-                <div>
+                {{-- Username --}}
+                {{-- <div>
                     <x-account.btnEdit label="Username" value="{{ $user->username }}" menuId="usernameEdit" />
 
                     <div id="usernameEdit" class="fs-6 px-5 py-3 bg-subtleBlue" style="display: none !important;">
@@ -41,7 +42,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div>
                     <x-account.btnEdit label="Password" value="Change Password" menuId="passwordEdit" />
 
@@ -79,6 +80,76 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            @php
+                $personnel = $user->personnel;
+            @endphp
+
+            <div class="fs-3 fw-bold mt-3">Personnel Details</div>
+
+            {{-- <h1 class="fs-3 fw-bold">Personnel</h1> --}}
+            <div class="d-flex gap-4 justify-content-center mt-3">
+                <div class="text-center">
+                    <div class="bg-subtleBlue d-flex flex-column align-items-center p-3 boxshadow"
+                        style="width:25rem; height: 19rem;">
+                        <div class="bg-white rounded-circle p-3">
+                            <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="150px" width="100%">
+                        </div>
+                        @if ($personnel->middle_name != null || $personnel->middle_name == '')
+                            <div class="fw-bold mt-4 fs-5">
+                                {{ $personnel->first_name . ' ' . $personnel->middle_name . ' ' . $personnel->last_name }}
+                            </div>
+                        @else
+                            <div class="fw-bold mt-4">{{ $personnel->first_name . ' ' . $personnel->last_name }}
+                            </div>
+                        @endif
+                    </div>
+                    <a class="btn btn-success mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Info</a>
+                </div>
+                <div>
+                    <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 24rem;">
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Designation</div>
+                            @if ($personnel->user->type == 'FSIC')
+                                <div class="col-8">{{ 'Fire Safety Inspection Certificate (FSIC)' }}
+                                </div>
+                            @elseif($personnel->user->type == 'FSEC')
+                                <div class="col-8">{{ 'Fire Safety Evaluatioin Certificate (FSEC)' }}
+                                </div>
+                            @elseif($personnel->user->type == 'FIREDRILL')
+                                <div class="col-8">{{ $personnel->user->type }}
+                                </div>
+                            @else
+                                <div class="col-8">{{ $personnel->user->type }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Rank</div>
+                            <div class="col-8">{{ $personnel->rank }}</div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Contact No.</div>
+                            <div class="col-8">{{ $personnel->contact_no }}</div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Date of Birth</div>
+                            <div class="col-8">{{ $personnel->date_of_birth }}</div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Sex</div>
+                            <div class="col-8">{{ $personnel->sex }}</div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary">Address</div>
+                            <div class="col-8">{{ $personnel->address }}</div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </x-pageWrapper>

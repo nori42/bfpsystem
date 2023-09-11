@@ -37,3 +37,15 @@ function initReportLink(APP_URL){
         }
     })
 }
+
+// ToggleVisibily of element
+function toggleShow(id)
+{
+    const elem = document.getElementById(id)
+
+    if(elem.style.display === 'none')
+        elem.style.display = 'block !important';
+    else
+        elem.style.display ='none !important';
+
+}

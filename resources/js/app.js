@@ -12,8 +12,11 @@ window.onclick = function(event) {
     const dropdowns = document.querySelectorAll('[dropdown-menu]')
     let currentMenu = event.target.closest('[dropdown-menu]');
 
+    
+
     try{
       currentMenu = event.target.closest('.btn').nextElementSibling
+       console.log(currentMenu)
     }
     catch{}
 

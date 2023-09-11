@@ -48,9 +48,9 @@
                                 Safety
                                 Inspection(FSIC)</a>
                             <div>
-                                @if ($inspectionCount == 0)
+                                {{-- @if ($inspectionCount == 0)
                                     <x-tooltip label="!" tooltiptext="No Inspection" color="danger" />
-                                @endif
+                                @endif --}}
                                 {{-- <x-tooltip label="!" tooltiptext="Expired Inspection" color="danger" /> --}}
                             </div>
                         </div>
@@ -68,9 +68,9 @@
                             <a class="btn btn-outline-success"
                                 href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
                             <div>
-                                @if ($firedrillCount == 0)
+                                {{-- @if ($firedrillCount == 0)
                                     <x-tooltip label="!" tooltiptext="No Firedrill" color="danger" />
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <x-detailWrapper>
@@ -85,9 +85,9 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h4 class="my-4">Establishment Detail</h4>
-                    @if ($incompleteDetail)
+                    {{-- @if ($incompleteDetail)
                         <x-tooltip label="!" tooltiptext="Incomplete details" color="warning" />
-                    @endif
+                    @endif --}}
                 </div>
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div>
@@ -121,13 +121,13 @@
                 <div class="row my-3">
                     <x-info label="No. of Story" :value="$establishment->no_of_storey" />
                     <x-info label="Height (m)" :value="$establishment->height" />
-                    <x-info label="Floor Area (sq m)" :value="$establishment->floor_area == null ? 'N/A' : $establishment->floor_area" />
+                    <x-info label="Floor Area (sq m)" :value="$establishment->floor_area" />
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
 
                 <div class="row my-3">
-                    <x-info label="Name of Fire Insurance Co/Co-Insurer" :value="$establishment->fire_insurance_co == null ? 'N/A' : $establishment->fire_insurance_co" />
+                    <x-info label="Name of Fire Insurance Co/Co-Insurer" :value="$establishment->fire_insurance_co" />
 
                     <div class="col"></div>
                     <div class="col"></div>
@@ -135,7 +135,7 @@
 
                 <div class="row my-3">
                     <x-info label="Barangay" :value="$establishment->barangay" />
-                    <x-info label="Address" :value="$establishment->address == null ? 'N/A' : $establishment->address" />
+                    <x-info label="Address" :value="$establishment->address" />
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
@@ -194,6 +194,8 @@
                     will also
                     be
                     deleted.</div>
+                <div>Inspection Issued: {{ $establishment->inspection->count() }}</div>
+                <div>Firedrill Issued: {{ $establishment->firedrill->count() }}</div>
                 <div class="fs-6 text-secondary">This action cannot be reverted.</div>
                 <div class="d-flex justify-content-end gap-2">
                     <form action="/establishments/{{ $establishment->id }}/delete" method="POST">
@@ -203,8 +205,7 @@
                     <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
                 </div>
             </div>
-    </div>
-    </x-modal>
+        </x-modal>
     </div>
 @endsection
 

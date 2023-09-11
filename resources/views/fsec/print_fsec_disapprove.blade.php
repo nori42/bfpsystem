@@ -85,7 +85,7 @@
             <span class="fs-9pt">{{ $buildingPlan->name_of_building }}</span>
         </div>
 
-        <div data-draggable="true" id="estabName" class="establishment-name-2 bold">
+        <div data-draggable="true" id="estabName2" class="establishment-name-2 bold">
             <span class="fs-9pt">{{ $buildingPlan->name_of_building }}</span>
         </div>
 

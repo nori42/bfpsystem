@@ -93,6 +93,7 @@ Route::middleware(['auth','userType:ADMINISTRATOR,FSEC','personnelChecker'])->gr
     Route::put('/fsec/release',[FsecController::class,'release']);
     Route::get('/fsec/pending/',[FsecController::class,'pending']);
     Route::get('/fsec/{id}/edit', [FsecController::class, 'edit']);
+    Route::post('/fsec/{id}/delete', [FsecController::class, 'destory']);
     Route::get('/fsec/{id}', [FsecController::class, 'show']);
     Route::put('/fsec/{id}',[FsecController::class,'update']);
 });
@@ -136,13 +137,15 @@ Route::put('/fsecdisapprove/print/{id}',[PrintController::class,'print_fsecdisap
 
 Route::get('/fsecchecklist/print/{id}',[PrintController::class,'show_print_fsecchecklist'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsecchecklist/print/{id}',[PrintController::class,'']);
+
 //Personnel
 Route::get('/personnel',[PersonnelController::class,'index'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
+Route::post('/personnel',[PersonnelController::class,'store'])->middleware(['auth']);
 Route::get('/personnel/create',[PersonnelController::class,'create'])->middleware(['auth'])->name('personnel');
 Route::get('/personnel/{id}',[PersonnelController::class,'show'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
-Route::get('/personnel/{id}/edit',[PersonnelController::class,'edit'])->middleware(['auth','userType:ADMINISTRATOR'])->name('personnel');
+Route::get('/personnel/{id}/edit',[PersonnelController::class,'edit'])->middleware(['auth'])->name('personnel');
 Route::put('/personnel/{id}/update',[PersonnelController::class,'update']);
-Route::post('/personnel',[PersonnelController::class,'store'])->middleware(['auth']);
+Route::post('/personnel/{id}/delete',[PersonnelController::class,'destroy'])->middleware(['auth']);
 
 //Users
 Route::get('/users',[UserController::class,'index'])->middleware(['auth','userType:ADMINISTRATOR'])->name('users');

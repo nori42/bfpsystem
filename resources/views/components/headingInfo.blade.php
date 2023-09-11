@@ -42,7 +42,7 @@
                             Details</a>
                     </li>
                     <li><span class="fw-bold">Establishment Name: </span>{{ $establishment->establishment_name }}</li>
-                    <li><span class="fw-bold">Business Permit: </span>{{ $establishment->building_permit_no }}</li>
+                    <li><span class="fw-bold">Business Permit: </span>{{ $establishment->business_permit_no }}</li>
                     <li><span class="fw-bold">Substation: </span>{{ $establishment->substation }}</li>
                     <li><span class="fw-bold">Occupancy: </span>{{ $establishment->occupancy }}</li>
                     <li><span class="fw-bold">Occupancy Sub-Type: </span>{{ $establishment->sub_type }}</li>

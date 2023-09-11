@@ -54,9 +54,30 @@
                     <div class="d-flex gap-2">
 
 
-                        <a class="btn btn-success px-4" href="/fsec/{{ $buildingPlan->id }}/edit"> <i
-                                class="bi bi-pencil-fill mx-1"></i>Update Application</a>
+                        <a class="btn btn-success px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
+                            <i class="bi bi-pencil-fill mx-1"></i>Update Application</a>
 
+                        <button class="btn btn-danger" onclick="openModal('deleteModal')">
+                            <i class="bi bi-trash3-fill"></i></i>Delete</button>
+
+                        <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
+                            <x-spinner :hidden="true" />
+                            <div id="deleteModalContent">
+                                <div class="fs-5">Do you want to delete this application?</div>
+                                <div class="fs-6 text-secondary">This action cannot be reverted.</div>
+                                <div class="d-flex justify-content-end gap-2">
+                                    <form action="/fsec/{{ $buildingPlan->id }}/delete" method="POST">
+                                        @csrf
+                                        <button class="btn btn-danger px-2" onclick="showLoading()">Yes</button>
+                                    </form>
+                                    <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
+                                </div>
+                            </div>
+                        </x-modal>
+
+                        <div class="border border-secondary border-1" style="width: 1px">
+
+                        </div>
                         <div class="position-relative py-0">
                             <button class="btn btn-success px-2" onclick="toggleShow('actionMenu')">Action <i
                                     class="bi bi-caret-down-fill"></i></button>
@@ -153,4 +174,13 @@
             </table>
         </x-pageWrapper>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="module">
+        window.showLoading = () => {
+            toggleShow('loading-bar-spinner')
+            document.querySelector('#deleteModalContent').style.visibility = 'hidden';
+        }
+    </script>
 @endsection

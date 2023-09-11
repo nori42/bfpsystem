@@ -3,7 +3,7 @@
 
 <div class="dashboardSearch">
     <div style="width:50%;">
-        <h1 class="text-white text-center py-5" style="font-size: 2.5rem;">
+        <h1 class="text-white text-center py-5 fw-bold" style="font-size: 2.5rem;">
             {{ $for == 'establishment' ? 'Search Establishments' : 'Search Building Plan Application' }}</h1>
 
         @php
@@ -15,6 +15,7 @@
 
                 {{-- Hidden Values --}}
                 <input name="userType" type="hidden" value="{{ auth()->user()->type }}">
+                <input id="dataId" name="dataId" type="hidden" value="">
                 <div class="position-relative">
                     <div class="d-flex">
                         <input type="text" id="search" name="search"
@@ -30,7 +31,8 @@
                     </ul>
                 </div>
                 @if ($for == 'establishment')
-                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name or
+                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name
+                        or
                         Establishment
                         Name</div>
                 @else

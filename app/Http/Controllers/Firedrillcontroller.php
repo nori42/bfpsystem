@@ -54,7 +54,7 @@ class FiredrillController extends Controller
         $establishment->save();
         $firedrill->save();
 
-        ActivityLogger::firedrillLog($establishment->establishment_name,Activity::AddFiredrill);
+        // ActivityLogger::firedrillLog($establishment->establishment_name,Activity::AddFiredrill);
         
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
 

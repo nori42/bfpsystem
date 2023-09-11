@@ -23,13 +23,12 @@
                     Add User
                 </button>
             </div>
-            <table class="table">
+            <table class="table w-100">
                 <thead>
                     <th>Username</th>
                     <th>User Type</th>
-                    <th>Name</th>
-                    <th>Request Reset</th>
-                    <th></th>
+                    <th>Personnel</th>
+                    <th>Reset Password</th>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)

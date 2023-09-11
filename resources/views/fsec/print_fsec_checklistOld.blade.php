@@ -24,9 +24,9 @@
     $evaluator = $personnelName;
     
     //Person Name
-    $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
-    $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
-    $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    // $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
+    // $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
+    // $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
     
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
@@ -45,8 +45,8 @@
     <div class="editToolBox">
 
         {{-- Tool For Debugging --}}
-        {{-- <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button> --}}
-        {{-- <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button> --}}
+        {{-- <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
+        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)">Add Note</button> --}}
         <button class="btnTools" id="btnCheckmarkAdd" onclick="addCheckmarkEvent(event)">Toggle Checkmark</button>
     </div>
 
@@ -61,16 +61,16 @@
         <button id='btnDone' class="btn-done d-none" onclick="backToShow()">Done &#10004;</button>
     </div>
 
-    <div class="printablePage page-1" page="1">
+    <div class="printablePage" page="1">
         <img class="certificate" src="{{ asset('img/checklist_1.png') }}" alt=""
             style="width: 100%; height: 100%;">
         <div data-draggable="true" id="series-no" class="series-no bold">
             <span>{{ $buildingPlan->series_no }}</span>
         </div>
 
-        {{-- <div data-draggable="true" id="evaluator" class="evaluator bold">
+        <div data-draggable="true" id="evaluator" class="evaluator bold">
             <span>{{ auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name }}</span>
-        </div> --}}
+        </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
             <span>{{ $representative }}</span>
@@ -84,9 +84,9 @@
             <span>{{ date('m/d/Y', strtotime($buildingPlan->date_received)) }}</span>
         </div>
 
-        {{-- <div data-draggable="true" id="buildingStory" class="building-story bold">
+        <div data-draggable="true" id="buildingStory" class="building-story bold">
             <span>{{ $buildingPlan->building->building_story }}</span>
-        </div> --}}
+        </div>
 
 
         <div data-draggable="true" class="address bold">
@@ -97,20 +97,9 @@
     <div class="printablePage" page="2">
         <img class="certificate" src="{{ asset('img/checklist_2.png') }}" alt=""
             style="width: 100%; height: 100%;">
-    </div>
-    <div class="page-break"></div>
-    <div class="printablePage" page="3">
-        <img class="certificate" src="{{ asset('img/checklist_3.png') }}" alt=""
-            style="width: 100%; height: 100%;">
-    </div>
-    <div class="page-break"></div>
-    <div class="printablePage mb-320" page="4">
-        <img class="certificate" src="{{ asset('img/checklist_4.png') }}" alt=""
-            style="width: 100%; height: 100%;">
 
 
         <textarea class="deficiency" maxlength="288">
-        
         </textarea>
         <textarea class="deficiency deficiency-right" maxlength="288">
         </textarea>
@@ -121,7 +110,7 @@
         <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">{{ $marshal }}
         </div>
 
-        <div data-draggable="true" id="evaluator2" class="evaluator-2 bold text-center">
+        <div data-draggable="true" id="evaluator2" class="evaluator-2 bold">
             <span>{{ auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name }}</span>
         </div>
 
@@ -132,6 +121,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="/js/print.js"></script>
     <script>
         const backToShow = function() {
@@ -158,20 +149,23 @@
             checkmark.innerHTML = '&#10003;';
 
             // Add CSS styles to the checkmark
-            checkmark.style.fontSize = '32px';
+            checkmark.style.fontSize = '28px';
             checkmark.style.position = 'absolute';
             checkmark.style.cursor = 'cursor';
             checkmark.style.left = (event.offsetX - 6) + 'px';
             checkmark.style.top = (event.offsetY - 10) + 'px';
             checkmark.setAttribute('checkmark', '')
             // Append the checkmark to the body of the document
-
             try {
-                // Get the target page to add the checkmark
-                const targetPage = event.target.parentElement.attributes.page.value;
 
-                printables[targetPage - 1].appendChild(checkmark);
-
+                switch (event.target.parentElement.attributes.page.value) {
+                    case '1':
+                        printables[0].appendChild(checkmark);
+                        break;
+                    case '2':
+                        printables[1].appendChild(checkmark);
+                        break;
+                }
             } catch (e) {}
 
         }
@@ -179,24 +173,19 @@
 
         function addCheckmarkEvent(event) {
 
-            const pages = document.querySelectorAll(".printablePage")
-
             if (event.target.innerText === "Toggle Checkmark") {
                 document.addEventListener('click', addCheckmark);
 
                 // Change Cursor when hover on page
-                pages.forEach(item => {
-                    item.style.cursor = "cell";
-                })
+                document.querySelectorAll(".printablePage")[0].style.cursor = "cell";
+                document.querySelectorAll(".printablePage")[1].style.cursor = "cell";
                 event.target.innerText = "Cancel"
                 event.target.style.backgroundColor = "gray"
-
             } else {
                 document.removeEventListener('click', addCheckmark);
                 // Change Cursor when hover on page
-                pages.forEach(item => {
-                    item.style.cursor = "default";
-                })
+                document.querySelectorAll(".printablePage")[0].style.cursor = "default";
+                document.querySelectorAll(".printablePage")[1].style.cursor = "default";
                 event.target.innerText = "Toggle Checkmark"
                 event.target.style.backgroundColor = "#FFC900"
             }

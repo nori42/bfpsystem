@@ -38,6 +38,11 @@ th {
     .heading *{
         font-size: 0.825rem !important;
     }
+
+    th {
+        position: relative;
+        top: 0;
+    }
     
     .report-buttons {
         display: none;

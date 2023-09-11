@@ -1,22 +1,10 @@
 const input = document.getElementById('search');
+const dataId = document.getElementById('dataId');
 const list = document.getElementById('autocomplete-list');
-// const items = ['apple', 'apoles', 'banana', 'cherry', 'date', 'elderberry'];
 
 let selectedIndex = -1;
 let mouseOnList = false;
 
-
-input.addEventListener('input', () => {
-  // const value = input.value;
-  // selectedIndex = -1;
-  // if (value.length > 0) {
-  //   const matches = items.filter(item => item.toLowerCase().startsWith(value.toLowerCase()));
-  //   if (matches != 0)
-  //     showAutocomplete(matches);
-  // } else {
-  //   hideAutocomplete();
-  // }
-});
 
   list.addEventListener('mouseenter', () => {
     selectedIndex = -1;
@@ -54,6 +42,7 @@ input.addEventListener('input', () => {
           e.preventDefault();
           if (selectedIndex > -1) {
             input.value = items[selectedIndex].innerText;
+            dataId.value = items[selectedIndex].attributes['data-id'].value;
             selectedIndex = -1;
             hideAutocomplete();
           }
@@ -76,12 +65,14 @@ input.addEventListener('input', () => {
     }
   });
 
-  function newLiElem(text, index) {
+  function newLiElem(text, index, dataId = null) {
     const li = document.createElement('li');
     li.innerText = text;
     li.setAttribute('index', index)
-    li.addEventListener('click', () => {
+    li.setAttribute('data-id', dataId)
+    li.addEventListener('click', (e) => {
       input.value = text;
+      document.getElementById('dataId').value = e.target.attributes['data-id'].value;
       input.focus();
       hideAutocomplete();
     });
@@ -96,7 +87,7 @@ input.addEventListener('input', () => {
   function showAutocomplete(matches) {
     list.innerHTML = '';
     matches.forEach((match, index) => {
-      list.appendChild(newLiElem(match, index));
+      list.appendChild(newLiElem(match.text, index,match.dataId));
     });
 
     if(matches.length != 0)

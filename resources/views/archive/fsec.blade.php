@@ -7,6 +7,7 @@
         <table class="table">
             <thead>
                 <th>Applicant</th>
+                <th>Project Title</th>
                 <th>Evaluation Status</th>
                 <th>Date Deleted</th>
             </thead>
@@ -24,8 +25,9 @@
                     @endphp
                     <tr>
                         <td>{{ $representative }}</td>
-                        <td>{{ $status }}</td>
-                        <td>{{ $item->deleted_at }}</td>
+                        <td>{{ $item->project_title }}</td>
+                        <td>{{ $item->status }}</td>
+                        <td>{{ date('m/d/Y g:i A', strtotime($item->deleted_at)) }}</td>
                     </tr>
                 @endforeach
             </tbody>

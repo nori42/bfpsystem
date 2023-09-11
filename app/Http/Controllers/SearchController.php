@@ -127,8 +127,9 @@ class SearchController extends Controller
             ->join('owners', 'owners.id', '=', 'building_plans.owner_id')
             ->join('person', 'person.id', '=', 'owners.person_id')
             ->join('corporates', 'corporates.id', '=', 'owners.corporate_id')
-            ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name','building_plans.status','building_plans.id')
-            ->whereRaw("CONCAT(person.first_name,' ',person.last_name) LIKE '%$request->search%'")
+            ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name','building_plans.series_no','building_plans.id')
+            ->whereRaw("CONCAT(person.first_name,' ',person.last_name,' ',building_plans.series_no) LIKE '%$request->search%'")
+            ->whereNull('building_plans.deleted_at')
             ->limit(10)->get();
 
             if(count($buildingPlans) == 0){
@@ -136,8 +137,9 @@ class SearchController extends Controller
                 ->join('owners', 'owners.id', '=', 'building_plans.owner_id')
                 ->join('person', 'person.id', '=', 'owners.person_id')
                 ->join('corporates', 'corporates.id', '=', 'owners.corporate_id')
-                ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name', 'building_plans.status','building_plans.id')
+                ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name', 'building_plans.series_no','building_plans.id')
                 ->whereRaw("corporates.corporate_name LIKE '%$request->search%'")
+                ->whereNull('building_plans.deleted_at')
                 ->limit(10)->get();
             }
 
@@ -149,7 +151,7 @@ class SearchController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => 'no data'
+            'data' => null
         ]);
     }
 }

@@ -111,7 +111,7 @@
         const loadingMssg = document.querySelector(["#loadingMssg"])
         const activtiyContent = document.querySelector(["#pageContent"])
 
-        const expiredSelect = document.querySelector(['#expiredSelect'])
+        // const expiredSelect = document.querySelector(['#expiredSelect'])
 
         document.querySelector('#btnViewExpired').addEventListener('click', () => {
             if (dateFrom.value != "" && dateTo.value != "") {
@@ -120,8 +120,12 @@
             }
         })
 
-        expiredSelect.addEventListener('change', () => {
-            window.location.href = '/expired/firedrills'
+        // expiredSelect.addEventListener('change', () => {
+        //     window.location.href = '/expired/firedrills'
+        // })
+
+        dateFrom.addEventListener('change', () => {
+            dateTo.value = dateFrom.value
         })
 
         dateFrom.addEventListener('change', () => {

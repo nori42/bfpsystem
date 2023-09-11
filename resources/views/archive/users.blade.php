@@ -13,14 +13,13 @@
             <tbody>
                 @foreach ($users as $item)
                     @php
-                        $personnel = $item->personnel;
+                        $personnel = $item->personnelDeleted;
                         $name = $personnel->first_name . ' ' . $personnel->last_name;
-                        
                     @endphp
                     <tr>
                         <td>{{ $item->username }}</td>
                         <td>{{ $name }}</td>
-                        <td>{{ $item->deleted_at }}</td>
+                        <td>{{ date('m/d/Y g:i A', strtotime($item->deleted_at)) }}</td>
                     </tr>
                 @endforeach
             </tbody>

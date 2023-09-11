@@ -61,19 +61,28 @@ async function populateEstablSearchSuggestion(baseURL,search,datalist){
 
             
             datalist.innerHTML = ""
-            json.data.forEach((establishment )=> {
 
-                // const nameOpt = document.createElement("option")
-                const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
+            if(json.data != null){
+                json.data.forEach((establishment )=> {
 
-                // nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
-                // datalist.appendChild(nameOpt)
+                    // const nameOpt = document.createElement("option")
+                    const representative = establishment.last_name ? `${establishment.first_name} ${establishment.last_name}` : establishment.corporate_name 
 
-                result.push(`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
-                
-            });
+                    // nameOpt.setAttribute("value",`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+                    // datalist.appendChild(nameOpt)
 
-            showAutocomplete(result)
+                    // result.push(`${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}-${establishment.id}`)
+
+                    const text = `${establishment.business_permit_no ? establishment.business_permit_no +'-':''}${establishment.establishment_name}-${representative}`
+
+                    result.push({
+                        dataId : establishment.id,
+                        text
+                    })
+                });
+
+                showAutocomplete(result)
+            }
 
         },typingDelay)
     }
@@ -98,31 +107,41 @@ async function populateBuildPlanSearchSuggestion(baseURL,search,datalist,inputId
 
             
             datalist.innerHTML = ""
-            json.data.forEach(buildingPlan => {
-                if(inputId != null && index == 0)
-                inputId.value = buildingPlan.id;
 
-                // const nameOpt = document.createElement("option")
-                // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
-                // datalist.appendChild(nameOpt)
+            if(json.data != null){
+                json.data.forEach(buildingPlan => {
+                    if(inputId != null && index == 0)
+                    inputId.value = buildingPlan.id;
 
-                let representative;
+                    // const nameOpt = document.createElement("option")
+                    // nameOpt.setAttribute("value",`${buildingPlan.name != " "? buildingPlan.name:buildingPlan.corporate_name}-${buildingPlan.status}-${buildingPlan.id}`)
+                    // datalist.appendChild(nameOpt)
 
-                if(buildingPlan.name != " ")
-                {
-                    if(buildingPlan.corporate_name){
-                        representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
-                    }else{
-                        representative = buildingPlan.name
+                    let representative;
+
+                    if(buildingPlan.name != " ")
+                    {
+                        if(buildingPlan.corporate_name){
+                            representative = `${buildingPlan.name}/${buildingPlan.corporate_name}`
+                        }else{
+                            representative = buildingPlan.name
+                        }
                     }
-                }
-                else
-                {
-                    representative = buildingPlan.corporate_name
-                }
+                    else
+                    {
+                        representative = buildingPlan.corporate_name
+                    }
 
-                result.push(`${representative}-${buildingPlan.status}-${buildingPlan.id}`);
-            });
+                    // result.push(`${representative}-${buildingPlan.status}-${buildingPlan.id}`);
+
+                    const text = `${representative}-${buildingPlan.series_no}`
+
+                    result.push({
+                        dataId : buildingPlan.id,
+                        text
+                    })
+                });
+            }
 
             showAutocomplete(result)
         },typingDelay)

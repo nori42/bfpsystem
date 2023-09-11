@@ -119,6 +119,17 @@ class PersonnelController extends Controller
 
         $personnel->save();
 
-        return redirect("personnel/{$personnel->id}")->with('toastMssg',"Personnel Updated");
+        return redirect("users/{$personnel->user->id}")->with('toastMssg',"Personnel Updated");
+    }
+
+    public function destroy(Request $request){
+        $personnel = Personnel::find($request->id);
+
+        $user = $personnel->user;
+
+        $personnel->delete();
+        $user->delete();
+
+        return redirect('/personnel')->with(["toastMssg" => "Personnel successfully deleted"]);;
     }
 }

@@ -26,8 +26,12 @@
             <div class="d-flex justify-content-center">
 
                 @if (auth()->user()->type === 'FSIC' || auth()->user()->type === 'ADMINISTRATOR')
-                    <a class="btn btn-success text-white px-5 py-2 align-middle mt-1" href="/establishments/create"><span
-                            class="material-symbols-outlined align-middle">domain_add</span> New Establishment</a>
+                    <div>
+                        <div class="text-secondary fw-bold text-center">Click To Add New Establishment</div>
+                        <a class="btn btn-success text-white px-5 py-2 align-middle mt-1 fs-4"
+                            href="/establishments/create"><span
+                                class="material-symbols-outlined align-middle fs-3">domain_add</span> New Establishment</a>
+                    </div>
                 @endif
             </div>
         </x-pageWrapper>

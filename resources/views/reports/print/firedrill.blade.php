@@ -41,8 +41,8 @@
 
 <body>
     <div class="py-3 bg-white position-sticky w-100 top-0">
-        <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
-            Print</button>
+        {{-- <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
+            Print</button> --}}
         <button class="btn btn-primary border-0" onclick="exportTableToXLSX('firedrillIssued','firedrillIssued.xlsx')">
             <i class="bi bi-filetype-xlsx"></i>
             Export to Excel</button>

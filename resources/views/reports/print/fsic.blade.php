@@ -17,10 +17,10 @@
 <body>
 
     <div class="py-3 bg-white position-sticky w-100 top-0">
-        <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
-            Print</button>
-        <button class="btn btn-primary border-0"
-            onclick="exportTableToXLSX('inspectionIssued','inspectionIssued.xlsx')"> <i class="bi bi-filetype-xlsx"></i>
+        {{-- <button class="btn btn-primary border-0" onclick="print()"> <i class="bi bi-printer-fill"></i>
+            Print</button> --}}
+        <button class="btn btn-primary border-0" onclick="exportTableToXLSX('inspectionIssued','inspectionIssued.xlsx')">
+            <i class="bi bi-filetype-xlsx"></i>
             Export to Excel</button>
         <div class="d-inline">
             <input class="align-middle" type="checkbox" name="myReport" id="myReport"

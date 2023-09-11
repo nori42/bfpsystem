@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 enum Activity{
     case AddEstablishment;
+    case DeleteEstablishment;
     case UpdateEstablishment;
     case AddInspection;
     case PrintInspection;
@@ -15,6 +16,9 @@ enum Activity{
     case UpdateBuildingPlan;
     case DisapporveBuildingPlan;
     case ApproveBuildingPlan;
+    case DeleteBuildingPlan;
+    case AddUser;
+    case DeleteUser;
 }
 
 class ActivityLogger {
@@ -50,6 +54,20 @@ class ActivityLogger {
                         'updated_at' => now()
                     ]);
                 }
+            break;
+            case Activity::DeleteEstablishment:
+                {
+                    $activityLog = "Deleted the {$establishmentName} establishment";
+
+                    DB::table('activities')->insert([
+                        'activity' => $activityLog,
+                        'user_id' => auth()->user()->id,
+                        'activity_in' => $activity_in,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+            break;
         }
     }
 
@@ -179,11 +197,24 @@ class ActivityLogger {
                     ]);
                 }
             break;
+
+            case Activity::DeleteBuildingPlan:
+                {
+                    $activityLog = "Deleted the Building Plan Application of {$buildingPlanApplicant}";
+
+                    DB::table('activities')->insert([
+                        'activity' => $activityLog,
+                        'user_id' => auth()->user()->id,
+                        'activity_in' => $activity_in,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+            break;
         }
     }
 
     public static function userLog($userId,$userType,$username){
-
         $activityLog = "Added a new {$userType} USER, Username:{$username}";
 
         DB::table('activities')->insert([
