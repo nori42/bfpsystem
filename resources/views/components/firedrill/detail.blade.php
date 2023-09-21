@@ -119,12 +119,12 @@
             <div class="d-flex align-items-center gap-2">
                 @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
                     <x-form.input name="claimedBy" label="Claimed By" />
-                    <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
+                    <button class="btn btn-primary" type="submit" name="action" value="claimcertificate">Claim
                         Certificate</button>
                 @endif
 
                 @if ($firedrill->issued_on != null)
-                    <a class="btn btn-success" href="/establishments/firedrill/print/{{ $firedrill->id }}">Preview
+                    <a class="btn btn-primary" href="/establishments/firedrill/print/{{ $firedrill->id }}">Preview
                         Certificate</a>
                 @endif
             </div>
@@ -132,21 +132,21 @@
             @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
                 <div class="d-flex align-items-center gap-2">
                     <x-form.input name="claimedBy" label="Claimed By" />
-                    <button class="btn btn-success" type="submit" name="action" value="claimcertificate">Claim
+                    <button class="btn btn-primary" type="submit" name="action" value="claimcertificate">Claim
                         Certificate</button>
-                    <button class="btn btn-success" type="submit" name="action" value="preview">Preview
+                    <button class="btn btn-primary" type="submit" name="action" value="preview">Preview
                         Certificate</button>
                 </div>
             @endif
 
             @if ($firedrill->date_claimed != null && $firedrill->issued_on != null)
-                <button class="btn btn-success" type="submit" name="action" value="preview">Preview
+                <button class="btn btn-primary" type="submit" name="action" value="preview">Preview
                     Certificate</button>
             @endif --}}
 
             @if ($firedrill->issued_on == null)
-                <button class="btn btn-success" type="submit" name="action" value="save">Save</button>
-                <button class="btn btn-success" type="submit" name="action" value="saveandprint">Print</button>
+                <button class="btn btn-primary" type="submit" name="action" value="save">Save</button>
+                <button class="btn btn-primary" type="submit" name="action" value="saveandprint">Print</button>
             @endif
         </div>
     </form>

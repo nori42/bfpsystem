@@ -1,6 +1,10 @@
 {{-- GET LAYOUT/TEMPLATE --}}
 @extends('layouts.app')
 
+
+@section('stylesheet')
+    @vite('resources/css/components/spinner.css')
+@endsection
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">
@@ -14,50 +18,47 @@
             <div class="d-flex align-items-center gap-4">
                 <div>
                     <span class="d-block fw-bold fs-3">Expired inspections</span>
-                    {{-- <select name="expired" id="expiredSelect" class="fs-4 form-select">
-                        <option value="inspection">Expired Inspections</option>
-                        @if (auth()->user()->type == 'ADMINISTRATOR')
-                            <option value="firedrill">Expired Firedrills</option>
-                        @endif
-                    </select> --}}
                     <span class="d-block fs-6 text-secondary">List of establishments with expired inspection</span>
                 </div>
-                <form action="/expired/inspections" class="d-flex align-items-center gap-2" method="GET">
-                    <label class="fw-bold" for="fromDate">From</label>
-                    <input class="form-control" type="date" id="dateFrom" name="dateFrom" style="width:18rem;"
-                        value="" required>
-
-                    <label class="fw-bold" for="toDate">To</label>
-                    <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
-                        value="" required>
-                    <button id="btnViewExpired" class="btn btn-success">View Expired Inpsections</button>
-                </form>
+                <div id="filterBtns" class="d-flex gap-2">
+                    <button id="btnViewAll" class="btn btn-primary">View All</button>
+                    <form id="filter" action="/expired/inspections" method="GET">
+                        <x-dateFilter />
+                    </form>
+                </div>
             </div>
 
-            {{-- Loading --}}
-            <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Data...</h2>
 
             <div id="pageContent">
-                <div class="my-3 float-end fw-bold fs-6">
-                    @if ($dateRange[0] != null && $dateRange[1] != null && $dateRange[0] != $dateRange[1])
-                        <div>
-                            <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
-                            <span> - </span>
-                            <span>{{ date('F d, Y', strtotime($dateRange[1])) }}</span>
-                        </div>
-                    @else
-                        @if ($dateRange[0] == null)
-                            {{-- <span>{{ date('F d, Y', strtotime($dateQuery)) }}</span> --}}
-                        @else
-                            <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
-                        @endif
+                <div class="d-flex justify-content-between align-items-center my-3">
+
+                    @if ($dateRange[0] != null || $isAll)
+                        <div class="fw-bold">{{ $expired_inspections->count() }}
+                            Result{{ $expired_inspections->count() > 1 ? 's' : '' }}</div>
                     @endif
+
+                    <div class=" fw-bold fs-6 ">
+                        @if ($dateRange[0] != null && $dateRange[1] != null && $dateRange[0] != $dateRange[1])
+                            <div>
+                                <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
+                                <span> - </span>
+                                <span>{{ date('F d, Y', strtotime($dateRange[1])) }}</span>
+                            </div>
+                        @else
+                            @if ($dateRange[0] == null && $isAll)
+                                <span>All</span>
+                            @endif
+                            @if ($dateRange[0] != null)
+                                <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
+                            @endif
+                        @endif
+                    </div>
                 </div>
 
-                @if ($dateRange[0] == null)
+                @if ($dateRange[0] == null && !$isAll)
                     <h2 class="text-secondary my-3">Select a date range</h2>
                 @endif
-                @if ($dateRange[0] != null)
+                @if ($dateRange[0] != null || $isAll)
                     <table class="table">
                         <thead>
                             <th>Establishment Name</th>
@@ -68,6 +69,10 @@
                         </thead>
                         <tbody>
                             @foreach ($expired_inspections as $inspection)
+                                @if ($inspection->establishment == null)
+                                    @continue
+                                @endif
+
                                 @php
                                     $person = $inspection->establishment->owner->person ? $inspection->establishment->owner->person : null;
                                     $corporate = $inspection->establishment->owner->corporate ? $inspection->establishment->owner->corporate : null;
@@ -101,35 +106,35 @@
                     @endif
                 @endif
             </div>
+            {{-- Loading --}}
+            <div class="d-none" id="loadingMssg">
+                <div class="d-flex justify-content-center">
+                    <x-spinner2 :hidden="false" />
+                </div>
+                <h4 class="text-secondary text-center mt-2">Fetching Data...</h4>
+            </div>
         </x-pageWrapper>
     </div>
+@endsection
 
-    <script defer>
-        const dateFrom = document.querySelector(["#dateFrom"])
-        const dateTo = document.querySelector(["#dateTo"])
+@section('page-script')
+    <script type="module" defer>
+        function showLoading() {
+            select('#loadingMssg').classList.remove('d-none')
+            select('#pageContent').classList.add('d-none')
+            select('#filterBtns').classList.add('d-none');
+        }
 
-        const loadingMssg = document.querySelector(["#loadingMssg"])
-        const activtiyContent = document.querySelector(["#pageContent"])
-
-        // const expiredSelect = document.querySelector(['#expiredSelect'])
-
-        document.querySelector('#btnViewExpired').addEventListener('click', () => {
-            if (dateFrom.value != "" && dateTo.value != "") {
-                loadingMssg.classList.remove('d-none')
-                activtiyContent.classList.add('d-none')
+        addEvent('click', select('#btnViewFilter'), () => {
+            if (select('#dateFrom').value && select('#dateTo').value) {
+                showLoading()
             }
         })
 
-        // expiredSelect.addEventListener('change', () => {
-        //     window.location.href = '/expired/firedrills'
-        // })
-
-        dateFrom.addEventListener('change', () => {
-            dateTo.value = dateFrom.value
-        })
-
-        dateFrom.addEventListener('change', () => {
-            dateTo.value = dateFrom.value
+        addEvent('click', select('#btnViewAll'), () => {
+            select("#isAll").checked = true
+            select("#filter").submit()
+            showLoading()
         })
     </script>
 @endsection

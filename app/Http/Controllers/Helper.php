@@ -63,11 +63,12 @@ class Helper {
             $company = $owner->corporate;
         }
         
-        if($company->corporate_name != null  && $person->last_name != null)
-        {
-            $representative = $personName.'/'.$company->corporate_name;
-        }
-        else if($person->last_name != null){
+        // if($company->corporate_name != null  && $person->last_name != null)
+        // {
+        //     $representative = $personName.'/'.$company->corporate_name;
+        // }
+        // else 
+        if($person->last_name != null){
             $representative = $personName;
         }
         else {

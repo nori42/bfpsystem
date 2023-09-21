@@ -22,7 +22,7 @@ class FsicController extends Controller
     {
 
         $establishment = Establishment::where('id', $request->id)->first();
-        $inspections = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
+        $inspections = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
         $owner = $establishment->owner;
 
         return view('establishments.fsic.index',[
@@ -117,7 +117,7 @@ class FsicController extends Controller
 
         $inspection->save();
 
-        $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
+        $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
 
         switch($request->input('action'))
         {

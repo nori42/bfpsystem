@@ -1,6 +1,9 @@
 {{-- GET LAYOUT/TEMPLATE --}}
 @extends('layouts.app')
 
+@section('stylesheet')
+    @vite('resources/css/components/spinner.css')
+@endsection
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <style>
@@ -50,30 +53,6 @@
             <hr>
 
             <div id="filter" class="my-2 d-flex align-items-center gap-2">
-
-                {{-- <label for="month">Month</label>
-                    <select class="form-select" name="month" id="month" style="width:21rem;">
-                        @foreach ($monthReports as $m)
-                            @if ($selectedReports['month'] == $m->month)
-                                <option value="{{ $m->month }}" selected>
-                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
-                                </option>
-                            @else
-                                <option value="{{ $m->month }}">
-                                    {{ DateTime::createFromFormat('!m', $m->month)->format('F') }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <select class="form-select" name="year" id="year" style="width:21rem;">
-                        @foreach ($yearReports as $y)
-                            @if ($selectedReports['year'] == $y->year)
-                                <option value="{{ $y->year }}" selected>{{ $y->year }}</option>
-                            @else
-                                <option value="{{ $y->year }}">{{ $y->year }}</option>
-                            @endif
-                        @endforeach
-                    </select> --}}
                 <form action="/reports/firedrill" class="d-flex align-items-center gap-2" method="GET">
                     <label class="fw-bold" for="fromDate">From</label>
                     <input class="form-control" type="date" id="dateFrom" name="dateFrom" style="width:18rem;"
@@ -82,11 +61,10 @@
                     <label class="fw-bold" for="toDate">To</label>
                     <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
                         value="" required>
-                    <button class="btn btn-success text-nowrap" id="viewReport">View Report</button>
+                    <button class="btn btn-primary text-nowrap" id="viewReport">View Report</button>
                     @if ($dateRange['from'] != null && $dateRange['to'] != null)
-                        <div class="position-relative">
-                            <button class="btn btn-success text-nowrap" id="viewSummary" type="button"
-                                onclick="toggleShow('reportSummary')">View
+                        <div class="position-relative" dropdown>
+                            <button class="btn btn-success text-nowrap" id="viewSummary" type="button" dropdown-btn>View
                                 Summary
                                 <i class="bi bi-caret-down-fill text-white fs-6"></i>
                             </button>
@@ -110,7 +88,7 @@
                                         @foreach ($substations as $substation)
                                             <tr>
                                                 <td>{{ $substation }}</td>
-                                                <td>{{ $firedrillIssued['substations']->get(strtoupper($substation)) ? $fsicIssued['substations']->get(strtoupper($substation))->count() : 0 }}
+                                                <td>{{ $firedrillIssued['substations']->get(strtoupper($substation)) ? $firedrillIssued['substations']->get(strtoupper($substation))->count() : 0 }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -157,8 +135,13 @@
                 @endif
             </div>
 
-            {{-- Loading Message --}}
-            <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Reports...</h2>
+            {{-- Loading --}}
+            <div class="d-none" id="loadingMssg">
+                <div class="d-flex justify-content-center">
+                    <x-spinner2 :hidden="false" />
+                </div>
+                <h4 class="text-secondary text-center mt-2">Fetching Reports...</h4>
+            </div>
         </x-pageWrapper>
 
     </div>

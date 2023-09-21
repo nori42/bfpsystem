@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
-    @vite(['resources/sass/main.scss'])
+    {{-- CSS --}}
+    @vite(['resources/sass/bootstrap.scss', 'resources/css/pages/login.css'])
 </head>
 
 <body>
@@ -38,12 +39,12 @@
                 @endif
                 @csrf
                 <div>
-                    <label class="fs-4" for="username">Username</label>
+                    <label class="fs-4">Username</label>
                     <input class="form-control d-block fs-4 w-100" type="text" name="username" autocomplete="off">
                 </div>
 
                 <div>
-                    <label class="fs-4" for="username">Password</label>
+                    <label class="fs-4" for="password">Password</label>
                     <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
                     <div class="mt-3">
                         <label class="fw-bold fs-6" for="showPassword">Show Password</label>
@@ -51,7 +52,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-success fs-3 fw-normal w-100 mt-3 py-2">Login</button>
+                <button class="btn btn-primary fs-3 fw-normal w-100 mt-3 py-2">Login</button>
                 <div class="text-center mt-4">
                     <a href="/passwordreset" class="text-primary text-center fs-5">Forgot
                         Password?
@@ -62,16 +63,6 @@
         </div>
     </div>
 </body>
-<script>
-    const showPassword = document.querySelector('#showPassword')
-
-    showPassword.addEventListener('change', function() {
-        if (showPassword.checked) {
-            document.querySelector('#password').type = "text"
-        } else {
-            document.querySelector('#password').type = "password"
-        }
-    })
-</script>
+@vite(['resources/js/pages/login.js'])
 
 </html>

@@ -8,8 +8,8 @@
             <thead>
                 <th>Establishment Name</th>
                 <th>Owner</th>
-                <th>Total Inspections</th>
-                <th>Total Firedrill</th>
+                {{-- <th>Total Inspections</th>
+                <th>Total Firedrill</th> --}}
                 <th>Date Deleted</th>
             </thead>
             <tbody>
@@ -27,9 +27,9 @@
                     <tr>
                         <td>{{ $item->establishment_name }}</td>
                         <td>{{ $representative }}</td>
-                        <td>{{ count($item->inspection) }}
+                        {{-- <td>{{ count($item->inspection) }}
                         </td>
-                        <td>{{ count($item->firedrill) }}</td>
+                        <td>{{ count($item->firedrill) }}</td> --}}
                         <td>{{ date('m/d/Y g:i A', strtotime($item->deleted_at)) }}</td>
                     </tr>
                 @endforeach

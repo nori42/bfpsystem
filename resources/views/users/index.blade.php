@@ -16,7 +16,7 @@
                     <span class="d-block fw-bold fs-3">{{ count($users) - 1 }} Users</span>
                     <span class="d-block text-secondary ">Manage users</span>
                 </div>
-                <button class="btn btn-success" onclick="openModal('addUser')">
+                <button class="btn btn-primary" onclick="openModal('addUser')">
                     <span class="material-symbols-outlined fs-2 align-middle">
                         person_add
                     </span>
@@ -55,7 +55,7 @@
                                 </td>
                             @endif --}}
 
-                            {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-success"><i
+                            {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-primary"><i
                                         class="bi bi-person fs-5 mx-1"></i>Account</a></td> --}}
                             <td>
                                 @if ($user->request_password_reset)
@@ -146,7 +146,7 @@
                 </x-form.select> --}}
 
             <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
-                <button class="btn btn-success" type="submit">
+                <button class="btn btn-primary" type="submit">
                     <i class="bi bi-person-add fs-4"></i> Add
                 </button>
 

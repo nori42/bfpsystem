@@ -141,13 +141,13 @@
                 </div>
 
                 <div class="form-footer mx-auto mt-3 py-3 px-5 rounded-2 d-flex justify-content-between">
-                    <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-success font-bold"
+                    <input type="button" value="Cancel" id="cancelBtn" class="btn btn-outline-primary font-bold"
                         onclick="cancel()">
-                    <input type="button" value="Back" id="backBtn" class="btn btn-outline-success font-bold"
+                    <input type="button" value="Back" id="backBtn" class="btn btn-outline-primary font-bold"
                         onclick="prevStep()">
-                    <input type="button" value="Next" id="nextBtn" class="btn btn-success font-bold px-5"
+                    <input type="button" value="Next" id="nextBtn" class="btn btn-primary font-bold px-5"
                         onclick="nextStep()">
-                    <input type="submit" value="Save" id="saveBtn" class="btn btn-success font-bold px-5">
+                    <input type="submit" value="Save" id="saveBtn" class="btn btn-primary font-bold px-5">
                 </div>
             </form>
         </x-pageWrapper>

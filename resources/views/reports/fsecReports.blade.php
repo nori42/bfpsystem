@@ -1,6 +1,9 @@
 {{-- GET LAYOUT/TEMPLATE --}}
 @extends('layouts.app')
 
+@section('stylesheet')
+    @vite('resources/css/components/spinner.css')
+@endsection
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <style>
@@ -56,7 +59,7 @@
                     <label class="fw-bold" for="toDate">To</label>
                     <input class="form-control" type="date" id="dateTo" name="dateTo" style="width:18rem;"
                         value="" required>
-                    <button class="btn btn-success text-nowrap" id="viewReport">View Report</button>
+                    <button class="btn btn-primary text-nowrap" id="viewReport">View Report</button>
                 </form>
             </div>
 
@@ -70,8 +73,13 @@
                     <h1 class="text-secondary fs-2 mt-3">Select a date range</h1>
                 @endif
             </div>
-            {{-- Loading Message --}}
-            <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Reports...</h2>
+            {{-- Loading --}}
+            <div class="d-none" id="loadingMssg">
+                <div class="d-flex justify-content-center">
+                    <x-spinner2 :hidden="false" />
+                </div>
+                <h4 class="text-secondary text-center mt-2">Fetching Reports...</h4>
+            </div>
 
         </x-pageWrapper>
     </div>

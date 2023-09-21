@@ -14,6 +14,6 @@ class InspectionSeeder extends Seeder
     public function run(): void
     {
         //
-        Inspection::factory()->count(500)->create();
+        Inspection::factory()->count(200)->create();
     }
 }

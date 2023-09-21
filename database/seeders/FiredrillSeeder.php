@@ -14,6 +14,6 @@ class FiredrillSeeder extends Seeder
     public function run(): void
     {
         //
-        Firedrill::factory()->count(1000)->create();
+        Firedrill::factory()->count(200)->create();
     }
 }

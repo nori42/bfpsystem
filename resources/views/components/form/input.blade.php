@@ -1,6 +1,6 @@
 @props(['label', 'type' => 'text', 'name', 'customAttr' => '', 'value' => '', 'readonly' => false, 'required' => false])
 <x-form.inputWrapper>
-    <label class="info-label">
+    <label>
         {{ $label }}
         @if ($required)
             <span class="text-danger">*</span>

@@ -2,6 +2,9 @@
 @extends('layouts.app')
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
+@section('stylesheet')
+    @vite(['resources/css/pages/dashboard.css'])
+@endsection
 @section('content')
     @php
         $summaryCardStyle = "
@@ -45,20 +48,16 @@
                         </table>
                         <table class="mt-4" style="width:16rem;">
                             <tr>
-                                <td class="fw-bold">CBP</td>
-                                <td>{{ $fsicIssued['CBP'] }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">New</td>
-                                <td>{{ $fsicIssued['new'] }}</td>
-                            </tr>
-                            <tr>
                                 <td class="fw-bold">Total Substations</td>
                                 <td>{{ $fsicIssued['totalSubstation'] }}</td>
                             </tr>
                             <tr>
                                 <td class="fw-bold">Grand Total</td>
                                 <td>{{ $fsicIssued['totalGrand'] }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">New</td>
+                                <td>{{ $fsicIssued['new'] }}</td>
                             </tr>
                         </table>
                     </div>
@@ -75,10 +74,6 @@
                             @endforeach
                         </table>
                         <table class="mt-4" style="width:16rem;">
-                            <tr>
-                                <td class="fw-bold">CBP</td>
-                                <td>{{ $firedrillIssued['CBP'] }}</td>
-                            </tr>
                             <tr>
                                 <td class="fw-bold">Total Substations</td>
                                 <td>{{ $firedrillIssued['totalSubstation'] }}</td>

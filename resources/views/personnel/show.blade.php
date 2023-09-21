@@ -29,9 +29,11 @@
                     </div>
                     {{-- <a class="btn btn-success mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Personnel</a> --}}
 
-                    <button class="btn btn-danger px-5 mt-3" onclick="openModal('deleteModal')">
-                        <i class="bi bi-trash3-fill"></i>
-                        Delete</button>
+                    @if (auth()->user()->username != $personnel->user->username)
+                        <button class="btn btn-danger px-5 mt-3" onclick="openModal('deleteModal')">
+                            <i class="bi bi-trash3-fill"></i>
+                            Delete</button>
+                    @endif
 
                     <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
                         <x-spinner :hidden="true" />

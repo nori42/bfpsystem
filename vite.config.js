@@ -9,14 +9,12 @@ export default defineConfig({
                 'resources/sass/main.scss',
                 'resources/css/printfsic.css',
                 'resources/css/bootstrap-icons.css',
+                'resources/css/pages/login.css', 
+                'resources/css/utilities.css', 
+                'resources/css/global.css', 
                 'resources/css/reports.css',
             ],
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-          'chart.js': '../node_modules/chart.js', // Add this alias for Chart.js
-        },
-      },
 });

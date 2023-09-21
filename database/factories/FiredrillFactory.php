@@ -44,7 +44,7 @@ class FiredrillFactory extends Factory
                 'term_type' => 'QUARTER',
                 'claimed_by' => strtoupper(fake()->firstName()).' '.strtoupper(fake()->lastName()),
                 'year' => $newDate->format('Y'),
-                'establishment_id' => rand(1,HelperFactory::$establishmentCount),
+                'establishment_id' => rand(100,HelperFactory::$establishmentCount),
                 'receipt_id' => Receipt::factory()
             ];
         }
@@ -60,7 +60,7 @@ class FiredrillFactory extends Factory
                 'term_type' => 'QUARTER',
                 'claimed_by' => null,
                 'year' => $newDate->format('Y'),
-                'establishment_id' => rand(1,HelperFactory::$establishmentCount),
+                'establishment_id' => rand(100,HelperFactory::$establishmentCount),
                 'receipt_id' => Receipt::factory()
             ];
         }

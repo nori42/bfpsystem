@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
         //
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
-        View::share('expiredCount',HelperProvider::getNotifications());
-        
+
+        if(Schema::hasTable('inspections') && Schema::hasTable('establishments')){
+            View::share('expiredCount',HelperProvider::getNotifications());
+        }
     }
 }

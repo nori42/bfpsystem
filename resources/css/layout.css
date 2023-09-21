@@ -1,0 +1,91 @@
+@import url(global.css);
+
+nav {
+    background-color: var(--secondary-color-dark);
+    min-width: 16%;
+}
+
+.link-active{
+    border-right: 10px solid #5675a8 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.page-container {
+    overflow-y: auto;
+}
+
+.page-content {
+    padding-bottom: 100px;
+}
+
+.top-panel {
+    background-color: var(--top-panel);
+    top: 0;
+    z-index: 1025;
+}
+
+nav a{
+    position: relative;
+    z-index: 1;
+}
+
+nav a:hover {
+    color:white !important;
+}
+
+nav a::before{
+    content: "";
+    background-color:#5675a8;
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    transition: 0.425s;
+}
+
+nav a:hover::before {
+    width: 100%;
+  }
+  
+nav .btn {
+    font-weight: bold;
+}
+
+/* select all link icon */
+nav .bi {
+    font-size: 1.8rem !important;
+    padding: 0;
+}
+
+.btn-icon{
+    width: 24px;
+    height: 24px;
+    fill: white;
+    display: inline !important;
+    margin-right: .8rem;
+}
+
+.btn-top-panel:hover {
+    background-color: gray !important;
+}
+
+.btn-top-panel-icon{
+    width: 28px;
+    height: 28px;
+    fill: white;
+    display: inline !important;
+}
+
+.dropdown-profile-menu {
+    position: absolute;
+    left: 0;
+    background-color: var(--secondary-color-dark);
+    z-index: 9999;
+} 
+
+.dropdown-profile-menu .btn:hover {
+    background-color: gray !important;
+}

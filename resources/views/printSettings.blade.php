@@ -26,7 +26,7 @@
                 @isset($success)
                     <div class="text-success">Change Applied</div>
                 @endisset ()
-                <button class="btn btn-success my-3">Save
+                <button class="btn btn-primary my-3">Save
                     Changes</button>
             </form>
         </x-pageWrapper>

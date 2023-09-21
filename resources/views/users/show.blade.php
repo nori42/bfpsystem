@@ -37,7 +37,7 @@
                                     <input class="mx-2 w-100" name="username" type="text" value="{{ $user->username }}"
                                         autocomplete="off">
                                 </div>
-                                <button class="btn btn-success my-3" name="action" value="updateUsername">Save
+                                <button class="btn btn-primary my-3" name="action" value="updateUsername">Save
                                     Changes</button>
                             </form>
                         </div>
@@ -74,7 +74,7 @@
                                         required autocomplete="off">
                                 </div>
 
-                                <button class="btn btn-success my-3" name="action" value="updatePassword">Save
+                                <button class="btn btn-primary my-3" name="action" value="updatePassword">Save
                                     Changes</button>
                             </form>
                         </div>
@@ -106,7 +106,7 @@
                             </div>
                         @endif
                     </div>
-                    <a class="btn btn-success mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Info</a>
+                    <a class="btn btn-primary mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Info</a>
                 </div>
                 <div>
                     <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 24rem;">

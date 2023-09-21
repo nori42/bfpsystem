@@ -28,12 +28,15 @@
                 @if (auth()->user()->type === 'FSIC' || auth()->user()->type === 'ADMINISTRATOR')
                     <div>
                         <div class="text-secondary fw-bold text-center">Click To Add New Establishment</div>
-                        <a class="btn btn-success text-white px-5 py-2 align-middle mt-1 fs-4"
-                            href="/establishments/create"><span
-                                class="material-symbols-outlined align-middle fs-3">domain_add</span> New Establishment</a>
+                        <a class="btn btn-primary text-white px-5 py-2 align-middle mt-1 fs-4"
+                            href="/establishments/create"><i class="bi bi-building-fill-add"></i> New Establishment</a>
                     </div>
                 @endif
             </div>
         </x-pageWrapper>
     </div>
 @endsection
+{{-- 
+@section('page-script')
+    @vite(['resources/js/pages/establishments.js'])
+@endsection --}}

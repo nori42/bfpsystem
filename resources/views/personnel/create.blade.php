@@ -11,7 +11,9 @@
 
 <body class="bg-primary-nb shadow-lg overflow-auto" style="height: 1000px;">
     <div>
-        <img class="mt-3 mx-auto" src="/img/LOGO.png" alt="BFP LOGO" height="150" width="150">
+        <div class="d-flex justify-content-center">
+            <img class="mt-3 mx-auto" src="/img/LOGO.png" alt="BFP LOGO" height="150" width="150">
+        </div>
         <div class="text-center text-white fs-5">Bureau of Fire Protection <br> Cebu City Fire Station</div>
     </div>
     <div class="vw-100 align-items-center d-flex justify-content-center mx-auto" style="margin-top:1rem !important;">

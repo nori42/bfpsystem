@@ -5,7 +5,7 @@ use DateTime;
 
 class HelperFactory {
 
-    public static $establishmentCount = 1000;
+    public static $establishmentCount = 300;
     public static $buildingPlanCount = 200;
 
     public static function randomDate($minYear = 2019,$maxYear = 2023,$minMonth = 01, $maxMonth = 12){

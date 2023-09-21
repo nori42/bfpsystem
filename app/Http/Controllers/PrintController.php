@@ -165,7 +165,9 @@ class PrintController extends Controller
 
         error_log(Helper::getRepresentativeName($buildingPlan->owner_id));
 
-        ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::DisapporveBuildingPlan);
+        // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::DisapporveBuildingPlan);
+        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DisapporveBuildingPlan);
+
 
         return redirect('/fsecchecklist/print'.'/'.$buildingPlan->id);        
     }
@@ -183,8 +185,10 @@ class PrintController extends Controller
         $evaluation->save();
         $buildingPlan->save();
 
-        $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
-        ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
+        // $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+        // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
+        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::ApproveBuildingPlan);
+
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
     }

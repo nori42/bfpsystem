@@ -92,10 +92,12 @@
                         
                         if ($company->corporate_name != null && $person->last_name != null) {
                             $representative = $company->corporate_name . '/' . $personName;
-                        } elseif ($company->corporate_name == null) {
-                            $representative = $personName;
+                        }
+                        
+                        if ($person->last_name == null) {
+                            $representative = $company->corporate_name;
                         } else {
-                            $representative = $company->corproate_name;
+                            $representative = $personName;
                         }
                         
                     @endphp

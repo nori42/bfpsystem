@@ -1,6 +1,8 @@
 @props(['for'])
 
-
+@section('stylesheet')
+    @vite(['resources/css/components/search.css'])
+@endsection
 <div class="dashboardSearch">
     <div style="width:50%;">
         <h1 class="text-white text-center py-5 fw-bold" style="font-size: 2.5rem;">
@@ -22,7 +24,7 @@
                             class="form-control fs-4 rounded-2 bg-white text-uppercase" list="searchSuggestion"
                             autocomplete="off"
                             style="border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;">
-                        <button class="btn btn-primary bg-white fs-4"
+                        <button class="btn btn-subtleBlue bg-white fs-4"
                             style="border-top-left-radius: 0; border-bottom-left-radius: 0;"><i
                                 class="bi bi-search text-dark"></i></button>
                     </div>
@@ -49,7 +51,7 @@
     </div>
 </div>
 
-@section('scripts')
+@section('component-script')
     {{-- Fetching the establishments --}}
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/fetch.js') }}"></script>

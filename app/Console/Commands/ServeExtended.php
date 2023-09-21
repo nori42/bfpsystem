@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\BuildingPlan;
+use App\Models\Establishment;
 use App\Models\Inspection;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Console\ServeCommand;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +35,7 @@ class ServeExtended extends Command
         //
         error_log('Info:Setting server configuration.');
         //Update establishments that has expired inspections
-        $inspections = Inspection::where('expiry_date',date('Y-m-d'))->get();
+        $inspections = Inspection::whereDate('expiry_date','>=',now()->subDay(5))->whereDate('expiry_date','<=',now())->get();
         foreach ($inspections as $inspection) {
             $inspection->establishment->inspection_is_expired = true;
             $inspection->status = "Expired";
@@ -44,6 +47,10 @@ class ServeExtended extends Command
             $inspection->save();
         };
 
+        //remove from database all deleted model after 30 days
+        Establishment::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
+        User::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
+        BuildingPlan::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
         
         // Check for the firedrills
         switch(date('F-d',time())){

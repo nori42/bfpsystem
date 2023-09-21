@@ -21,7 +21,7 @@
         <div class="mt-3">
         </div>
 
-        <a class="btn btn-success border-0 w-100 fw-bold mt-4" href="/personnel/{{ $personnel->id }}">Info</a>
+        <a class="btn btn-primary border-0 w-100 fw-bold mt-4" href="/personnel/{{ $personnel->id }}">Info</a>
 
     </div>
 </div>

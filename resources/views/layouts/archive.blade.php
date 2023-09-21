@@ -15,7 +15,6 @@
                     <div class="text-secondary">List of deleted
                         {{ $currentRoute == 'fsec' ? 'building plans' : $currentRoute }}</div>
                 </div>
-                {{-- Disabled For The Mean Time --}}
                 <div>
                     <span>
                         <label class="fs-5 fw-semibold" for="establishment">Establishments</label>
@@ -40,7 +39,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('page-script')
     <script>
         function goTo(route) {
             document.querySelector('#content').innerHTML = '<h2 class="text-center text-secondary">Fetching data...</h2>'

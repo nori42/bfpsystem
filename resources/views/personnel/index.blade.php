@@ -74,7 +74,7 @@
                     <x-form.input label="Designation" name="designation" />
                 </fieldset>
 
-                <button class="btn btn-success w-25 float-end mt-3" onclick="openModal('addPersonnel')" type="submit">
+                <button class="btn btn-primary w-25 float-end mt-3" onclick="openModal('addPersonnel')" type="submit">
                     <span class="material-symbols-outlined fs-2 align-middle">
                         person_add
                     </span>

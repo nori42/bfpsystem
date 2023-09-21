@@ -58,7 +58,7 @@ class EstablishmentController extends Controller
         // $allOwnersJson = json_encode($allOwners);
 
 
-        return view('establishments.create',[
+        return view('establishments.createNew',[
             'page_title' => "Add Establishment"
             // 'owner' => $owner
         ]);
@@ -135,8 +135,8 @@ class EstablishmentController extends Controller
 
         $owner = Owner::find($establishment->owner_id);
 
-        $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->get();
-        $firedrills = Firedrill::where('establishment_id',$establishment->id)->whereNotNull('issued_on')->get();
+        $inspections = Inspection::where('establishment_id',$establishment->id)->whereNotNull('expiry_date')->orderBy('issued_on','asc')->get();
+        $firedrills = Firedrill::where('establishment_id',$establishment->id)->whereNotNull('issued_on')->orderBy('issued_on','asc')->get();
         
         $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
         $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
@@ -248,6 +248,7 @@ class EstablishmentController extends Controller
         
         $establishment->establishment_name = strtoupper($request->establishmentName);
         $establishment->substation = strtoupper($request->substation);
+        $establishment->occupancy = strtoupper($request->occupancy);
         $establishment->sub_type = strtoupper($request->subType);
         $establishment->building_type = strtoupper($request->buildingType);
         $establishment->no_of_storey = strtoupper($request->noOfStory );

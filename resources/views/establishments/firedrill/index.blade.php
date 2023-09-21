@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('stylesheet')
+    @vite(['resources/css/components/headingInfo.css'])
+@endsection
+
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
@@ -23,7 +27,7 @@
                         <x-tag bgColor="bg-danger" text="Expired Firedrill" />
                     @endif --}}
                 </div>
-                <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">
+                <button class="btn btn-primary mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">
                     <span class="material-symbols-outlined align-middle">
                         add
                     </span>
@@ -47,4 +51,8 @@
             <x-form.firedrillAdd :establishment="$establishment" />
         </x-pageWrapper>
     </div>
+@endsection
+
+@section('page-script')
+    @yield('component-scripts')
 @endsection

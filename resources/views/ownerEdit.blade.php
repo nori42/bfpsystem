@@ -25,7 +25,7 @@
                 <div class="d-flex justify-content-between">
                     <a href="/establishments/{{ $owner->establishment[0]->id }}" class="btn btn-outline-secondary mt-3 px-3"
                         type="submit">Cancel</a>
-                    <button class="btn btn-success mt-3 px-5" type="submit">Save</button>
+                    <button class="btn btn-primary mt-3 px-5" type="submit">Save</button>
                 </div>
             </form>
         </x-pageWrapper>

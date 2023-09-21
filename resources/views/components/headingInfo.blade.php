@@ -30,15 +30,15 @@
     <div>
         {{-- Establishment Info --}}
         <div class="position-relative d-inline-block" dropdown>
-            <button type="button" class="btn btn-outline-success"style="width:auto !important" data-dropdown-btn
-                onclick="toggleShow('establishmentDetail')"><span
-                    class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment Info</button>
+            <button type="button" class="btn btn-outline-primary"style="width:auto !important" dropdown-btn><span
+                    class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment
+                Info</button>
 
             <div class="dropdown-menus position-absolute p-3" id="establishmentDetail" dropdown-menu
-                style="display: none !important; min-width: 380px;">
+                style="min-width: 380px;">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-between"><span class="fs-4 fw-bold">Info</span><a
-                            class="btn btn-success my-0" href="/establishments/{{ $establishment->id }}">
+                            class="btn btn-primary my-0" href="/establishments/{{ $establishment->id }}">
                             Details</a>
                     </li>
                     <li><span class="fw-bold">Establishment Name: </span>{{ $establishment->establishment_name }}</li>
@@ -65,32 +65,32 @@
                 </ul>
             </div>
         </div>
-        {{-- Owner Info --}}
-        {{-- <div class="position-relative d-inline-block" dropdown>
-            <button type="button" class="btn btn-outline-success" style="width:auto !important"
-                onclick="openModal('ownerDetail')"><span
-                    class="material-symbols-outlined fs-3 align-middle">account_box</span>Owner Info</button>
-            <div class="dropdown-menus position-absolute p-3" id="ownerDetail" dropdown-menu
-                style="display: none !important; min-width: 380px;">
-                <ul class="list-unstyled">
-                    @if (auth()->user()->type != 'FIREDRILL')
-                        <li class="d-flex justify-content-between"><span class="fs-4 fw-bold">Info</span><a
-                                class="btn btn-success my-0" href="#">Edit
-                                Details</a>
-                        </li>
-                    @endif
-                    </li>
-                    <li><span class="fw-bold fs-5">Owner/Representative</li>
-                    @if ($personName != null)
-                        <li><span class="fw-bold">Name:</span> {{ $personName }}</li>
-                        <li><span class="fw-bold">Contact:</span> {{ $person->contact_no }}</li>
-                    @else
-                        <li><span class="fw-bold">Corporate:</span> {{ $company->corporate_name }}</li>
-                        <li><span class="fw-bold">Contact:</span> {{ $company->contact_no }}</li>
-                    @endif
-                </ul>
-            </div>
-        </div> --}}
 
     </div>
 </div>
+
+@section('component-scripts')
+    {{-- <script>
+        const menu = document.querySelector('#establishmentDetail')
+
+        function showInfo() {
+            if (getComputedStyle(menu)['opacity'] == 0) {
+
+                menu.style.pointerEvents = 'all';
+                menu.style.opacity = '1';
+            } else {
+                menu.style.pointerEvents = 'none';
+                menu.style.opacity = '0';
+            }
+
+        }
+        window.addEventListener('click', (ev) => {
+            if (document.querySelector('[dropdown-btn]') != ev.target && menu != ev.target.closest(
+                    '#establishmentDetail')) {
+                menu.style.opacity = '0';
+                menu.style.pointerEvents = 'none';
+
+            }
+        })
+    </script> --}}
+@endsection

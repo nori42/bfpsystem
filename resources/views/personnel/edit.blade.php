@@ -47,7 +47,7 @@
 
                 <div class="d-flex justify-content-between mt-4 align-items-center">
                     <a class="btn btn-outline-secondary" href="/users/{{ $personnel->user->id }}">Cancel</a>
-                    <button class="btn btn-success mt-4 px-5">Update</button>
+                    <button class="btn btn-primary mt-4 px-5">Update</button>
                 </div>
             </form>
         </x-pageWrapper>

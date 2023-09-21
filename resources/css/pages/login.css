@@ -1,14 +1,4 @@
-:root{
-    --primary-color:#672424;
-    --secondary-color:#1C3B64;
-    --secondary-color-dark:#21303D;
-    --success:#53A3D8;
-    --btn-link-hover:#C94747;
-}
-
-.rightPanel {
-
-}
+@import url(../global.css);
 
 .leftPanel {
     background-color: var(--secondary-color);
@@ -31,7 +21,4 @@
 .input{
     display: block;
     border-radius: 15px;
-}
-
-.label{
 }

@@ -1,4 +1,4 @@
-:root{
+/* :root{
     --primary-color:#672424;
     --secondary-color:#1C3B64;
     --secondary-color-dark:#21303D;
@@ -12,7 +12,7 @@
 }
 
 /* initial style */
-body {
+/* body {
     font-size: 16px !important;
     overflow: hidden;
     height: 100vh;
@@ -35,11 +35,11 @@ input, button, select{
 
 [form-input]{
     text-transform: uppercase;
-}
+} */ */
 
 
 /* style */
-nav {
+/* nav {
     background-color: var(--secondary-color-dark);
     min-width: 16%;
 }
@@ -48,7 +48,7 @@ nav {
     border-right: 10px solid #5675a8 !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
-}
+} */
 /* 
 
 .page-container, .page-content{
@@ -56,22 +56,22 @@ nav {
     height: 100%;
 } */
 
-.page-container {
+/* .page-container {
     overflow-y: auto;
 }
 
 .page-content {
     padding-bottom: 160px;
-}
+} */
 
 
-.top-panel {
+/* .top-panel {
     background-color: var(--top-panel);
     top: 0;
     z-index: 10;
-}
+} */
 
-.page-panel {
+/* .page-panel {
     background: rgb(6,16,31);
     background: linear-gradient(90deg, rgba(6,16,31,1) 0%, rgb(28, 59, 99) 100%);
     padding:1rem 3rem;
@@ -81,22 +81,9 @@ nav {
     color: white;
     font-weight: 500;
     font-size: 1.875rem;
-}
+} */
 
-.debug-div {
-    height: 100px;
-    background-color: green;
-}
-
-.debug {
-    border: 1px solid red !important;
-}
-
-.debug-2 {
-    border: 1px solid blue !important;
-}
-
-nav a{
+/* nav a{
     position: relative;
     z-index: 1;
 }
@@ -127,9 +114,9 @@ nav a:hover::before {
     fill: white;
     display: inline !important;
     margin-right: .8rem;
-}
+} */
 
-.btn-profile:hover {
+/* .btn-profile:hover {
     background-color: gray !important;
 }
 
@@ -138,16 +125,16 @@ nav a:hover::before {
     height: 28px;
     fill: white;
     display: inline !important;
-}
+} */
 
-.dropdown-profile-menu {
+/* .dropdown-profile-menu {
     position: absolute;
     left: 0;
     background-color: var(--secondary-color-dark);
     z-index: 9999;
-}
+} */
 
-.dropdown-menus {
+/* .dropdown-menus {
     position: absolute;
     background-color: #e5e5e5;
     z-index: 9999;
@@ -155,16 +142,16 @@ nav a:hover::before {
     color: var(--success);
     box-shadow: 1px 1px 6px #b5b5b5;
     transition: all 0.3s ease;
-}
+} */
 
 /* .dropdown-menus a:hover{
     background-color: var(--success) !important;
     color: var(--white);
 } */
-
+/* 
 .dropdown-profile-menu .btn:hover {
     background-color: gray !important;
-}
+} */
 
 .add-record-form label {
     display: block;
@@ -247,7 +234,7 @@ nav .btn {
 }
 
 
-
+/* 
 .dashboardSearch {
     position: relative;
     height: 70%;
@@ -257,7 +244,7 @@ nav .btn {
     justify-content: center;
     align-items: center;
     z-index: 1;
-}
+} */
 /* 
 .dashboardSearch::before {
     content: "";
@@ -312,69 +299,13 @@ visibility: visible;
     to {background-color: white;}
   }
 
-.notif-time {
+/* .notif-time {
     color: #bfd4ee;
-}
-
-/* Utilities */
-.bg-primary-nb {
-    background-color: #35547c;
-}
-.w-85{
-    width: 85%;
-}
-
-.w-90{
-    width: 90%;
-}
-
-.w-60{
-    width: 60%;
-}
-
-.w-35{
-    width: 35%;
-}
-
-.w-20{
-    width: 20%;
-}
-
-.h-85{
-    height: 85%;
-}
-
-.h-90{
-    height: 90%;
-}
-
-.h-60{
-    height: 60%;
-}
-
-.h-35{
-    height: 35%;
-}
-
-.h-20{
-    height: 20%;
-}
-
-.btn-primary {
-    background-color: #0F2D55 !important;
-}
-
-.ml-auto {
-    margin-left: auto !important;
-}
-
-.mr-auto {
-    margin-right: auto !important;
-}
+} */
 
 /* Table styles global */
 
-.table tbody tr:nth-child(odd) {
+/* .table tbody tr:nth-child(odd) {
     background-color: #edeff3 !important;
 }
 
@@ -385,7 +316,7 @@ visibility: visible;
 
 .table thead {
     color: var(--secondary-color) !important;
-}
+} */
 /* Loadiing Animation */
 
 /* 

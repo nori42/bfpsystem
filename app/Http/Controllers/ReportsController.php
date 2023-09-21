@@ -77,18 +77,6 @@ class ReportsController extends Controller
 
     public function show_fsec(Request $request){
         $selfReport = $request->selfReport ? true : false;
-        
-        // $buildingPlans = BuildingPlan::join('evaluations','building_plans.id','=','evaluations.building_plan_id')
-        //     ->join('buildings','building_plans.building_id','=','buildings.id')
-        //     ->join('owners','building_plans.owner_id','=','owners.id')
-        //     ->join('person','owners.person_id','=','person.id')
-        //     ->join('corporates','owners.corporate_id','=','corporates.id')
-        //     ->select()
-        //     ->where('evaluations.remarks','APPROVED')
-        //     ->whereMonth('evaluations.created_at',01)
-        //     ->whereYear('evaluations.created_at',2022)
-        //     ->get();
-
         if($selfReport){
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])

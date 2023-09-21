@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
-
+        {{-- {{ dd($inspections) }} --}}
         @php
             // Check if establishment detail is complete
             $incompleteDetail = false;
@@ -18,6 +18,7 @@
             $inspectionCount = 0;
             $firedrillCount = 0;
             $lastInpsectionIssued = $inspections->last() ? date('m/d/Y', strtotime($inspections->last()->issued_on)) : 'N/A';
+            
             $lastFiredrillIssued = $firedrills->last() ? date('m/d/Y', strtotime($firedrills->last()->issued_on)) : 'N/A';
             $firedrillCountThisYear = count($firedrills->filter(fn($firedrill) => $firedrill->year == date('Y')));
             // count will throw error if checks a null value
@@ -44,7 +45,7 @@
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div class="{{ auth()->user()->type == 'ADMINISTRATOR' ? 'w-100' : '' }}">
                         <div class="d-flex align-items-center">
-                            <a class="btn btn-outline-success" href="/establishments/{{ $establishment->id }}/fsic">Fire
+                            <a class="btn btn-outline-primary" href="/establishments/{{ $establishment->id }}/fsic">Fire
                                 Safety
                                 Inspection(FSIC)</a>
                             <div>
@@ -65,7 +66,7 @@
                 @if (auth()->user()->type == 'FIREDRILL' || auth()->user()->type == 'ADMINISTRATOR')
                     <div class="{{ auth()->user()->type == 'ADMINISTRATOR' ? 'w-100' : '' }}">
                         <div class="d-flex align-items-center">
-                            <a class="btn btn-outline-success"
+                            <a class="btn btn-outline-primary"
                                 href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
                             <div>
                                 {{-- @if ($firedrillCount == 0)
@@ -91,7 +92,7 @@
                 </div>
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div>
-                        <a class="btn btn-success px-5" href="/establishments/{{ $establishment->id }}/edit">
+                        <a class="btn btn-primary px-5" href="/establishments/{{ $establishment->id }}/edit">
                             <i class="bi bi-pencil-fill"></i>
                             Edit</a>
                         <button class="btn btn-danger px-2" onclick="openModal('deleteModal')">
@@ -147,7 +148,7 @@
                 <h4 class="my-4">Owner Detail</h4>
 
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
-                    <a class="btn btn-success px-5" href="/owner/{{ $establishment->owner->id }}/edit">
+                    <a class="btn btn-primary px-5" href="/owner/{{ $establishment->owner->id }}/edit">
                         <i class="bi bi-pencil-fill"></i>
                         Edit</a>
                 @endif
@@ -200,16 +201,16 @@
                 <div class="d-flex justify-content-end gap-2">
                     <form action="/establishments/{{ $establishment->id }}/delete" method="POST">
                         @csrf
-                        <button class="btn btn-danger px-2" onclick="showLoading()">Yes</button>
+                        <button class="btn btn-danger px-2" onclick="showLoading()">Delete</button>
                     </form>
-                    <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
+                    <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">Cancel</button>
                 </div>
             </div>
         </x-modal>
     </div>
 @endsection
 
-@section('scripts')
+@section('page-script')
     <script type="module">
         window.showLoading = () => {
             toggleShow('loading-bar-spinner')

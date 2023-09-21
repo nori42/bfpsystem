@@ -14,18 +14,6 @@ class DashboardController extends Controller
 {
     public function index(){
 
-        // Establishment::onlyTrashed()->find(2389)->restore();
-        // Establishment::onlyTrashed()->find(1)->restore();
-
-        // User::onlyTrashed()->find(3)->restore();
-        // Personnel::onlyTrashed()->find(2)->restore();
-        // BuildingPlan::onlyTrashed()->find(1)->restore();
-
-        // Establishment::find(2389)->delete();
-        // Establishment::where('id','<=',30)->delete();
-        // Establishment::onlyTrashed()->where('id','<=',30)->restore();
-        
-
         $yearNow = date('Y');
         $monthNow = date('m');
 
@@ -43,7 +31,8 @@ class DashboardController extends Controller
             'Pardo' => FiredrillHelper::getIssuedFiredrillCount('PARDO',$yearNow,$monthNow),
             'Pari-an' => FiredrillHelper::getIssuedFiredrillCount('PARI-AN',$yearNow,$monthNow),
             'San Nicolas' => FiredrillHelper::getIssuedFiredrillCount('SAN NICOLAS',$yearNow,$monthNow),
-            'Talamban' => FiredrillHelper::getIssuedFiredrillCount('TALAMBAN',$yearNow,$monthNow)
+            'Talamban' => FiredrillHelper::getIssuedFiredrillCount('TALAMBAN',$yearNow,$monthNow),
+            'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
         ];
 
         $fsicIssuedSubstation = [
@@ -55,7 +44,8 @@ class DashboardController extends Controller
             'Pardo' => FSICHelper::getIssuedFSICCount('PARDO',$yearNow,$monthNow),
             'Pari-an' => FSICHelper::getIssuedFSICCount('PARI-AN',$yearNow,$monthNow),
             'San Nicolas' => FSICHelper::getIssuedFSICCount('SAN NICOLAS',$yearNow,$monthNow),
-            'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$yearNow,$monthNow)
+            'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$yearNow,$monthNow),
+            'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
         ];
 
         $substationTotalCountFiredrill = 0;

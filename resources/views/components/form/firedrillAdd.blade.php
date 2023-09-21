@@ -61,8 +61,8 @@
             </div>
         </fieldset>
         <div class="d-flex justify-content-end mt-3 gap-2">
-            <button class="btn btn-success" type="submit" name="action" value="add">Add</button>
-            <button class="btn btn-success" type="submit" name="action" value="addandprint">Print</button>
+            <button class="btn btn-primary" type="submit" name="action" value="add">Add</button>
+            <button class="btn btn-primary" type="submit" name="action" value="addandprint">Print</button>
         </div>
     </form>
 </x-modal>

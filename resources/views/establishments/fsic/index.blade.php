@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('stylesheet')
+    @vite(['resources/css/components/headingInfo.css'])
+@endsection
+
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
@@ -27,7 +31,7 @@
                         <x-tag bgColor="bg-danger" text="Expired Inspection" />
                     @endif
                 </div>
-                <button class="btn btn-success mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
+                <button class="btn btn-primary mt-3" id="addInspectionBtn" onclick="openModal('addInspectionModal')">
                     <span class="material-symbols-outlined align-middle">
                         assignment_add
                     </span>
@@ -39,6 +43,7 @@
                     <table class="table">
                         <thead class="sticky-top top bg-white z-0 border-5 border-dark-subtle textPrimary">
                             <th>Inspection Date</th>
+                            <th>Issued Date</th>
                             <th>OR No.</th>
                             <th>Registration Status</th>
                             <th>Expiry Date</th>
@@ -50,6 +55,11 @@
                                 <tr
                                     class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
                                     <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
+                                    @php
+                                        
+                                    @endphp
+                                    <td>{{ $inspection->issued_on != null ? date('m/d/Y', strtotime($inspection->issued_on)) : '' }}
+                                    </td>
                                     <td>{{ $inspection->receipt->or_no }}</td>
                                     <td>{{ $inspection->registration_status }}</td>
                                     <td>{{ $inspection->expiry_date ? date('m/d/Y', strtotime($inspection->expiry_date)) : '' }}
@@ -57,7 +67,7 @@
                                     <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
                                         {{ $inspection->status }}</td>
                                     <td class="text-center">
-                                        <button class="btn fw-bold btn-success"
+                                        <button class="btn fw-bold btn-primary"
                                             onclick="openModal(`inspection{{ $inspection->id }}`)"
                                             value={{ $inspection->id }}>
                                             Details
@@ -82,4 +92,8 @@
             <x-inspectionForm :establishment="$establishment" inputAttr="input-inspect" />
         </x-modal>
     </div>
+@endsection
+
+@section('page-script')
+    @yield('component-scripts')
 @endsection

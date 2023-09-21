@@ -1,0 +1,12 @@
+@import url(autocomplete.css);
+
+.dashboardSearch {
+    position: relative;
+    height: 70%;
+    padding:6rem;
+    background-color: var(--top-panel);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}

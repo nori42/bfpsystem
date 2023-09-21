@@ -16,7 +16,7 @@
     </div>
 
     <div class="d-flex justify-content-end pt-3">
-        <button class="btn btn-success" id="addPaymentBtn" onclick="openModal('addAttachmentModal')">
+        <button class="btn btn-primary" id="addPaymentBtn" onclick="openModal('addAttachmentModal')">
             <span class="material-symbols-outlined align-middle">
                 attach_file
             </span>

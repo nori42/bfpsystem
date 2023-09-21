@@ -15,7 +15,7 @@
         @endif
     </td>
     <td>
-        <button class="btn fw-bold btn-success" onclick="openModal(`firedrill{{ $firedrill->id }}`)">
+        <button class="btn fw-bold btn-primary" onclick="openModal(`firedrill{{ $firedrill->id }}`)">
             Details
         </button>
     </td>

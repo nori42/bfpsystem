@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
+@section('stylesheet')
+    @vite(['resources/css/pages/buildingplan.show.css'])
+@endsection
 @section('content')
     @php
         $building = $buildingPlan->building;
@@ -45,7 +48,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="buildingPlanId" value="{{ $buildingPlan->id }}">
-                        <button class="btn btn-success"> Release Certificate</button>
+                        <button class="btn btn-primary"> Release Certificate</button>
                     </form>
                 @endif
 
@@ -54,11 +57,8 @@
                     <div class="d-flex gap-2">
 
 
-                        <a class="btn btn-success px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
+                        <a class="btn btn-primary px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
                             <i class="bi bi-pencil-fill mx-1"></i>Update Application</a>
-
-                        <button class="btn btn-danger" onclick="openModal('deleteModal')">
-                            <i class="bi bi-trash3-fill"></i></i>Delete</button>
 
                         <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
                             <x-spinner :hidden="true" />
@@ -68,32 +68,36 @@
                                 <div class="d-flex justify-content-end gap-2">
                                     <form action="/fsec/{{ $buildingPlan->id }}/delete" method="POST">
                                         @csrf
-                                        <button class="btn btn-danger px-2" onclick="showLoading()">Yes</button>
+                                        <button class="btn btn-danger px-2" onclick="showLoading()">Delete</button>
                                     </form>
-                                    <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
+                                    <button class="btn btn-secondary px-4"
+                                        onclick="closeModal('deleteModal')">Cancel</button>
                                 </div>
                             </div>
                         </x-modal>
-
-                        <div class="border border-secondary border-1" style="width: 1px">
-
-                        </div>
                         <div class="position-relative py-0">
-                            <button class="btn btn-success px-2" onclick="toggleShow('actionMenu')">Action <i
+                            <button class="btn btn-primary px-2" onclick="toggleShow('actionMenu')">Action <i
                                     class="bi bi-caret-down-fill"></i></button>
-                            <div id="actionMenu" class="dropdown-menus py-3 px-2 border-1 text-white" dropdown-menu
+                            <div id="actionMenu" class="action-menus py-3 px-2 border-1 text-white" dropdown-menu
                                 style="display:none !important; width:180px; left:calc(-1 * (100% + 10px));">
                                 <ul class="list-unstyled">
 
                                     <li><a href="/fsec/print/{{ $buildingPlan->id }}"
-                                            class="btn btn-success w-100 text-start"><i
+                                            class="btn btn-primary w-100 text-start"><i
                                                 class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
                                     {{-- <li><a href="/fsecchecklist/print/{{ $buildingPlan->id }}"
-                                            class="btn btn-success w-100 mt-2 text-start"><i
+                                            class="btn btn-primary w-100 mt-2 text-start"><i
                                                 class="bi bi-clipboard-check mx-2 fs-5"></i>Checklist</a></li> --}}
                                     <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                             class="btn btn-outline-danger w-100 mt-2 text-start"><i
                                                 class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
+
+                                    <hr style="color: #1a1a1a;">
+
+                                    <li>
+                                        <button class="btn btn-danger w-100" onclick="openModal('deleteModal')">
+                                            <i class="bi bi-trash3-fill"></i></i>Delete</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -176,7 +180,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('page-script')
     <script type="module">
         window.showLoading = () => {
             toggleShow('loading-bar-spinner')

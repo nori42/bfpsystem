@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center gap-4">
                 <div>
                     <span class="d-block fw-bold fs-3">Activity log</span>
-                    <span class="text-secondary">List of all user's activity</span>
+                    <span class="text-secondary">List of user's activity</span>
                 </div>
                 <form action="/activity" class="d-flex align-items-center gap-2" method="GET">
                     <label class="fw-bold" for="fromDate">From</label>
@@ -24,7 +24,7 @@
                     <label class="fw-bold" for="fromDate">To</label>
                     <input class="form-control" type="date" id="activityDateTo" name="activityDateTo"
                         style="width:18rem;" value="" required>
-                    <button id="btnViewActivity" class="btn btn-success">View Activity</button>
+                    <button id="btnViewActivity" class="btn btn-primary">View Activity</button>
                 </form>
             </div>
 

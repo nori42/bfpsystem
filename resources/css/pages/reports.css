@@ -1,0 +1,19 @@
+@import url(../global.css);
+
+th,td {
+    white-space: nowrap;
+}
+
+th {
+    cursor: pointer;
+}
+
+th:hover{
+    color: #4387e0;
+}
+
+.tableContainer {
+    max-width: 100%;
+    overflow-y: auto;
+    padding: 1rem 0;
+}

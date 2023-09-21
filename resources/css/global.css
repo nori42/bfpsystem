@@ -1,0 +1,74 @@
+@import url(colorVariables.css);
+@import url(utilities.css);
+@import url(googlefonts.css);
+@import url(./components/modal.css);
+@import url(./components/toast.css);
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url(../fonts/Inter/Inter-Regular.ttf);
+}
+
+/* initial style */
+body {
+    font-size: 16px !important;
+    overflow: hidden;
+    height: 100vh;
+    font-family: Inter, Arial, Helvetica, sans-serif !important;
+}
+
+*, *::after , *::before {
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+input, button, select{
+    font:inherit;
+}
+
+
+/* component styles */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color)!important;
+    border-color: var(--primary-color) !important;
+    font-weight: bold !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color)!important;
+    color: white !important;
+}
+
+
+/* table style global */
+.table tbody tr:nth-child(odd) {
+    background-color: #edeff3 !important;
+}
+
+
+.table tbody tr:hover {
+    background-color: #ddecff !important;
+}
+
+.table thead {
+    color: var(--secondary-color) !important;
+}
+
+/* form-wrapper global */
+.form-wrapper{
+    background-color: var(--primary-subtle);
+}
+
+.form-wrapper label{
+    font-weight: bold;
+}

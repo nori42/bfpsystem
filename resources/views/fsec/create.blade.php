@@ -21,7 +21,7 @@
                         <x-form.input type="text" label="Middle Name" name="middleName" />
                         <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" />
                     </div>
-                    <legend> <span class="text-secondary"> Or</span></legend>
+                    {{-- <legend> <span class="text-secondary"> Or</span></legend> --}}
                     <x-form.input class="w-50" type="text" label="Corporate Name" name="corporateName" />
                 </fieldset>
 

@@ -7,20 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }}</title>
 
-    {{-- <link rel="stylesheet" href="/css/styles.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-utilities.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="/css/bootstrap-5.3.0/css/bootstrap-grid.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/googlefonts.css"> --}}
-    @vite(['resources/sass/main.scss'])
-    {{-- <script src="/js/tailwind.js"></script> --}}
+    @vite(['resources/sass/bootstrap.scss', 'resources/css/layout.css'])
+    {{-- @vite('resources/sass/main.scss') --}}
+    @yield('stylesheet')
 </head>
 
 <body>
     <div class="d-flex h-100 w-100">
         {{-- Left Panel --}}
-        <nav class="d-flex flex-column">
+        <nav class="overflow-auto">
             <!--Nav Heading  -->
             <div class="p-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
@@ -54,8 +49,8 @@
                 {{-- <h1 class="fs-4 text-white fw-bold mx-5 mt-1">{{ $page_title }}</h1> --}}
                 <!-- notification button -->
                 @if (auth()->user()->type == 'ADMINISTRATOR' || auth()->user()->type == 'FSIC')
-                    <div class="position-relative py-0" data-dropdown-nb>
-                        <button class="btn btn-profile rounded-0" onclick="toggleShow('notificationMenu')">
+                    <div class="position-relative py-0" dropdown>
+                        <button class="btn btn-top-panel rounded-0" dropdown-btn>
                             <i class="bi bi-bell-fill text-white fs-4"></i>
                         </button>
 
@@ -110,8 +105,8 @@
                 @endif
 
                 <!-- profile button -->
-                <div class="position-relative py-0" data-dropdown-nb style="margin-right: 10% !important;">
-                    <button class="btn btn-profile rounded-0" onclick="toggleShow('dropdownMenu')">
+                <div class="position-relative py-0" dropdown style="margin-right: 10% !important;">
+                    <button class="btn btn-top-panel rounded-0" dropdown-btn>
                         <i class="bi bi-person-fill text-white fs-3"></i>
                         <!-- icon -->
                         <i class="bi bi-caret-down-fill text-white fs-5"></i>
@@ -136,10 +131,12 @@
                         <hr class="text-white">
                         <!-- drop down links -->
                         <div class="d-inline flex-column">
-                            <a href="/users/{{ auth()->user()->id }}"
-                                class="btn w-100 text-start text-white fw-semibold"><i
-                                    class="bi bi-person-fill text-white fs-5"></i> <span class="mx-3">
-                                    Account</span></a>
+                            @if (auth()->user()->id != 1)
+                                <a href="/users/{{ auth()->user()->id }}"
+                                    class="btn w-100 text-start text-white fw-semibold"><i
+                                        class="bi bi-person-fill text-white fs-5"></i> <span class="mx-3">
+                                        Account</span></a>
+                            @endif
                             @if (auth()->user()->type == 'ADMINISTRATOR')
                                 <a href="/settings" class="btn w-100 text-start text-white fw-semibold"><i
                                         class="bi bi-gear-fill fs-5"></i> <span class="mx-3">Print
@@ -170,9 +167,15 @@
                 <footer></footer>
             </div>
         </div>
+        <script type="module">
+            window.env = {
+                APP_URL: "{{ env('APP_URL') }}"
+            }
+        </script>
 
         @vite(['resources/js/app.js'])
-        @yield('scripts')
+        @yield('component-script')
+        @yield('page-script')
     </div>
 
 </body>

@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\DB;
 class FsecController extends Controller
 {
     public function index(Request $request){
-
-        return view('fsec.index');
+        $buildingPlans = BuildingPlan::where('status','PENDING')->orderBy('series_no','desc')->get();
+        return view('fsec.index',[
+            'buildingPlans' => $buildingPlans
+        ]);
     }
 
     public function create(){
@@ -78,7 +80,7 @@ class FsecController extends Controller
         $buildingPlan->building_id = $building->id;
         $buildingPlan->receipt_id = $receipt->id;
         $buildingPlan->save();
-
+        
         ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::AddBuildingPlan);
 
         return redirect('/fsec'.'/'.$buildingPlan->id);
