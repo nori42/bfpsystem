@@ -1,0 +1,23 @@
+@import url(../colorVariables.css);
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.modal-content {
+    background-color: var(--primary-subtle);
+}
+
+.modal label {
+    font-weight: bold !important;
+}
+
+.record-highlight td{
+    animation: newrecord 2s 0s;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes newrecord {
+    from {background-color: #39c839;}
+    to {background-color: white;}
+  }

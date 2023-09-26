@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('firedrills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('control_no')->nullable();
+            $table->string('control_no')->unique()->nullable();
             $table->string('validity_term')->nullable();
             $table->date('date_claimed')->nullable();
-            $table->string('issued_on')->nullable();
-            $table->string('date_made')->nullable();
-            $table->enum('term_type',['SEMESTER','QUARTER']);
+            $table->date('issued_on')->nullable();
+            $table->date('date_made')->nullable();
+            $table->enum('term_type',['SEMESTER','QUARTERLY']);
             $table->string('claimed_by')->nullable();
             $table->string('year')->nullable();
             $table->foreignIdFor(User::class)->nullable();

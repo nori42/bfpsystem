@@ -257,15 +257,6 @@ nav .btn {
     z-index: -1;
 } */
 
-.record-highlight{
-    background-color: #39c839;
-    animation: newrecord 0.5s 2s;
-    animation-fill-mode: forwards;
-}
-
-.info-detail:hover {
- background-color: #cecece;
-}
 
 /* Tooltip container */
 .tooltip-nb {
@@ -293,11 +284,6 @@ left: 100%;
 .tooltip-nb:hover .tooltiptext-nb {
 visibility: visible;
 }
-  
-@keyframes newrecord {
-    from {background-color: #39c839;}
-    to {background-color: white;}
-  }
 
 /* .notif-time {
     color: #bfd4ee;

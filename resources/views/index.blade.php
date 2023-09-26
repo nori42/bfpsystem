@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
     {{-- CSS --}}
@@ -11,6 +11,10 @@
 </head>
 
 <body>
+    @isset($toastMssg)
+        <x-toast :message="$toastMssg" />
+    @endisset
+
     <div class="d-flex vh-100 vw-100">
         <div class="leftPanel w-100 ">
             <h2 class="motto">To Save Live And Properties</h2>

@@ -22,7 +22,7 @@
                     <div class="d-flex">
                         <input type="text" id="search" name="search"
                             class="form-control fs-4 rounded-2 bg-white text-uppercase" list="searchSuggestion"
-                            autocomplete="off"
+                            autocomplete="off" placeholder="SEARCH"
                             style="border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;">
                         <button class="btn btn-subtleBlue bg-white fs-4"
                             style="border-top-left-radius: 0; border-bottom-left-radius: 0;"><i

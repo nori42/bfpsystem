@@ -41,26 +41,30 @@
         @csrf
         @method('PUT')
     </form>
-    <div class="editToolBox">
-        <button class="btnTools button" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
-        <button class="btnTools button" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
-        {{-- <button class="btnTools button" id="btnMove" onclick="handleMove(this)">Move</button> --}}
-    </div>
+
+    @if ($inspection->issued_on == null)
+        <div class="editToolBox">
+            <button class="btnTools button" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
+            <button class="btnTools button" id="btnEdit" onclick="handleEdit(this)">Add Note</button>
+            {{-- <button class="btnTools button" id="btnMove" onclick="handleMove(this)">Move</button> --}}
+        </div>
+    @endif
 
     <div class="nav">
         <a id="back" href="/establishments/{{ $establishment->id }}/fsic">
             Back
         </a>
-        <button id="printBtn" class="button" onclick="printOnly(printCert)">
-            <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
-                style="background-color: #FFC900;">print</span>
-        </button>
+        @if ($inspection->issued_on == null)
+            <button id="printBtn" class="button" onclick="printOnly(printCert)">
+                <div>Print Certificate</div><span class="material-symbols-outlined print-ico"
+                    style="background-color: #FFC900;">print</span>
+            </button>
+        @endif
         <div class="printby">
             <strong>Issued For: </strong> <span>{{ $inspection->registration_status }}</span>
         </div>
         <button id='btnDone' class="btn-done d-none" onclick="printDone()">Done &#10004;</button>
     </div>
-
     <div id="printablePage">
         <div data-draggable="true" class="header bold">
             <div>Cebu City Fire Office</div>
@@ -69,8 +73,14 @@
             <div>Email Address: cebucityfsn@yahoo.com</div>
         </div>
 
+        @if ($inspection->issued_on != null)
+            <div data-draggable="true" class="fsic-no bold">
+                {{ $inspection->fsic_no }}
+            </div>
+        @endif
+
         <div data-draggable="true" class="date-container bold">
-            {{ $details['dateToday'] }}
+            {{ $inspection->issued_on == null ? $details['dateToday'] : date('F d, Y', strtotime($inspection->issued_on)) }}
         </div>
 
 
@@ -96,7 +106,8 @@
                 <div class="check">&#x2714;</div>
                 <div class="highlight-container">
                     <div id="new" class="highlight {{ $registrationStatus == 'NEW' ? '' : 'hidden' }}"></div>
-                    <div id="renewal" class="highlight {{ $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}"></div>
+                    <div id="renewal" class="highlight {{ $registrationStatus == 'RENEWAL' ? '' : 'hidden' }}">
+                    </div>
                 </div>
             </div>
 
@@ -108,7 +119,7 @@
                     @endif --}}
                     {{-- {{ $inspection->issued_for }} --}}
                     <div data-draggable="true" data-editable="true" class="others-info">
-                        <span>&nbsp;</span>
+                        <span>&nbsp; </span>
                     </div>
                 </div>
             </div>
@@ -130,10 +141,6 @@
                 <span>{{ $establishment->address }}</span>
             @endif
         </div>
-        {{-- 
-        <div data-draggable="true" class="issued-for bold">
-            <span> </span>
-        </div> --}}
 
         <div class="more-info bold" data-draggable="true" data-editable="true">
             <span>&nbsp;</span>
@@ -142,7 +149,7 @@
             <span>&nbsp;</span>
         </div>
         <div data-draggable="true" class="validity bold">
-            <span>{{ $details['expiryDate'] }}</span>
+            <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('F d, Y', strtotime($inspection->expiry_date)) }}</span>
         </div>
 
         <div data-draggable="true" class="fc-fee bold">
@@ -166,6 +173,19 @@
             document.querySelector('#btnDone').classList.remove('d-none')
         }
     </script>
+    {{-- Disable print if already printed --}}
+    @if ($inspection->issued_on != null)
+        <script>
+            window.addEventListener("beforeprint", (event) => {
+                const printPage = document.querySelector("#printablePage");
+                printPage.innerHTML =
+                    `<h1 class="text-center">Print is not allowed. Reload the page to re-view print</h1>`;
+                console.log(getComputedStyle(printPage));
+                printPage.style.background = "none";
+
+            });
+        </script>
+    @endif
 </body>
 
 </html>

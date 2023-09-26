@@ -3,7 +3,7 @@ import substation from "../selectoptions/substations";
 import buildingType from "../selectoptions/buldingstructure";
 import barangay from "../selectoptions/barangays";
 
-export const populateEstabSelectOptions = () => {
+export const populateSelectOptions = () => {
     const selects = selectAll("select");
     const occupancy = Object.keys(occupancies);
 
@@ -29,16 +29,18 @@ export const populateEstabSelectOptions = () => {
         });
     });
 
-    addEvent("change", select("#occupancy"), () => {
-        const options = occupancies[select("#occupancy").value].subtype;
-        select("#subType").innerHTML = "";
-        options.forEach((option) => {
-            const optionEl = document.createElement("option");
-            optionEl.setAttribute("value", option);
-            optionEl.innerHTML = option;
-            select("#subType").appendChild(optionEl);
-        });
+    if (select("#occupancy") != null) {
+        addEvent("change", select("#occupancy"), () => {
+            const options = occupancies[select("#occupancy").value].subtype;
+            select("#subType").innerHTML = "";
+            options.forEach((option) => {
+                const optionEl = document.createElement("option");
+                optionEl.setAttribute("value", option);
+                optionEl.innerHTML = option;
+                select("#subType").appendChild(optionEl);
+            });
 
-        select("#subType").selectedIndex = 0;
-    });
+            select("#subType").selectedIndex = 0;
+        });
+    }
 };

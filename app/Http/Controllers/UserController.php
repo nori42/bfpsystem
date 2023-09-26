@@ -38,7 +38,10 @@ class UserController extends Controller
 
             $user->save();
 
-            ActivityLogger::userLog(auth()->user()->id,$user->type,$user->username);
+            $activityLog = "Added new User: $user->username Type $user->type";
+            
+            // ActivityLogger::userLog(auth()->user()->id,$user->type,$user->username);
+            ActivityLogger::logActivity($activityLog,'USERS');
         }
         catch(QueryException $e)
         {   

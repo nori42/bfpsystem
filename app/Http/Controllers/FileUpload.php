@@ -73,7 +73,7 @@ class FileUpload extends Controller
         
         if($request->attachFor == 'fsic')
         {
-            return redirect('/establishments/fsic/attachment/'.$request->id.'/fsic')->with(['toastMssg' => 'File Uploaded']);
+            return redirect('/establishments'.'/'.$request->id.'/'.'fsic/attachment')->with(['toastMssg' => 'File Uploaded']);
         }
         else if($request->attachFor =='fsec')
         {

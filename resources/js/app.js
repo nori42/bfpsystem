@@ -1,6 +1,11 @@
 import scriptModule from "../js/script.js";
 import scriptModal from "../js/modal.js";
-import { closeDropdownOnClick, addEventDropdown } from "../js/dropdown.js";
+import {
+    closeDropdownOnClick,
+    addEventDropdown,
+    closeDropdownCancel,
+} from "../js/dropdown.js";
+import * as bootstrap from "bootstrap";
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
@@ -10,6 +15,7 @@ window.onclick = function (event) {
 
     //Dropdown CloseEvent
     closeDropdownOnClick(event);
+    closeDropdownCancel(event);
 
     //If clicked inside the modal content dont close
     if (modalContent !== null) return;

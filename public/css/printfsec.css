@@ -27,16 +27,11 @@ body{
     width: 8.5in;
     height: 11in;
     padding: 0;
-    /* background-image: url(../img/fsec.png); */
+    background-image: url(../img/fsec.png);
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:cover;
-    
 }
 
-li{
-    list-style-type: none;
-    padding: 2px 0;
-}
 
 .header{
     text-align: center;

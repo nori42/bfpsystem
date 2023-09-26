@@ -13,11 +13,11 @@
 
 <body>
 
-    <form id="print" action="/establishments/firedrill/print/{{ $firedrill->id }}" method="POST">
+    {{-- <form id="print" action="/establishments/firedrill/print/{{ $firedrill->id }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="newControlNo" value="{{ $controlNo }}">
-    </form>
+    </form> --}}
     {{-- <div class="editToolBox">
         <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Hide Certifcate</button>
         <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
@@ -37,11 +37,18 @@
         <div class="printby">
             <strong>Issued For: </strong> <span>Firedrill</span>
         </div>
-        @if ($firedrill->issued_on)
-            <button id='btnDone' class="btn-done d-none" onclick="back()">Done &#10004;</button>
-        @else
-            <button id='btnDone' class="btn-done d-none" onclick="submitPrint()">Done &#10004;</button>
-        @endif
+
+        <form id="print" action="/establishments/firedrill/print/{{ $firedrill->id }}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="newControlNo" value="{{ $controlNo }}">
+
+            @if ($firedrill->issued_on)
+                <button id='btnDone' class="btn-done d-none" name="action" value="reprint">Done &#10004;</button>
+            @else
+                <button id='btnDone' class="btn-done d-none" name="action" value="print">Done &#10004;</button>
+            @endif
+        </form>
     </div>
 
     <div id="printablePage">
@@ -49,7 +56,7 @@
         @php
             $establishment = $firedrill->establishment->establishment_name;
             $address = $firedrill->establishment->address;
-            $issuedOn = ['day' => date('dS', strtotime($firedrill->issued_on)), 'month' => date('F', strtotime($firedrill->issued_on))];
+            $issuedOn = ['day' => date('jS', strtotime($firedrill->issued_on)), 'month' => date('F', strtotime($firedrill->issued_on))];
             $validity = $firedrill->validity_term . ' ' . $firedrill->year;
             $receipt = $firedrill->receipt;
             $payment = ['orNo' => $receipt->or_no, 'amountPaid' => $receipt->amount, 'datePayment' => date('m/d/Y', strtotime($receipt->date_of_payment))];
@@ -64,11 +71,6 @@
             {{ $controlNo }}
         </div>
 
-        @php
-            if (session('nameExtension')) {
-                $establishment = $establishment . ' ' . strtoupper(session('nameExtension'));
-            }
-        @endphp
         <div data-draggable="true" id="estabName" class="establishment-name bold" contenteditable="true">
             <span>{{ $establishment }}</span>
         </div>

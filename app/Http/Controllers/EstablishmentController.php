@@ -14,6 +14,7 @@ use App\Models\Owner;
 use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use PHPUnit\TextUI\Help;
 
 class EstablishmentController extends Controller
@@ -120,8 +121,15 @@ class EstablishmentController extends Controller
         $establishment->save();
 
         //Added activity log
-        ActivityLogger::establishmentLog($establishment->establishment_name,Activity::AddEstablishment);
+        // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::AddEstablishment);
+        $logMessage = "Added new establishment: $establishment->establishment_name";
+        ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
         
+        if(Auth::user()->type == "ADMINISTRATOR")
+        {
+            return redirect("/establishments/".$establishment->id);        
+        }
+
         return redirect('/establishments'.'/'.$establishment->id.'/'.'fsic/');        
     }
 
@@ -182,16 +190,6 @@ class EstablishmentController extends Controller
     }
 
     public function search(Request $request){
-        // //Escaped special char like ', ", %, ;
-        // $preparedQueryString = addslashes($request->search);
-
-        // $establishment = Establishment::join('person','establishments.owner_id','=','person.id')
-        // ->select('establishments.*')
-        // ->whereRaw("CONCAT(business_permit_no, '-', establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name) LIKE '%{$preparedQueryString}%'")->get()->first();
-        
-        //Get the id in the last character of search string
-        // $search = explode("-", $request->search);
-        // $estabId = end($search);
 
         $establishment = Establishment::find($request->dataId);
         
@@ -214,7 +212,7 @@ class EstablishmentController extends Controller
             
             case "FIREDRILL":
                 return redirect('/establishments'.'/'.$establishment->id.'/firedrill');
-            case"FSIC":
+            case "FSIC":
                 return redirect('/establishments'.'/'.$establishment->id.'/fsic');
             default:
             {
@@ -261,7 +259,9 @@ class EstablishmentController extends Controller
 
         // Only log if there are changes
         if($establishment->isDirty()){
-            ActivityLogger::establishmentLog($establishment->establishment_name,Activity::UpdateEstablishment);
+            // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::UpdateEstablishment);
+            $logMessage = "Updated the establishment: $establishment->establishment_name";
+            ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
         }
 
         $establishment->save();
@@ -273,7 +273,10 @@ class EstablishmentController extends Controller
     public function destroy(Request $request){
         $establishment = Establishment::find($request->id);
         $establishment->delete();
-        ActivityLogger::establishmentLog($establishment->establishment_name,Activity::DeleteEstablishment);
+
+        // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::DeleteEstablishment);
+        $logMessage = "Deleted the establishment: $establishment->establishment_name";
+        ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
         return redirect('/establishments')->with(["deleteSuccess" => "Establishment successfully deleted"]);
     }
 

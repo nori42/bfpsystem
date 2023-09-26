@@ -16,6 +16,7 @@ class FSECReportController extends Controller
         }
 
         $selfReport = $request->selfReport ? true : false;
+
         if($selfReport){
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
@@ -26,6 +27,13 @@ class FSECReportController extends Controller
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
             ->get();
+
+            if($request->filterType == 'release'){
+                $evaluations = Evaluation::join('building_plans','evaluations.building_plan_id','=','building_plans.id')
+                ->where('remarks','APPROVED')
+                ->whereBetween('building_plans.date_released',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
+                ->get();
+            }
         }
         
         return view('reports.fsecReportsNew',[

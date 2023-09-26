@@ -1,4 +1,4 @@
-<table class="table w-100 " style="border-spacing:0 15px; border-collapse: separate;">
+<table class="table table-hover table-striped w-100 mt-2" style="border-spacing:0 0; border-collapse: separate;">
     <thead class="textPrimary">
         <th class="w-25">Control No</th>
         <th>Validity</th>

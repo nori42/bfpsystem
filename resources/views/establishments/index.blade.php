@@ -38,5 +38,5 @@
 @endsection
 {{-- 
 @section('page-script')
-    @vite(['resources/js/pages/establishments.js'])
+    @vite(['resources/js/pages/establishments/index.js'])
 @endsection --}}

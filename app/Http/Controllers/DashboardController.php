@@ -8,12 +8,12 @@ use App\Models\Firedrill;
 use App\Models\Personnel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index(){
-
+    public function index(Request $request){
         $yearNow = date('Y');
         $monthNow = date('m');
 
@@ -81,11 +81,13 @@ class DashboardController extends Controller
             'totalGrand' => $cbpInspection + $substationTotalCountInspection + $issuedNew
         ];
 
+        $loggedInUsers = User::where('last_active_at', '>=', now()->subMinutes(5))->whereNotNull('last_active_at')->get();
         return view('dashboard',[
             'firedrillIssued' =>  $firedrillIssued,
             'fsicIssued' => $fsicIssued,
             'totalEstablishments' => $totalEstablishments,
-            'totalPending' => $totalPending
+            'totalPending' => $totalPending,
+            'loggedInUsers' => $loggedInUsers
         ]);
     }
 }

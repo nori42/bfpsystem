@@ -2,15 +2,10 @@
 
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
-    @php
-        $occupancies = json_decode(file_get_contents(public_path() . '/json/selectOptions/occupancy.json'), true);
-        $sub_type = json_decode(file_get_contents(public_path() . '/json/selectOptions/subtype.json'), true);
-        
-    @endphp
     <div class="page-content">
         <x-pageWrapper>
             <h1 class="my-3">New Building Plan Application</h1>
-            <form class="p-4 form-wrapper" action="/fsec" method="POST">
+            <form class="p-4 form-wrapper" action="/fsec" method="POST" autocomplete="off">
                 @csrf
                 <fieldset class="my-3">
                     <legend>Permit Applicant</legend>
@@ -21,7 +16,6 @@
                         <x-form.input type="text" label="Middle Name" name="middleName" />
                         <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" />
                     </div>
-                    {{-- <legend> <span class="text-secondary"> Or</span></legend> --}}
                     <x-form.input class="w-50" type="text" label="Corporate Name" name="corporateName" />
                 </fieldset>
 
@@ -54,6 +48,7 @@
                                 <label class="info-label">Sub Type</label>
                                 <select class="form-select" name="subType" id="subType" data-establishment-input required>
                                     <option value="" disabled selected>--Select Occupancy First--</option>
+                                    <x-options.subtype />
                                     {{-- Options is populated in script --}}
                                 </select>
                             </div>
@@ -83,30 +78,8 @@
             </form>
         </x-pageWrapper>
     </div>
-    {{-- Import the select options --}}
-    <script src="{{ asset('js/selectOptions.js') }}"></script>
+@endsection
 
-    <script>
-        // Populate Select Options
-        const occupancySelect = document.querySelector("#occupancy")
-        const subtypeSelect = document.querySelector("#subType")
-        populateSelect(occupancySelect, occupancy)
-
-        occupancySelect.addEventListener("change", function() {
-            // Reset Subtype
-            subtypeSelect.innerHTML = ""
-
-            const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === occupancySelect.value)
-            const subTypes = subTypesObj.map(obj => obj.SUBTYPE)
-            populateSelect(subtypeSelect, subTypes)
-
-            //Remove the subtype placeholder
-            if (subtypeSelect.children[0].value === "")
-                subtypeSelect.removeChild(subtypeSelect.children[0]);
-        })
-
-        // Reset Selects After Populating
-        occupancySelect.selectedIndex = 0
-        subtypeSelect.selectedIndex = 0
-    </script>
+@section('page-script')
+    @vite('resources/js/pages/fsec/create.js')
 @endsection

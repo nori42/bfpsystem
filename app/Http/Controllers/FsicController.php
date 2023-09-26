@@ -62,7 +62,7 @@ class FsicController extends Controller
 
         $establishment = $inspection->establishment;
 
-        $inspectionDetail = Inspection::where('establishment_id', $request->id)->orderBy('id','desc')->get();
+        $inspectionDetail = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
 
         //load json files
         $natureOfPayment = json_decode(file_get_contents(public_path() . "/json/selectOptions/natureOfPayment.json"), true);
@@ -97,8 +97,25 @@ class FsicController extends Controller
     }
 
     public function update(Request $request){
+        
         $inspection = Inspection::find($request->inspectionId);
         $receipt = Receipt::find($request->receiptId);
+
+        if($request->input('action') == "delete"){
+            $establishment = $inspection->establishment;
+
+            $inspection->delete();
+
+            $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
+
+            return view('establishments.fsic.index',[
+                'establishment' => $inspection->establishment,
+                'inspections' =>  $inspectionList,
+                'owner' => $establishment->owner,
+                'representative' => Helper::getRepresentativeName($establishment->owner_id),
+                'toastMssg' => "Inspection Discarded",
+            ]);
+        }
 
         $receipt->or_no = $request->orNoDetail;
         $receipt->nature_of_payment = $request->natureOfPaymentDetail;
@@ -128,12 +145,13 @@ class FsicController extends Controller
                     'owner' => $inspection->establishment->owner,
                     'representative' => Helper::getRepresentativeName($inspection->establishment->owner_id),
                     'inpsectUpdatedId' => $inspection->id,
-                    'toastMssg' => "Update Successfully",
+                    'toastMssg' => "Updated Successfully",
                     'isUpdate' => true,
                     'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'saveandprint':
                 return redirect('/fsic/print/'.$inspection->id);
+
         }
         
     }
@@ -145,7 +163,7 @@ class FsicController extends Controller
         $establishment = Establishment::where('id', $request->id)->first();
         $owner = Owner::where('id', $request->id)->first();
         $establishment_id = $request->id;
-        $attachFor = $request->attachFor;
+        $attachFor = 'fsic';
         $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {
             $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
         })->get();
@@ -155,7 +173,6 @@ class FsicController extends Controller
             'owner' => $owner,
             'representative' => Helper::getRepresentativeName($establishment->owner_id),
             'files' =>  $files,
-            'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
         ]);
     }
 
@@ -173,6 +190,7 @@ class FsicController extends Controller
                  'dateOfPayment'=>$inspection->receipt->date_of_payment,
                  'registrationStatus'=>$inspection->registration_status,
                  'issuedFor'=>$inspection->issued_for,];
+
         return response()->json([
             'status' => 'success',
             'data' => $data

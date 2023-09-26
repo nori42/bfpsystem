@@ -1,10 +1,11 @@
+@import url(../colorVariables.css);
+
 .dropdown-menus {
     position: absolute;
     display: none;
-    background-color: #e5e5e5;
+    background-color: var(--primary-subtle);
     z-index: 1021;
     border-radius: 8px;
     color: var(--primary-color);
-    box-shadow: 1px 1px 6px #b5b5b5;
     transition: all 0.5s ease;
 }

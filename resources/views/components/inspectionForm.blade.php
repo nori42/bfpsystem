@@ -1,6 +1,6 @@
 @props(['establishment', 'inputAttr' => '', 'key' => '', 'isDetail' => false])
 
-<form id="inspectionForm" action="/establishments/{{ $establishment->id }}/fsic" method="POST">
+<form id="inspectionForm" action="/establishments/{{ $establishment->id }}/fsic" method="POST" autocomplete="off">
     @csrf
     @if ($isDetail)
         @method('PUT')
@@ -17,7 +17,10 @@
             'issuedFor' => $issuedFor,
         ];
     @endphp
-    <legend class="mb-3">Add Inspection</legend>
+    <div class="d-flex justify-content-between">
+        <legend class="mb-3">Add Inspection</legend>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
     <fieldset class="d-flex flex-column">
         <legend>Inspection</legend>
         {{-- This is hidden, only used for post request --}}
@@ -39,9 +42,11 @@
 
         <x-form.input name="fsicNo{{ $key }}" label="Fire Safety Inspection No. (FSIC No.)"
             customAttr="{{ $inputAttr }}" type="text" :required="true" />
+
         <x-form.select label="Registration Status" name="registrationStatus{{ $key }}"
             customAttr="{{ $inputAttr }} required" placeholder="Select Registration Status">
-            <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" />
+            {{-- <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" /> --}}
+            <x-options.registrationStatus />
         </x-form.select>
 
         {{-- <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
@@ -68,8 +73,14 @@
     </fieldset>
 
     <div class="d-flex justify-content-end mt-3 gap-2">
-        <button class="btn btn-primary" type="submit" name="action" value="add">Add</button>
-        <button class="btn btn-primary" type="submit" name="action" value="addandprint">Print</button>
+        <button class="btn btn-primary px-3 py-0" type="submit" name="action" value="add">
+            <i class="bi bi-plus-circle-fill px-2"></i>
+            <span>Add</span>
+        </button>
+        <button class="btn btn-primary px-4" type="submit" name="action" value="addandprint">
+            <i class="bi bi-printer-fill mr-3"></i>
+            Print
+        </button>
     </div>
     {{-- @if (!$isDetail)
     @else

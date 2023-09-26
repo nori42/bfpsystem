@@ -37,6 +37,7 @@
         @csrf
         @method('PUT')
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
+        <button class="btn btn-success">Done<i class="bi bi-check-lg"></i></button>
     </form>
 
     {{-- Tool For Debugging --}}

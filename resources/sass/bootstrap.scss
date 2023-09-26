@@ -1,4 +1,6 @@
 
-@import '../css/bootstrap-icons.css';
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "/node_modules/bootstrap/scss/bootstrap";
+@import "/node_modules/bootstrap/scss/utilities";
+@import "/node_modules/bootstrap/scss/bootstrap-grid.scss";
+@import "/node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @import '../css/modified-boostrap.css';

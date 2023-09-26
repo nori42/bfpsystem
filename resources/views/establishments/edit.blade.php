@@ -88,5 +88,5 @@
 @endsection
 
 @section('page-script')
-    @vite('resources/js/pages/establishmentsedit.js')
+    @vite('resources/js/pages/establishments/edit.js')
 @endsection

@@ -60,23 +60,28 @@
                         <a class="btn btn-primary px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
                             <i class="bi bi-pencil-fill mx-1"></i>Update Application</a>
 
-                        <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
-                            <x-spinner :hidden="true" />
-                            <div id="deleteModalContent">
-                                <div class="fs-5">Do you want to delete this application?</div>
-                                <div class="fs-6 text-secondary">This action cannot be reverted.</div>
-                                <div class="d-flex justify-content-end gap-2">
-                                    <form action="/fsec/{{ $buildingPlan->id }}/delete" method="POST">
-                                        @csrf
-                                        <button class="btn btn-danger px-2" onclick="showLoading()">Delete</button>
-                                    </form>
-                                    <button class="btn btn-secondary px-4"
-                                        onclick="closeModal('deleteModal')">Cancel</button>
+                        <div class="modal" id="deleteModal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content px-5 py-4">
+                                    <x-spinner :hidden="true" />
+                                    <div id="deleteModalContent">
+                                        <div class="fs-5">Do you want to delete this application?</div>
+                                        <div class="fs-6 text-secondary">This action cannot be reverted.</div>
+                                        <div class="d-flex justify-content-end gap-2 mt-3">
+                                            <button class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+
+                                            <form action="/fsec/{{ $buildingPlan->id }}/delete" method="POST">
+                                                @csrf
+                                                <button class="btn btn-danger px-2" onclick="showLoading()">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </x-modal>
-                        <div class="position-relative py-0">
-                            <button class="btn btn-primary px-2" onclick="toggleShow('actionMenu')">Action <i
+                        </div>
+
+                        <div class="position-relative py-0" dropdown>
+                            <button class="btn btn-primary px-2" dropdown-btn>Action <i
                                     class="bi bi-caret-down-fill"></i></button>
                             <div id="actionMenu" class="action-menus py-3 px-2 border-1 text-white" dropdown-menu
                                 style="display:none !important; width:180px; left:calc(-1 * (100% + 10px));">
@@ -85,9 +90,6 @@
                                     <li><a href="/fsec/print/{{ $buildingPlan->id }}"
                                             class="btn btn-primary w-100 text-start"><i
                                                 class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
-                                    {{-- <li><a href="/fsecchecklist/print/{{ $buildingPlan->id }}"
-                                            class="btn btn-primary w-100 mt-2 text-start"><i
-                                                class="bi bi-clipboard-check mx-2 fs-5"></i>Checklist</a></li> --}}
                                     <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                             class="btn btn-outline-danger w-100 mt-2 text-start"><i
                                                 class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
@@ -95,7 +97,8 @@
                                     <hr style="color: #1a1a1a;">
 
                                     <li>
-                                        <button class="btn btn-danger w-100" onclick="openModal('deleteModal')">
+                                        <button class="btn btn-danger w-100" data-bs-toggle="modal" dropdown-btn-dismiss
+                                            data-bs-target="#deleteModal">
                                             <i class="bi bi-trash3-fill"></i></i>Delete</button>
                                     </li>
                                 </ul>

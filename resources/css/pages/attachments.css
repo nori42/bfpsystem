@@ -1,0 +1,5 @@
+@import url(../colorVariables.css);
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}

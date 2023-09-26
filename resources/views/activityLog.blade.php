@@ -50,7 +50,7 @@
                     <thead>
                         <th>User Type</th>
                         <th>User</th>
-                        <th>Activity</th>
+                        <th>Log</th>
                         <th>Date and Time</th>
                     </thead>
                     <tbody>

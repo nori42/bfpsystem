@@ -1,6 +1,6 @@
 @props(['firedrill', 'newRecord' => false])
 
-<tr class="{{ $newRecord ? 'record-highlight' : '' }}">
+<tr class="{{ $newRecord ? 'record-highlight' : '' }} align-middle">
     <td>{{ $firedrill->control_no }}</td>
     <td>{{ $firedrill->validity_term }}</td>
     <td>{{ $firedrill->receipt->or_no }}</td>
@@ -15,9 +15,16 @@
         @endif
     </td>
     <td>
-        <button class="btn fw-bold btn-primary" onclick="openModal(`firedrill{{ $firedrill->id }}`)">
+        <button class="btn fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#firedrill{{ $firedrill->id }}">
+            <i class="bi bi-card-text"></i>
             Details
         </button>
+        @if ($firedrill->issued_on != null)
+            <a class="btn btn-primary" href={{ '/firedrill/print/' . $firedrill->id }}>
+                <i class="bi bi-file-earmark-fill"></i>
+                View Print
+            </a>
+        @endif
     </td>
 </tr>
 

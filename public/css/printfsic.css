@@ -14,14 +14,9 @@
 
 body{
     background: #C6C6C6;
-    display: flex;
-    /* justify-content: center; */
-    flex-direction: column;
-    align-items: center;
 }
 
 #printablePage{
-    margin-top: 80px;
     position: relative;
     background: #FFFFFF;
     width: 8.5in;
@@ -54,9 +49,16 @@ li{
     position: absolute;
     font-size: 11pt;
     top: 194px;
-    left: 594px;
+    left: 576px;
 }
 
+.fsic-no{
+    position: absolute;
+    font-size: 13pt !important;
+    top: 192px;
+    left: 230px;
+    color: #b15a52;
+}
 
 .check-container{
     position: absolute;
@@ -239,6 +241,7 @@ li{
 
 .fc-fee{
     position: absolute;
+    line-height: 1.1rem;
     top: 731px;
     left: 210px;
 }
@@ -395,107 +398,3 @@ li{
 
 /* utitilities */
 
-.d-none {
-    display: none;
-}
-
-.disable {
-    background-color: #a1a1a1 !important;
-}
-
-.disable:hover {
-    background-color: #a1a1a1 !important;
-}
-
-.fs-12{
-    font-size: 12pt;
-}
-
-.fs-12 > *{
-    font-size: 12pt; 
-}
-
-.fs-9pt {
-    font-size: 9pt !important;
-}
-
-.fs-8pt {
-    font-size: 8pt !important;
-}
-
-.fs-7pt {
-    font-size: 7pt !important;
-}
-
-.fs-6pt {
-    font-size: 6pt !important;
-}
-
-
-.float-right{
-    float: right;
-}
-
-.bold{
-    font-weight: bold;
-}
-
-.bold > *{
-    font-weight: bold;
-}
-
-.debug {
-    border: 1px solid red;
-}
-
-.editable {
-    border: 1px black solid;
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 3px;
-}
-
-.editable:focus {
-    outline: none;
-}
-
-.moveable {
-    border:2px rgb(63, 63, 189) solid;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-@page {
-    size: letter;
-    margin: 0;
-    padding: 0;
-}
-@media print {
-    html, body {
-        /* 210mm */
-        width: 8.5in; 
-        height: 10.9in;    
-        padding: 0 !important;
-        margin: 0 !important;
-        -webkit-print-color-adjust: exact;
-        -moz-print-color-adjust: exact;
-    }
-    #printablePage {
-        margin-top: 0 !important;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        position: fixed;
-        background-image:none;
-    }
-
-    .nav{
-        display: none !important;
-    }
-
-    .editToolBox {
-        display: none !important;
-    }
-    
-}

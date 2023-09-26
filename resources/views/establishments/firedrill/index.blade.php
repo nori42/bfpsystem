@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('stylesheet')
-    @vite(['resources/css/components/headingInfo.css'])
+    @vite(['resources/css/components/headingInfo.css', 'resources/css/pages/firedrill.css'])
 @endsection
 
 @section('content')
@@ -17,19 +17,19 @@
 
             <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
-            <div class="d-flex mt-3 w-100">
-                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />
-                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" />
+            <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
+                {{-- <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />
+                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" /> --}}
+                <a class="btn btn-primary rounded-0 fs-5 px-5"
+                    href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
+                <a class="btn btn-outline-primary rounded-0 fs-5 px-5"
+                    href="/establishments/{{ $establishment->id }}/firedrill/attachment">Attachments</a>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    {{-- @if ($establishment->firedrill_is_expired)
-                        <x-tag bgColor="bg-danger" text="Expired Firedrill" />
-                    @endif --}}
-                </div>
-                <button class="btn btn-primary mt-3" id="addInspectionBtn" onclick="openModal('addFiredrillModal')">
+            <div class="d-flex justify-content-end align-items-center">
+                <button class="btn btn-primary mt-3" id="addInspectionBtn" data-bs-toggle="modal"
+                    data-bs-target="#addFiredrillModal">
                     <span class="material-symbols-outlined align-middle">
-                        add
+                        assignment_add
                     </span>
                     Add Firedrill
                 </button>

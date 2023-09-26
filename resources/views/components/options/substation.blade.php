@@ -1,0 +1,10 @@
+<option value="CCSF">CCSF</option>
+<option value="CBP">CBP</option>
+<option value="GUADALUPE">GUADALUPE</option>
+<option value="LABANGON">LABANGON</option>
+<option value="LAHUG">LAHUG</option>
+<option value="MABOLO">MABOLO</option>
+<option value="PARDO">PAHINA CENTRAL</option>
+<option value="PARI-AN">PARI-AN</option>
+<option value="SAN NICOLAS">SAN NICOLAS</option>
+<option value="TALAMBAN">TALAMBAN</option>

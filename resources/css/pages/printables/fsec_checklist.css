@@ -1,0 +1,219 @@
+
+body{
+    background: #C6C6C6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: unset;
+    gap: 0.310rem;
+}
+
+.printablePage{
+    position: relative;
+    margin-top: 180px;
+    background: #FFFFFF;
+    width: 8.5in;
+    height: 10.9in;
+    box-sizing: border-box;
+    scale: 1.2;
+    page-break-after: always;
+    font-size: 9.5pt !important;
+}
+
+.page-break {
+    margin:40px 0;
+}
+
+.mb-320{
+    margin-bottom: 320px;
+}
+
+li{
+    list-style-type: none;
+    padding: 2px 0;
+}
+
+.header{
+    text-align: center;
+    position: absolute;
+    font-size: 11pt;
+    left: 409px;
+    top: 125px;
+}
+.evaluator{
+    position: absolute;
+    top: 198px;
+    left: 179px;
+}
+
+.evaluator-2 {
+    position: absolute;
+    top: 448px;
+    left: 389px;
+    width: 195px;
+    text-align: center;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.series-no{
+    position: absolute;
+    top: 215px;
+    left: 205px;
+}
+
+.date-received{
+    position: absolute;
+    top: 215px;
+    left: 450px;
+}
+
+.establishment-name{
+    position: absolute;
+    top: 240px; 
+    left: 155px;
+    width: 410px;
+}
+
+.building-story{
+    position: absolute;
+    top: 273px;
+    left: 180px;
+}
+
+.project-title{
+    position: absolute;
+    top: 266px; 
+    left: 132px;
+}
+
+.address{
+    position: absolute;
+    top: 291px; 
+    left: 200px;
+    width: 370px;
+}
+
+
+.date-made{
+    position: absolute;
+    top: 464px;
+    left: 121px;
+}
+
+
+.deficiency{
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    outline: none;
+    top: 200px;
+    left: 120px;
+    min-width:270px;
+    height: 65px;
+    font-size: 7.8pt !important;
+    white-space: pre-wrap;
+    overflow:hidden;
+    resize: none;
+    
+}
+
+.deficiency-right{
+    left: 440px;
+}
+
+
+.footer{
+    display: flex;
+    margin-top: 109px;
+}
+
+.fc-fee{
+    position: absolute;
+    top: 602px; 
+    left: 173px;
+    line-height: 1.1rem;
+}
+
+.fc-fee-font-size {
+    font-size: 0.75rem !important;
+    font-weight: bold;
+}
+
+.chiefName{
+    position: absolute;
+    top: 632px; 
+    left: 430px;
+    font-size: 0.9rem;
+    width: 280px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.certificate {
+    margin: 0;
+    padding: 0;
+}
+
+.marshalName{
+    position: absolute;
+    top: 746px; 
+    left: 430px;
+    font-size: 0.9rem;
+    width: 280px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/*  */
+
+
+[checkmark]{
+    cursor: pointer !important;
+    font-weight: bold;
+    font-size: 0.885rem !important;
+}
+
+/* utitilities */
+
+.moveable {
+    border:2px rgb(63, 63, 189) solid;
+    border-radius: 6px;
+    cursor: pointer;
+}
+@media print {
+    @page {
+        size: letter;
+        margin: 0;
+    }
+    html, body {
+        overflow: hidden;
+        -webkit-print-color-adjust: exact;
+        -moz-print-color-adjust: exact;
+    }
+    .printablePage {
+        margin: 0 !important;
+        height: 10.9in;
+        box-sizing: border-box;
+        page-break-after: always;
+        /* padding-right: 1in; */
+        scale: 1;
+    }
+
+    .page-break {
+        display:none;
+    }
+
+    .deficiency {
+        border: none;
+    }
+    .nav{
+        display: none;
+    }
+
+    .editToolBox {
+        display: none;
+    }
+    
+}

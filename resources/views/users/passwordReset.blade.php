@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
-    @vite(['resources/sass/main.scss'])
+    @vite(['resources/sass/bootstrap.scss', 'resources/css/pages/login.css'])
 </head>
 
 <body>
@@ -46,7 +46,7 @@
                             autocomplete="off">
                     </div>
 
-                    <button class="btn btn-success fs-4 fw-normal w-100 mt-3 py-2">Request a password reset</button>
+                    <button class="btn btn-primary fs-4 fw-normal w-100 mt-3 py-2">Request a password reset</button>
                 </form>
                 <a href="/" class="my-4 fs-4">Back to Login</a>
             @else

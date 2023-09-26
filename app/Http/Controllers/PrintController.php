@@ -13,19 +13,20 @@ class PrintController extends Controller
 {
     //Inspection
     public function show_print_fsic(Request $request){
-        // $details = DB::table('establishments')
-        // ->join('owners', 'establishments.owner_id', '=', 'owners.id')
-        // ->join('payments', 'payments.establishment_id', '=', 'establishments.id')
-        // ->where('payments.or_no', $orNo)
-        // ->first();
         $inspection = Inspection::find($request->id);
         $establishment = $inspection->establishment;
 
         
-        return view('establishments/fsic/print_fsic', [
+        return view('printables.fsic', [
             'inspection' => $inspection,
             'establishment' => $establishment
         ]);
+
+        // return view('establishments/fsic/print_fsic', [
+        //     'inspection' => $inspection,
+        //     'establishment' => $establishment
+        // ]);
+        
     }
     
     public function print_fsic(Request $request){
@@ -42,7 +43,9 @@ class PrintController extends Controller
         $inspection->save();
         $establishment->save();
 
-        ActivityLogger::fsicLog($inspection->establishment->establishment_name,Activity::PrintInspection); 
+        $logMessage = "Issued a Fire Safety Inspection Certificate: FSIC.NO {$inspection->fsic_no} to {$establishment->establishment_name}";
+        ActivityLogger::logActivity($logMessage,'FSIC');
+        // ActivityLogger::fsicLog($inspection->establishment->establishment_name,Activity::PrintInspection); 
 
         return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
     }
@@ -56,10 +59,10 @@ class PrintController extends Controller
 
         $representative = Helper::getRepresentativeName($establishment->owner_id);
         
-        $firedrillsByYear = (Firedrill::where('year',date('Y'))->whereNotNull('issued_on'));
-        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
+        $firedrillsByYear = (Firedrill::where('year',date('Y')));
+        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count());
 
-        return view('establishments.firedrill.print_firedrill',[
+        return view('printables.firedrill',[
             'firedrill' => $firedrill,
             'controlNo' => $newControlNo,
             'representative' => $representative
@@ -69,6 +72,14 @@ class PrintController extends Controller
     public function print_firedrill(Request $request){
         $firedrill = Firedrill::find($request->id);
         $establishment = Establishment::find($firedrill->establishment_id);
+
+        // If firedrill is reprinted
+        if($request->action == "reprint"){
+            $logMessage = "Reprinted the Firedrill Certificate: CONTROL.NO {$firedrill->control_no} to {$establishment->establishment_name}";
+            ActivityLogger::logActivity($logMessage,'FIREDRILL');
+            return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
+        }
+
         $firedrill->user_id = auth()->user()->id;
         $firedrill->issued_on = date('Y-m-d');
         
@@ -116,7 +127,10 @@ class PrintController extends Controller
         $establishment->save();
         $firedrill->save();
 
-        ActivityLogger::firedrillLog($firedrill->establishment->establishment_name,Activity::PrintFiredrill);
+        $logMessage = "Issued a Firedrill Certificate: CONTROL.NO {$firedrill->control_no} to {$establishment->establishment_name}";
+        ActivityLogger::logActivity($logMessage,'FIREDRILL');
+
+        // ActivityLogger::firedrillLog($firedrill->establishment->establishment_name,Activity::PrintFiredrill);
 
         return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }
@@ -126,7 +140,7 @@ class PrintController extends Controller
     {
         $buildingPlan = BuildingPlan::find($request->id);
 
-        return view('fsec.print_fsec',[
+        return view('printables.fsec',[
             'buildingPlan' => $buildingPlan
         ]);
     }
@@ -135,14 +149,14 @@ class PrintController extends Controller
     {
         $buildingPlan = BuildingPlan::find($request->id);
         
-        return view('fsec.print_fsec_disapprove',[
+        return view('printables.fsec_disapprove',[
             'buildingPlan' => $buildingPlan
         ]);
     }
 
     public function show_print_fsecchecklist(Request $request){
         $buildingPlan = BuildingPlan::find($request->id);
-        return view('fsec.print_fsec_checklist',[
+        return view('printables.fsec_checklist',[
             'buildingPlan' => $buildingPlan,
             'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
         ]);
@@ -187,8 +201,10 @@ class PrintController extends Controller
 
         // $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
         // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
-        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::ApproveBuildingPlan);
+        // ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::ApproveBuildingPlan);
 
+        $logMessage = "Approved the Building Plan Application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+        ActivityLogger::logActivity($logMessage,'FSEC');
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        
     }

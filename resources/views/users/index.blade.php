@@ -16,7 +16,7 @@
                     <span class="d-block fw-bold fs-3">{{ count($users) - 1 }} Users</span>
                     <span class="d-block text-secondary ">Manage users</span>
                 </div>
-                <button class="btn btn-primary" onclick="openModal('addUser')">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
                     <span class="material-symbols-outlined fs-2 align-middle">
                         person_add
                     </span>
@@ -46,17 +46,6 @@
                             @else
                                 <td style="width:21rem;">N/A</td>
                             @endif
-                            {{-- @if ($user->id != 1)
-                                <td style="width:21rem"><a
-                                        href="/personnel/{{ $user->personnel_id }}">{{ $personnelName ? $personnelName : $user->name }}</a>
-                                </td>
-                            @else
-                                <td style="width:21rem">{{ $personnelName ? $personnelName : $user->name }}
-                                </td>
-                            @endif --}}
-
-                            {{-- <td><a href="/users/{{ $user->id }}" class="btn btn-primary"><i
-                                        class="bi bi-person fs-5 mx-1"></i>Account</a></td> --}}
                             <td>
                                 @if ($user->request_password_reset)
                                     <form action="/request/passwordreset" method="POST">
@@ -76,83 +65,54 @@
         </table>
     </x-pageWrapper>
 
-    <x-modal id="addUser" width="50" topLocation="8">
+    <div class="modal" id="addUser" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" style="min-width:780px;">
+            <div class="modal-content py-4 px-5">
+                <form action="/users" method="POST" autocomplete="off">
+                    @csrf
+                    <legend class="mb-3">Add New User</legend>
+                    <div>
+                        <label class="fw-bold" for="type">Type</label>
+                        <div class="my-2">
+                            <input type="radio" name="type" id="admin" value="ADMINISTRATOR">
+                            <label for="admin">ADMINISTRATOR</label>
+                            <br>
+                            <input type="radio" name="type" id="fsic" value="FSIC">
+                            <label for="fsic">FIRE SAFETY INSPECTION CERTIFICATE (FSIC)</label>
+                            <br>
+                            <input type="radio" name="type" id="fsec" value="FSEC">
+                            <label for="fsec">FIRE SAFETY EVALUATION CERTIFICATE (FSEC)</label>
+                            <br>
+                            <input type="radio" name="type" id="firedill" value="FIREDRILL">
+                            <label for="firedill">FIREDRILL</label>
+                        </div>
+                    </div>
 
-        <form action="/users" method="POST" autocomplete="off">
-            @csrf
+                    <div class="d-flex gap-3">
+                        {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
+                        <x-form.inputWrapper>
+                            <label class="fw-bold">Username</label>
+                            <input class="form-control" id="username" name="username" type="text" required
+                                autocomplete="off">
+                        </x-form.inputWrapper>
+                        <x-form.inputWrapper>
+                            <label id="labelPassword" class="fw-bold">Password <span class="fw-normal">Click here to
+                                    generate
+                                    new</span></label>
+                            <input class="form-control" id="password" name="password" type="text" required readonly
+                                autocomplete="off">
+                        </x-form.inputWrapper>
+                    </div>
 
-            <legend class="mb-3">Add New User</legend>
-            {{-- <label class="info-label">Assigned To</label>
-            <input class="form-control text-uppercase" id="name" name="name" type="text" required
-                autocomplete="off"> --}}
-            {{-- <x-form.select name="assignedTo" label="Assigned To" placeholder="SELECT PERSONNEL" required>
-                @foreach ($personnelList as $personnel)
-                    <option value="{{ $personnel->id }}">{{ $personnel->first_name }} {{ $personnel->last_name }}
-                    </option>
-                @endforeach
-            </x-form.select> --}}
-
-            {{-- <x-form.select name="type" label="Type" placeholder="SELECT TYPE">
-                <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                <option value="FSIC">FIRE SAFETY INSPECTION(FSIC)</option>
-                <option value="FSEC">FIRE SAFETY EVALUATION(FSEC)</option>
-                <option value="FIREDRILL">FIREDRILL</option>
-            </x-form.select> --}}
-
-            <div>
-                <label class="fw-bold" for="type">Type</label>
-                <div class="my-2">
-                    <input type="radio" name="type" id="admin" value="ADMINISTRATOR">
-                    <label for="admin">ADMINISTRATOR</label>
-                    <br>
-                    <input type="radio" name="type" id="fsic" value="FSIC">
-                    <label for="fsic">FIRE SAFETY INSPECTION CERTIFICATE (FSIC)</label>
-                    <br>
-                    <input type="radio" name="type" id="fsec" value="FSEC">
-                    <label for="fsec">FIRE SAFETY EVALUATION CERTIFICATE (FSEC)</label>
-                    <br>
-                    <input type="radio" name="type" id="firedill" value="FIREDRILL">
-                    <label for="firedill">FIREDRILL</label>
-                </div>
+                    <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-person-add fs-4"></i> Add
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <div class="d-flex gap-3">
-                {{-- <x-form.input label="Username" name="username" :required="true" /> --}}
-                <x-form.inputWrapper>
-                    <label class="info-label">Username</label>
-                    <input class="form-control" id="username" name="username" type="text" required
-                        autocomplete="off">
-                </x-form.inputWrapper>
-                <x-form.inputWrapper>
-                    <label id="labelPassword" class="info-label">Password <span class="fw-normal">Click here to generate
-                            new</span></label>
-                    <input class="form-control" id="password" name="password" type="text" required readonly
-                        autocomplete="off">
-                </x-form.inputWrapper>
-                {{-- <x-form.inputWrapper>
-                        <label class="info-label">Confirm Password</label>
-                        <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required
-                            autocomplete="off">
-                    </x-form.inputWrapper> --}}
-            </div>
-            {{-- <x-form.select name="personnelId" label="Personnel" placeholder="Assign user to personnel"
-                    customAttr="required">
-                    @foreach ($personnelList as $personnel)
-                        @php
-                            $name = $personnel->person->last_name . ' ' . $personnel->person->suffix . ', ' . $personnel->person->first_name . ' ' . $personnel->person->middle_name[0] . '.';
-                        @endphp
-                        <option value="{{ $personnel->id }}">{{ $name }}</option>
-                    @endforeach
-                </x-form.select> --}}
-
-            <div class="d-flex align-items-stretch gap-2 justify-content-end mt-3">
-                <button class="btn btn-primary" type="submit">
-                    <i class="bi bi-person-add fs-4"></i> Add
-                </button>
-
-            </div>
-        </form>
-    </x-modal>
+        </div>
+    </div>
 </div>
 
 <script>

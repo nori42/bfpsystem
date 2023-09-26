@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }}</title>
 
-    @vite(['resources/sass/bootstrap.scss', 'resources/css/layout.css'])
-    {{-- @vite('resources/sass/main.scss') --}}
+    @vite('resources/sass/bootstrap.scss')
+    @vite('resources/css/layout.css')
+    {{-- @vite('resources/css/app.css') --}}
     @yield('stylesheet')
 </head>
 
@@ -172,12 +173,12 @@
                 APP_URL: "{{ env('APP_URL') }}"
             }
         </script>
-
-        @vite(['resources/js/app.js'])
-        @yield('component-script')
-        @yield('page-script')
     </div>
 
+
+    @vite(['resources/js/app.js'])
+    @yield('component-script')
+    @yield('page-script')
 </body>
 
 </html>

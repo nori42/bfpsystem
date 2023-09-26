@@ -28,29 +28,50 @@
                         @endif
                     </div>
                     {{-- <a class="btn btn-success mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Personnel</a> --}}
+                    <div class="d-flex flex-column justify-content-center gap-2 mx-auto w-50 mt-3">
 
-                    @if (auth()->user()->username != $personnel->user->username)
-                        <button class="btn btn-danger px-5 mt-3" onclick="openModal('deleteModal')">
-                            <i class="bi bi-trash3-fill"></i>
-                            Delete</button>
-                    @endif
+                        @if (auth()->user()->username != $personnel->user->username)
+                            <button class="btn btn-danger px-5 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="bi bi-trash3-fill"></i>
+                                Delete</button>
 
-                    <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
-                        <x-spinner :hidden="true" />
-                        <div class="text-start" id="deleteModalContent">
-                            <div class="fs-5">Do you want to delete this personnel?</div>
-                            <div class="fs-6 text-secondary">The associated account of this personnel will also be deleted.
+                            <div class="modal" id="deleteModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content px-5 py-4">
+                                        <x-spinner :hidden="true" />
+                                        <div class="text-start" id="deleteModalContent">
+                                            <div class="fs-5">Do you want to delete this personnel?</div>
+                                            <div class="fs-6 text-secondary">The associated account of this personnel will
+                                                also
+                                                be
+                                                deleted.
+                                            </div>
+                                            <div class="fs-6 text-secondary">This action cannot be reverted.</div>
+                                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                                <button class="btn btn-secondary px-4"
+                                                    data-bs-dismiss="modal">Cancel</button>
+
+                                                <form action="/personnel/{{ $personnel->id }}/delete" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-danger px-2"
+                                                        onclick="showLoading()">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="fs-6 text-secondary">This action cannot be reverted.</div>
-                            <div class="d-flex justify-content-end gap-2">
-                                <form action="/personnel/{{ $personnel->id }}/delete" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger px-2" onclick="showLoading()">Yes</button>
-                                </form>
-                                <button class="btn btn-secondary px-4" onclick="closeModal('deleteModal')">No</button>
-                            </div>
-                        </div>
-                    </x-modal>
+                        @endif
+
+                        @if (auth()->user()->id == $personnel->user->id)
+                            <a class="btn btn-primary px-5" href="/personnel/{{ $personnel->id }}/edit"> <i
+                                    class="bi bi-pencil-fill"></i> Edit Info</a>
+                        @endif
+                    </div>
+
+
+                    {{-- <x-modal topLocation="15" width="50" id="deleteModal" leftLocation="30">
+                    </x-modal> --}}
                 </div>
                 <div>
                     <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 24rem;">

@@ -1,0 +1,136 @@
+@import url(../../colorVariables.css);
+
+body {
+    background-color: #C6C6C6;
+    overflow-y: auto;
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: var(--default);
+    font-size: 11pt !important;
+    white-space: nowrap;
+}
+
+.nav {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+}
+
+.printTools {
+    position: fixed;
+    z-index: 100;
+    min-width: 10%;
+    top: 5rem;
+    left: 3rem;
+}
+
+.debugTools {
+    position: fixed;
+    z-index: 100;
+    min-width: 10%;
+    top: 5rem;
+    right: 3rem;
+}
+
+.d-none {
+    display: none;
+}
+
+.disable {
+    background-color: #a1a1a1 !important;
+}
+
+.disable:hover {
+    background-color: #a1a1a1 !important;
+}
+
+.fs-12{
+    font-size: 12pt;
+}
+
+.fs-12 > *{
+    font-size: 12pt; 
+}
+
+.fs-9pt {
+    font-size: 9pt !important;
+}
+
+.fs-8pt {
+    font-size: 8pt !important;
+}
+
+.fs-7pt {
+    font-size: 7pt !important;
+}
+
+.fs-6pt {
+    font-size: 6pt !important;
+}
+
+
+.float-right{
+    float: right;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.bold > *{
+    font-weight: bold;
+}
+
+.debug {
+    border: 1px solid red;
+}
+
+.editable {
+    border: 1px black solid;
+    background-color: rgba(255, 255, 255,0.3);
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.editable:focus {
+    outline: none;
+}
+
+.moveable {
+    border:2px rgb(63, 63, 189) solid;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+@page {
+    size: letter;
+    margin: 0;
+    padding: 0;
+}
+
+@media print {
+    html, body {
+        /* 210mm */
+        /* width: 8.5in; 
+        height: 10.9in;     */
+        /* overflow: hidden; */
+        -webkit-print-color-adjust: exact;
+        -moz-print-color-adjust: exact;
+    }
+    .printablePage {
+        margin: 0 !important;
+        width: 8.5in; 
+        height: 10.9in; 
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-image:none;
+        page-break-after: always;
+    }
+
+    .nav, .printTools, .footer, .debugTools{
+        display: none !important;
+    }
+
+    
+}

@@ -22,7 +22,7 @@
     {{-- <div class="fs-5">Business Permit: {{ $establishment->business_permit_no }}</div> --}}
     <div>
         <p class="fs-5 mb-0"> Owner/Representative:
-            {{ $representative }}
+            {{ $establishment->getOwnerName() }}
         </p>
         <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
     </div>
@@ -30,11 +30,11 @@
     <div>
         {{-- Establishment Info --}}
         <div class="position-relative d-inline-block" dropdown>
-            <button type="button" class="btn btn-outline-primary"style="width:auto !important" dropdown-btn><span
+            <button type="button" class="btn btn-primary py-2"style="width:auto !important" dropdown-btn><span
                     class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment
-                Info</button>
+                Info<i class="bi bi-caret-down-fill text-white fs-6 mx-2"></i></button>
 
-            <div class="dropdown-menus position-absolute p-3" id="establishmentDetail" dropdown-menu
+            <div class="dropdown-menus position-absolute p-3 boxshadow" id="establishmentDetail" dropdown-menu
                 style="min-width: 380px;">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-between"><span class="fs-4 fw-bold">Info</span><a

@@ -68,9 +68,6 @@
             <span>{{ $buildingPlan->series_no }}</span>
         </div>
 
-        {{-- <div data-draggable="true" id="evaluator" class="evaluator bold">
-            <span>{{ auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name }}</span>
-        </div> --}}
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
             <span>{{ $representative }}</span>
@@ -84,9 +81,6 @@
             <span>{{ date('m/d/Y', strtotime($buildingPlan->date_received)) }}</span>
         </div>
 
-        {{-- <div data-draggable="true" id="buildingStory" class="building-story bold">
-            <span>{{ $buildingPlan->building->building_story }}</span>
-        </div> --}}
 
 
         <div data-draggable="true" class="address bold">
@@ -132,6 +126,7 @@
             </div>
         </div>
     </div>
+
     <script src="/js/print.js"></script>
     <script>
         const backToShow = function() {

@@ -25,7 +25,7 @@ class FsecController extends Controller
 
     public function create(){
 
-        return view('fsec.create');
+        return view('fsec.createNew');
     }
 
     public function store(Request $request){
@@ -81,7 +81,10 @@ class FsecController extends Controller
         $buildingPlan->receipt_id = $receipt->id;
         $buildingPlan->save();
         
-        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::AddBuildingPlan);
+        // ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::AddBuildingPlan);
+
+        $logMessage = "Added new application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+        ActivityLogger::logActivity($logMessage,"FSEC");
 
         return redirect('/fsec'.'/'.$buildingPlan->id);
     }
@@ -131,8 +134,11 @@ class FsecController extends Controller
         //Only log if there is a change
         if($receipt->isDirty() || $building->isDirty() || $buildingPlan->isDirty())
         {
-            $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
-            ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::UpdateBuildingPlan);
+            // $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+            // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::UpdateBuildingPlan);
+
+            $logMessage = "Updated the application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+            ActivityLogger::logActivity($logMessage,"FSEC");
         }
 
         $receipt->save();

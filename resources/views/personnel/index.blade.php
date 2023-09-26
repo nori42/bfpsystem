@@ -9,7 +9,7 @@
                 <x-toast :message="session('toastMssg')" />
             @endif
 
-            <div class="d-flex justify-content-between my-5 align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <span class="d-block fw-bold fs-3">{{ $personnelCount }} Personnel</span>
                     <span class="d-block text-secondary ">Manage personnel</span>
@@ -33,7 +33,7 @@
             </x-personnel.cardList>
         </x-pageWrapper>
 
-        <x-modal id="addPersonnel" width="50" topLocation="8">
+        {{-- <x-modal id="addPersonnel" width="50" topLocation="8">
 
             <form action="/personnel" method="POST">
                 @csrf
@@ -46,7 +46,6 @@
                         <x-form.input label="Last Name" name="lastName" required />
                     </div>
                     <div class="d-flex gap-2">
-                        {{-- <x-form.input type="text" label="Title" name="title" /> --}}
                         <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-25" />
                     </div>
                     <x-form.select class="w-25" name="sex" label="Sex" placeholder="SELECT SEX" required>
@@ -81,6 +80,6 @@
                     Add
                 </button>
             </form>
-        </x-modal>
+        </x-modal> --}}
     </div>
 @endsection

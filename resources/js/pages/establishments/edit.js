@@ -1,8 +1,8 @@
-import { populateEstabSelectOptions } from "../selectoptions/populateselect";
-import occupancies from "../selectoptions/occupancy";
+import { populateSelectOptions } from "../../selectoptions/populateselect";
+import occupancies from "../../selectoptions/occupancy";
 
 // Initialize options select
-populateEstabSelectOptions();
+populateSelectOptions();
 
 selectAll("select[select-value]").forEach((select) => {
     select.value = select.getAttribute("select-value");

@@ -2,7 +2,6 @@
 
 @section('stylesheet')
     @vite('resources/css/pages/establishmentcreate.css')
-    @vite('resources/css/components/spinner.css')
 @endsection
 
 @section('content')
@@ -33,6 +32,7 @@
                     <div class="header">
                         <h4 id="validateMssgOwner" class="text-danger d-none">Fill in the name or corporate field</h4>
                         <h2>Owner Information</h2>
+                        <hr />
                     </div>
 
                     <fieldset>
@@ -155,5 +155,5 @@
 @endsection
 
 @section('page-script')
-    @vite('resources/js/pages/establishmentscreate.js')
+    @vite('resources/js/pages/establishments/create.js')
 @endsection

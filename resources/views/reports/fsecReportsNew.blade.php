@@ -24,6 +24,7 @@
                         <th><span>Occupancy</span></th>
                         <th><span>Evaluator</span></th>
                         <th><span>Evaluation Date</span></th>
+                        <th><span>Release Date</span></th>
                     </thead>
                     <tbody>
                         @foreach ($evaluations as $evaluation)
@@ -60,6 +61,7 @@
                                 <td>{{ $building->occupancy }}</td>
                                 <td>{{ $evaluation->evaluator }}</td>
                                 <td>{{ date('m/d/Y', strtotime($evaluation->created_at)) }}</td>
+                                <td>{{ date('m/d/Y', strtotime($buildingPlan->date_released)) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

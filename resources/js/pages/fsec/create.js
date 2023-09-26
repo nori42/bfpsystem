@@ -1,5 +1,10 @@
-import { toggleDisplay } from "../globalVar";
-import { populateEstabSelectOptions } from "../selectoptions/populateselect";
+import { toggleDisplay } from "../../globalVar";
+import { populateSelectOptions } from "../../selectoptions/populateselect";
+import occupancies from "../../selectoptions/occupancy";
+
+selectAll("select[select-value]").forEach((select) => {
+    select.value = select.getAttribute("select-value");
+});
 
 const btns = {
     cancel: select("#cancelBtn"),
@@ -7,9 +12,6 @@ const btns = {
     next: select("#nextBtn"),
     save: select("#saveBtn"),
 };
-
-// Initialize options select
-populateEstabSelectOptions();
 
 function toggleBtnDisplay() {
     toggleDisplay(btns.next);
@@ -67,7 +69,7 @@ addEvent("click", btns.next, () => {
 
     if (isValid) {
         toggleDisplay(select("#ownerDetails"));
-        toggleDisplay(select("#establishmentDetails"));
+        toggleDisplay(select("#applicantDetails"));
         toggleBtnDisplay();
         selectAll("[step-icon]")[0].classList.replace(
             "bi-circle",
@@ -81,7 +83,7 @@ addEvent("click", btns.next, () => {
 
 addEvent("click", btns.back, () => {
     toggleDisplay(select("#ownerDetails"));
-    toggleDisplay(select("#establishmentDetails"));
+    toggleDisplay(select("#applicantDetails"));
     toggleBtnDisplay();
     selectAll("[step-icon]")[0].classList.replace(
         "bi-check-circle-fill",
@@ -97,8 +99,8 @@ addEvent("click", btns.back, () => {
 });
 
 addEvent("click", btns.save, (ev) => {
-    if (validateForm(select("#establishmentDetails"))) {
-        toggleDisplay(select("#establishmentDetails"));
+    if (validateForm(select("#applicantDetails"))) {
+        toggleDisplay(select("#applicantDetails"));
         selectAll("[step-icon]")[1].classList.replace(
             "bi-circle",
             "bi-check-circle-fill"
@@ -108,12 +110,18 @@ addEvent("click", btns.save, (ev) => {
     }
 });
 
-addEvent("change", select("#isCompanyName"), (ev) => {
-    if (ev.target.checked) {
-        select("#establishmentName").value = select("#corporateName").value;
-        select("#establishmentName").disabled = true;
-    } else {
-        select("#establishmentName").value = "";
-        select("#establishmentName").disabled = false;
-    }
+addEvent("change", select("#occupancy"), () => {
+    const options = occupancies[select("#occupancy").value].subtype;
+    select("#subType").innerHTML = "";
+    options.forEach((option) => {
+        const optionEl = document.createElement("option");
+        optionEl.setAttribute("value", option);
+        optionEl.innerHTML = option;
+        select("#subType").appendChild(optionEl);
+    });
+
+    select("#subType").selectedIndex = 0;
 });
+
+// Initialize options select
+populateSelectOptions();

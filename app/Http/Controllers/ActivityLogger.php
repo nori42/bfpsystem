@@ -22,6 +22,15 @@ enum Activity{
 }
 
 class ActivityLogger {
+    public static function logActivity($log,$activityIn){
+        DB::table('activities')->insert([
+            'activity' => $log,
+            'user_id' => auth()->user()->id,
+            'activity_in' => $activityIn,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+    }
 
     public static function establishmentLog($establishmentName,Activity $activity){
         
@@ -31,7 +40,7 @@ class ActivityLogger {
         {
             case Activity::AddEstablishment:
                 {   
-                    $activityLog = "Added the {$establishmentName} establishment";
+                    $activityLog = "Added new establishment: {$establishmentName}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -44,7 +53,7 @@ class ActivityLogger {
             break;
             case Activity::UpdateEstablishment:
                 {
-                    $activityLog = "Updated the {$establishmentName} establishment";
+                    $activityLog = "Updated the establishment: {$establishmentName}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -57,7 +66,7 @@ class ActivityLogger {
             break;
             case Activity::DeleteEstablishment:
                 {
-                    $activityLog = "Deleted the {$establishmentName} establishment";
+                    $activityLog = "Deleted the establishment: {$establishmentName} ";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -79,7 +88,7 @@ class ActivityLogger {
         {
             case Activity::AddInspection:
                 {   
-                    $activityLog = "Added new Inspection to {$establishmentName}";
+                    $activityLog = "Added new inspection: {$establishmentName}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -92,7 +101,7 @@ class ActivityLogger {
             break;
             case Activity::PrintInspection:
                 {
-                    $activityLog = "Printed a Fire Safety Inspection Certificate for {$establishmentName}";
+                    $activityLog = "Issued a Fire Safety Inspection Certificate: {$establishmentName}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -126,7 +135,7 @@ class ActivityLogger {
             break;
             case Activity::PrintFiredrill:
                 {
-                    $activityLog = "Printed a Firedrill Certificate for {$establishmentName}";
+                    $activityLog = "Issued a Firedrill Certificate: {$establishmentName}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -147,7 +156,7 @@ class ActivityLogger {
         {
             case Activity::AddBuildingPlan:
                 {   
-                    $activityLog = "Added new Building Plan Application for {$buildingPlanApplicant}";
+                    $activityLog = "Added new Building Plan Applicant: {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -160,7 +169,7 @@ class ActivityLogger {
             break;
             case Activity::UpdateBuildingPlan:
                 {
-                    $activityLog = "Updated the Building Plan Application of {$buildingPlanApplicant}";
+                    $activityLog = "Updated the Building Plan Application: {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -173,7 +182,7 @@ class ActivityLogger {
                 break;
             case Activity::ApproveBuildingPlan:
                 {
-                    $activityLog = "Approve the Building Plan Application of {$buildingPlanApplicant}";
+                    $activityLog = "Approve the Building Plan Application: {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -186,7 +195,7 @@ class ActivityLogger {
             break;
             case Activity::DisapporveBuildingPlan:
                 {
-                    $activityLog = "Disapprove the Building Plan Application of {$buildingPlanApplicant}";
+                    $activityLog = "Disapproved the Building Plan Application: {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -200,7 +209,7 @@ class ActivityLogger {
 
             case Activity::DeleteBuildingPlan:
                 {
-                    $activityLog = "Deleted the Building Plan Application of {$buildingPlanApplicant}";
+                    $activityLog = "Deleted the Building Plan Application: {$buildingPlanApplicant}";
 
                     DB::table('activities')->insert([
                         'activity' => $activityLog,
@@ -215,7 +224,7 @@ class ActivityLogger {
     }
 
     public static function userLog($userId,$userType,$username){
-        $activityLog = "Added a new {$userType} USER, Username:{$username}";
+        $activityLog = "Added a new user, Username:{$username} Type:{$userType}";
 
         DB::table('activities')->insert([
             'activity' => $activityLog,

@@ -44,6 +44,7 @@ class FiredrillController extends Controller
         
         $receipt->save();
         $firedrill->validity_term = $request->validityTerm;
+        $firedrill->term_type = $request->validity;
         $firedrill->date_made = $request->dateMade;
         $firedrill->user_id = auth()->user()->id;
         $firedrill->receipt_id = $receipt->id;
@@ -71,7 +72,7 @@ class FiredrillController extends Controller
         }
         else
         {
-            return redirect('/establishments/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
+            return redirect('/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
         }
         
     }
@@ -130,7 +131,7 @@ class FiredrillController extends Controller
         }
         else
         {
-            return redirect('/establishments/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
+            return redirect('/firedrill/print/'.$firedrill->id)->with('nameExtension',$request->nameExtension);
         }
     }
 
@@ -177,7 +178,7 @@ class FiredrillController extends Controller
         $establishment = Establishment::where('id', $request->id)->first();
         $owner = Owner::where('id', $request->id)->first();
         $establishment_id = $request->id;
-        $attachFor = $request->attachFor;
+        $attachFor = 'firedrill';
         $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {
             $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);
         })->get();
@@ -187,7 +188,6 @@ class FiredrillController extends Controller
             'owner' => $owner,
             'representative' => Helper::getRepresentativeName($establishment->owner_id),
             'files' =>  $files,
-            'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);
     }
 }

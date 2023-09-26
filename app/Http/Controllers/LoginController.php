@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,9 +14,10 @@ class LoginController extends Controller
             'username' => ['required'],
             'password' => ['required']
         ]);
-
+        
         
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
 
             if(Auth::user()->is_password_default && Auth::user()->personnel_id != null){
@@ -38,8 +40,11 @@ class LoginController extends Controller
         ])->onlyInput('username');
     }
 
-    public function logout() {
+    public function logout(Request $request) {
         
+        $user = User::find(Auth::user()->id);
+        $user->last_active_at = null;
+        $user->save();
         auth()->logout();
 
         return redirect('/');

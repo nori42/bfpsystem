@@ -1,7 +1,7 @@
 @import url(colorVariables.css);
 @import url(utilities.css);
 @import url(googlefonts.css);
-@import url(./components/modal.css);
+/* @import url(./components/modal.css); */
 @import url(./components/toast.css);
 
 
@@ -55,12 +55,11 @@ input, button, select{
     background-color: #edeff3 !important;
 }
 
-
 .table tbody tr:hover {
     background-color: #ddecff !important;
 }
 
-.table thead {
+.table thead th{
     color: var(--secondary-color) !important;
 }
 
@@ -72,3 +71,15 @@ input, button, select{
 .form-wrapper label{
     font-weight: bold;
 }
+
+/*  */
+.record-highlight{
+    background-color: #39c839 !important;
+    animation: newrecord 0.5s 2s;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes newrecord {
+    from {background-color: #39c839;}
+    to {background-color: white;}
+  }

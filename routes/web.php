@@ -77,9 +77,9 @@ Route::middleware(['auth','userType:ADMINISTRATOR,FSIC','personnelChecker'])->gr
 
 Route::middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL','personnelChecker'])->group(function (){
     //Attachments
-    Route::get('/establishments/fsec/attachment/{id}/{attachFor}', [FsecController::class, 'show_attachment']);
-    Route::get('/establishments/fsic/attachment/{id}/{attachFor}', [FsicController::class, 'show_attachment']);
-    Route::get('/establishments/{id}/{attachFor}/attachment', [Firedrillcontroller::class, 'show_attachment']);
+    // Route::get('/establishments/{id}/{attachFor}/attachment', [FsecController::class, 'show_attachment']);
+    Route::get('/establishments/{id}/firedrill/attachment', [Firedrillcontroller::class, 'show_attachment']);
+    Route::get('/establishments/{id}/fsic/attachment', [FsicController::class, 'show_attachment']);
     Route::post('/establishments/attachment/{attachFor}/{id}/upload', FileUpload::class);
 });
 
@@ -117,8 +117,8 @@ Route::post('/owner/{id}/edit', [OwnerController::class, 'update'])->middleware(
 Route::get('/establishments/{id}/firedrill', [FiredrillController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
 Route::post('/establishments/firedrill/{id}',[FiredrillController::class,'store']);
 Route::put('/establishments/firedrill/{id}',[FiredrillController::class,'update']);
-Route::get('/establishments/firedrill/print/{id}',[PrintController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
-Route::put('/establishments/firedrill/print/{id}',[PrintController::class,'print_firedrill']);
+// Route::get('/establishments/firedrill/print/{id}',[PrintController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
+// Route::put('/establishments/firedrill/print/{id}',[PrintController::class,'print_firedrill']);
 
 //Print Route
 Route::get('/fsic/print/{id}', [PrintController::class, 'show_print_fsic'])->middleware(['auth','userType:ADMINISTRATOR,FSIC']);
@@ -126,8 +126,8 @@ Route::put('/fsic/print/{id}', [PrintController::class, 'print_fsic']);
 
 Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
 
-Route::get('/firedrill/print/{id}',[FiredrillController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
-Route::put('/firedrill/print/{id}',[Firedrillcontroller::class,'print_firedrill']);
+Route::get('/firedrill/print/{id}',[PrintController::class, 'show_print_firedrill'])->middleware(['auth','userType:ADMINISTRATOR,FIREDRILL']);
+Route::put('/firedrill/print/{id}',[Printcontroller::class,'print_firedrill']);
 
 Route::get('/fsec/print/{id}',[PrintController::class,'show_print_fsec'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsec/print/{id}',[PrintController::class,'print_fsec']);

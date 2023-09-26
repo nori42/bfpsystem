@@ -1,9 +1,11 @@
-const showPassword = document.querySelector('#showPassword')
+// PUT THE LOGIN PAGE SCRIPT HERE
 
-showPassword.addEventListener('change', function() {
+const showPassword = document.querySelector("#showPassword");
+
+showPassword.addEventListener("change", function () {
     if (showPassword.checked) {
-        document.querySelector('#password').type = "text"
+        document.querySelector("#password").type = "text";
     } else {
-        document.querySelector('#password').type = "password"
+        document.querySelector("#password").type = "password";
     }
-})
+});

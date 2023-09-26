@@ -87,6 +87,7 @@ class ReportsController extends Controller
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
             ->get();
+
         }
 
         return view('reports.print.fsec',[

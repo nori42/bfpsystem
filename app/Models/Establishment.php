@@ -30,6 +30,25 @@ class Establishment extends Model
         return $this->hasMany(Firedrill::class);
     }
 
+    public function getOwnerName(){
+        $person = Person::find($this->owner_id);
+        $corporate = Corporate::find($this->owner_id);
+
+        if($person->last_name != null && $person->middle_name != null)
+        {   
+            if($person->middle_name != null)
+                $owner = $person->first_name.' '.$person->middle_name.' '.$person->last_name;
+            else
+                $owner = $person->first_name.' '.$person->last_name;
+        }
+        else
+        {
+            $owner = $corporate->corporate_name;
+        }
+
+        return $owner;
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -17,7 +17,7 @@
             <x-toast :message="session('toastMssg')" />
         @endif
         <div class="d-flex align-items-center">
-            <div style="width:230px;">
+            <div class="mr-5" style="width:230px;">
                 <div class="fs-3 fw-semibold">Reports</div>
                 <div class="text-secondary">
                     List of
@@ -31,26 +31,36 @@
                 </div>
             </div>
             <div>
-                <label class="fs-5 fw-semibold" for="rfsic">Inspections</label>
-                <input class="fs-3" type="radio" name="page" id="rfsic" route="fsic"
-                    {{ $currentReport == 'fsic' ? 'checked' : '' }}>
-                <span class="mx-4">
-                    <label class="fs-5 fw-semibold" for="rfiredrill">Firedrills</label>
-                    <input class="fs-3" type="radio" name="page" id="rfiredrill" route="firedrill"
-                        {{ $currentReport == 'firedrill' ? 'checked' : '' }}>
-                </span>
-                <label class="fs-5 fw-semibold" for="rfsec">Building Plan Applications</label>
-                <input class="fs-3" type="radio" name="page" id="rfsec" route="fsec"
-                    {{ $currentReport == 'fsec' ? 'checked' : '' }}>
+                @if (auth()->user()->type == 'ADMINISTRATOR')
+                    @if ($currentReport == 'fsic')
+                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Inspections</div>
+                    @elseif ($currentReport == 'firedrill')
+                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Firedrill</div>
+                    @else
+                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Building Plan Applications</div>
+                    @endif
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-caret-down-fill"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fs-5" href="/reports/fsic">Inspsections</a></li>
+                            <li><a class="dropdown-item fs-5" href="/reports/firedrill">Firedrill</a></li>
+                            <li><a class="dropdown-item fs-5" href="/reports/fsec">Building Plan Application</a></li>
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
 
         <div id="reportContent">
 
-            <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+            <div class="d-flex align-items-center justify-content-between gap-3 mt-3">
                 <form id="filter" class="d-flex align-items-center gap-3"
-                    action="{{ '/reports' . '/' . $currentReport }}" method="GET">
-                    <x-dateFilter action="{{ '/reports' . '/' . $currentReport }}" :dateRange="['from' => $dateRange['from'], 'to' => $dateRange['to']]" :selfReport="$selfReport" />
+                    action="{{ '/reports' . '/' . $currentReport }}" method="GET" autocomplete="off">
+                    <x-dateFilter action="{{ '/reports' . '/' . $currentReport }}" :dateRange="['from' => $dateRange['from'], 'to' => $dateRange['to']]" :selfReport="$selfReport"
+                        :withFsecFlt="$currentReport == 'fsec'" />
 
                     @if ($dateRange['from'] != null && $dateRange['to'] != null)
                         @if ($currentReport == 'fsic')

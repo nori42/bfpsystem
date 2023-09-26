@@ -22,7 +22,6 @@
             color:white;
         ";
     @endphp
-
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
@@ -100,9 +99,25 @@
                     </div>
                 </div>
             </div>
+            <h1 class="fs-2 mt-4">Active Users</h1>
+            <table class="table w-35 ">
+                <thead>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                </thead>
+                <tbody>
+                    @foreach ($loggedInUsers as $user)
+                        <tr>
+                            <td>{{ $user->username }}</td>
+                            <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}</td>
+                            <td>{{ $user->type }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
         </x-pageWrapper>
     </div>
-
     <script></script>
 @endsection

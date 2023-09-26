@@ -39,14 +39,6 @@
         @method('PUT')
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
     </form>
-
-    {{-- For debugging --}}
-    {{-- <div class="editToolBox">
-        <button class="btnTools" id="btnCert" onclick="toggleCert(this)">Show Certificate</button>
-        <button class="btnTools" id="btnEdit" onclick="handleEdit(this)" style="display: none;">Edit</button>
-        <button class="btnTools" id="btnMove" onclick="handleMove(this)">Move</button>
-    </div> --}}
-
     <div class="nav">
         <a id="back" href="/fsec/{{ $buildingPlan->id }}">
             Back

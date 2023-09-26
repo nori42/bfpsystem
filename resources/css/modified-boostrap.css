@@ -20,21 +20,6 @@
     background-color: var(--secondary-subtle-color) !important;
 }
 
-.btn-success {
-    background-color: var(--success)!important;
-    border: none !important;
-    font-weight: bold !important;
-}
-
-
-.btn-success:hover {
-    background-color: var(--success-subtle)!important;
-}
-
-a.btn-success:hover {
-    color: white;
-    background-color: var(--success-subtle)!important;
-}
 
 .btn-outline-success {
     color: var(--success)!important;

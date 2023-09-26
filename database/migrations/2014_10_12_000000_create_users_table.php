@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type',['ADMINISTRATOR','FSIC','FSEC','FIREDRILL']);
             $table->string('name');
             $table->string('reset_password')->nullable();
+            $table->dateTime('last_active_at')->nullable();
             $table->boolean('is_password_default')->default(true);
             $table->boolean('request_password_reset')->default(false);
             $table->foreignIdFor(Personnel::class)->unique()->nullable();

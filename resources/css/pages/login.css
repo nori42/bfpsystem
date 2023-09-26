@@ -1,5 +1,9 @@
 @import url(../global.css);
 
+body {
+    overflow: auto;
+}
+
 .leftPanel {
     background-color: var(--secondary-color);
     position: relative !important;
@@ -21,4 +25,8 @@
 .input{
     display: block;
     border-radius: 15px;
+}
+
+.create {
+    width: 300px;
 }
