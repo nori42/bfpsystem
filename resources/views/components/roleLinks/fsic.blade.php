@@ -5,7 +5,7 @@
 
     <x-navLinks.link href="/establishments" :active="$currentRoute == 'establishments'">
         <!-- button Icon -->
-        <i class="bi bi-building-fill align-middle mr-4"></i>
+        <i class="bi bi-buildings-fill align-middle mr-4"></i>
         <span class="fs-6">Establishments</span>
     </x-navLinks.link>
 

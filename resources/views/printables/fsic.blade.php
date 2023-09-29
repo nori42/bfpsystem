@@ -3,11 +3,11 @@
 @php
     $personName = null;
     
-    if ($establishment->owner->person->last_name != null) {
-        $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
+    if ($establishment->owner->last_name != null) {
+        $personName = $establishment->owner->first_name . ' ' . $establishment->owner->last_name;
     }
     
-    $corporateName = $establishment->owner->corporate->corporate_name;
+    $corporateName = $establishment->owner->corporate_name;
     $registrationStatus = $inspection->registration_status;
     
     $details = [
@@ -16,6 +16,13 @@
         'expiryDate' => date('F d, Y', strtotime('+1 year')),
         'dateOfPayment' => date('m/d/Y', strtotime($inspection->receipt->date_of_payment)),
     ];
+    
+    // OTHERS OPTION
+    if ($inspection->registration_status == 'NEW' || $inspection->registration_status == 'RENEWAL' || $inspection->registration_status == 'OCCUPANCY') {
+        $isStatusOthers = false;
+    } else {
+        $isStatusOthers = true;
+    }
     
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
@@ -39,6 +46,9 @@
         <form class="m-0 d-none" id="print" action="{{ $inspection->id }}" method="POST" btndone>
             @csrf
             @method('PUT')
+            <input type="hidden" name="othersDescrpt" others="input">
+            <input type="hidden" name="validForDescrpt1" descrptInp1>
+            <input type="hidden" name="validForDescrpt2" descrptInp2>
             <button class="btn btn-success">Done<i class="bi bi-check-lg"></i></button>
         </form>
     @else
@@ -50,7 +60,7 @@
 @section('printTools')
     @if ($inspection->issued_on == null)
         <div class="printTools d-flex flex-column p-3 bg-white rounded-3 gap-2" printtools>
-            <button class="btn btn-primary" id="btnAddNote" toggled="false">Add Note</button>
+            <button class="btn btn-primary" id="btnAddNote" toggled="false">Add Description</button>
         </div>
     @endif
 @endsection
@@ -99,11 +109,18 @@
                 </div>
             </div>
 
-            <div class="c-3 {{ $registrationStatus == 'OTHERS' ? '' : 'hidden' }}" checkbox="3">
+            <div class="c-3 {{ $isStatusOthers ? '' : 'hidden' }}" checkbox="3">
                 <div class="check">&#x2714;</div>
                 <div class="others bold">
-                    <div data-draggable="true" data-editable class="others-info">
-                        <span>&nbsp;</span>
+                    <div data-draggable="true" data-editable class="others-info" others="descrpt">
+                        <span>
+                            @if ($isStatusOthers && $inspection->others_descrpt == null)
+                                {{ $inspection->registration_status }}
+                            @endif
+                            @if ($inspection->others_descrpt != null)
+                                {{ $inspection->others_descrpt }}
+                            @endif
+                        </span>
                     </div>
                 </div>
             </div>
@@ -127,11 +144,11 @@
             @endif
         </div>
 
-        <div class="more-info bold" data-draggable="true" data-editable>
-            <span>&nbsp;</span>
+        <div class="more-info bold" data-draggable="true" data-editable descrpt1>
+            <span>{{ $inspection->valid_for_descrpt }}</span>
         </div>
-        <div class="more-info more-info-2 bold" data-draggable="true" data-editable>
-            <span>&nbsp;</span>
+        <div class="more-info more-info-2 bold" data-draggable="true" data-editable descrpt1>
+            <span>{{ $inspection->valid_for_descrpt2 }}</span>
         </div>
         <div data-draggable="true" class="validity bold">
             <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('F d, Y', strtotime($inspection->expiry_date)) }}</span>
@@ -145,7 +162,7 @@
 
         <div data-draggable="true" id="chiefName" class="chiefName bold">{{ $chief }}
         </div>
-        <div data-draggable="true id="marshalName" class="marshalName bold">
+        <div data-draggable="true" id="marshalName" class="marshalName bold">
             {{ $marshal }}
         </div>
     </div>

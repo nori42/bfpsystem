@@ -36,12 +36,17 @@ class ServeExtended extends Command
         error_log('Info:Setting server configuration.');
         //Update establishments that has expired inspections
         $inspections = Inspection::whereDate('expiry_date','>=',now()->subDay(5))->whereDate('expiry_date','<=',now())->get();
-        foreach ($inspections as $inspection) {
-            $inspection->establishment->inspection_is_expired = true;
-            $inspection->status = "Expired";
-            $establishment = $inspection->establishment;
 
-            $establishment->inspection_is_expired = true;
+        foreach ($inspections as $inspection) {
+            $establishment = $inspection->establishment;
+            $latestInspection = $establishment->inspection->last();
+
+            //Only update if the latest inspection of the establishment is expired
+            if(date('Y-m-d',strtotime($latestInspection->expiry_date)) == date('Y-m-d')){
+                $establishment->inspection_is_expired = true;
+            }
+
+            $inspection->status = "Expired";
 
             $establishment->save();
             $inspection->save();

@@ -14,7 +14,15 @@
             @isset($toastMssg)
                 <x-toast :message="$toastMssg" />
             @endisset
-
+            @if (session('toastMssg'))
+                <x-toast :message="session('toastMssg')" />
+            @endif
+            <div>
+                <p class="fs-5 mb-0"> Owner:
+                    {{ $establishment->getOwnerName() }}
+                </p>
+                <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
+            </div>
             <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
             <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
@@ -31,7 +39,7 @@
                     <span class="material-symbols-outlined align-middle">
                         assignment_add
                     </span>
-                    Add Firedrill
+                    Issue Firedrill
                 </button>
             </div>
             @if ($firedrills->count() != 0)
@@ -46,6 +54,7 @@
                 </x-firedrill>
             @else
                 <h2 class="text-center text-secondary">No Firedrill</h2>
+                <div class="text-center text-secondary">List of issued firedrill certificate will be shown here.</div>
             @endif
 
             <x-form.firedrillAdd :establishment="$establishment" />

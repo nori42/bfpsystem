@@ -67,23 +67,8 @@
                                         @foreach ($buildingPlans as $plan)
                                             @php
                                                 $owner = $plan->owner;
-                                                $personName = null;
                                                 
-                                                if ($owner->person->last_name != null) {
-                                                    if ($owner->person->middle_name == null) {
-                                                        $personName = $owner->person->first_name . ' ' . $owner->person->last_name;
-                                                    } else {
-                                                        $personName = $owner->person->first_name . ' ' . $owner->person->middle_name[0] . '. ' . $owner->person->last_name;
-                                                    }
-                                                }
-                                                
-                                                if ($personName != null && $owner->corporate->corporate_name != null) {
-                                                    $representative = $personName . '/' . $owner->corporate->corporate_name;
-                                                } elseif ($personName == null) {
-                                                    $representative = $owner->corporate->corporate_name;
-                                                } else {
-                                                    $representative = $personName;
-                                                }
+                                                $representative = $plan->getOwnerName();
                                             @endphp
                                             <tr>
                                                 <td>{{ $plan->series_no }}</td>

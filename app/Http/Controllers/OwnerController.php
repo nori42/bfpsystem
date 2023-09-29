@@ -21,20 +21,15 @@ class OwnerController extends Controller
 
     public function update(Request $request){
         $owner = Owner::find($request->id);
-        $person = $owner->person;
-        $corporate = $owner->corporate;
 
-        $person->first_name = strtoupper($request->firstName);
-        $person->middle_name =strtoupper($request->middleName) ;
-        $person->last_name = strtoupper($request->lastName);
-        $person->suffix = strtoupper($request->nameSuffix);
-        $person->contact_no = $request->contactNoPerson;
-        $person->save();
+        $owner->first_name = strtoupper($request->firstName);
+        $owner->middle_name =strtoupper($request->middleName) ;
+        $owner->last_name = strtoupper($request->lastName);
+        $owner->suffix = strtoupper($request->nameSuffix);
+        $owner->contact_no = $request->contactNo;
+        $owner->corporate_name = strtoupper($request->corporateName);
 
-        $corporate->corporate_name = strtoupper($request->corporateName);
-
-        $corporate->contact_no = $request->contactNoCorp;
-        $corporate->save();
+        $owner->save();
 
        return redirect('/establishments'.'/'.$owner->establishment[0]->id)->with('mssg','Owner Updated');
     }

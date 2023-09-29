@@ -6,21 +6,15 @@
 @endsection
 @section('content')
     @php
-        $building = $buildingPlan->building;
         $receipt = $buildingPlan->receipt;
-        $person = $buildingPlan->owner->person;
-        $corporate = $buildingPlan->owner->corporate;
         
-        //Person Name
-        $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
-        $personName = $person->title . ' ' . $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
         $applicant = $representative;
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
             @if (session('mssg'))
-                <x-toast :message="session('mssg')" />
+                <x-toast :message="session('mssg')" type="success" />
             @endif
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-2">
@@ -127,8 +121,6 @@
                     <x-info label="Bill of Materials(BOQ)" :value="$buildingPlan->bill_of_materials ? $buildingPlan->bill_of_materials : 'N/A'" />
                     <x-info label="Date Received." value="{{ date('m/d/Y', strtotime($buildingPlan->date_received)) }}" />
                 </div>
-
-                <h2 class="fs-4 mt-4">Building</h2>
                 <div class="row">
                     <x-info label="Name of Building/Structure/Facility" :value="$buildingPlan->name_of_building ? $buildingPlan->name_of_building : 'N/A'" />
                     <x-info label="Project Title" :value="$buildingPlan->project_title ? $buildingPlan->project_title : 'N/A'" />
@@ -136,13 +128,13 @@
                     <div class="col"></div>
                 </div>
                 <div class="row my-3">
-                    <x-info label="Building Story" :value="$building->building_story ? $building->building_story : 'N/A'" />
-                    <x-info label="Floor Area" :value="$building->floor_area ? $building->floor_area : 'N/A'" />
-                    <x-info label="Occupancy" :value="$building->occupancy" />
-                    <x-info label="Sub Type" :value="$building->sub_type" />
+                    <x-info label="Building Story" :value="$buildingPlan->building_story ? $buildingPlan->building_story : 'N/A'" />
+                    <x-info label="Floor Area" :value="$buildingPlan->floor_area ? $buildingPlan->floor_area : 'N/A'" />
+                    <x-info label="Occupancy" :value="$buildingPlan->occupancy" />
+                    <x-info label="Sub Type" :value="$buildingPlan->sub_type" />
                 </div>
                 <div class="my-3">
-                    <x-info label="Address" :value="$building->address" />
+                    <x-info label="Address" :value="$buildingPlan->address" />
                 </div>
                 <h2 class="fs-4 mt-4">Receipt</h2>
 

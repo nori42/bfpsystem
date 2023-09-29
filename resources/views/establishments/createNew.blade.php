@@ -47,7 +47,7 @@
                     {{-- Corporate --}}
                     <fieldset>
                         <x-form.input type="text" label="Corporate Name" name="corporateName" />
-                        <x-form.input type="text" label="Contact No." name="contactNoCorporate" class="w-50" />
+                        <x-form.input type="text" label="Contact No." name="contactNo" class="w-50" />
                     </fieldset>
 
                     {{-- <x-form.input type="text" label="Contact No." name="contactNoPerson" /> --}}

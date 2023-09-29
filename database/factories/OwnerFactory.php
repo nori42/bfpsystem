@@ -25,9 +25,19 @@ class OwnerFactory extends Factory
 
     public function definition(): array
     {    
+
+        if(rand(0,3) == 0){
+            $compName = strtoupper(fake()->company());
+        }
+        else{
+            $compName = null;
+        }
         return [
-            'person_id' => Person::factory(),
-            'corporate_id' => Corporate::factory()
+            'first_name' => strtoupper(fake()->firstName()),
+            'middle_name' => strtoupper(fake()->lastName()),
+            'last_name' => strtoupper(fake()->lastName()),
+            'contact_no' => fake()->phoneNumber,
+            'corporate_name' => $compName
         ];
     }
 }

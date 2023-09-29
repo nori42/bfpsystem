@@ -22,8 +22,11 @@
         @if ($firedrill->issued_on != null)
             <a class="btn btn-primary" href={{ '/firedrill/print/' . $firedrill->id }}>
                 <i class="bi bi-file-earmark-fill"></i>
-                View Print
+                View Certificate
             </a>
+        @endif
+        @if ($firedrill->issued_on == null)
+            <div class="d-inline text-danger">Not Printed</div>
         @endif
     </td>
 </tr>

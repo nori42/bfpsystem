@@ -4,6 +4,8 @@
     @if ($dateRange['from'] != null && $dateRange['to'] != null)
         <div class="d-flex align-items-center justify-content-between heading">
             <div class="fs-5">Inpsections Certificate Issued</div>
+            <div class="fs-6 fw-semibold">{{ $inspections->count() }} Result{{ $inspections->count() > 1 ? 's' : '' }}
+            </div>
             <div class="fs-6">
                 <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
                 @if ($dateRange['from'] != $dateRange['to'])

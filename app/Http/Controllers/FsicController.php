@@ -29,12 +29,16 @@ class FsicController extends Controller
             'establishment' => $establishment,
             'inspections' => $inspections,
             'owner' => $owner,
-            'representative' => Helper::getRepresentativeName($establishment->owner_id)
+            'representative' => $establishment->getOwnerName()
         ]);
     }
 
     //Inspection
     public function store(Request $request){
+
+        if(Inspection::where('fsic_no',$request->fsicNo)->exists())
+            return back()->with('toastMssg','FSIC No. already in used');
+        
         // instantiate model
         $inspection = new Inspection();
         $receipt = new Receipt();
@@ -87,13 +91,12 @@ class FsicController extends Controller
                 'inspections' => $inspectionDetail,
                 'selectOptions' => $selectOptions,
                 'owner' => $inspection->establishment->owner,
-                'representative' => Helper::getRepresentativeName($establishment->owner_id),
+                'representative' => $establishment->getOwnerName(),
                 'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
                 ]);
             case 'addandprint':
                 return redirect('/fsic/print/'.$inspection->id);
         }
-
     }
 
     public function update(Request $request){
@@ -112,7 +115,7 @@ class FsicController extends Controller
                 'establishment' => $inspection->establishment,
                 'inspections' =>  $inspectionList,
                 'owner' => $establishment->owner,
-                'representative' => Helper::getRepresentativeName($establishment->owner_id),
+                'representative' => $establishment->getOwnerName(),
                 'toastMssg' => "Inspection Discarded",
             ]);
         }
@@ -143,7 +146,7 @@ class FsicController extends Controller
                     'establishment' => $inspection->establishment,
                     'inspections' =>  $inspectionList,
                     'owner' => $inspection->establishment->owner,
-                    'representative' => Helper::getRepresentativeName($inspection->establishment->owner_id),
+                    'representative' => $inspection->establishment->getOwnerName(),
                     'inpsectUpdatedId' => $inspection->id,
                     'toastMssg' => "Updated Successfully",
                     'isUpdate' => true,
@@ -171,7 +174,7 @@ class FsicController extends Controller
         return view('establishments.fsic.attachment_fsic',[
             'establishment' => $establishment,
             'owner' => $owner,
-            'representative' => Helper::getRepresentativeName($establishment->owner_id),
+            'representative' => $establishment->getOwnerName(),
             'files' =>  $files,
         ]);
     }

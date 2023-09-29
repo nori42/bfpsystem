@@ -1,4 +1,6 @@
-body 
+body {
+    height: unset;
+}
 
 
 .printablePage{
@@ -80,7 +82,7 @@ li{
 
 .date-made{
     position: absolute;
-    top: 464px;
+    top: 462px;
     left: 90px;
     width: 135px;
     text-align: center;

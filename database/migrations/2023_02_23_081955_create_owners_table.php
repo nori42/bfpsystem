@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignIdFor(Person::class)->nullable();
-            $table->foreignIdFor(Corporate::class)->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('corporate_name')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('suffix')->nullable();
         });
     }
 

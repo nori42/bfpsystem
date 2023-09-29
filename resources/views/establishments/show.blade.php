@@ -41,11 +41,10 @@
         {{-- Put page content here --}}
         <x-pageWrapper>
             {{-- {{ dd($establishment->getAttributes()) }} --}}
-            @if (session('debug'))
-                {{ dd(session('debug')) }}
-            @endif
+
+
             @if (session('mssg'))
-                <x-toast :message="session('mssg')" />
+                <x-toast :message="session('mssg')" type="success" />
             @endif
             <div class="d-flex justify-content-center gap-5">
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
@@ -86,7 +85,7 @@
                             <a class="btn btn-outline-primary px-4"
                                 href="/establishments/{{ $establishment->id }}/fsic">Fire
                                 Safety
-                                Inspection(FSIC) <i class="bi bi-arrow-right"></i></a>
+                                Inspection Certificates(FSIC) <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 @endif
@@ -137,7 +136,7 @@
                         </div>
                         <div class="d-flex justify-content-center p-3">
                             <a class="btn btn-outline-primary px-5"
-                                href="/establishments/{{ $establishment->id }}/firedrill">Firedrill <i
+                                href="/establishments/{{ $establishment->id }}/firedrill">Firedrill Certificates<i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
@@ -215,25 +214,25 @@
                     <div class="row">
                         @php
                             $personName = null;
-                            $contactNo = null;
+                            $owner = $establishment->owner;
+                            $contactNo = $owner->contactNo;
+                            // if ($owner->corporate != null) {
+                            //     $corporateName = $establishment->owner->corporate->corporate_name;
+                            //     $contactNo = $owner->corporate->contact_no;
+                            // }
                             
-                            if ($owner->corporate != null) {
-                                $corporateName = $establishment->owner->corporate->corporate_name;
-                                $contactNo = $owner->corporate->contact_no;
-                            }
+                            // if ($owner->person->last_name != null) {
+                            //     $person = $establishment->owner->person;
+                            //     $contactNo = $establishment->owner->person->contact_no;
                             
-                            if ($owner->person->last_name != null) {
-                                $person = $establishment->owner->person;
-                                $contactNo = $establishment->owner->person->contact_no;
+                            //     if ($person->middle_name != null) {
+                            //         $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
+                            //     } else {
+                            //         $personName = $person->first_name . ' ' . $person->last_name;
+                            //     }
+                            // }
                             
-                                if ($person->middle_name != null) {
-                                    $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
-                                } else {
-                                    $personName = $person->first_name . ' ' . $person->last_name;
-                                }
-                            }
-                            
-                            $representative = $personName != null ? $personName : $corporateName;
+                            $representative = $establishment->getOwnerName();
                         @endphp
                         <x-info label="Owner/Representative" :value="$representative" />
                         <x-info label="Contact No." :value="$contactNo" />

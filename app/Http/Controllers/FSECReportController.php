@@ -16,19 +16,27 @@ class FSECReportController extends Controller
         }
 
         $selfReport = $request->selfReport ? true : false;
+        $released = $request->released ? true : false;
 
         if($selfReport){
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
             ->where('evaluator',auth()->user()->personnel->first_name.' '.auth()->user()->personnel->last_name)
             ->get();
+
+            if($request->released){
+                $evaluations = Evaluation::join('building_plans','evaluations.building_plan_id','=','building_plans.id')
+                ->where('remarks','APPROVED')
+                ->whereBetween('building_plans.date_released',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
+                ->get();
+            }
         }
         else{
             $evaluations = Evaluation::where('remarks','APPROVED')
             ->whereBetween('evaluations.created_at',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
             ->get();
 
-            if($request->filterType == 'release'){
+            if($request->released){
                 $evaluations = Evaluation::join('building_plans','evaluations.building_plan_id','=','building_plans.id')
                 ->where('remarks','APPROVED')
                 ->whereBetween('building_plans.date_released',[$request->dateFrom.' 00:00:00',$request->dateTo.' 23:59:59'])
@@ -40,7 +48,8 @@ class FSECReportController extends Controller
             'evaluations'=> $evaluations,
             'date' =>['year' => $request->year,'month'=> date('F',strtotime('1975-'.$request->month.'-01')),'monthInt' => $request->month],
             'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo],
-            'selfReport' => $selfReport
+            'selfReport' => $selfReport,
+            'released' => $released
         ]);
         
     }

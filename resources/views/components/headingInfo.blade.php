@@ -2,30 +2,29 @@
 
 
 @php
-    $personName = null;
-    $company = null;
-    $person = null;
+    $personName = $owner->last_name != null ? $owner->first_name . ' ' . $owner->last_name : '';
+    // $company = null;
+    // $person = null;
     
-    if ($owner->person->last_name != null) {
-        $person = $owner->person;
-        $personName = $owner->person->first_name . ' ' . $owner->person->middle_name . ' ' . $owner->person->last_name . ' ' . $owner->person->suffix;
-    }
+    // if ($owner->person->last_name != null) {
+    //     $person = $owner->person;
+    //     $personName = $owner->person->first_name . ' ' . $owner->person->middle_name . ' ' . $owner->person->last_name . ' ' . $owner->person->suffix;
+    // }
     
-    if ($owner->corporate != null) {
-        $company = $owner->corporate;
-    }
+    // if ($owner->corporate != null) {
+    //     $company = $owner->corporate;
+    // }
     
     // $representative = $personName != null ? $personName : $company->corporate_name;
-    
 @endphp
 <div>
     {{-- <div class="fs-5">Business Permit: {{ $establishment->business_permit_no }}</div> --}}
-    <div>
+    {{-- <div>
         <p class="fs-5 mb-0"> Owner/Representative:
             {{ $establishment->getOwnerName() }}
         </p>
         <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
-    </div>
+    </div> --}}
 
     <div>
         {{-- Establishment Info --}}
@@ -54,14 +53,14 @@
                     <li><span class="fw-bold">Latest Permit: </span>{{ $establishment->latest_permit }}</li>
                     <li><span class="fw-bold">Barangay: </span>{{ $establishment->barangay }}</li>
                     <li><span class="fw-bold">Address: </span>{{ $establishment->address }}</li>
-                    <li><span class="fw-bold fs-5">Owner/Representative</li>
-                    @if ($personName != null)
+                    <li><span class="fw-bold fs-5 my-3">Owner</li>
+                    @if ($personName)
                         <li><span class="fw-bold">Name:</span> {{ $personName }}</li>
-                        <li><span class="fw-bold">Contact:</span> {{ $person->contact_no }}</li>
-                    @else
-                        <li><span class="fw-bold">Corporate:</span> {{ $company->corporate_name }}</li>
-                        <li><span class="fw-bold">Contact:</span> {{ $company->contact_no }}</li>
                     @endif
+                    @if ($owner->corporate_name)
+                        <li><span class="fw-bold">Corporate:</span> {{ $owner->corporate_name }}</li>
+                    @endif
+                    <li><span class="fw-bold">Contact:</span> {{ $owner->contact_no }}</li>
                 </ul>
             </div>
         </div>

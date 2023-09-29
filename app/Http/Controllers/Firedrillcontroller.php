@@ -23,7 +23,7 @@ class FiredrillController extends Controller
             'firedrills' => $firedrills,
             'establishment' => $establishment,
             'owner' => $owner,
-            'representative' => Helper::getRepresentativeName($establishment->owner_id),
+            'representative' => $establishment->getOwnerName(),
             'page_title' => 'Fire Drill' // use to set page title inside the panel
         ]);
     }
@@ -67,7 +67,7 @@ class FiredrillController extends Controller
                 'isAdd'=>true,
                 'toastMssg' => 'Firedrill Added',
                 'owner' => $owner,
-                'representative' => Helper::getRepresentativeName($establishment->owner_id)
+                'representative' => $establishment->getOwnerName()
             ]);
         }
         else
@@ -78,11 +78,16 @@ class FiredrillController extends Controller
     }
 
     public function update(Request $request){
-
+        
         $firedrill = Firedrill::find($request->firedrillId);
         $receipt = $firedrill->receipt;
         $establishment = Establishment::find($request->estabId);
         $owner = $establishment->owner;
+
+        if($request->input('action') == "delete"){
+            $firedrill->delete();
+            return redirect("/establishments/{$firedrill->establishment->id}/firedrill")->with('toastMssg','Firedrill discarded');
+        }
         
         if($request->action =='save' || $request->action == 'saveandprint')
         {
@@ -123,7 +128,7 @@ class FiredrillController extends Controller
                 'firedrills' => $firedrills,
                 'establishment' => $establishment,
                 'owner' => $owner,
-                'representative' => Helper::getRepresentativeName($establishment->owner_id),
+                'representative' => $establishment->getOwnerName(),
                 'isUpdate' =>true,
                 'toastMssg' => 'Updated Successfully',
                 'firedrillUpdatedId' => $firedrill->id
@@ -144,7 +149,7 @@ class FiredrillController extends Controller
         $company = $owner->corporate->corporate_name;
         
         // $representative = ($owner->person->last_name != null) ? $personName: $company;
-        $representative = Helper::getRepresentativeName($establishment->owner_id);
+        $representative = $establishment->getOwnerName();
         
         return view('establishments.firedrill.print_firedrill',[
             'estabId' => $establishment->id,
@@ -186,7 +191,7 @@ class FiredrillController extends Controller
         return view('establishments.firedrill.attachment_firedrill',[
             'establishment' => $establishment,
             'owner' => $owner,
-            'representative' => Helper::getRepresentativeName($establishment->owner_id),
+            'representative' => $establishment->getOwnerName(),
             'files' =>  $files,
         ]);
     }

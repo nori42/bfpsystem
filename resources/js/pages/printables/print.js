@@ -23,15 +23,16 @@ if (select("#isPreview")) {
         }
     });
 }
-
-select("[printbtn]").addEventListener("click", () => {
-    print();
-    select("[btnback").remove();
-    selectAll("[btndone]").forEach((btn) => {
-        btn.classList.remove("d-none");
+if (select("[printbtn]") != null) {
+    select("[printbtn]").addEventListener("click", () => {
+        print();
+        select("[btnback").remove();
+        selectAll("[btndone]").forEach((btn) => {
+            btn.classList.remove("d-none");
+        });
+        select("[printtools").remove();
     });
-    select("[printtools").remove();
-});
+}
 
 export const handleMove = (btn) => {
     moveables = document.querySelectorAll('[data-draggable="true"]');

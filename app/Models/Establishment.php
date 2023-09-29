@@ -31,22 +31,17 @@ class Establishment extends Model
     }
 
     public function getOwnerName(){
-        $person = Person::find($this->owner_id);
-        $corporate = Corporate::find($this->owner_id);
+        $owner = Owner::find($this->owner_id);
 
-        if($person->last_name != null && $person->middle_name != null)
-        {   
-            if($person->middle_name != null)
-                $owner = $person->first_name.' '.$person->middle_name.' '.$person->last_name;
-            else
-                $owner = $person->first_name.' '.$person->last_name;
-        }
-        else
-        {
-            $owner = $corporate->corporate_name;
-        }
+        $ownerName = $owner->first_name.' '.' '.$owner->last_name;
 
-        return $owner;
+        if($owner->corporate_name != null)
+            $ownerName = $ownerName.'/'.$owner->corporate_name;
+
+        if($owner->corporate_name != null && $owner->last_name == null)
+        $ownerName = $owner->corporate_name;
+        
+        return $ownerName;
     }
 
     protected static function boot()

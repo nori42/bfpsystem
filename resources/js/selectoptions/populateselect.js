@@ -33,6 +33,13 @@ export const populateSelectOptions = () => {
         addEvent("change", select("#occupancy"), () => {
             const options = occupancies[select("#occupancy").value].subtype;
             select("#subType").innerHTML = "";
+
+            // Append Placeholder first
+            const optionEl = document.createElement("option");
+            optionEl.setAttribute("value", "");
+            optionEl.innerHTML = "--Select Sub Type--";
+            select("#subType").appendChild(optionEl);
+
             options.forEach((option) => {
                 const optionEl = document.createElement("option");
                 optionEl.setAttribute("value", option);

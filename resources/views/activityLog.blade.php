@@ -16,7 +16,7 @@
                     <span class="d-block fw-bold fs-3">Activity log</span>
                     <span class="text-secondary">List of user's activity</span>
                 </div>
-                <form action="/activity" class="d-flex align-items-center gap-2" method="GET">
+                {{-- <form action="/activity" class="d-flex align-items-center gap-2" method="GET">
                     <label class="fw-bold" for="fromDate">From</label>
                     <input class="form-control" type="date" id="activityDateFrom" name="activityDateFrom"
                         style="width:18rem;" value="" required>
@@ -25,26 +25,56 @@
                     <input class="form-control" type="date" id="activityDateTo" name="activityDateTo"
                         style="width:18rem;" value="" required>
                     <button id="btnViewActivity" class="btn btn-primary">View Activity</button>
-                </form>
+                </form> --}}
             </div>
 
             {{-- Loading --}}
             <h2 class="text-secondary text-center mt-5 d-none" id="loadingMssg">Fetching Activity...</h2>
             <div id="activityContent">
-                <div class="my-3 float-end fw-bold fs-5">
-                    @if ($dateRange[0] != null && $dateRange[1] != null && $dateRange[0] != $dateRange[1])
-                        <div>
-                            <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
-                            <span> - </span>
-                            <span>{{ date('F d, Y', strtotime($dateRange[1])) }}</span>
-                        </div>
-                    @else
-                        @if ($dateRange[0] == null)
-                            <span>{{ date('F d, Y', strtotime($dateQuery)) }}</span>
-                        @else
-                            <span>{{ date('F d, Y', strtotime($dateRange[0])) }}</span>
+                <div class="d-flex align-items-center justify-content-between my-3">
+                    <form id="filter" class="d-flex gap-3 align-items-center" action="/activity">
+
+                        <x-dateFilter :dateRange="['from' => $dateRange['from'], 'to' => $dateRange['to']]" />
+
+                        @if ($dateRange['from'] != null)
+                            <div class="d-flex align-items-center gap-2">
+                                <label for="fsec" class="fs-5 fw-semibold">FSEC</label>
+                                <input type="radio" class="mr-2" name="activityIn" id="fsec" value="FSEC"
+                                    {{ $activityIn == 'FSEC' ? 'checked' : '' }} checkboxquery>
+                                <label for="fsic" class="fs-5 fw-semibold">FSIC</label>
+                                <input type="radio" class="mr-2" name="activityIn" id="fsic" value="FSIC"
+                                    {{ $activityIn == 'FSIC' ? 'checked' : '' }} checkboxquery>
+                                <label for="firedrill" class="fs-5 fw-semibold">FIREDRILL</label>
+                                <input type="radio" class="mr-2" name="activityIn" id="firedrill" value="FIREDRILL"
+                                    {{ $activityIn == 'FIREDRILL' ? 'checked' : '' }} checkboxquery>
+                                {{-- <label for="users" class="fs-5 fw-semibold">USERS</label>
+                                <input type="radio" class="mr-2" name="activityIn" id="users" value="USERS"
+                                    {{ $activityIn == 'USERS' ? 'checked' : '' }} checkboxquery> --}}
+                                <label for="all" class="fs-5 fw-semibold">ALL</label>
+                                <input type="radio" class="mr-2" name="activityIn" id="all" value="ALL"
+                                    {{ $activityIn == 'ALL' ? 'checked' : '' }} checkboxquery>
+                            </div>
                         @endif
-                    @endif
+                    </form>
+                    <input type="hidden" name="dateFromCurrent" id="dateFromCurrent" value="{{ $dateRange['from'] }}">
+                    <input type="hidden" name="dateToCurrent" id="dateToCurrent" value="{{ $dateRange['to'] }}">
+                    <div class="fs-6 fw-semibold">{{ $activities->count() }} Result{{ $activities->count() > 1 ? 's' : '' }}
+                    </div>
+                    <div class="my-3 fw-semibold fs-6">
+                        @if ($dateRange['from'] != null && $dateRange['to'] != null && $dateRange['from'] != $dateRange['to'])
+                            <div>
+                                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                                <span> - </span>
+                                <span>{{ date('F d, Y', strtotime($dateRange['to'])) }}</span>
+                            </div>
+                        @else
+                            @if ($dateRange['from'] == null)
+                                <span>{{ date('F d, Y', strtotime($dateQuery)) }}</span>
+                            @else
+                                <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
+                            @endif
+                        @endif
+                    </div>
                 </div>
                 <table class="table">
                     <thead>
@@ -75,22 +105,7 @@
         </x-pageWrapper>
     </div>
 
-    <script defer>
-        const dateFrom = document.querySelector(["#activityDateFrom"])
-        const dateTo = document.querySelector(["#activityDateTo"])
-
-        const loadingMssg = document.querySelector(["#loadingMssg"])
-        const activtiyContent = document.querySelector(["#activityContent"])
-
-        document.querySelector('#btnViewActivity').addEventListener('click', () => {
-            if (dateFrom.value != "" && dateTo.value != "") {
-                loadingMssg.classList.remove('d-none')
-                activtiyContent.classList.add('d-none')
-            }
-        })
-
-        dateFrom.addEventListener('change', () => {
-            dateTo.value = dateFrom.value
-        })
-    </script>
+@section('page-script')
+    @vite(['/resources/js/pages/activitylogs.js'])
+@endsection
 @endsection

@@ -82,7 +82,7 @@
                                         <div class="mt-4 fs-4">Substation</div>
 
                                         @php
-                                            $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban '];
+                                            $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban', 'CBP'];
                                         @endphp
 
                                         <table style="width: 16rem;">
@@ -95,14 +95,14 @@
                                             @endforeach
                                         </table>
                                         <table class="mt-4" style="width:16rem;">
-                                            <tr>
+                                            {{-- <tr>
                                                 <td class="fw-bold">CBP</td>
                                                 <td>{{ $fsicIssued['totalCBP'] }}</td>
-                                            </tr>
-                                            <tr>
+                                            </tr> --}}
+                                            {{-- <tr>
                                                 <td class="fw-bold">Total Substations</td>
                                                 <td>{{ $fsicIssued['totalSubstation'] }}</td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <td class="fw-bold">Grand Total</td>
                                                 <td>{{ $fsicIssued['totalGrand'] }}</td>
@@ -135,7 +135,7 @@
                                         <div class="mt-4 fs-4">Substation</div>
 
                                         @php
-                                            $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban '];
+                                            $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban', 'CBP'];
                                         @endphp
 
                                         <table style="width: 16rem;">
@@ -148,14 +148,14 @@
                                             @endforeach
                                         </table>
                                         <table class="mt-4" style="width:16rem;">
-                                            <tr>
+                                            {{-- <tr>
                                                 <td class="fw-bold">CBP</td>
                                                 <td>{{ $firedrillIssued['totalCBP'] }}</td>
-                                            </tr>
-                                            <tr>
+                                            </tr> --}}
+                                            {{-- <tr>
                                                 <td class="fw-bold">Total Substations</td>
                                                 <td>{{ $firedrillIssued['totalSubstation'] }}</td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <td class="fw-bold">Grand Total</td>
                                                 <td>{{ $firedrillIssued['totalGrand'] }}</td>
@@ -183,6 +183,13 @@
                                     style="height: 1.325rem; width: 1.325rem; margin-left: 8px;" checkboxquery
                                     {{ $unclaimed ? 'checked' : '' }}>
                                 <label for="unclaimed" class="fw-bold">Unclaimed</label>
+                            </div>
+                        @elseif ($currentReport == 'fsec')
+                            <div>
+                                <input class="align-middle" type="checkbox" name="released" id="released"
+                                    style="height: 1.325rem; width: 1.325rem; margin-left: 8px;" checkboxquery
+                                    {{ $released ? 'checked' : '' }}>
+                                <label for="released" class="fw-bold">Released</label>
                             </div>
                         @endif
 

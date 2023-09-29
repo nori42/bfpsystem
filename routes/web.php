@@ -61,19 +61,21 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 
 //Establishments route
-Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL','personnelChecker'])->name("establishments");
-Route::post('/establishments/search', [EstablishmentController::class, 'search'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
+
 Route::middleware(['auth','userType:ADMINISTRATOR,FSIC','personnelChecker'])->group(function () {
     Route::get('/establishments/create', [EstablishmentController::class, 'create']);
-    Route::get('/establishments/{id}', [EstablishmentController::class, 'show']);
     Route::get('/establishments/{id}/edit', [EstablishmentController::class, 'edit']);
-    Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
     Route::post('/establishments', [EstablishmentController::class, 'store']);
+    // Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
 
     Route::post('/establishments/store_from_owner/{store_from_owner_id}', [EstablishmentController::class, 'store']);
     Route::post('/establishments/{id}/delete', [EstablishmentController::class, 'destroy']);
     Route::post('/establishments/{id}/update', [EstablishmentController::class, 'update']);
 });
+
+Route::get('/establishments', [EstablishmentController::class, 'index'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL','personnelChecker'])->name("establishments");
+Route::post('/establishments/search', [EstablishmentController::class, 'search'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
+Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL']);
 
 Route::middleware(['auth','userType:ADMINISTRATOR,FSIC,FIREDRILL','personnelChecker'])->group(function (){
     //Attachments
@@ -190,13 +192,15 @@ Route::get('/settings',function () {
 
 Route::post('/settings',[SettingsController::class,'update'])->middleware(['auth','userType:ADMINISTRATOR']);
 
-//Resources API
-Route::get('resources/owners',[SearchController::class,'searchOwner']);
-Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
-Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);
-Route::get('resources/reports/fsic',[FSICReportController::class,'getFSICReport']);
-Route::get('resources/reports/firedrill',[FSICReportController::class,'getFiredrillReport']);
-Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
+//Search Resources
+Route::middleware(['auth'])->group(function(){
+    // Route::get('resources/owners',[SearchController::class,'searchOwner']);
+    Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
+    Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);
+});
+// Route::get('resources/reports/fsic',[FSICReportController::class,'getFSICReport']);
+// Route::get('resources/reports/firedrill',[FSICReportController::class,'getFiredrillReport']);
+// Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
 
 //Others
 Route::get('/unauthorized',function () {

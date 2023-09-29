@@ -5,8 +5,8 @@
 </x-modal> --}}
 @php
     $yearNow = date('Y');
-    $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
-    $payer = $establishment->owner->person !== null ? $personName : $establishment->owner->corporate->corporate_name;
+    // $personName = $establishment->owner->person->first_name . ' ' . $establishment->owner->person->last_name;
+    // $payer = $establishment->owner->person !== null ? $personName : $establishment->owner->corporate->corporate_name;
 @endphp
 
 <div class="modal fade" id="addFiredrillModal">
@@ -76,10 +76,10 @@
                     </div>
                 </fieldset>
                 <div class="d-flex justify-content-end mt-3 gap-2">
-                    <button class="btn btn-primary" type="submit" name="action" value="add">
+                    {{-- <button class="btn btn-primary" type="submit" name="action" value="add">
                         <i class="bi bi-plus-circle-fill px-2"></i>
                         Add
-                    </button>
+                    </button> --}}
                     <button class="btn btn-primary" type="submit" name="action" value="addandprint">
                         <i class="bi bi-printer-fill mr-3"></i>
                         Print

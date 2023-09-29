@@ -80,24 +80,14 @@ class EstablishmentController extends Controller
         
         // instantiate model
         $establishment = new Establishment();
-        $person = new Person();
-        $corporate = new Corporate();
         $owner = new Owner();
         //get Data
-        $person->first_name = strtoupper($request->firstName);
-        $person->last_name = strtoupper($request->lastName);
-        $person->middle_name =  strtoupper($request->middleName);
-        $person->suffix = strtoupper($request->suffix);
-        $person->contact_no = $request->contactNoPerson;
-
-        
-        $corporate->corporate_name = strtoupper($request->corporateName);
-        $corporate->contact_no = ($request->contactNoCorporate);
-
-        $person->save();
-        $corporate->save();
-        $owner->person_id = $person->id;
-        $owner->corporate_id = $corporate->id;
+        $owner->first_name = strtoupper($request->firstName);
+        $owner->last_name = strtoupper($request->lastName);
+        $owner->middle_name =  strtoupper($request->middleName);
+        $owner->suffix = strtoupper($request->suffix);
+        $owner->contact_no = $request->contactNo;
+        $owner->corporate_name = strtoupper($request->corporateName);
         $owner->save();
 
         $establishment->establishment_name = strtoupper($request->establishmentName);

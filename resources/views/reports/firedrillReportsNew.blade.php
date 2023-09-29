@@ -4,6 +4,8 @@
     @if ($dateRange['from'] != null && $dateRange['to'] != null)
         <div class="d-flex align-items-center justify-content-between heading">
             <div class="fs-5">Firedrill Issued</div>
+            <div class="fs-6 fw-semibold">{{ $firedrills->count() }} Result{{ $firedrills->count() > 1 ? 's' : '' }}
+            </div>
             <div class="fs-6">
                 <span>{{ date('F d, Y', strtotime($dateRange['from'])) }}</span>
                 @if ($dateRange['from'] != $dateRange['to'])
@@ -31,21 +33,8 @@
                 <tbody>
                     @foreach ($firedrills as $firedrill)
                         @php
-                            $company = $firedrill->establishment->owner->corporate;
-                            $person = $firedrill->establishment->owner->person;
-                            $representative = null;
                             
-                            $personName = $person->first_name . ' ' . $person->last_name;
-                            
-                            if ($company->corporate_name != null && $person->last_name != null) {
-                                $representative = $company->corporate_name . '/' . $personName;
-                            }
-                            
-                            if ($person->last_name == null) {
-                                $representative = $company->corporate_name;
-                            } else {
-                                $representative = $personName;
-                            }
+                            $representative = $firedrill->establishment->getOwnerName();
                             
                         @endphp
                         <tr class="align-middle">

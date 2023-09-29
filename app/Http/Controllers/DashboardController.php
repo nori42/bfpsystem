@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BuildingPlan;
 use App\Models\Establishment;
 use App\Models\Firedrill;
+use App\Models\Inspection;
 use App\Models\Personnel;
 use App\Models\User;
 use Illuminate\Http\Request;

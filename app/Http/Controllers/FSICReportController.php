@@ -17,21 +17,43 @@ class FSICReportController extends Controller
 
         $selfReport = $request->selfReport ? true : false;
         
-        $inspections = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
-        ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
-        ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+        // $inspections = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+        // ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
+        // ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+
+        if($request->selfReport){
+            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+            ->where('user_id',auth()->user()->id)
+            ->orderBy('issued_on')
+            ->get();
+
+            $inspectionsSm = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+            ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
+            ->where('user_id',auth()->user()->id)
+            ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+        }
+        else{
+            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+            ->orderBy('issued_on')
+            ->get();
+
+            $inspectionsSm = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+            ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
+            ->whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])->get();
+        }
 
         // GET INSPECTIONS EXCEPT FOR CBP
         $inspectionsSubstation = $inspections->where('substation','!=','CBP');
 
         // GROUP SUBSTATIONS
-        $fsicIssuedSubstation = $inspectionsSubstation->groupBy('substation');
+        // $fsicIssuedSubstation = $inspectionsSubstation->groupBy('substation');
+        $fsicIssuedSubstation = $inspectionsSm->groupBy('substation');
 
         // GET REG_STAT NEW INSPTECTIONS
-        $inspectionsNew = $inspections->where('registration_status','NEW');
+        $inspectionsNew = $inspectionsSm->where('registration_status','NEW');
 
         // GET CBP SUBSTATIONS
-        $inspectionsCBP = $inspections->where('substation','CBP');
+        $inspectionsCBP = $inspectionsSm->where('substation','CBP');
 
         // TOTALS
         $totalSubstation = 0;
@@ -47,20 +69,8 @@ class FSICReportController extends Controller
             'totalCBP' => $totalCBP,
             'totalNew' => $totalNew,
             'totalSubstation' => $totalSubstation,
-            'totalGrand' => $totalCBP + $totalSubstation 
+            'totalGrand' => $totalSubstation 
         ];
-
-        if($request->selfReport){
-            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-            ->where('user_id',auth()->user()->id)
-            ->orderBy('issued_on')
-            ->get();
-        }
-        else{
-            $inspections = Inspection::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-            ->orderBy('issued_on')
-            ->get();
-        }
 
         return view('reports.fsicReportsNew',[
             'fsicIssued' => $fsicIssued,

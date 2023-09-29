@@ -38,72 +38,64 @@ class SearchController extends Controller
         // $owners = Owner::whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?'",["%{$request->searchQuerye}%"])->get();
 
         // $establishment = Establishment::join('owners','owners.id','=','establishments.owner_id')
-        // ->join('person','owners.person_id','=','person.id')
-        // ->select('establishments.*','person.*')
+        // ->join('owners','owners.owners_id','=','owners.id')
+        // ->select('establishments.*','owners.*')
         // ->whereRaw("CONCAT(establishment_name,'-',first_name,' ',SUBSTRING(middle_name, 1, 1),' ',last_name,'-',business_permit_no) LIKE '%{$request->search}%' ")->limit(10)->get();
         
         $establishment = DB::table('establishments')
         ->join('owners', 'owners.id', '=', 'establishments.owner_id')
-        ->join('person', 'person.id', '=', 'owners.person_id')
-        ->join('corporates','corporates.id','=','owners.corporate_id')
         ->select(
             'establishments.id',
             'establishments.establishment_name',
-            'corporates.corporate_name',
-            'person.first_name','person.middle_name',
-            'person.last_name',
+            'owners.corporate_name',
+            'owners.first_name','owners.middle_name',
+            'owners.last_name',
             'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',person.first_name,' ',person.last_name) LIKE '%{$request->search}%' ")
+        ->whereRaw("CONCAT(establishment_name,'-',owners.first_name,' ',owners.last_name) LIKE '%{$request->search}%' ")
         ->whereNull('establishments.deleted_at')->limit(10)->get();
         
         if(count($establishment) == 0){
             $establishment = DB::table('establishments')
             ->join('owners', 'owners.id', '=', 'establishments.owner_id')
-            ->join('person', 'person.id', '=', 'owners.person_id')
-            ->join('corporates','corporates.id','=','owners.corporate_id')
             ->select(
                 'establishments.id',
                 'establishments.establishment_name',
-                'corporates.corporate_name',
-                'person.first_name','person.middle_name',
-                'person.last_name',
+                'owners.corporate_name',
+                'owners.first_name','owners.middle_name',
+                'owners.last_name',
                 'establishments.business_permit_no')
-            ->whereRaw("CONCAT(establishment_name,'-',person.first_name,' ',person.last_name,'-',business_permit_no) LIKE '%$request->search%'")
+            ->whereRaw("CONCAT(establishment_name,'-',owners.first_name,' ',owners.last_name,'-',business_permit_no) LIKE '%$request->search%'")
             ->whereNull('establishments.deleted_at')->limit(10)->get();
         }
         
         if(count($establishment) == 0) {
             $establishment = DB::table('establishments')
-        ->join('owners', 'owners.id', '=', 'establishments.owner_id')
-        ->join('person', 'person.id', '=', 'owners.person_id')
-        ->join('corporates','corporates.id','=','owners.corporate_id')
-        ->select(
-            'establishments.id',
-            'establishments.establishment_name',
-            'corporates.corporate_name',
-            'person.first_name','person.middle_name',
-            'person.last_name',
-            'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',corporate_name) LIKE '%{$request->search}%' ")
-        ->whereNull('establishments.deleted_at')
-        ->limit(10)->get();
+            ->join('owners', 'owners.id', '=', 'establishments.owner_id')
+            ->select(
+                'establishments.id',
+                'establishments.establishment_name',
+                'owners.corporate_name',
+                'owners.first_name','owners.middle_name',
+                'owners.last_name',
+                'establishments.business_permit_no')
+            ->whereRaw("CONCAT(establishment_name,'-',corporate_name) LIKE '%{$request->search}%' ")
+            ->whereNull('establishments.deleted_at')
+            ->limit(10)->get();
         }
 
         if(count($establishment) == 0) {
             $establishment = DB::table('establishments')
-        ->join('owners', 'owners.id', '=', 'establishments.owner_id')
-        ->join('person', 'person.id', '=', 'owners.person_id')
-        ->join('corporates','corporates.id','=','owners.corporate_id')
-        ->select(
-            'establishments.id',
-            'establishments.establishment_name',
-            'corporates.corporate_name',
-            'person.first_name','person.middle_name',
-            'person.last_name',
-            'establishments.business_permit_no')
-        ->whereRaw("CONCAT(establishment_name,'-',corporate_name,'-',business_permit_no) LIKE '%{$request->search}%' ")
-        ->whereNull('establishments.deleted_at')
-        ->limit(10)->get();
+            ->join('owners', 'owners.id', '=', 'establishments.owner_id')
+            ->select(
+                'establishments.id',
+                'establishments.establishment_name',
+                'owners.corporate_name',
+                'owners.first_name','owners.middle_name',
+                'owners.last_name',
+                'establishments.business_permit_no')
+            ->whereRaw("CONCAT(establishment_name,'-',corporate_name,'-',business_permit_no) LIKE '%{$request->search}%' ")
+            ->whereNull('establishments.deleted_at')
+            ->limit(10)->get();
         }
 
         
@@ -125,20 +117,16 @@ class SearchController extends Controller
         {
             $buildingPlans = DB::table('building_plans')
             ->join('owners', 'owners.id', '=', 'building_plans.owner_id')
-            ->join('person', 'person.id', '=', 'owners.person_id')
-            ->join('corporates', 'corporates.id', '=', 'owners.corporate_id')
-            ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name','building_plans.series_no','building_plans.id')
-            ->whereRaw("CONCAT(person.first_name,' ',person.last_name,' ',building_plans.series_no) LIKE '%$request->search%'")
+            ->select(DB::raw("CONCAT(owners.first_name, ' ', owners.last_name) AS name"), 'owners.corporate_name','building_plans.series_no','building_plans.id')
+            ->whereRaw("CONCAT(owners.first_name,' ',owners.last_name,' ',building_plans.series_no) LIKE '%$request->search%'")
             ->whereNull('building_plans.deleted_at')
             ->limit(10)->get();
 
             if(count($buildingPlans) == 0){
                 $buildingPlans = DB::table('building_plans')
                 ->join('owners', 'owners.id', '=', 'building_plans.owner_id')
-                ->join('person', 'person.id', '=', 'owners.person_id')
-                ->join('corporates', 'corporates.id', '=', 'owners.corporate_id')
-                ->select(DB::raw("CONCAT(person.first_name, ' ', person.last_name) AS name"), 'corporates.corporate_name', 'building_plans.series_no','building_plans.id')
-                ->whereRaw("corporates.corporate_name LIKE '%$request->search%'")
+                ->select(DB::raw("CONCAT(owners.first_name, ' ', owners.last_name) AS name"), 'owners.corporate_name', 'building_plans.series_no','building_plans.id')
+                ->whereRaw("owners.corporate_name LIKE '%$request->search%'")
                 ->whereNull('building_plans.deleted_at')
                 ->limit(10)->get();
             }

@@ -108,6 +108,11 @@
                 </thead>
                 <tbody>
                     @foreach ($loggedInUsers as $user)
+                        {{-- Do not include the development users in active --}}
+                        @if ($user->username == 'adminDev')
+                            @continue
+                        @endif
+
                         <tr>
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}</td>

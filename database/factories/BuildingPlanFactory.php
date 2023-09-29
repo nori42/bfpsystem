@@ -39,18 +39,23 @@ class BuildingPlanFactory extends Factory
             $status = "DISAPPROVED";
         }
 
-
+        $fakeCompName = strtoupper(fake()->company());
 
         return [
             //
-                'project_title' => 'PROJECT TEST',
-                'name_of_building' => 'BUILDING NAME TEST',
+                'project_title' => $fakeCompName,
+                'name_of_building' => $fakeCompName,
                 'series_no' => (sprintf("%04d",self::$seriesNo++)).'-S\''.date('Y'),
                 'bp_application_no' => random_int(1000,9999),
                 'date_received' => date('Y-m-d'),
                 'status' => 'PENDING',
                 'owner_id' => Owner::factory(),
-                'building_id' => Building::factory(),
+                'occupancy' => 'RESIDENTIAL',
+                'sub_type' => 'HOTEL',
+                'height' => '3',
+                'building_story' => '3',
+                'floor_area' => '5',
+                'address' => 'CEBU CITY',
                 'receipt_id' => Receipt::factory()
 
         ];

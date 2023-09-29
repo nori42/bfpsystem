@@ -1,20 +1,11 @@
 @extends('layouts.print')
 
 @php
-    $person = $buildingPlan->owner->person;
-    $corporate = $buildingPlan->owner->corporate;
     $receipt = $buildingPlan->receipt;
-    
-    // if (auth()->user()->type != 'ADMINISTRATOR') {
-    //     $personnelName = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
-    // }
     
     $evaluator = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
     
-    //Person Name
-    $middleInitial = $person->middle_name ? $person->middle_name[0] : '';
-    $personName = $person->first_name . ' ' . $middleInitial . '. ' . $person->last_name . ' ' . $person->suffix;
-    $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    $representative = $buildingPlan->getOwnerName();
     
     //Marshal and Chief Name
     $json = resource_path('json\printSettings.json');
@@ -65,7 +56,7 @@
         </div>
 
         <div data-draggable="true" class="address bold">
-            <span>{{ $buildingPlan->building->address }}</span>
+            <span>{{ $buildingPlan->address }}</span>
         </div>
 
         <div data-draggable="true" class="rep-name bold">

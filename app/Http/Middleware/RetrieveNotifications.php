@@ -26,7 +26,10 @@ class RetrieveNotifications
                 ->where('firedrill_type','SEMESTER')
                 ->count();
             
-            $expiredInspections = Inspection::whereBetween('expiry_date',[date('Y-m-d',strtotime('-10 days', time())),date('Y-m-d')])
+            $expiredInspections = Inspection::
+            join('establishments','inspections.establishment_id' ,'=','establishments.id')
+            ->where('establishments.inspection_is_expired',1)
+            ->whereBetween('expiry_date',[date('Y-m-d',strtotime('-10 days', time())),date('Y-m-d')])
             ->orderBy('expiry_date','desc')
             ->get();
 

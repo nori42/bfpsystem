@@ -15,17 +15,10 @@ class PrintController extends Controller
     public function show_print_fsic(Request $request){
         $inspection = Inspection::find($request->id);
         $establishment = $inspection->establishment;
-
-        
         return view('printables.fsic', [
             'inspection' => $inspection,
             'establishment' => $establishment
         ]);
-
-        // return view('establishments/fsic/print_fsic', [
-        //     'inspection' => $inspection,
-        //     'establishment' => $establishment
-        // ]);
         
     }
     
@@ -36,6 +29,9 @@ class PrintController extends Controller
         $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
         $inspection->issued_on = date("Y-m-d");
         $inspection->user_id = auth()->user()->id;
+        $inspection->others_descrpt = $request->othersDescrpt;
+        $inspection->valid_for_descrpt = $request->validForDescrpt1;
+        $inspection->valid_for_descrpt2 = $request->validForDescrpt2;
         $inspection->status ='Printed';
 
         $establishment->inspection_is_expired = false;
@@ -57,7 +53,7 @@ class PrintController extends Controller
         $owner = $establishment->owner;
         // $representative = ($owner->person->last_name != null) ? $personName: $company;
 
-        $representative = Helper::getRepresentativeName($establishment->owner_id);
+        $representative = $establishment->getOwnerName();
         
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
         $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count());
@@ -65,7 +61,8 @@ class PrintController extends Controller
         return view('printables.firedrill',[
             'firedrill' => $firedrill,
             'controlNo' => $newControlNo,
-            'representative' => $representative
+            'representative' => $representative,
+            'establishment' => $establishment
         ]);
     }
 
@@ -158,7 +155,7 @@ class PrintController extends Controller
         $buildingPlan = BuildingPlan::find($request->id);
         return view('printables.fsec_checklist',[
             'buildingPlan' => $buildingPlan,
-            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+            'representative' => $buildingPlan->getOwnerName()
         ]);
     }
 
@@ -175,12 +172,12 @@ class PrintController extends Controller
         $evaluation->save();
         $buildingPlan->save();
 
-        $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+        $applicantName = explode(" ",$buildingPlan->getOwnerName());
 
-        error_log(Helper::getRepresentativeName($buildingPlan->owner_id));
+        error_log($buildingPlan->getOwnerName());
 
         // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::DisapporveBuildingPlan);
-        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DisapporveBuildingPlan);
+        ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::DisapporveBuildingPlan);
 
 
         return redirect('/fsecchecklist/print'.'/'.$buildingPlan->id);        
@@ -199,11 +196,11 @@ class PrintController extends Controller
         $evaluation->save();
         $buildingPlan->save();
 
-        // $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+        // $applicantName = explode(" ",$buildingPlan->getOwnerName());
         // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
-        // ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::ApproveBuildingPlan);
+        // ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::ApproveBuildingPlan);
 
-        $logMessage = "Approved the Building Plan Application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+        $logMessage = "Approved the Building Plan Application: ".$buildingPlan->getOwnerName();
         ActivityLogger::logActivity($logMessage,'FSEC');
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);        

@@ -17,7 +17,7 @@
         <x-pageWrapper>
             <div class="d-flex align-items-center gap-4">
                 <div>
-                    <span class="d-block fw-bold fs-3">Expired inspections</span>
+                    <span class="d-block fw-bold fs-3">Expired Inspection</span>
                     <span class="d-block fs-6 text-secondary">List of establishments with expired inspection</span>
                 </div>
                 <div id="filterBtns" class="d-flex gap-2">
@@ -74,16 +74,16 @@
                                 @endif
 
                                 @php
-                                    $person = $inspection->establishment->owner->person ? $inspection->establishment->owner->person : null;
-                                    $corporate = $inspection->establishment->owner->corporate ? $inspection->establishment->owner->corporate : null;
+                                    // $person = $inspection->establishment->owner->person ? $inspection->establishment->owner->person : null;
+                                    // $corporate = $inspection->establishment->owner->corporate ? $inspection->establishment->owner->corporate : null;
                                     
-                                    $representative = null;
+                                    $representative = $inspection->establishment->getOwnerName();
                                     
-                                    if ($person->last_name != null) {
-                                        $representative = $person->first_name . ' ' . $person->last_name;
-                                    } else {
-                                        $representative = $corporate->corporate_name;
-                                    }
+                                    // if ($person->last_name != null) {
+                                    //     $representative = $person->first_name . ' ' . $person->last_name;
+                                    // } else {
+                                    //     $representative = $corporate->corporate_name;
+                                    // }
                                     
                                 @endphp
                                 <tr>
@@ -102,7 +102,7 @@
                     </table>
 
                     @if ($expired_inspections == null || count($expired_inspections) == 0)
-                        <h2 class="text-secondary">No Expired Inspection</h2>
+                        <h2 class="text-secondary">No Establishment</h2>
                     @endif
                 @endif
             </div>

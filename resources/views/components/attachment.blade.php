@@ -5,6 +5,12 @@
         <x-toast :message="session('toastMssg')" />
     @endif
 
+    <div>
+        <p class="fs-5 mb-0"> Owner:
+            {{ $establishment->getOwnerName() }}
+        </p>
+        <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
+    </div>
     {{-- Owner Info & Selected Establishment --}}
     <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
     {{-- Links --}}
@@ -20,7 +26,18 @@
             href="/establishments/{{ $establishment->id }}/{{ $for }}/attachment">Attachments</a>
     </div>
 
-    <div class="d-flex justify-content-end pt-3">
+    <div class="d-flex justify-content-between pt-3 align-items-center">
+        <div>
+            @if (count($files) != 0)
+                @if ($for == 'fsic')
+                    <div class="fs-4 fw-semibold">Inspection Attachments</div>
+                    <div class="fs-6 text-secondary">List of inspection related files</div>
+                @else
+                    <div class="fs-4 fw-semibold">Firedrill Attachments</div>
+                    <div class="fs-6 text-secondary">List of firedrill related files</div>
+                @endif
+            @endif
+        </div>
         <button class="btn btn-primary px-4" id="addPaymentBtn" data-bs-toggle="modal"
             data-bs-target="#addAttachmentModal">
             <span class="material-symbols-outlined align-middle">
@@ -50,6 +67,12 @@
             </table>
         @else
             <h2 class="text-center text-secondary">No attachment</h2>
+
+            @if ($for == 'fsic')
+                <div class="text-center text-secondary">Put inspection related files for this establishment here.</div>
+            @else
+                <div class="text-center text-secondary">Put firedrill related files for this establishment here.</div>
+            @endif
         @endif
     </div>
 

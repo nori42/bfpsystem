@@ -4,7 +4,6 @@
 @section('content')
     @php
         $receipt = $buildingPlan->receipt;
-        $building = $buildingPlan->building;
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
@@ -41,11 +40,11 @@
                     </x-form.inputWrapper>
 
                     <div class="d-flex gap-2 w-50">
-                        <x-form.input type="text" label="Building Story" name="buildingStory" :value="$building->building_story" />
-                        <x-form.input type="text" label="Floor Area" name="floorArea" :value="$building->floor_area" />
+                        <x-form.input type="text" label="Building Story" name="buildingStory" :value="$buildingPlan->building_story" />
+                        <x-form.input type="text" label="Floor Area" name="floorArea" :value="$buildingPlan->floor_area" />
                     </div>
                     <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials" :value="$buildingPlan->bill_of_materials" />
-                    <x-form.input type="text" label="Address" name="address" :value="$building->address"
+                    <x-form.input type="text" label="Address" name="address" :value="$buildingPlan->address"
                         customAttr="maxlength=60" />
                 </fieldset>
 
@@ -90,12 +89,12 @@
         })
 
         // Set Value After Populating
-        occupancySelect.value = '{{ $building->occupancy }}'
+        occupancySelect.value = '{{ $buildingPlan->occupancy }}'
         // Set the value for the sub type
-        const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === '{{ $building->occupancy }}')
+        const subTypesObj = subtype.filter(option => option.OCCUPANCY_TYPE === '{{ $buildingPlan->occupancy }}')
         const subTypes = subTypesObj.map(obj => obj.SUBTYPE)
         populateSelect(subtypeSelect, subTypes)
 
-        subtypeSelect.value = '{{ $building->sub_type }}'
+        subtypeSelect.value = '{{ $buildingPlan->sub_type }}'
     </script>
 @endsection

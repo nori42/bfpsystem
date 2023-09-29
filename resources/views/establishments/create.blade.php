@@ -86,7 +86,7 @@
                             </div>
                             <div class="w-100">
                                 <label class="info-label">Sub Type</label>
-                                <select class="form-select" name="subType" id="subType" data-establishment-input required>
+                                <select class="form-select" name="subType" id="subType" data-establishment-input>
                                     <option value="" disabled selected>--Select Occupancy First--</option>
                                     {{-- Options is populated in script --}}
                                 </select>

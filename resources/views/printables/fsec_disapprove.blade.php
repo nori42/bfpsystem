@@ -1,19 +1,13 @@
 @extends('layouts.print')
 
 @php
-    $person = $buildingPlan->owner->person;
-    $corporate = $buildingPlan->owner->corporate;
     
     // if (auth()->user()->type != 'ADMINISTRATOR') {
     //     $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
     // }
-    
     $evaluator = $evaluator = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
     
-    //Person Name
-    $middleInitial = $person->middle_name ? $person->middle_name[0] . '.' : '';
-    $personName = $person->first_name . ' ' . $middleInitial . ' ' . $person->last_name . ' ' . $person->suffix;
-    $representative = $person->last_name != null ? $personName : $corporate->corporate_name;
+    $representative = $buildingPlan->getOwnerName();
     
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
@@ -86,11 +80,11 @@
 
 
         <div data-draggable="true" class="address bold">
-            <span class="fs-9pt">{{ $buildingPlan->building->address }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->address }}</span>
         </div>
 
         <div data-draggable="true" class="address-2 bold">
-            <span class="fs-9pt">{{ $buildingPlan->building->address }}</span>
+            <span class="fs-9pt">{{ $buildingPlan->address }}</span>
         </div>
 
 

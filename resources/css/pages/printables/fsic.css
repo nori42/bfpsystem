@@ -1,3 +1,7 @@
+body {
+    height: unset;
+}
+
 .printablePage{
     position: relative;
     background: #FFFFFF;
@@ -121,8 +125,9 @@
     position: absolute;
     top:-1px;
     left: 2px;
-    min-width: 152px;
+    min-width:252px;
     pointer-events: all;
+    font-size: 0.875rem;
 }
 
 #new{
@@ -182,12 +187,14 @@
     left: 320px;
     min-width:410px;
     display: flex;
+    font-size: 0.875rem;
 }
 
 .more-info-2{
     top: 616px;
     left: 89px;
     min-width: 390px;
+    font-size: 0.875rem;
 }
 
 .more-info-input{

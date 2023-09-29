@@ -25,8 +25,13 @@ return new class extends Migration
             $table->date('date_received')->nullable();
             $table->date('date_released')->nullable();
             $table->enum('status',['APPROVED','DISAPPROVED','PENDING'])->default('PENDING');
+            $table->string('occupancy')->nullable();
+            $table->string('sub_type')->nullable();
+            $table->string('height')->nullable();
+            $table->string('building_story')->nullable();
+            $table->string('floor_area')->nullable();
+            $table->string('address')->nullable();
             $table->foreignIdFor(Owner::class);
-            $table->foreignIdFor(Building::class);
             $table->foreignIdFor(Receipt::class);
             $table->timestamps();
             $table->softDeletes();

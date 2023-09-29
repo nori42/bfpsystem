@@ -63,7 +63,7 @@
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId"
                         value="{{ $establishment->id }}">
                     <input class="info d-none" type="text" id="payor" name="payor"
-                        value="{{ $establishment->owner->person->first_name }} {{ $establishment->owner->person->last_name }}">
+                        value="{{ $establishment->owner->first_name }} {{ $establishment->owner->last_name }}">
                     <input class="info d-none" type="text" id="receiptFor" name="receiptFor"
                         value="Fire Safety Inspection Certificate(FSIC)">
 
@@ -100,7 +100,7 @@
                 </fieldset>
                 <hr>
                 <fieldset>
-                    <legend>Receipt Information</legend>
+                    <legend>Receipt Details</legend>
                     <x-form.input name="orNoDetail" label="OR No." input-inspect type="text"
                         value="{{ $inspection->receipt->or_no }}" :readonly="$printed" />
                     <div class="d-flex gap-2">
@@ -119,8 +119,8 @@
                 </fieldset>
                 @if ($inspection->expiry_date == null)
                     <div class="d-flex justify-content-end mt-3 gap-2">
-                        <button class="btn btn-primary" type="submit" name="action" value="save"><i
-                                class="bi bi-floppy-fill mr-2"></i>Save</button>
+                        {{-- <button class="btn btn-primary" type="submit" name="action" value="save"><i
+                                class="bi bi-floppy-fill mr-2"></i>Save</button> --}}
                         <button class="btn btn-primary" type="submit" name="action" value="saveandprint"><i
                                 class="bi bi-printer-fill mr-2"></i>Print</button>
                     </div>

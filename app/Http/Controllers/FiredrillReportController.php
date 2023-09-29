@@ -27,7 +27,8 @@ class FiredrillReportController extends Controller
         $firedrillSubstation = $firedrills->where('substation','!=','CBP');
 
         // GROUP SUBSTATIONS
-        $firedrillIssuedSubstation = $firedrillSubstation->groupBy('substation');
+        // $firedrillIssuedSubstation = $firedrillSubstation->groupBy('substation');
+        $firedrillIssuedSubstation = $firedrills->groupBy('substation');
 
         // GET CBP SUBSTATIONS
         $firedrillCBP = $firedrills->where('substation','CBP');
@@ -47,7 +48,7 @@ class FiredrillReportController extends Controller
             'substations' => $firedrillIssuedSubstation,
             'totalCBP' => $totalCBP,
             'totalSubstation' => $totalSubstation,
-            'totalGrand' => $totalCBP + $totalSubstation, 
+            'totalGrand' => $totalSubstation, 
             'totalUnclaimed' => count($firedrillUnclaimed)
         ];
 

@@ -77,7 +77,7 @@
                                     <li>
                                         <a class="btn w-100 text-start text-white"
                                             href="/expired/inspections?dateFrom={{ $key }}&dateTo={{ $key }}">
-                                            <span class="fw-bold">{{ count($value) }} Inspections</span>
+                                            <span class="fw-bold">{{ count($value) }} Establishment's inspection</span>
                                             expired
                                             @if ($key != date('Y-m-d'))
                                                 on
@@ -88,17 +88,6 @@
                                         </a>
                                     </li>
                                 @endforeach
-
-                                {{-- <li>
-                                    <a class="btn w-100 text-start text-white"
-                                        href="/expired/inspections?dateFrom={{ date('Y-m-d') }}&dateTo={{ date('Y-m-d') }}">
-                                        <span class="fw-bold">{{ $expiredCount['inspectionCount'] }} Inspections</span>
-                                        expired
-                                        <span class="text-info">
-                                            today
-                                        </span>
-                                    </a>
-                                </li> --}}
 
                             </ul>
                         </div>
@@ -149,15 +138,6 @@
                     </div>
                 </div>
             </div>
-            {{-- User Info Modal --}}
-            <x-modal id="modalInfo" width="50" topLocation="8">
-                <h1 class="fs-4">User Info</h1>
-                <hr>
-                <div class="d-flex gap-2">
-                    <x-form.input label="Username" name="username" :value="auth()->user()->username" :readonly="true" />
-                    <x-form.input label="User Type" name="userType" :value="auth()->user()->type" :readonly="true" />
-                </div>
-            </x-modal>
 
             {{-- DUMP CONTENT HERE --}}
             <div class="overflow-y-auto h-100">
@@ -168,6 +148,8 @@
                 <footer></footer>
             </div>
         </div>
+
+        {{-- Global Environment --}}
         <script type="module">
             window.env = {
                 APP_URL: "{{ env('APP_URL') }}"

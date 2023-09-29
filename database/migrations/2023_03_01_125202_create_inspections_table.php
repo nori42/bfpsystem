@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('note')->nullable();
             // $table->string('building_structures')->nullable();
             $table->string('registration_status')->nullable();
+            $table->string('others_descrpt')->nullable();
+            $table->string('valid_for_descrpt')->nullable();
+            $table->string('valid_for_descrpt2')->nullable();
             $table->string('fsic_no')->unique()->nullable();
             $table->enum('status',['Not Printed','Printed','Expired'])->default("Not Printed");
             $table->date('issued_on')->nullable();

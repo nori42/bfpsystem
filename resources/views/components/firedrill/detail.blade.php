@@ -47,6 +47,22 @@
                             </div>
                         @endif
 
+                        @if ($firedrill->issued_on == null)
+                            <div dropdown>
+                                <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
+                                    value="delete">
+                                    <i class="bi bi-x-circle-fill mr-2"></i>Discard</button>
+                                <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
+                                    <div class="fw-bold text-nowrap">Do you confirm?</div>
+                                    <div>
+                                        <button class="btn btn-secondary py-0" type="button"
+                                            dropdown-btn-dismiss>No</button>
+                                        <button class="btn btn-danger py-0" dropdown-btn name="action"
+                                            value="delete">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     @if ($firedrill->issued_on != null)
                         <x-form.input name="controlNo" label="Control No." type="text"
@@ -117,8 +133,8 @@
                 </fieldset>
                 <fieldset class="py-3">
                     <legend>Receipt Information</legend>
-                    <x-form.input name="orNo" label="OR No." type="text" value="{{ $firedrill->receipt->or_no }}"
-                        :readonly="$issued" />
+                    <x-form.input name="orNo" label="OR No." type="text"
+                        value="{{ $firedrill->receipt->or_no }}" :readonly="$issued" />
                     <div class="d-flex gap-2">
                         <x-form.input name="amountPaid" label="₱ Amount Paid" type="text" :readonly="$issued"
                             value="{{ $firedrill->receipt->amount }}" />
@@ -129,7 +145,15 @@
                 <div class="d-flex justify-content-end mt-3 gap-2">
                     <div class="d-flex gap-2">
                         @php
-                            $name = $firedrill->establishment->getOwnerName();
+                            $owner = $firedrill->establishment->owner;
+                            $personName = null;
+                            
+                            if ($owner->last_name != null) {
+                                $personName = $owner->first_name . ' ' . $owner->last_name;
+                            }
+                            $corporateName = $owner->corporate_name;
+                            
+                            $name = $personName != null ? $personName : $corporateName;
                         @endphp
 
                         @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
@@ -150,8 +174,8 @@
                         {{-- <button class="btn btn-primary" type="submit" name="action" value="save">Save</button>
                         <button class="btn btn-primary" type="submit" name="action"
                             value="saveandprint">Print</button> --}}
-                        <button class="btn btn-primary" type="submit" name="action" value="save"><i
-                                class="bi bi-floppy-fill mr-2"></i>Save</button>
+                        {{-- <button class="btn btn-primary" type="submit" name="action" value="save"><i
+                                class="bi bi-floppy-fill mr-2"></i>Save</button> --}}
                         <button class="btn btn-primary" type="submit" name="action" value="saveandprint"><i
                                 class="bi bi-printer-fill mr-2"></i>Print</button>
                     @endif

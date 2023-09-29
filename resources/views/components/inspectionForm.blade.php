@@ -29,7 +29,7 @@
         <input type="hidden" id="receiptFor" name="receiptFor" value="Fire Safety Inspection Certificate(FSIC)">
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
-            type="date" class="w-50" value="{{ date('Y') }}-01-01" :required="true" />
+            type="date" class="w-50" :required="true" />
         <x-form.input name="note{{ $key }}" input-inspect label="Note" type="text"
             customAttr="{{ $inputAttr }}" />
         {{-- <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
@@ -62,8 +62,7 @@
             <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
                 type="text" :required="true" />
             <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment"
-                customAttr="{{ $inputAttr }}" type="date" class="w-50" value="{{ date('Y') }}-01-01"
-                :required="true" />
+                customAttr="{{ $inputAttr }}" type="date" class="w-50" :required="true" />
         </div>
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
             customAttr="{{ $inputAttr }} required" placeholder="Select Nature Of Payment">
@@ -73,10 +72,10 @@
     </fieldset>
 
     <div class="d-flex justify-content-end mt-3 gap-2">
-        <button class="btn btn-primary px-3 py-0" type="submit" name="action" value="add">
+        {{-- <button class="btn btn-primary px-3 py-0" type="submit" name="action" value="add">
             <i class="bi bi-plus-circle-fill px-2"></i>
             <span>Add</span>
-        </button>
+        </button> --}}
         <button class="btn btn-primary px-4" type="submit" name="action" value="addandprint">
             <i class="bi bi-printer-fill mr-3"></i>
             Print

@@ -28,6 +28,6 @@ class BuildingPlanSeeder extends Seeder
     {
         //
         BuildingPlan::factory()->count(HelperFactory::$buildingPlanCount)->create();
-        Evaluation::factory()->count(200)->create();
+        // Evaluation::factory()->count(200)->create();
     }
 }

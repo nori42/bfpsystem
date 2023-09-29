@@ -148,3 +148,9 @@ li{
     left: 450px;
     text-transform: uppercase;
 }
+
+@media print {
+    .deficiency {
+        border: none;
+    }
+}

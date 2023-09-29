@@ -32,36 +32,22 @@ class FsecController extends Controller
         // Instantiate Models
         $buildingPlan = new BuildingPlan();
         $owner = new Owner();
-        $person = new Person();
-        $corporate = new Corporate();
         $building = new Building();
         $receipt = new Receipt();
 
-        // Add Owners Fields
-        $person->first_name = strtoupper($request->firstName);
-        $person->middle_name = strtoupper($request->middleName);
-        $person->last_name = strtoupper($request->lastName);
-        $person->suffix = strtoupper($request->nameSuffix);
-        $person->save();
-
-        $corporate->corporate_name = strtoupper($request->corporateName);
-        $corporate->save();
-
-        $owner->person_id = $person->id;
-        $owner->corporate_id = $corporate->id;
+        // Add $owner Fields
+        $owner->first_name = strtoupper($request->firstName);
+        $owner->middle_name = strtoupper($request->middleName);
+        $owner->last_name = strtoupper($request->lastName);
+        $owner->suffix = strtoupper($request->nameSuffix);
+        $owner->corporate_name = strtoupper($request->corporateName);
         $owner->save();
 
         // Add Building Fields
-        $building->occupancy = strtoupper($request->occupancy);
-        $building->sub_type = strtoupper($request->subType);
-        $building->building_story = strtoupper($request->buildingStory);
-        $building->floor_area = strtoupper($request->floorArea);
-        $building->address = strtoupper($request->address);
-        $building->save();
 
         //Add Receipt Fields
 
-        // $payor =$person != null ? $person->first_name.' '.$person->middle_name.' '.$person->last_name : $corporate->corporate_name;
+        // $payor =$owner != null ? $owner->first_name.' '.$owner->middle_name.' '.$owner->last_name : $owner->corporate_name;
 
         $receipt->or_no = $request->orNo;
         $receipt->receipt_for = "FSEC";
@@ -76,14 +62,18 @@ class FsecController extends Controller
         $buildingPlan->bp_application_no = strtoupper($request->bpApplicationNo);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
         $buildingPlan->date_received = $request->dateReceived;
+        $buildingPlan->occupancy = strtoupper($request->occupancy);
+        $buildingPlan->sub_type = strtoupper($request->subType);
+        $buildingPlan->building_story = strtoupper($request->buildingStory);
+        $buildingPlan->floor_area = strtoupper($request->floorArea);
+        $buildingPlan->address = strtoupper($request->address);
         $buildingPlan->owner_id = $owner->id;
-        $buildingPlan->building_id = $building->id;
         $buildingPlan->receipt_id = $receipt->id;
         $buildingPlan->save();
         
-        // ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::AddBuildingPlan);
+        // ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::AddBuildingPlan);
 
-        $logMessage = "Added new application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+        $logMessage = "Added new application: ".$buildingPlan->getOwnerName();
         ActivityLogger::logActivity($logMessage,"FSEC");
 
         return redirect('/fsec'.'/'.$buildingPlan->id);
@@ -97,7 +87,7 @@ class FsecController extends Controller
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
             'evaluations' => $evaluations,
-            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+            'representative' => $buildingPlan->getOwnerName()
         ]);
     }
 
@@ -112,19 +102,16 @@ class FsecController extends Controller
     public function update(Request $request){
         $buildingPlan = BuildingPlan::find($request->id);
         $receipt = $buildingPlan->receipt;
-        $building = $buildingPlan->building;
 
         //Update Evaluation Fields
         $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
-
-        //Update Building Fields
-        $building->occupancy = strtoupper($request->occupancy);
-        $building->sub_type = strtoupper($request->subType);
-        $building->building_story = strtoupper($request->buildingStory);
-        $building->floor_area = strtoupper($request->floorArea);
-        $building->address = strtoupper($request->address);
+        $buildingPlan->occupancy = strtoupper($request->occupancy);
+        $buildingPlan->sub_type = strtoupper($request->subType);
+        $buildingPlan->building_story = strtoupper($request->buildingStory);
+        $buildingPlan->floor_area = strtoupper($request->floorArea);
+        $buildingPlan->address = strtoupper($request->address);
         
         //Update Receipt Fields
         $receipt->or_no = $request->orNo;
@@ -132,19 +119,17 @@ class FsecController extends Controller
         $receipt->date_of_payment = $request->dateOfPayment;
         
         //Only log if there is a change
-        if($receipt->isDirty() || $building->isDirty() || $buildingPlan->isDirty())
+        if($receipt->isDirty() || $buildingPlan->isDirty())
         {
-            // $applicantName = explode(" ",Helper::getRepresentativeName($buildingPlan->owner_id));
+            // $applicantName = explode(" ",$buildingPlan->getOwnerName());
             // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::UpdateBuildingPlan);
 
-            $logMessage = "Updated the application: ".Helper::getRepresentativeName($buildingPlan->owner_id);
+            $logMessage = "Updated the application: ".$buildingPlan->getOwnerName();
             ActivityLogger::logActivity($logMessage,"FSEC");
         }
 
         $receipt->save();
-        $building->save();
         $buildingPlan->save();
-
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
@@ -154,7 +139,7 @@ class FsecController extends Controller
 
         $buildingPlan->delete();
 
-        ActivityLogger::buildingPlanLog(Helper::getRepresentativeName($buildingPlan->owner_id),Activity::DeleteBuildingPlan);
+        ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::DeleteBuildingPlan);
 
         return redirect('/fsec')->with(['toastMssg' => "Application Deleted"]);
     }
@@ -171,7 +156,7 @@ class FsecController extends Controller
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
             'evaluations' => $evaluations,
-            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+            'representative' => $buildingPlan->getOwnerName()
         ]);
     }
 
@@ -194,7 +179,7 @@ class FsecController extends Controller
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
             'evaluations' => $evaluations,
-            'representative' => Helper::getRepresentativeName($buildingPlan->owner_id)
+            'representative' => $buildingPlan->getOwnerName()
         ]);
     }
 

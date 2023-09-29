@@ -69,11 +69,11 @@ function handleCheckbox() {
 handleCheckbox();
 
 // AddNote Event handler
-addEvent("click", select("#btnAddNote"), (ev) => {
-    const btn = ev.target;
+addEvent("click", select("#btnAddNote"), () => {
+    const btn = select("#btnAddNote");
 
     if (btn.getAttribute("toggled") == "false") {
-        btn.innerHTML = `Done <i class="bi bi-check2"></i>`;
+        btn.innerHTML = `Done <i class="bi bi-check2 pointer-events-none"></i>`;
         btn.classList.add("btn-success");
         btn.classList.remove("btn-primary");
         btn.setAttribute("toggled", "true");
@@ -94,6 +94,10 @@ addEvent("click", select("#btnAddNote"), (ev) => {
             elem.contentEditable = false;
             elem.classList.remove("editable");
         });
+
+        select("[others=input]").value = select("[others=descrpt]").textContent;
+        select("[descrptInp1").value = select("[descrpt1]").textContent;
+        select("[descrptInp2").value = select("[descrpt2]").textContent;
     }
 });
 
