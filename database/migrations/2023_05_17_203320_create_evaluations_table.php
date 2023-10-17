@@ -16,6 +16,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('evaluator');
             $table->enum('remarks',['APPROVED','PENDING','DISAPPROVED']);
+            $table->string('disapprove_print_path')->nullable();
+            $table->string('checklist_print_path')->nullable();
             $table->foreignIdFor(BuildingPlan::class);
             $table->timestamps();
         });

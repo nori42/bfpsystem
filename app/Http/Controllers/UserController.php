@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -17,9 +18,10 @@ class UserController extends Controller
     public function index(){
         
         $users = User::orderBy('type')->get();
-
+        $loggedInUsers = User::where('last_active_at', '>=', now()->subMinutes(5))->whereNotNull('last_active_at')->get();
         return view('users.index',[
-           'users' => $users
+           'users' => $users,
+           'loggedInUsers' => $loggedInUsers
         ]);
     }
 
@@ -41,7 +43,7 @@ class UserController extends Controller
             $activityLog = "Added new User: $user->username Type $user->type";
             
             // ActivityLogger::userLog(auth()->user()->id,$user->type,$user->username);
-            ActivityLogger::logActivity($activityLog,'USERS');
+            ActivityLogger::logActivity($activityLog,'USER');
         }
         catch(QueryException $e)
         {   
@@ -64,22 +66,26 @@ class UserController extends Controller
                 {
                     if(User::where('username', $request->username)->exists()){
 
-                        return view('users.show',[
-                            'userId' => $request->id,
-                            'user' => $user,
-                            'toastMssg' => "Username already exist try again"
-                        ]);
+                        // return view('users.show',[
+                        //     'userId' => $request->id,
+                        //     'user' => $user,
+                        //     'toastMssg' => "Username already exist try again"
+                        // ]);
+
+                        return redirect("personnel/{$request->id}");
                     }
                     else
                     {
                         $user->username = $request->username;
                         $user->save();
 
-                        return view('users.show',[
-                            'userId' => $request->id,
-                            'user' => $user,
-                            'toastMssg' => "Username changed"
-                        ]);
+                        // return view('users.show',[
+                        //     'userId' => $request->id,
+                        //     'user' => $user,
+                        //     'toastMssg' => "Username changed"
+                        // ]);
+
+                        return redirect("personnel/{$request->id}");
                     }
                 }
                 break;
@@ -90,21 +96,26 @@ class UserController extends Controller
                     ]);
                     
                     if (!Hash::check($request->passwordCurrent, $user->password)) {
-                        return view('users.show',[
-                            'userId' => $request->id,
-                            'user' => $user,
-                            'toastMssg' => "Enter the correct password and try again"
-                        ]);
+                        // return view('users.show',[
+                        //     'userId' => $request->id,
+                        //     'user' => $user,
+                        //     'toastMssg' => "Enter the correct password and try again"
+                        // ]);
+
+                        return redirect("users/{$request->id}")->with('pass_incorrect',true);
                     }
 
                     $user->password = Hash::make($request->passwordNew);
                     $user->save();
 
-                    return view('users.show',[
-                        'userId' => $request->id,
-                        'user' => $user,
-                        'toastMssg' => "Password changed"
-                    ]);
+                    // return view('users.show',[
+                    //     'userId' => $request->id,
+                    //     'user' => $user,
+                    //     'toastMssg' => "Password changed"
+                    // ]);
+
+                    return redirect("/logout")->with('toastMssg',"Password successly changed. Please re-login");
+
                 }
                 break;
         }
@@ -117,10 +128,29 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($request->id);
+
+        
+
+        $url = $user->personnel->profile_pic_path;
         
         return view('users.show',[
             'userId' => $request->id,
+            'profileUrl' => $url, 
             'user' => $user
         ]);
+    }
+
+    public function updateDesignation(Request $request){
+        $user = User::findOrFail($request->id);
+
+        $user->type = $request->designation;
+        $user->save();
+
+        $name = "{$user->personnel->first_name} {$user->personnel->last_name}";
+
+        $activityLog = "Change the user type of: {$name} to {$request->designation}";
+        ActivityLogger::logActivity($activityLog,'USER');
+
+        return redirect("/users/{$user->id}")->with('toastMssg','Designation Changed');
     }
 }

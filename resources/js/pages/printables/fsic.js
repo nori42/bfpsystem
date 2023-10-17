@@ -68,38 +68,41 @@ function handleCheckbox() {
 }
 handleCheckbox();
 
-// AddNote Event handler
-addEvent("click", select("#btnAddNote"), () => {
-    const btn = select("#btnAddNote");
+if (select("#btnAddNote")) {
+    // AddNote Event handler
+    addEvent("click", select("#btnAddNote"), () => {
+        const btn = select("#btnAddNote");
 
-    if (btn.getAttribute("toggled") == "false") {
-        btn.innerHTML = `Done <i class="bi bi-check2 pointer-events-none"></i>`;
-        btn.classList.add("btn-success");
-        btn.classList.remove("btn-primary");
-        btn.setAttribute("toggled", "true");
-        select("[printbtn]").disabled = true;
+        if (btn.getAttribute("toggled") == "false") {
+            btn.innerHTML = `Done <i class="bi bi-check2 pointer-events-none"></i>`;
+            btn.classList.add("btn-success");
+            btn.classList.remove("btn-primary");
+            btn.setAttribute("toggled", "true");
+            select("[printbtn]").disabled = true;
 
-        selectAll("[data-editable]").forEach((elem) => {
-            makeElementEditable(elem);
-            elem.classList.add("editable");
-        });
-    } else {
-        btn.textContent = "Add Note";
-        btn.classList.add("btn-primary");
-        btn.classList.remove("btn-success");
-        btn.setAttribute("toggled", "false");
-        select("[printbtn]").disabled = false;
+            selectAll("[data-editable]").forEach((elem) => {
+                makeElementEditable(elem);
+                elem.classList.add("editable");
+            });
+        } else {
+            btn.textContent = "Add Note";
+            btn.classList.add("btn-primary");
+            btn.classList.remove("btn-success");
+            btn.setAttribute("toggled", "false");
+            select("[printbtn]").disabled = false;
 
-        selectAll("[data-editable]").forEach((elem) => {
-            elem.contentEditable = false;
-            elem.classList.remove("editable");
-        });
+            selectAll("[data-editable]").forEach((elem) => {
+                elem.contentEditable = false;
+                elem.classList.remove("editable");
+            });
 
-        select("[others=input]").value = select("[others=descrpt]").textContent;
-        select("[descrptInp1").value = select("[descrpt1]").textContent;
-        select("[descrptInp2").value = select("[descrpt2]").textContent;
-    }
-});
+            select("[others=input]").value =
+                select("[others=descrpt]").textContent;
+            select("[descrptInp1").value = select("[descrpt1]").textContent;
+            select("[descrptInp2").value = select("[descrpt2]").textContent;
+        }
+    });
+}
 
 function handleHighlight() {
     selectAll("[highlightable]").forEach((elem) => {

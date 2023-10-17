@@ -22,7 +22,7 @@
                 <img class="rounded-circle" src="/img/LOGO.PNG" height="100px" width="100px" alt="logo">
                 <h1 class="text-white fs-6 fw-bold px-3 text-center my-2">Cebu City Fire Station</h1>
             </div>
-            <hr class="p-0 my-1 text-white border-3 w-75 mx-auto">
+            <hr class="p-0 my-1 text-white border-3 w-75 mx-auto border-primary-subtle">
             @switch(auth()->user()->type)
                 @case('FSIC')
                     <x-roleLinks.fsic />

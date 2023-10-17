@@ -15,7 +15,7 @@
                 <div class="d-flex justify-content-evenly mx-auto steps-title mt-3" id="steps-title">
                     <div class="step current-step text-center flex-grow-1 py-3" step="1">
                         <i class="bi bi-circle fs-4 align-middle" step-icon="1"></i>
-                        <span id="ownerTitle" class="fw-bold align-middle">Owner</span>
+                        <span id="ownerTitle" class="fw-bold align-middle">Applicant</span>
                     </div>
                     <div class="step text-center flex-grow-1 py-3" step="2">
                         <i class="bi bi-circle fs-4 align-middle" step-icon="2"></i>
@@ -27,7 +27,7 @@
                     <div id="ownerDetails">
                         <div class="header">
                             <h4 id="validateMssgOwner" class="text-danger d-none">Fill in the name or corporate field</h4>
-                            <h2>Owner Information</h2>
+                            <h2>Applicant Information</h2>
                             <hr />
                         </div>
                         <fieldset class="my-3">
@@ -38,7 +38,8 @@
                                 <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50" />
                             </div>
                             <x-form.input type="text" label="Corporate Name" name="corporateName" />
-                            <x-form.input type="text" label="Contact No." name="contactNoOwner" class="w-50" />
+                            <x-form.input type="text" label="Contact No." name="contactNoOwner" class="w-50"
+                                customAttr="maxlength=11" />
                         </fieldset>
                     </div>
                     <div id="applicantDetails" class="d-none">

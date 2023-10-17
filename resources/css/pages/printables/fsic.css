@@ -248,3 +248,9 @@ body {
     left: 473px;
     text-transform: uppercase;
 }
+
+@media print {
+    .printablePage {
+        background-image:none;
+    }
+}

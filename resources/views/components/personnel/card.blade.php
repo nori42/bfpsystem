@@ -7,12 +7,17 @@
             person
         </span>
     </div> --}}
-    <div class="bg-white rounded-circle p-3 justify-content-center d-flex">
-        <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="125px">
+    {{-- <div class="bg-white rounded-circle p-3 justify-content-center d-flex">
+        <img src="{{ $personnel->profile_pic_path ? asset($personnel->profile_pic_path) : asset('img/Firefighter.svg') }}"
+            alt="fireman" height="125px">
+    </div> --}}
+    <div class="align-self-center" style="height: 13rem; width: 13rem;" id="profile">
+        <img class="bg-white rounded-circle" height="100%" width="100%"
+            src="{{ $personnel->profile_pic_path ? asset($personnel->profile_pic_path) : asset('img/Firefighter.svg') }}"
+            alt="fireman" height="125px">
     </div>
     @php
         $name = $personnel->first_name . ' ' . $personnel->last_name;
-        
     @endphp
     <div class="card-body">
         <h5 class="card-title text-center fw-bold fs-6"

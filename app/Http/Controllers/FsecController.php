@@ -13,6 +13,7 @@ use App\Models\Owner;
 use App\Models\Person;
 use App\Models\Receipt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class FsecController extends Controller
 {
@@ -32,7 +33,6 @@ class FsecController extends Controller
         // Instantiate Models
         $buildingPlan = new BuildingPlan();
         $owner = new Owner();
-        $building = new Building();
         $receipt = new Receipt();
 
         // Add $owner Fields
@@ -219,5 +219,35 @@ class FsecController extends Controller
         return view('fsec.print_fsec',[
             'evaluation'=> $evaluation
         ]);
+    }
+
+    public function uploadDisapproval(Request $request){
+        $for = $request->for;
+
+        $file = $request->file('fileUpload')[0];
+        $evaluation = Evaluation::find($request->evaluationId);
+
+        $fileName = "_{$request->evaluationId}.{$file->extension()}";
+
+        if($for == "disapproval"){
+            $disapprove_print_path = "evaluations/disapproval/$fileName";
+            $evaluation->disapprove_print_path = $disapprove_print_path;
+            $evaluation->save();
+        }else if($for == "checklist"){
+            $checklist_print_path = "evaluations/checklist/$fileName";
+            $evaluation->checklist_print_path = $checklist_print_path;
+            $evaluation->save();
+        }
+
+        Storage::putFileAs("evaluations/$for", $file, $fileName);
+
+        return redirect("/fsec/{$evaluation->building_plan_id}")->with(["mssg" => "File Uploaded"]);
+    }
+
+    public function downloadDisapproval(Request $request){
+        $filename = "_".$request->id;
+        $path = "evaluations/disapproval/{$filename}.pdf";
+        // Return the file as a download
+        return Storage::download($path,"disapproval_notice");
     }
 }

@@ -17,8 +17,40 @@
             <x-toast :message="session('toastMssg')" />
         @endif
         <div class="d-flex align-items-center">
-            <div class="mr-5" style="width:230px;">
-                <div class="fs-3 fw-semibold">Reports</div>
+            <div class="mr-5">
+                <div class="fs-3 fw-semibold">
+                    <div>
+                        @if (auth()->user()->type == 'ADMINISTRATOR')
+                            @if ($currentReport == 'fsic')
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Inspections Report</div>
+                            @elseif ($currentReport == 'firedrill')
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Firedrill Report</div>
+                            @else
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Building Plan Applications Report</div>
+                            @endif
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="bi bi-caret-down-fill"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item fs-5" href="/reports/fsic">Inspsections</a></li>
+                                    <li><a class="dropdown-item fs-5" href="/reports/firedrill">Firedrill</a></li>
+                                    <li><a class="dropdown-item fs-5" href="/reports/fsec">Building Plan Application</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            @if ($currentReport == 'fsic')
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Inspections Report</div>
+                            @elseif ($currentReport == 'firedrill')
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Firedrill Report</div>
+                            @else
+                                <div class="d-inline fs-3 fw-bold align-middle mr-2">Building Plan Applications Report</div>
+                            @endif
+                        @endif
+                    </div>
+                </div>
                 <div class="text-secondary">
                     List of
                     @if ($currentReport == 'fsic')
@@ -30,29 +62,8 @@
                     @endif
                 </div>
             </div>
-            <div>
-                @if (auth()->user()->type == 'ADMINISTRATOR')
-                    @if ($currentReport == 'fsic')
-                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Inspections</div>
-                    @elseif ($currentReport == 'firedrill')
-                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Firedrill</div>
-                    @else
-                        <div class="d-inline fs-3 fw-bold align-middle mr-2">Building Plan Applications</div>
-                    @endif
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="bi bi-caret-down-fill"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="/reports/fsic">Inspsections</a></li>
-                            <li><a class="dropdown-item fs-5" href="/reports/firedrill">Firedrill</a></li>
-                            <li><a class="dropdown-item fs-5" href="/reports/fsec">Building Plan Application</a></li>
-                        </ul>
-                    </div>
-                @endif
-            </div>
         </div>
+
 
         <div id="reportContent">
 

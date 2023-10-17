@@ -6,7 +6,7 @@
         <div class="modal-content px-5 py-4">
             @php
                 $printed = $inspection->expiry_date != null;
-                
+
                 //load json files
                 $natureOfPayment = json_decode(file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'), true);
                 $regStatus = json_decode(file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'), true);
@@ -41,11 +41,11 @@
                                 <div class="px-2 py-1 text-bg-danger rounded-1">Expired</div>
                             @endif
 
-                            @if ($inspection->expiry_date == null)
+                            @if (true)
                                 <div dropdown>
                                     <button class="btn btn-danger text-nowrap" type="button" dropdown-btn
                                         name="action" value="delete">
-                                        <i class="bi bi-x-circle-fill mr-2"></i>Discard</button>
+                                        <i class="bi bi-x-circle-fill mr-2"></i>Delete</button>
                                     <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
                                         <div class="fw-bold text-nowrap">Do you confirm?</div>
                                         <div>

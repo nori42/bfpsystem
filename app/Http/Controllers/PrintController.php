@@ -56,7 +56,7 @@ class PrintController extends Controller
         $representative = $establishment->getOwnerName();
         
         $firedrillsByYear = (Firedrill::where('year',date('Y')));
-        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count());
+        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count() + 1);
 
         return view('printables.firedrill',[
             'firedrill' => $firedrill,

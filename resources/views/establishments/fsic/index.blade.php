@@ -20,14 +20,14 @@
             @endif
             <x-pageWrapper>
                 <div class="mb-3">
-                    <p class="fs-5 mb-0"> Owner:
-                        {{ $establishment->getOwnerName() }}
-                    </p>
                     <div class="d-flex align-items-center gap-3">
                         <div class="fw-bold fs-5 align-middle">Establishment: {{ $establishment->establishment_name }}</div>
                         @if ($establishment->inspection_is_expired)
                             <x-tag bgColor="bg-danger" text="Expired Inspection" />
                         @endif
+                    </div>
+                    <div class="fs-5 mb-0"> Owner:
+                        {{ $establishment->getOwnerName() }}
                     </div>
                 </div>
                 {{-- Owner Info & Selected Establishment --}}

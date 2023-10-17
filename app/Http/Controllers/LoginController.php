@@ -20,10 +20,13 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
+            ActivityLogger::logActivity("Logged IN",'USER');
+
             if(Auth::user()->is_password_default && Auth::user()->personnel_id != null){
                 return redirect()->intended('/newpassword');
             }
             
+
             if(Auth::user()->type == 'ADMINISTRATOR' || Auth::user()->type == 'FSIC' || Auth::user()->type == 'FIREDRILL'){
                 
                 if(Auth::user()->type == 'ADMINISTRATOR')
@@ -45,8 +48,11 @@ class LoginController extends Controller
         $user = User::find(Auth::user()->id);
         $user->last_active_at = null;
         $user->save();
-        auth()->logout();
 
+        ActivityLogger::logActivity("Logged OUT",'USER');
+
+        auth()->logout();
+        
         return redirect('/');
     }
 }

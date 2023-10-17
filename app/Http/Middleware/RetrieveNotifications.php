@@ -29,7 +29,7 @@ class RetrieveNotifications
             $expiredInspections = Inspection::
             join('establishments','inspections.establishment_id' ,'=','establishments.id')
             ->where('establishments.inspection_is_expired',1)
-            ->whereBetween('expiry_date',[date('Y-m-d',strtotime('-10 days', time())),date('Y-m-d')])
+            ->whereBetween('expiry_date',[date('Y-m-d',strtotime('-2 days', time())),date('Y-m-d')])
             ->orderBy('expiry_date','desc')
             ->get();
 

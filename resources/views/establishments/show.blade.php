@@ -180,8 +180,6 @@
                     <x-info label="No. of Story" :value="$establishment->no_of_storey" />
                     <x-info label="Height (m)" :value="$establishment->height" />
                     <x-info label="Floor Area (sq m)" :value="$establishment->floor_area" />
-                    <div class="col"></div>
-                    <div class="col"></div>
                 </div>
 
                 <div class="row my-3">
@@ -194,7 +192,6 @@
                 <div class="row my-3">
                     <x-info label="Barangay" :value="$establishment->barangay" />
                     <x-info label="Address" :value="$establishment->address" />
-                    <div class="col"></div>
                     <div class="col"></div>
                 </div>
             </x-detailWrapper>

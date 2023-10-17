@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\ArchivedEstablishments;
+use App\Http\Controllers\ChangeProfilePicture;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\ExpiredController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\FileDownload;
 use App\Http\Controllers\FileUpload;
 use App\Http\Controllers\Firedrillcontroller;
 use App\Http\Controllers\FiredrillReportController;
+use App\Http\Controllers\FireIncidentsController;
 use App\Http\Controllers\FsicController;
 use App\Http\Controllers\FsecController;
 use App\Http\Controllers\FSECReportController;
@@ -94,6 +96,8 @@ Route::middleware(['auth','userType:ADMINISTRATOR,FSEC','personnelChecker'])->gr
     Route::post('/fsec/search', [FsecController::class, 'search']);
     Route::put('/fsec/release',[FsecController::class,'release']);
     Route::get('/fsec/pending/',[FsecController::class,'pending']);
+    Route::post('/fsec/upload/{for}',[FsecController::class,'uploadDisapproval']);
+    Route::post('/fsec/upload/{for}',[FsecController::class,'uploadDisapproval']);
     Route::get('/fsec/{id}/edit', [FsecController::class, 'edit']);
     Route::post('/fsec/{id}/delete', [FsecController::class, 'destory']);
     Route::get('/fsec/{id}', [FsecController::class, 'show']);
@@ -137,6 +141,7 @@ Route::put('/fsec/print/{id}',[PrintController::class,'print_fsec']);
 Route::get('/fsecdisapprove/print/{id}',[PrintController::class,'show_print_fsecdisapprove'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsecdisapprove/print/{id}',[PrintController::class,'print_fsecdisapprove']);
 
+Route::get('/fsecchecklistform/print/{id}',[PrintController::class,'show_print_fsecchecklistform'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::get('/fsecchecklist/print/{id}',[PrintController::class,'show_print_fsecchecklist'])->middleware(['auth','userType:ADMINISTRATOR,FSEC']);
 Route::put('/fsecchecklist/print/{id}',[PrintController::class,'']);
 
@@ -149,19 +154,28 @@ Route::get('/personnel/{id}/edit',[PersonnelController::class,'edit'])->middlewa
 Route::put('/personnel/{id}/update',[PersonnelController::class,'update']);
 Route::post('/personnel/{id}/delete',[PersonnelController::class,'destroy'])->middleware(['auth']);
 
+
+Route::middleware(['auth','userType:ADMINISTRATOR','personnelChecker'])->group(function(){
+    
+    // Fireincidents
+    Route::get('fireincidents',[FireIncidentsController::class,'index'])->name('fireincidents');
+    Route::post('fireincidents',[FireIncidentsController::class,'store']);
+    Route::post('fireincidents/delete',[FireIncidentsController::class,'destroy']);
+});
+
 //Users
 Route::get('/users',[UserController::class,'index'])->middleware(['auth','userType:ADMINISTRATOR'])->name('users');
 Route::post('/users',[UserController::class,'store']);
 Route::get('/users/{id}',[UserController::class,'show'])->middleware('auth');
 Route::put('/users/{id}',[UserController::class,'update'])->middleware('auth');
+Route::post('/users/{id}/changeprofile',ChangeProfilePicture::class)->middleware('auth');
+Route::put('/users/{id}/updatedesignation',[UserController::class,'updateDesignation'])->middleware('auth');
 
 //Passwords
-
 Route::get('/newpassword',[PasswordNewController::class,'index'])->middleware('auth');
 Route::put('/updatepassword',[PasswordNewController::class,'updatePassword'])->middleware('auth');
 Route::put('/request/passwordreset',[PasswordResetController::class,'resetPassword']);
 Route::post('/request/passwordreset',[PasswordResetController::class,'requestPasswordReset']);
-
 
 //Reports
 Route::get('/reports/fsic',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
@@ -182,10 +196,15 @@ Route::get('/activity',[ActivityController::class,'index'])->middleware('auth')-
 Route::get('/archived/establishments',[ArchiveController::class,'establishments'])->middleware('auth')->name('archived');
 Route::get('/archived/fsec',[ArchiveController::class,'fsec'])->middleware('auth')->name('archived');
 Route::get('/archived/users',[ArchiveController::class,'users'])->middleware('auth')->name('archived');
+Route::get('/archived/fsic',[ArchiveController::class,'fsic'])->middleware('auth')->name('archived');
+Route::get('/archived/firedrill',[ArchiveController::class,'firedrill'])->middleware('auth')->name('archived');
 
 //Download routes
 Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownload::class);
+Route::get('/download/evaluations/{for}/_{id}',[FsecController::class,'downloadDisapproval']);
 
+
+//Prints Settings
 Route::get('/settings',function () {
     return view('printSettings');
 })->middleware(['auth','userType:ADMINISTRATOR']);
@@ -198,9 +217,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('resources/establishments',[SearchController::class,'searchEstablishment']);
     Route::get('resources/buildingplans',[SearchController::class,'searchBuildingPlan']);
 });
-// Route::get('resources/reports/fsic',[FSICReportController::class,'getFSICReport']);
-// Route::get('resources/reports/firedrill',[FSICReportController::class,'getFiredrillReport']);
-// Route::get('resources/inspection/{id}',[FsicController::class,'getInspection']);
 
 //Others
 Route::get('/unauthorized',function () {

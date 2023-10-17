@@ -7,7 +7,7 @@
 @section('content')
     @php
         $receipt = $buildingPlan->receipt;
-        
+
         $applicant = $representative;
     @endphp
     <div class="page-content">
@@ -152,12 +152,14 @@
                 @endif
             </x-detailWrapper>
             <hr>
-            <h1 class="fs-3 my-2">Evaluation</h1>
+            <h1 class="fs-3 my-2">Evaluation List</h1>
             <table class="table">
                 <thead>
                     <th>Remarks</th>
                     <th>Evaluation Date</th>
                     <th>Evaluator</th>
+                    <th>Disapproval Notice</th>
+                    <th>Checklist</th>
                 </thead>
                 <tbody>
                     @foreach ($evaluations as $evaluation)
@@ -167,15 +169,101 @@
                             </td>
                             <td>{{ date('m/d/Y', strtotime($evaluation->created_at)) }}</td>
                             <td>{{ $evaluation->evaluator }}</td>
+                            <td>
+                                @if ($evaluation->remarks == 'APPROVED')
+                                    <span class="text-success">{{ $evaluation->remarks }}</span>
+                                @else
+                                    @if ($evaluation->disapprove_print_path == null)
+                                        <button class="btn btn-primary" data-bs-toggle="modal" btnUplDisapp
+                                            evaluationId="{{ $evaluation->id }}" data-bs-target="#addUploadModal">Upload <i
+                                                class="bi bi-upload"></i>
+                                        </button>
+                                    @else
+                                        <a href="/download/evaluations/disapproval/_{{ $evaluation->id }}">Disapproval
+                                            Notice <i class="bi bi-file-earmark-arrow-down-fill"></i></a>
+                                    @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if ($evaluation->remarks == 'APPROVED')
+                                    <span class="text-success">{{ $evaluation->remarks }}</span>
+                                @else
+                                    @if ($evaluation->checklist_print_path == null)
+                                        <button class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#addUploadModal" btnUplChecklist
+                                            evaluationId="{{ $evaluation->id }}">Upload <i class="bi bi-upload"></i>
+                                        </button>
+                                    @else
+                                        <a href="/download/evaluations/disapproval/_{{ $evaluation->id }}">Checklist <i
+                                                class="bi bi-file-earmark-arrow-down-fill"></i></a>
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="addUploadModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" style="min-width:800px;">
+                    <div class="modal-content px-5 py-4">
+                        <div class="text-center py-5 d-none" spinner>
+                            <div class="spinner-border" role="status" style="width: 3rem; height:3rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="text-secondary mt-3 fs-5">
+                                Uploading Files...
+                            </div>
+                        </div>
+
+                        <div modal-content>
+                            <div class="bg-secondary-subtle filelist-container" style="display: none;">
+                                <div class="overflow-y-auto pb-0" style="height: 150px;">
+                                    <ul class="list-unstyled filelist p-3 fw-bold text-center">
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <form action="" id="uploadForm"
+                                class="rounded-2 d-flex flex-column justify-content-center gap-3 mx-auto w-100"
+                                method="POST" enctype="multipart/form-data" style="height: 250px;" autocomplete="off">
+                                @csrf
+                                <div class="h-100 d-flex flex-column gap-3 mt-2">
+                                    <div class="h-100 position-relative">
+                                        <div class="fileuploadicon d-flex flex-column text-center p-2 position-absolute h-100 w-100"
+                                            style="pointer-events:none;">
+                                            <div class="my-auto">
+                                                <span class="material-symbols-outlined fs-2">description</span>
+                                                <span class="material-symbols-outlined fs-2">image</span>
+                                                <span class="material-symbols-outlined fs-2">folder</span>
+                                            </div>
+                                            <div class="my-auto">
+                                                <span>Click or Drag To Upload File</span>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" id="evaluationId" name="evaluationId" value="">
+                                        <input id="fileUpload" name="fileUpload[]" class="btn bg-secondary-subtle h-100"
+                                            type="file" value="Add" accept=".pdf"
+                                            style="width: 100%; opacity: 1%;" />
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="modal-footer">
+                                <button id="submitFile" class="btn btn-primary float-end d-none" type="button">Submit
+                                    Files</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </x-pageWrapper>
     </div>
 @endsection
-
 @section('page-script')
+    @vite('resources/js/pages/fsec/show.js')
     <script type="module">
         window.showLoading = () => {
             toggleShow('loading-bar-spinner')

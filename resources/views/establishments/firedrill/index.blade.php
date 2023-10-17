@@ -17,11 +17,12 @@
             @if (session('toastMssg'))
                 <x-toast :message="session('toastMssg')" />
             @endif
-            <div>
-                <p class="fs-5 mb-0"> Owner:
+            <div class=" mb-3">
+                <div class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</div>
+
+                <div class="fs-5 "> Owner:
                     {{ $establishment->getOwnerName() }}
-                </p>
-                <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
+                </div>
             </div>
             <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 

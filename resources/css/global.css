@@ -32,7 +32,6 @@ input, button, select{
     font:inherit;
 }
 
-
 /* component styles */
 .btn-primary {
     background-color: var(--primary-color) !important;
@@ -60,8 +59,11 @@ input, button, select{
 }
 
 .table thead th{
-    color: var(--secondary-color) !important;
+    /* color: var(--secondary-color) !important; */
+    color: white;
+    background-color: var(--primary-color) !important;
 }
+
 
 /* form-wrapper global */
 .form-wrapper{

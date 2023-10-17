@@ -15,6 +15,10 @@
         <x-toast :message="$toastMssg" />
     @endisset
 
+    @if (session('toastMssg'))
+        <x-toast :message="session('toastMssg')" />
+    @endif
+
     <div class="d-flex vh-100 vw-100">
         <div class="leftPanel w-100 ">
             <h2 class="motto">To Save Live And Properties</h2>

@@ -1,6 +1,13 @@
 {{-- GET LAYOUT/TEMPLATE --}}
 @extends('layouts.app')
 
+
+{{-- PHP SCRIPT --}}
+@php
+    $currentArchive = explode('/', Route::current()->uri)[1];
+@endphp
+
+
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">
@@ -15,7 +22,7 @@
                     <div class="text-secondary">List of deleted
                         {{ $currentRoute == 'fsec' ? 'building plans' : $currentRoute }}</div>
                 </div>
-                <div>
+                {{-- <div>
                     <span>
                         <label class="fs-5 fw-semibold" for="establishment">Establishments</label>
                         <input class="fs-3" type="radio" name="link" id="establishment"
@@ -30,6 +37,47 @@
                         <label class="fs-5 fw-semibold" for="users">Users</label>
                         <input type="radio" name="link" id="users" {{ $currentRoute == 'users' ? 'checked' : '' }}>
                     </span>
+                </div> --}}
+            </div>
+            <div class="d-flex align-items-center gap-3 my-3">
+                <div class="fs-5 fw-semibold">
+                    @switch($currentArchive)
+                        @case('establishments')
+                            Establishments
+                        @break
+
+                        @case('fsec')
+                            Building Plan Applications
+                        @break
+
+                        @case('users')
+                            Users
+                        @break
+
+                        @case('fsic')
+                            Inspections
+                        @break
+
+                        @case('firedrill')
+                            Firedrill
+                        @break
+
+                        @default
+                    @endswitch
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-caret-down-fill"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item fs-5" href="/archived/establishments">Establishments</a></li>
+                        <li><a class="dropdown-item fs-5" href="/archived/fsec">Building Plan Applications</a></li>
+                        <li><a class="dropdown-item fs-5" href="/archived/users">Users</a>
+                        <li><a class="dropdown-item fs-5" href="/archived/fsic">Inspections</a>
+                        <li><a class="dropdown-item fs-5" href="/archived/firedrill">Firedrill</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div id="content">

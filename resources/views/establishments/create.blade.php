@@ -53,7 +53,8 @@
                     <fieldset>
                         <legend>Corporate</legend>
                         <x-form.input type="text" label="Corporate Name" name="corporateName" />
-                        <x-form.input type="text" label="Contact No." name="contactNoCorporate" />
+                        <x-form.input type="text" label="Contact No." name="contactNoCorporate"
+                            customAttr="maxlength=11" />
                     </fieldset>
 
                 </div>

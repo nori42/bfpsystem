@@ -48,7 +48,7 @@ li{
 
 .evaluator-2 {
     position: absolute;
-    top: 448px;
+    top: 470px;
     left: 389px;
     width: 195px;
     text-align: center;
@@ -110,10 +110,10 @@ li{
     outline: none;
     top: 200px;
     left: 120px;
-    min-width:270px;
-    height: 65px;
+    /* min-width:270px;
+    height: 65px; */
     font-size: 7.8pt !important;
-    white-space: pre-wrap;
+    /* white-space: pre-wrap; */
     overflow:hidden;
     resize: none;
     
@@ -131,7 +131,7 @@ li{
 
 .fc-fee{
     position: absolute;
-    top: 602px; 
+    top: 631px; 
     left: 173px;
     line-height: 1.1rem;
 }
@@ -143,7 +143,7 @@ li{
 
 .chiefName{
     position: absolute;
-    top: 632px; 
+    top: 655px; 
     left: 430px;
     font-size: 0.9rem;
     width: 280px;
@@ -158,7 +158,7 @@ li{
 
 .marshalName{
     position: absolute;
-    top: 746px; 
+    top: 772px; 
     left: 430px;
     font-size: 0.9rem;
     width: 280px;
@@ -207,6 +207,7 @@ li{
 
     .deficiency {
         border: none;
+        /* text-decoration: underline; */
     }
     .nav{
         display: none;

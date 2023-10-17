@@ -181,7 +181,7 @@ class FiredrillController extends Controller
     public function show_attachment(Request $request)
     {
         $establishment = Establishment::where('id', $request->id)->first();
-        $owner = Owner::where('id', $request->id)->first();
+        $owner = $establishment->owner;
         $establishment_id = $request->id;
         $attachFor = 'firedrill';
         $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {

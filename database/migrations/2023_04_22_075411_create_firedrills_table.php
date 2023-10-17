@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignIdFor(Establishment::class);
             $table->foreignIdFor(Receipt::class);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

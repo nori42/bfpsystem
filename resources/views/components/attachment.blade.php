@@ -1,15 +1,20 @@
 @props(['for', 'establishment', 'owner', 'files', 'page', 'representative'])
 <x-pageWrapper>
-
     @if (session('toastMssg'))
         <x-toast :message="session('toastMssg')" />
     @endif
 
-    <div>
-        <p class="fs-5 mb-0"> Owner:
+    <div class="mb-3">
+        <div class="fw-bold d-flex align-items-center gap-3">
+            <div class="fs-5">Establishment: {{ $establishment->establishment_name }}</div>
+            @if ($establishment->inspection_is_expired && $for == 'fsic')
+                <x-tag bgColor="bg-danger" text="Expired Inspection" />
+            @endif
+        </div>
+
+        <div class="fs-5"> Owner:
             {{ $establishment->getOwnerName() }}
-        </p>
-        <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
+        </div>
     </div>
     {{-- Owner Info & Selected Establishment --}}
     <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />

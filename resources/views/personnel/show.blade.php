@@ -1,6 +1,11 @@
 {{-- GET LAYOUT/TEMPLATE --}}
 @extends('layouts.app')
 
+@php
+    //UserType
+    $type = $personnel->user->type;
+@endphp
+
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">
@@ -15,8 +20,10 @@
                 <div class="text-center">
                     <div class="bg-subtleBlue d-flex flex-column align-items-center p-3 boxshadow"
                         style="width:25rem; height: 19rem;">
-                        <div class="bg-white rounded-circle p-3">
-                            <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="150px" width="100%">
+                        <div class="align-self-center" style="height: 13rem; width: 13rem;" id="profile">
+                            <img class="bg-white rounded-circle" height="100%" width="100%"
+                                src="{{ $personnel->profile_pic_path ? asset($personnel->profile_pic_path) : asset('img/FireFighter.svg') }}"
+                                alt="fireman" height="125px">
                         </div>
                         @if ($personnel->middle_name != null || $personnel->middle_name == '')
                             <div class="fw-bold mt-4 fs-5">
@@ -31,21 +38,18 @@
                     <div class="d-flex flex-column justify-content-center gap-2 mx-auto w-50 mt-3">
 
                         @if (auth()->user()->username != $personnel->user->username)
-                            <button class="btn btn-danger px-5 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                <i class="bi bi-trash3-fill"></i>
-                                Delete</button>
+                            <button class="btn btn-danger px-5 mt-3 text-nowrap" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal">
+                                <i class="bi bi-person-dash align-middle mr-2" style="font-size: 1.5rem"></i>
+                                Deactivate
+                            </button>
 
                             <div class="modal" id="deleteModal">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content px-5 py-4">
                                         <x-spinner :hidden="true" />
                                         <div class="text-start" id="deleteModalContent">
-                                            <div class="fs-5">Do you want to delete this personnel?</div>
-                                            <div class="fs-6 text-secondary">The associated account of this personnel will
-                                                also
-                                                be
-                                                deleted.
-                                            </div>
+                                            <div class="fs-5">Do you want to deactivate this personnel?</div>
                                             <div class="fs-6 text-secondary">This action cannot be reverted.</div>
                                             <div class="d-flex justify-content-end gap-2 mt-3">
                                                 <button class="btn btn-secondary px-4"
@@ -54,7 +58,7 @@
                                                 <form action="/personnel/{{ $personnel->id }}/delete" method="POST">
                                                     @csrf
                                                     <button class="btn btn-danger px-2"
-                                                        onclick="showLoading()">Delete</button>
+                                                        onclick="showLoading()">Deactivate</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -67,6 +71,7 @@
                             <a class="btn btn-primary px-5" href="/personnel/{{ $personnel->id }}/edit"> <i
                                     class="bi bi-pencil-fill"></i> Edit Info</a>
                         @endif
+                        <button class="btn btn-primary" id="btnChangeDesig">Change Designation</button>
                     </div>
 
 
@@ -84,19 +89,35 @@
 
                         <div class="row my-3">
                             <div class="col-4 text-secondary">Designation</div>
+
                             @if ($personnel->user->type == 'FSIC')
-                                <div class="col-8">{{ 'Fire Safety Inspection Certificate (FSIC)' }}
+                                <div class="col-8" textDesig>{{ 'Fire Safety Inspection Certificate (FSIC)' }}
                                 </div>
                             @elseif($personnel->user->type == 'FSEC')
-                                <div class="col-8">{{ 'Fire Safety Evaluatioin Certificate (FSEC)' }}
+                                <div class="col-8" textDesig>{{ 'Fire Safety Evaluatioin Certificate (FSEC)' }}
                                 </div>
                             @elseif($personnel->user->type == 'FIREDRILL')
-                                <div class="col-8">{{ $personnel->user->type }}
+                                <div class="col-8" textDesig>{{ $personnel->user->type }}
                                 </div>
                             @else
-                                <div class="col-8">{{ $personnel->user->type }}
+                                <div class="col-8" textDesig>{{ $personnel->user->type }}
                                 </div>
                             @endif
+
+                            <form class="col-8 d-none" id="designationForm"
+                                action="/users/{{ $personnel->user_id }}/updatedesignation" method="post"
+                                autocomplete="off">
+                                @csrf
+                                @method('put')
+                                <select name="designation" id="designation" class="form-select">
+                                    <option value="FSIC" {{ $type == 'FSIC' ? 'selected' : '' }}>FSIC</option>
+                                    <option value="FSEC" {{ $type == 'FSEC' ? 'selected' : '' }}>FSEC</option>
+                                    <option value="FIREDRILL" {{ $type == 'FIREDRILL' ? 'selected' : '' }}>FIREDRILL
+                                    </option>
+                                    <option value="ADMINISTRATOR" {{ $type == 'ADMINISTRATOR' ? 'selected' : '' }}>
+                                        ADMINISTRATOR</option>
+                                </select>
+                            </form>
                         </div>
 
                         <div class="row my-3">
@@ -121,11 +142,19 @@
                             <div class="col-8">{{ $personnel->address }}</div>
                         </div>
 
+                        <div class="d-flex justify-content-end gap-2 d-none" id="btnDesigConfirm">
+                            <button class="btn btn-outline-secondary" id="btnCancelDesig" type="button">Cancel</button>
+                            <button class="btn btn-success" id="btnUpdateDesig">Update</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </x-pageWrapper>
     </div>
+@endsection
+
+@section('page-script')
+    @vite('resources/js/pages/personnel/show.js');
 @endsection
 
 @section('scripts')

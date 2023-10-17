@@ -18,10 +18,15 @@ class DashboardController extends Controller
         $yearNow = date('Y');
         $monthNow = date('m');
 
+
         DB::table('establishments')
-                    ->where('firedrill_type','QUARTERLY')
-                    ->where('firedrill_count_yearly','<',3)
-                    ->update(['firedrill_is_expired' => true]);
+            ->where('firedrill_type','QUARTERLY')
+            ->where('firedrill_count_yearly','<',3)
+            ->update(['firedrill_is_expired' => true]);
+
+        $expiredInspectionsCount = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+        ->where('establishments.inspection_is_expired',1)
+        ->count();
 
         $firedrillIssuedSubstation = [
             'Guadalupe' => FiredrillHelper::getIssuedFiredrillCount('GUADALUPE',$yearNow,$monthNow),
@@ -88,7 +93,8 @@ class DashboardController extends Controller
             'fsicIssued' => $fsicIssued,
             'totalEstablishments' => $totalEstablishments,
             'totalPending' => $totalPending,
-            'loggedInUsers' => $loggedInUsers
+            'loggedInUsers' => $loggedInUsers,
+            'expiredInspectionCount' => $expiredInspectionsCount
         ]);
     }
 }

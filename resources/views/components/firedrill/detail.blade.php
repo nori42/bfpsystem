@@ -3,16 +3,16 @@
 {{-- @dd($firedrill->validity_term) --}}
 @php
     $yearNow = date('Y');
-    
+
     $issued = $firedrill->issued_on != null;
     $claimed = $firedrill->date_claimed != null;
-    
+
     $number = explode(' ', $firedrill->validity_term)[0];
     $term = explode(' ', $firedrill->validity_term)[1];
     if ($term == 'QUARTER') {
         $term = 'QUARTERLY';
     }
-    
+
 @endphp
 {{-- <x-modal id="{{ $key }}" width="50" topLocation="2">
 </x-modal> --}}
@@ -20,7 +20,6 @@
 <div class="modal" id="{{ $key }}">
     <div class="modal-dialog modal-dialog-centered" style="min-width: 900px;">
         <div class="modal-content px-5 py-4">
-
 
             <form id="firedrillDetail{{ $firedrill->id }}" action="/establishments/firedrill/{{ $establishment->id }}"
                 method="POST">
@@ -33,36 +32,38 @@
                     <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
+                @if (true)
+                    <div dropdown class="align-self-end">
+                        <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
+                            value="delete">
+                            <i class="bi bi-x-circle-fill mr-2"></i>Discard</button>
+                        <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
+                            <div class="fw-bold text-nowrap">Do you confirm?</div>
+                            <div>
+                                <button class="btn btn-secondary py-0" type="button" dropdown-btn-dismiss>No</button>
+                                <button class="btn btn-danger py-0" dropdown-btn name="action"
+                                    value="delete">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <fieldset>
                     <div class="d-flex justify-content-between align-items-center gap-1">
                         <Legend>Firedrill</Legend>
-                        @if ($claimed)
-                            <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
-                            <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Claimed</h6>
-                        @endif
-                        @if ($issued && !$claimed)
-                            <div class="d-flex gap-1">
-                                <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
-                                <h6 class="px-2 py-1 text-bg-danger rounded-1 align-middle">Unclaimed</h6>
-                            </div>
-                        @endif
-
-                        @if ($firedrill->issued_on == null)
-                            <div dropdown>
-                                <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
-                                    value="delete">
-                                    <i class="bi bi-x-circle-fill mr-2"></i>Discard</button>
-                                <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
-                                    <div class="fw-bold text-nowrap">Do you confirm?</div>
-                                    <div>
-                                        <button class="btn btn-secondary py-0" type="button"
-                                            dropdown-btn-dismiss>No</button>
-                                        <button class="btn btn-danger py-0" dropdown-btn name="action"
-                                            value="delete">Yes</button>
-                                    </div>
+                        <div>
+                            @if ($claimed)
+                                <div class="d-flex gap-1">
+                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Claimed</h6>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
+                            @if ($issued && !$claimed)
+                                <div class="d-flex gap-1">
+                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                                    <h6 class="px-2 py-1 text-bg-danger rounded-1 align-middle">Unclaimed</h6>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     @if ($firedrill->issued_on != null)
                         <x-form.input name="controlNo" label="Control No." type="text"
@@ -147,12 +148,12 @@
                         @php
                             $owner = $firedrill->establishment->owner;
                             $personName = null;
-                            
+
                             if ($owner->last_name != null) {
                                 $personName = $owner->first_name . ' ' . $owner->last_name;
                             }
                             $corporateName = $owner->corporate_name;
-                            
+
                             $name = $personName != null ? $personName : $corporateName;
                         @endphp
 

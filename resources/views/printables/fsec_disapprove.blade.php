@@ -1,14 +1,14 @@
 @extends('layouts.print')
 
 @php
-    
+
     // if (auth()->user()->type != 'ADMINISTRATOR') {
     //     $personnelName = auth()->user()->personnel->person->first_name . ' ' . auth()->user()->personnel->person->last_name;
     // }
     $evaluator = $evaluator = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
-    
+
     $representative = $buildingPlan->getOwnerName();
-    
+
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
     $printSettings = json_decode($jsonData, true);
@@ -30,6 +30,7 @@
         @csrf
         @method('PUT')
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
+        <input type="hidden" value="" name="pdfInput" id="pdfInput">
         <button class="btn btn-success">Done<i class="bi bi-check-lg"></i></button>
     </form>
     {{-- <a class="btn btn-success d-none" href="/fsec/{{ $buildingPlan }}" btndone>Done <i class="bi bi-check-lg"></i></a> --}}
@@ -73,14 +74,22 @@
     </div>
     <div class="deficiency deficiency-right" id="moreInfo" data-draggable="true" data-editable="true">
     </div> --}}
-        <textarea class="deficiency" maxlength="288">
-    </textarea>
-        <textarea class="deficiency deficiency-right" maxlength="288">
-    </textarea>
+        {{-- <textarea class="deficiency" maxlength="288" rows="7" cols="30"></textarea> --}}
+        {{-- <textarea class="deficiency deficiency-right" maxlength="288" rows="7" cols="30"></textarea> --}}
+        <div class="deficiency" contenteditable="true" deficiency="1">
+            <div class="w-100 h-100">
 
+            </div>
+        </div>
+        <div class="deficiency deficiency-right" contenteditable="true" deficiency="2">
+        </div>
 
-        <div data-draggable="true" class="address bold">
-            <span class="fs-9pt">{{ $buildingPlan->address }}</span>
+        <div data-draggable="true" class="address">
+            <span class="fs-9pt fw-bold">{{ $buildingPlan->address }}</span>
+        </div>
+
+        <div data-draggable="true" class="establishment-name-2 bold">
+            <span class="fs-9pt">{{ $buildingPlan->name_of_building }}</span>
         </div>
 
         <div data-draggable="true" class="address-2 bold">
@@ -97,5 +106,5 @@
 @endsection
 
 @section('pagescript')
-    {{-- @vite('resources/js/pages/printables/fsic.js') --}}
+    @vite('resources/js/pages/printables/fsec_disapprove.js')
 @endsection

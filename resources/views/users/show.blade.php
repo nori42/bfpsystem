@@ -10,6 +10,10 @@
         @isset($toastMssg)
             <x-toast :message="$toastMssg" />
         @endisset
+        @if (session('toastMssg'))
+            <x-toast :message="session('toastMssg')" />
+        @endif
+
 
         <x-pageWrapper>
             <div class="d-flex justify-content-between">
@@ -44,15 +48,28 @@
                     </div>
                 </div> --}}
                 <div>
-                    <x-account.btnEdit label="Password" value="Change Password" menuId="passwordEdit" />
+                    {{-- <x-account.btnEdit label="Password" value="Change Password" menuId="passwordEdit" /> --}}
+                    <button class="btn btn-subtleBlue w-100 fs-5 px-5 py-3" btnPassword>
+                        <span class="float-start">
+                            <span class="fw-bold">Password</span>
+                            <span class="fw-normal mx-5">Change Password</span>
+                        </span>
+                        <span class="float-end edit-text"> <i class="bi bi-pencil edit-icon"></i> Edit </span>
+                    </button>
 
-                    <div id="passwordEdit" class="fs-6 px-5 py-3 bg-subtleBlue" style="display: none !important;">
+                    <div id="passwordEdit"
+                        class="fs-6 px-5 py-3 bg-subtleBlue {{ $errors->any() || session('pass_incorrect') ? '' : 'd-none' }} "
+                        btnPassword-menu>
                         <div class="fw-bold my-3">Password</div>
                         <div>
                             @if ($errors->any())
                                 @foreach ($errors->all() as $error)
                                     <div class="fs-6 text-danger my-2">{{ $error }}</div>
                                 @endforeach
+                            @endif
+
+                            @if (session('pass_incorrect'))
+                                <div class="fs-6 text-danger my-2">Enter the correct password and try again</ $div>
                             @endif
                             <form action="/users/{{ $user->id }}" method="POST">
                                 @csrf
@@ -93,10 +110,30 @@
             <div class="d-flex gap-4 justify-content-center mt-3">
                 <div class="text-center">
                     <div class="bg-subtleBlue d-flex flex-column align-items-center p-3 boxshadow"
-                        style="width:25rem; height: 19rem;">
-                        <div class="bg-white rounded-circle p-3">
-                            <img src="{{ asset('img/Firefighter.svg') }}" alt="fireman" height="150px" width="100%">
-                        </div>
+                        style="width:25rem; height: 21rem;">
+
+                        <form class="d-flex flex-column align-items-center gap-2" enctype="multipart/form-data"
+                            action="/users/{{ $user->id }}/changeprofile" autocomplete="off" method="POST">
+                            @csrf
+                            @method('POST')
+                            <div class="position-relative" style="height: 13rem; width: 13rem;" id="profile">
+                                <img class="bg-white rounded-circle" id="profilePic"
+                                    src="{{ $user->personnel->profile_pic_path ? asset($personnel->profile_pic_path) : asset('img/Firefighter.svg') }}"
+                                    alt="fireman" height="100%" width="100%">
+                                <div class="position-absolute d-none" style="top:50%; left: 50%; translate: -50% -50%;"
+                                    id="btnChangeProfile">
+                                    <div class="btn btn-dark p-0 position-relative" style="width: 10rem">
+                                        <input type="file" style="height: 100%; width: 100%; opacity: 0;"
+                                            name="profilePicInp" id="profilePicInp">
+                                        <div class="position-absolute text-nowrap"
+                                            style="pointer-events: none; top: 50%; left:50%; translate: -50% -50%;">Change
+                                            Picture</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary d-none" id="btnUpdate">Update Profile</button>
+                        </form>
+
                         @if ($personnel->middle_name != null || $personnel->middle_name == '')
                             <div class="fw-bold mt-4 fs-5">
                                 {{ $personnel->first_name . ' ' . $personnel->middle_name . ' ' . $personnel->last_name }}
@@ -105,8 +142,10 @@
                             <div class="fw-bold mt-4">{{ $personnel->first_name . ' ' . $personnel->last_name }}
                             </div>
                         @endif
+
                     </div>
                     <a class="btn btn-primary mt-4 px-5" href="/personnel/{{ $personnel->id }}/edit">Edit Info</a>
+
                 </div>
                 <div>
                     <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 24rem;">
@@ -154,27 +193,9 @@
             </div>
         </x-pageWrapper>
 
-        <x-modal id="resetConfirm" width="40" topLocation="8" leftLocation="35">
-            <div class="fs-5 fw-bold text-center">Are you sure you want to initiate a password reset for this account?</div>
-            <div class="text-center">The new password for this account: <span class="fw-bold">cebucityfirestation</span>
-            </div>
-            <div class="d-flex justify-content-center py-4 gap-4 mt-3">
-                <button class="btn btn-secondary px-4" onclick="closeModal('resetConfirm')">No, I change my mind</button>
-                <button class="btn btn-danger px-4">Yes</button>
-            </div>
-        </x-modal>
-
     </div>
-    <script>
-        const passwordInput = document.getElementById('passwordNew');
-        const confirmPasswordInput = document.getElementById('passwordConfirmNew');
+@endsection
 
-        confirmPasswordInput.addEventListener('input', () => {
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                confirmPasswordInput.setCustomValidity('Passwords do not match');
-            } else {
-                confirmPasswordInput.setCustomValidity('');
-            }
-        });
-    </script>
+@section('page-script')
+    @vite('resources/js/pages/users/show.js')
 @endsection

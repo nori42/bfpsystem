@@ -6,7 +6,7 @@
         $personName = $establishment->owner->first_name . ' ' . $establishment->owner->last_name;
     }
     $corporateName = $establishment->owner->corporate_name;
-    
+
     $establishment = $firedrill->establishment->establishment_name;
     $address = $firedrill->establishment->address;
     $issuedOn = ['day' => date('jS', strtotime($firedrill->issued_on)), 'month' => date('F', strtotime($firedrill->issued_on))];
@@ -57,7 +57,7 @@
         <img src="{{ asset('img/firedrill.png') }}" alt="" style="width: 100%; height: 100%;">
 
         <div data-draggable="true" class="control-no bold">
-            {{ $controlNo }}
+            {{ $firedrill->control_no != null ? $firedrill->control_no : $controlNo }}
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold"
@@ -67,13 +67,13 @@
         <div data-draggable="true" class="rep-name">
             <span>{{ $personName ? $personName : $corporateName }}</span>
         </div>
-        <div data-draggable="true" class="address bold">
-            @if (strlen($address) >= 55 && strlen($address) < 63)
+        <div data-draggable="true" class="address bold" contenteditable="true">
+            @if (strlen($address) >= 63 && strlen($address) < 74)
                 <span class="fs-9pt">{{ $address }}</span>
-            @elseif (strlen($address) >= 63 && strlen($address) < 74)
+            @elseif (strlen($address) >= 74 && strlen($address) < 85)
+                <span class="fs-8pt">{{ $address }}</span>
+            @elseif (strlen($address) >= 85)
                 <span class="fs-7pt">{{ $address }}</span>
-            @elseif (strlen($address) >= 74)
-                <span class="fs-6pt">{{ $address }}</span>
             @else
                 <span>{{ $address }}</span>
             @endif

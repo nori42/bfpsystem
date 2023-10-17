@@ -1,0 +1,9 @@
+.record-highlight td{
+    animation: newrecord 2s 0s;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes newrecord {
+    from {background-color: #39c839;}
+    to {background-color: white;}
+  }

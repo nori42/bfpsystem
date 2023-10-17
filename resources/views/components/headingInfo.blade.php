@@ -18,14 +18,6 @@
     // $representative = $personName != null ? $personName : $company->corporate_name;
 @endphp
 <div>
-    {{-- <div class="fs-5">Business Permit: {{ $establishment->business_permit_no }}</div> --}}
-    {{-- <div>
-        <p class="fs-5 mb-0"> Owner/Representative:
-            {{ $establishment->getOwnerName() }}
-        </p>
-        <p class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</p>
-    </div> --}}
-
     <div>
         {{-- Establishment Info --}}
         <div class="position-relative d-inline-block" dropdown>

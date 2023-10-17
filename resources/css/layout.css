@@ -7,10 +7,10 @@ nav {
 }
 
 .link-active{
-    border-right: 10px solid var(--top-panel) !important;
+    border-right: 10px solid #5675a8 !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    background-color: #5675a8 !important;
+    /* background-color: #5675a8 !important; */
 }
 
 .page-container {

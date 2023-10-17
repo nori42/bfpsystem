@@ -135,9 +135,9 @@
 
         </div>
         <div data-draggable="true" class="address bold">
-            @if (strlen($establishment->address) >= 63 && strlen($establishment->address) < 76)
+            @if (strlen($establishment->address) >= 76 && strlen($establishment->address) < 80)
                 <span class="fs-9pt">{{ $establishment->address }}</span>
-            @elseif (strlen($establishment->address) >= 76 && strlen($establishment->address) < 80)
+            @elseif (strlen($establishment->address) >= 86 && strlen($establishment->address) < 96)
                 <span class="fs-8pt">{{ $establishment->address }}</span>
             @else
                 <span>{{ $establishment->address }}</span>

@@ -106,10 +106,15 @@ class FsicController extends Controller
 
         if($request->input('action') == "delete"){
             $establishment = $inspection->establishment;
+            
+            $logMessage = "Deleted the inspection: FSIC.NO {$inspection->fsic_no}";            
+            ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
 
             $inspection->delete();
 
             $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
+
+
 
             return view('establishments.fsic.index',[
                 'establishment' => $inspection->establishment,
@@ -164,8 +169,8 @@ class FsicController extends Controller
     public function show_attachment(Request $request)
     {
         $establishment = Establishment::where('id', $request->id)->first();
-        $owner = Owner::where('id', $request->id)->first();
         $establishment_id = $request->id;
+        $owner = $establishment->owner;
         $attachFor = 'fsic';
         $files = File::whereHas('attachments', function ($query) use ($establishment_id,$attachFor) {
             $query->where('establishment_id', $establishment_id)->where('attach_for', $attachFor);

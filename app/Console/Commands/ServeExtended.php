@@ -8,6 +8,7 @@ use App\Models\Inspection;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Console\ServeCommand;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -33,7 +34,6 @@ class ServeExtended extends Command
     public function handle(): void
     {
         //
-        error_log('Info:Setting server configuration.');
         //Update establishments that has expired inspections
         $inspections = Inspection::whereDate('expiry_date','>=',now()->subDay(5))->whereDate('expiry_date','<=',now())->get();
 
@@ -91,5 +91,11 @@ class ServeExtended extends Command
                     ->update(['firedrill_is_expired' => true]);
                 break;
             }
+
+            // Execute the serve command
+            // Artisan::call('serve');
+
+            error_log("Server Configured");
+            // Log::info("Server started");
     }
 }
