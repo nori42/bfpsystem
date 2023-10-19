@@ -38,9 +38,7 @@ class LoginController extends Controller
             return redirect()->intended('/fsec');
         }
 
-        return back()->withErrors([
-            'username' => 'The provided credentials is incorrect.',
-        ])->onlyInput('username');
+        return back()->with('invalidCred', true);
     }
 
     public function logout(Request $request) {

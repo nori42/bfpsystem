@@ -82,7 +82,10 @@ class FsecController extends Controller
     public function show(Request $request)
     {
         $buildingPlan = BuildingPlan::find($request->id);
-        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
+        $evaluations = Evaluation::where('building_plan_id',$buildingPlan->id)
+        ->where('remarks','DISAPPROVED')
+        ->get()
+        ->sortDesc();
 
         return view('fsec.show',[
             'buildingPlan' => $buildingPlan,
@@ -162,10 +165,6 @@ class FsecController extends Controller
 
     public function search(Request $request){
 
-        // // Get the id in the search string
-        // $search = explode("-", $request->search);
-        // $buildPlanId = end($search);
-
         $buildingPlan = BuildingPlan::find($request->dataId);
 
         if($buildingPlan == null)
@@ -173,14 +172,7 @@ class FsecController extends Controller
             return redirect()->back()->with('searchQuery',strtoupper($request->search));
         }
         
-
-        $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
-
-        return view('fsec.show',[
-            'buildingPlan' => $buildingPlan,
-            'evaluations' => $evaluations,
-            'representative' => $buildingPlan->getOwnerName()
-        ]);
+        return redirect("fsec/{$buildingPlan->id}");
     }
 
     public function pending(Request $request){
@@ -246,8 +238,9 @@ class FsecController extends Controller
 
     public function downloadDisapproval(Request $request){
         $filename = "_".$request->id;
-        $path = "evaluations/disapproval/{$filename}.pdf";
+        $path = "evaluations/{$request->for}/{$filename}.pdf";
+        $filenameD = $request->for == "disapproval" ? "disapproval_notice" : "checklist";
         // Return the file as a download
-        return Storage::download($path,"disapproval_notice");
+        return Storage::download($path,"{$filenameD}_{$request->id}.pdf");
     }
 }

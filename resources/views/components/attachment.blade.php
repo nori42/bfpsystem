@@ -81,12 +81,6 @@
         @endif
     </div>
 
-    <!-- The Modal -->
-    {{-- Attachment --}}
-    {{-- <x-modal id="addAttachmentModal" width="50" topLocation="5">
-        
-    </x-modal> --}}
-
     <div class="modal" id="addAttachmentModal">
         <div class="modal-dialog modal-dialog-centered" style="min-width: 750px;">
             <div class="modal-content py-4 px-5">

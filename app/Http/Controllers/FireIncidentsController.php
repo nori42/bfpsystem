@@ -20,7 +20,7 @@ class FireIncidentsController extends Controller
         
         $fireincident = new FireIncident();
 
-        $fireincident->barangay = strtoupper($request->location);
+        $fireincident->location = strtoupper($request->location);
         $fireincident->substation = $request->substation;
         $fireincident->date_of_incident = $request->dateOfIncident;
         $fireincident->save();

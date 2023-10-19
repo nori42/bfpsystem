@@ -10,6 +10,7 @@
     @vite(['resources/sass/bootstrap.scss', 'resources/css/pages/login.css'])
 </head>
 
+
 <body>
     @isset($toastMssg)
         <x-toast :message="$toastMssg" />
@@ -39,21 +40,31 @@
                 <div class="text-secondary text-start">Please enter your details.</div>
             </div>
             <form class="w-60 mx-auto" action="/login" method="POST">
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="text-danger"></div>
                         <div class="fs-5 text-danger my-2">{{ $error }}</div>
                     @endforeach
+                @endif --}}
+                @if (session('invalidCred'))
+                    <div class="fs-5 text-danger my-2">Provided credentials is incorrect</div>
                 @endif
+
                 @csrf
                 <div>
                     <label class="fs-4">Username</label>
                     <input class="form-control d-block fs-4 w-100" type="text" name="username" autocomplete="off">
+                    @error('username')
+                        <div class="text-danger">Username is required</div>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="fs-4" for="password">Password</label>
                     <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
+                    @error('password')
+                        <div class="text-danger">Password is required</div>
+                    @enderror
                     <div class="mt-3">
                         <label class="fw-bold fs-6" for="showPassword">Show Password</label>
                         <input id="showPassword" class=" d-inline fs-4" type="checkbox" name="showPassword">
@@ -67,7 +78,6 @@
                     </a>
                 </div>
             </form>
-
         </div>
     </div>
 </body>

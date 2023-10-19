@@ -24,40 +24,40 @@
                 <input class="d-none" name="inspectionId" type="text" value="{{ $inspection->id }}">
                 <input class="d-none" name="receiptId" type="text" value="{{ $inspection->receipt_id }}">
 
-                <div>
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        @if ($printed)
+                            <div class="px-2 py-1 text-bg-success rounded-1">Printed</div>
+                        @endif
+                        @if ($inspection->status == 'Expired')
+                            <div class="px-2 py-1 text-bg-danger rounded-1">Expired</div>
+                        @endif
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                 </div>
 
                 <fieldset class="d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center gap-2">
                         <legend class="mb-3">Add Inspection</legend>
 
-                        <div class="d-flex align-items-center gap-2">
-                            @if ($printed)
-                                <div class="px-2 py-1 text-bg-success rounded-1">Printed</div>
-                            @endif
-                            @if ($inspection->status == 'Expired')
-                                <div class="px-2 py-1 text-bg-danger rounded-1">Expired</div>
-                            @endif
-
-                            @if (true)
-                                <div dropdown>
-                                    <button class="btn btn-danger text-nowrap" type="button" dropdown-btn
-                                        name="action" value="delete">
-                                        <i class="bi bi-x-circle-fill mr-2"></i>Delete</button>
-                                    <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
-                                        <div class="fw-bold text-nowrap">Do you confirm?</div>
-                                        <div>
-                                            <button class="btn btn-secondary py-0" type="button"
-                                                dropdown-btn-dismiss>No</button>
-                                            <button class="btn btn-danger py-0" dropdown-btn name="action"
-                                                value="delete">Yes</button>
-                                        </div>
+                        @if (true)
+                            <div dropdown>
+                                <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
+                                    value="delete">
+                                    <i class="bi bi-x-circle-fill mr-2"></i>Delete</button>
+                                <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
+                                    <div class="fw-bold text-nowrap">Do you confirm?</div>
+                                    <div>
+                                        <button class="btn btn-secondary py-0" type="button"
+                                            dropdown-btn-dismiss>No</button>
+                                        <button class="btn btn-danger py-0" dropdown-btn name="action"
+                                            value="delete">Yes</button>
                                     </div>
                                 </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                     {{-- This is hidden, only used for post request --}}
                     <input class="info d-none" type="text" id="establishmentId" name="establishmentId"

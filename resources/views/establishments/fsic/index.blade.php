@@ -33,14 +33,12 @@
                 {{-- Owner Info & Selected Establishment --}}
                 <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
                 {{-- FSIC Action --}}
-                <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
-                    {{-- <x-action.link href="/establishments/{{ $establishment->id }}/fsic" text="Inspection" :active="true" /> --}}
-                    {{-- <x-action.link href="/establishments/fsic/attachment/{{ $establishment->id }}/fsic" text="Attachments" /> --}}
+                {{-- <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
                     <a class="btn btn-primary rounded-0 fs-5 px-5"
                         href="/establishments/{{ $establishment->id }}/fsic">Inspections</a>
                     <a class="btn btn-outline-primary rounded-0 fs-5 px-5"
                         href="/establishments/{{ $establishment->id }}/fsic/attachment">Attachments</a>
-                </div>
+                </div> --}}
 
                 {{-- Inspection --}}
                 <div class="d-flex justify-content-between align-items-center mt-3">
@@ -72,7 +70,7 @@
                                     class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
                                     <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
                                     @php
-                                        
+
                                     @endphp
                                     <td>{{ $inspection->issued_on != null ? date('m/d/Y', strtotime($inspection->issued_on)) : '' }}
                                     </td>

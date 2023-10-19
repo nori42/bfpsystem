@@ -26,15 +26,18 @@
             </div>
             <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
-            <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
-                {{-- <x-action.link href="/establishments/{{ $establishment->id }}/firedrill" text="Firedrill" :active="true" />
-                <x-action.link href="/establishments/{{ $establishment->id }}/firedrill/attachment" text="Attachments" /> --}}
+            {{-- <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
                 <a class="btn btn-primary rounded-0 fs-5 px-5"
                     href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
                 <a class="btn btn-outline-primary rounded-0 fs-5 px-5"
                     href="/establishments/{{ $establishment->id }}/firedrill/attachment">Attachments</a>
-            </div>
-            <div class="d-flex justify-content-end align-items-center">
+            </div> --}}
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    <div class="fs-4 fw-semibold">Firedrill Certificates</div>
+                    <div class="fs-6 text-secondary">List of issued firedrill certifcate for this establishment</div>
+                </div>
                 <button class="btn btn-primary mt-3" id="addInspectionBtn" data-bs-toggle="modal"
                     data-bs-target="#addFiredrillModal">
                     <span class="material-symbols-outlined align-middle">

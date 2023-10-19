@@ -2,11 +2,11 @@
 
 @php
     $receipt = $buildingPlan->receipt;
-    
+
     $evaluator = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
-    
+
     $representative = $buildingPlan->getOwnerName();
-    
+
     //Marshal and Chief Name
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
@@ -39,6 +39,8 @@
 @endsection
 
 @section('printablePage')
+    <input type="checkbox" id="isPreview" {{ $buildingPlan->date_approved != null ? 'checked' : '' }} hidden>
+
     <div class="printablePage">
         <div data-draggable="true" class="header bold">
             <div>Cebu City Fire Office</div>
@@ -48,7 +50,8 @@
         </div>
 
         <div data-draggable="true" class="date-container bold">
-            {{ date('F d Y') }}
+            {{ $buildingPlan->date_approved ? date('F d Y', strtotime($buildingPlan->date_approved)) : date('F d Y') }}
+
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">

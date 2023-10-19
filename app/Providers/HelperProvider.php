@@ -13,6 +13,7 @@ class HelperProvider {
             $firedrillQuarterCount = Establishment::where('firedrill_is_expired',true)
                 ->where('firedrill_type','QUARTERLY')
                 ->count();
+                
             $firedrillSemesterCount = Establishment::where('firedrill_is_expired',true)
                 ->where('firedrill_type','SEMESTER')
                 ->count();

@@ -6,6 +6,7 @@ use App\Models\Personnel;
 use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -96,6 +97,11 @@ class PersonnelController extends Controller
 
     public function edit (Request $request){
         $personnel = Personnel::find($request->id);
+
+        // Cannot edit another personnel except for the current login
+        if($personnel->id != Auth::user()->personnel->id){
+            return back();
+        }
 
         if($personnel == null){
             return view('errors.404');

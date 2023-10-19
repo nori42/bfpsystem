@@ -28,42 +28,43 @@
                 {{-- For Reference Input --}}
                 <input class="d-none" name="firedrillId" type="text" value="{{ $firedrill->id }}">
                 <input class="d-none" name="estabId" id="estabId" type="text" value="{{ $establishment->id }}">
-                <div class="mb-3">
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                @if (true)
-                    <div dropdown class="align-self-end">
-                        <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
-                            value="delete">
-                            <i class="bi bi-x-circle-fill mr-2"></i>Discard</button>
-                        <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
-                            <div class="fw-bold text-nowrap">Do you confirm?</div>
-                            <div>
-                                <button class="btn btn-secondary py-0" type="button" dropdown-btn-dismiss>No</button>
-                                <button class="btn btn-danger py-0" dropdown-btn name="action"
-                                    value="delete">Yes</button>
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        @if ($claimed)
+                            <div class="d-flex gap-1">
+                                <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                                <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Claimed</h6>
                             </div>
-                        </div>
+                        @endif
+                        @if ($issued && !$claimed)
+                            <div class="d-flex gap-1">
+                                <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
+                                <h6 class="px-2 py-1 text-bg-danger rounded-1 align-middle">Unclaimed</h6>
+                            </div>
+                        @endif
                     </div>
-                @endif
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <fieldset>
                     <div class="d-flex justify-content-between align-items-center gap-1">
                         <Legend>Firedrill</Legend>
-                        <div>
-                            @if ($claimed)
-                                <div class="d-flex gap-1">
-                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
-                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Claimed</h6>
+
+                        @if (true)
+                            <div dropdown class="align-self-end">
+                                <button class="btn btn-danger text-nowrap" type="button" dropdown-btn name="action"
+                                    value="delete">
+                                    <i class="bi bi-x-circle-fill mr-2"></i>Delete</button>
+                                <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
+                                    <div class="fw-bold text-nowrap">Do you confirm?</div>
+                                    <div>
+                                        <button class="btn btn-secondary py-0" type="button"
+                                            dropdown-btn-dismiss>No</button>
+                                        <button class="btn btn-danger py-0" dropdown-btn name="action"
+                                            value="delete">Yes</button>
+                                    </div>
                                 </div>
-                            @endif
-                            @if ($issued && !$claimed)
-                                <div class="d-flex gap-1">
-                                    <h6 class="px-2 py-1 text-bg-success rounded-1 align-middle">Printed</h6>
-                                    <h6 class="px-2 py-1 text-bg-danger rounded-1 align-middle">Unclaimed</h6>
-                                </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                     @if ($firedrill->issued_on != null)
                         <x-form.input name="controlNo" label="Control No." type="text"

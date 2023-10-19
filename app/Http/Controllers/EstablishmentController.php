@@ -77,7 +77,6 @@ class EstablishmentController extends Controller
 
     // store new record
     public function store(Request $request){
-        
         // instantiate model
         $establishment = new Establishment();
         $owner = new Owner();
@@ -114,13 +113,8 @@ class EstablishmentController extends Controller
         // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::AddEstablishment);
         $logMessage = "Added new establishment: $establishment->establishment_name";
         ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
-        
-        if(Auth::user()->type == "ADMINISTRATOR")
-        {
-            return redirect("/establishments/".$establishment->id);        
-        }
 
-        return redirect('/establishments'.'/'.$establishment->id.'/'.'fsic/');        
+        return redirect("/establishments/".$establishment->id);       
     }
 
     //get single record

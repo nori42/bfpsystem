@@ -137,6 +137,10 @@ class PrintController extends Controller
     {
         $buildingPlan = BuildingPlan::find($request->id);
 
+        if($buildingPlan->date_approved != null && !$request->viewOnly) {
+            return back();
+        }
+
         return view('printables.fsec',[
             'buildingPlan' => $buildingPlan
         ]);

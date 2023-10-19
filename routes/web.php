@@ -7,6 +7,7 @@ use App\Http\Controllers\ChangeProfilePicture;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\ExpiredController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\FileDownload;
 use App\Http\Controllers\FileUpload;
 use App\Http\Controllers\Firedrillcontroller;
@@ -201,8 +202,8 @@ Route::get('/archived/firedrill',[ArchiveController::class,'firedrill'])->middle
 
 //Download routes
 Route::get('/download/attachments/{foldername}/{attachFor}/{filename}',FileDownload::class);
+Route::post('/delete/attachments/{foldername}/{attachFor}/{filename}/{id}',[FileController::class,'delete']);
 Route::get('/download/evaluations/{for}/_{id}',[FsecController::class,'downloadDisapproval']);
-
 
 //Prints Settings
 Route::get('/settings',function () {

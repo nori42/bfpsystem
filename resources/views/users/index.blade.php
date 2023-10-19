@@ -67,10 +67,9 @@
                 </tbody>
             </table>
         </x-pageWrapper>
-
         <div class="modal" id="addUser" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered" style="min-width:780px;">
-                <div class="modal-content py-4 px-5">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content py-4 px-5" style="min-width:820px;">
                     <form action="/users" method="POST" autocomplete="off">
                         @csrf
                         <legend class="mb-3">Add New User</legend>
@@ -99,7 +98,8 @@
                                     autocomplete="off">
                             </x-form.inputWrapper>
                             <x-form.inputWrapper>
-                                <label id="labelPassword" class="fw-bold">Password <span class="fw-normal">Click here to
+                                <label id="labelPassword" class="fw-bold">Password <span class="fw-normal">Click
+                                        here to
                                         generate
                                         new</span></label>
                                 <input class="form-control" id="password" name="password" type="text" required
@@ -118,7 +118,7 @@
         </div>
 
         <div class="modal" id="activeUsers" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content py-4 px-5" style="min-width:780px;">
                     <div class="py-2">
                         <div class="fs-3">{{ count($loggedInUsers) }} Active User</div>
@@ -132,11 +132,13 @@
                         </thead>
                         <tbody>
                             @foreach ($loggedInUsers as $user)
-                                <tr>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}</td>
-                                    <td>{{ $user->type }}</td>
-                                </tr>
+                                @if ($user->username != 'adminDev')
+                                    <tr>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}</td>
+                                        <td>{{ $user->type }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

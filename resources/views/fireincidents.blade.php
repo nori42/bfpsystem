@@ -61,7 +61,7 @@
             <tbody>
                 @foreach ($fireincidents as $fireincident)
                     <tr class="align-middle">
-                        <td>{{ $fireincident->barangay }}</td>
+                        <td>{{ $fireincident->location }}</td>
                         <td>{{ $fireincident->substation }}</td>
                         <td>{{ date('F d, Y', strtotime($fireincident->date_of_incident)) }}</td>
                         <td><button class="btn btn-danger" data-bs-toggle="modal" btnKey="{{ $fireincident->id }}"

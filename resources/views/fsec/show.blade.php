@@ -36,6 +36,8 @@
                         <x-tag bgColor="bg-success" text="Released" />
                     @endif
                 </div>
+                <a class="btn btn-primary" href="/fsec/print/{{ $buildingPlan->id }}?viewOnly=true"><i
+                        class="bi bi-file-earmark-fill"></i> View Certificate</a>
                 @if ($buildingPlan->date_released == null && $buildingPlan->status == 'APPROVED')
                     {{-- Update the building plan released date --}}
                     <form action="/fsec/release" method="POST">
@@ -107,10 +109,14 @@
 
                 <div class="d-flex justify-content-between">
                     <h2 class="fs-4">Permit</h2>
-                    @if ($buildingPlan->date_released)
-                        <div class="fw-bold">Date Released:{{ date('m/d/Y', strtotime($buildingPlan->date_released)) }}
+                    <div>
+                        <div class="fw-bold">Approval Date: {{ date('m/d/Y', strtotime($buildingPlan->date_approved)) }}
                         </div>
-                    @endif
+                        @if ($buildingPlan->date_released)
+                            <div class="fw-bold">Date Released: {{ date('m/d/Y', strtotime($buildingPlan->date_released)) }}
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="row">
                     <x-info label="Applicant Name" :value="$applicant" />
@@ -152,7 +158,7 @@
                 @endif
             </x-detailWrapper>
             <hr>
-            <h1 class="fs-3 my-2">Evaluation List</h1>
+            <h1 class="fs-3 my-2">Disapproval History</h1>
             <table class="table">
                 <thead>
                     <th>Remarks</th>
@@ -194,7 +200,7 @@
                                             evaluationId="{{ $evaluation->id }}">Upload <i class="bi bi-upload"></i>
                                         </button>
                                     @else
-                                        <a href="/download/evaluations/disapproval/_{{ $evaluation->id }}">Checklist <i
+                                        <a href="/download/evaluations/checklist/_{{ $evaluation->id }}">Checklist <i
                                                 class="bi bi-file-earmark-arrow-down-fill"></i></a>
                                     @endif
                                 @endif

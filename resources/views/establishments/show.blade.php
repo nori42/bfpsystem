@@ -14,7 +14,7 @@
     $inspectionCount = 0;
     $firedrillCount = 0;
     $lastInpsectionIssued = $inspections->last() ? date('m/d/Y', strtotime($inspections->last()->issued_on)) : 'N/A';
-    
+
     $lastFiredrillIssued = $firedrills->last() ? date('m/d/Y', strtotime($firedrills->last()->issued_on)) : 'N/A';
     $firedrillCountThisYear = count($firedrills->filter(fn($firedrill) => $firedrill->year == date('Y')));
     // count will throw error if checks a null value
@@ -149,7 +149,13 @@
                 </div>
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div>
-                        <a class="btn btn-primary px-5" href="/establishments/{{ $establishment->id }}/edit">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attachmentModal">
+                            <span class="material-symbols-outlined align-middle">
+                                attach_file
+                            </span>
+                            File Attachments
+                        </button>
+                        <a class="btn btn-primary px-4" href="/establishments/{{ $establishment->id }}/edit">
                             <i class="bi bi-pencil-fill"></i>
                             Update Establishment</a>
                         <button class="btn btn-danger px-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -212,23 +218,8 @@
                         @php
                             $personName = null;
                             $owner = $establishment->owner;
-                            $contactNo = $owner->contactNo;
-                            // if ($owner->corporate != null) {
-                            //     $corporateName = $establishment->owner->corporate->corporate_name;
-                            //     $contactNo = $owner->corporate->contact_no;
-                            // }
-                            
-                            // if ($owner->person->last_name != null) {
-                            //     $person = $establishment->owner->person;
-                            //     $contactNo = $establishment->owner->person->contact_no;
-                            
-                            //     if ($person->middle_name != null) {
-                            //         $personName = $person->first_name . ' ' . $person->middle_name[0] . '. ' . $person->last_name;
-                            //     } else {
-                            //         $personName = $person->first_name . ' ' . $person->last_name;
-                            //     }
-                            // }
-                            
+                            $contactNo = $owner->contact_no;
+
                             $representative = $establishment->getOwnerName();
                         @endphp
                         <x-info label="Owner/Representative" :value="$representative" />
@@ -273,9 +264,29 @@
                     </div>
                 </div>
             </div>
+
+            <!--Attachment Modal -->
+            <div class="modal fade" id="attachmentModal" tabindex="-1">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content p-5">
+                        <div class="my-2 fw-semibold fs-4">Attachments</div>
+                        <div class="d-flex">
+                            <button class="btn btn-primary rounded-0" id="btnInspAttachment"
+                                active="true">Inspection</button>
+                            <button class="btn btn-outline-primary rounded-0" id="btnFiredrillAttachment"
+                                active="false">Firedrill</button>
+                        </div>
+                        <iframe id="fsicAttachment"
+                            src="http://127.0.0.1:8000/establishments/{{ $establishment->id }}/fsic/attachment"
+                            title="W3Schools Free Online Web Tutorials" height="600px"></iframe>
+
+                        <iframe id="firedrillAttachment" class="d-none"
+                            src="http://127.0.0.1:8000/establishments/{{ $establishment->id }}/firedrill/attachment"
+                            title="W3Schools Free Online Web Tutorials" height="600px"></iframe>
+                    </div>
+                </div>
+            </div>
         </x-pageWrapper>
-
-
     </div>
 @endsection
 
