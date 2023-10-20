@@ -84,7 +84,7 @@ class DashboardController extends Controller
             'CBP' => $cbpInspection,
             'new' => $issuedNew,
             'totalSubstation' => $substationTotalCountInspection,
-            'totalGrand' => $cbpInspection + $substationTotalCountInspection + $issuedNew
+            'totalGrand' => $cbpInspection + $substationTotalCountInspection
         ];
 
         $loggedInUsers = User::where('last_active_at', '>=', now()->subMinutes(5))->whereNotNull('last_active_at')->get();

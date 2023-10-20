@@ -108,7 +108,7 @@ function addCheckmarkEvent(event) {
 function addNumberEvent(event) {
     const pages = document.querySelectorAll(".printablePage");
 
-    if (event.target.innerText === "Toggle Number") {
+    if (event.target.innerText === "Toggle Input") {
         document.addEventListener("click", addNumber);
 
         // Change Cursor when hover on page
@@ -127,7 +127,7 @@ function addNumberEvent(event) {
         pages.forEach((item) => {
             item.style.cursor = "default";
         });
-        event.target.innerText = "Toggle Number";
+        event.target.innerText = "Toggle Input";
         event.target.classList.remove("btn-success");
         event.target.classList.add("btn-primary");
         select("[printbtn]").disabled = false;

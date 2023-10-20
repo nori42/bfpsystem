@@ -34,6 +34,12 @@ class FsecController extends Controller
         $buildingPlan = new BuildingPlan();
         $owner = new Owner();
         $receipt = new Receipt();
+        
+        
+        //If name and corporate is emptpy 
+        if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
+            return back()->with('toastMssg',"Neither Name or Corporate must not be empty");
+        }
 
         // Add $owner Fields
         $owner->first_name = strtoupper($request->firstName);
@@ -103,8 +109,22 @@ class FsecController extends Controller
     }
 
     public function update(Request $request){
+        //If name and corporate is emptpy 
+        if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
+            return back()->with('toastMssg',"Both Name or Corporate must not be empty");
+        }
+
         $buildingPlan = BuildingPlan::find($request->id);
         $receipt = $buildingPlan->receipt;
+        $owner = $buildingPlan->owner;
+
+        // Update Owner Fields
+        $owner->first_name = strtoupper($request->firstName);
+        $owner->middle_name =strtoupper($request->middleName) ;
+        $owner->last_name = strtoupper($request->lastName);
+        $owner->suffix = strtoupper($request->nameSuffix);
+        $owner->contact_no = $request->contactNo;
+        $owner->corporate_name = strtoupper($request->corporateName);
 
         //Update Evaluation Fields
         $buildingPlan->project_title = strtoupper($request->projectTitle);
@@ -122,17 +142,19 @@ class FsecController extends Controller
         $receipt->date_of_payment = $request->dateOfPayment;
         
         //Only log if there is a change
-        if($receipt->isDirty() || $buildingPlan->isDirty())
+        if($receipt->isDirty() || $buildingPlan->isDirty() || $owner->isDirty())
         {
             // $applicantName = explode(" ",$buildingPlan->getOwnerName());
             // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::UpdateBuildingPlan);
 
-            $logMessage = "Updated the application: ".$buildingPlan->getOwnerName();
+            $logMessage = "Updated the Building Plan Application: ".$buildingPlan->getOwnerName();
             ActivityLogger::logActivity($logMessage,"FSEC");
         }
 
         $receipt->save();
         $buildingPlan->save();
+        $owner->save();
+
 
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
@@ -156,11 +178,10 @@ class FsecController extends Controller
 
         $evaluations = Evaluation::all()->where('building_plan_id',$buildingPlan->id)->sortDesc();
 
-        return view('fsec.show',[
-            'buildingPlan' => $buildingPlan,
-            'evaluations' => $evaluations,
-            'representative' => $buildingPlan->getOwnerName()
-        ]);
+        $logMessage = "Released the Evaluation Certificate: to {$buildingPlan->getOwnerName()}";
+        ActivityLogger::logActivity($logMessage,'FSEC');
+
+        return redirect("fsec/{$buildingPlan->id}");
     }
 
     public function search(Request $request){

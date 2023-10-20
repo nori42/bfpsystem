@@ -161,7 +161,7 @@
                         @if ($firedrill->date_claimed == null && $firedrill->issued_on != null)
                             <x-form.input name="claimedBy" label="Claimed By" :value="$name" />
                             <button class="btn btn-primary text-nowrap align-self-end my-1" type="submit"
-                                name="action" value="claimcertificate">Claim
+                                name="action" value="claimcertificate">Release
                                 Certificate</button>
                         @endif
 

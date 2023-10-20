@@ -11,7 +11,7 @@
             max-width:28rem;
             box-shadow:0px 3px 4px gray;
     ";
-        
+
         $totalCardStyle = "
             height:16rem;
             width:18rem;
@@ -25,6 +25,7 @@
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>
+
             <div class="mb-4">
                 <span class="d-block fw-bold fs-3">Dashboard</span>
             </div>

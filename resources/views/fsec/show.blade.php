@@ -36,16 +36,18 @@
                         <x-tag bgColor="bg-success" text="Released" />
                     @endif
                 </div>
-                <a class="btn btn-primary" href="/fsec/print/{{ $buildingPlan->id }}?viewOnly=true"><i
-                        class="bi bi-file-earmark-fill"></i> View Certificate</a>
                 @if ($buildingPlan->date_released == null && $buildingPlan->status == 'APPROVED')
                     {{-- Update the building plan released date --}}
-                    <form action="/fsec/release" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="buildingPlanId" value="{{ $buildingPlan->id }}">
-                        <button class="btn btn-primary"> Release Certificate</button>
-                    </form>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-primary" href="/fsec/print/{{ $buildingPlan->id }}?viewOnly=true"><i
+                                class="bi bi-file-earmark-fill"></i> View Certificate</a>
+                        <form action="/fsec/release" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="buildingPlanId" value="{{ $buildingPlan->id }}">
+                            <button class="btn btn-primary"> Release Certificate</button>
+                        </form>
+                    </div>
                 @endif
 
                 {{-- Actions --}}
@@ -110,8 +112,11 @@
                 <div class="d-flex justify-content-between">
                     <h2 class="fs-4">Permit</h2>
                     <div>
-                        <div class="fw-bold">Approval Date: {{ date('m/d/Y', strtotime($buildingPlan->date_approved)) }}
-                        </div>
+                        @if ($buildingPlan->date_approved)
+                            <div class="fw-bold">Approval Date: {{ date('m/d/Y', strtotime($buildingPlan->date_approved)) }}
+                            </div>
+                        @endif
+
                         @if ($buildingPlan->date_released)
                             <div class="fw-bold">Date Released: {{ date('m/d/Y', strtotime($buildingPlan->date_released)) }}
                             </div>
@@ -120,6 +125,9 @@
                 </div>
                 <div class="row">
                     <x-info label="Applicant Name" :value="$applicant" />
+                    <x-info label="Contact No." :value="$buildingPlan->owner->contact_no" />
+                    <div class="col"></div>
+                    <div class="col"></div>
                 </div>
                 <div class="row my-3">
                     <x-info label="Series No." :value="$buildingPlan->series_no" />
@@ -145,13 +153,14 @@
                 <h2 class="fs-4 mt-4">Receipt</h2>
 
                 @if ($receipt->or_no)
-                    <div class="row w-50">
+                    <div class="row">
                         <x-info label="OR No." :value="$receipt->or_no ? $receipt->or_no : 'N/A'" />
                         @php
                             $pesoSign = '₱';
                         @endphp
                         <x-info label="Amount" :value="$receipt->amount ? $pesoSign . $receipt->amount : 'N/A'" />
                         <x-info label="Date of Payment" value="{{ date('m/d/Y', strtotime($receipt->date_of_payment)) }}" />
+                        <div class="col"></div>
                     </div>
                 @else
                     <div class="text-secondary fs-5">No Payment (Update the application if available)</div>
@@ -181,8 +190,8 @@
                                 @else
                                     @if ($evaluation->disapprove_print_path == null)
                                         <button class="btn btn-primary" data-bs-toggle="modal" btnUplDisapp
-                                            evaluationId="{{ $evaluation->id }}" data-bs-target="#addUploadModal">Upload <i
-                                                class="bi bi-upload"></i>
+                                            evaluationId="{{ $evaluation->id }}" data-bs-target="#addUploadModal">Upload
+                                            <i class="bi bi-upload"></i>
                                         </button>
                                     @else
                                         <a href="/download/evaluations/disapproval/_{{ $evaluation->id }}">Disapproval

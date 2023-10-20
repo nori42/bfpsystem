@@ -20,6 +20,12 @@ class OwnerController extends Controller
     }
 
     public function update(Request $request){
+        
+         //If name and corporate is emptpy 
+         if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
+            return back()->with('toastMssg',"Both Name or Corporate must not be empty");
+        }
+
         $owner = Owner::find($request->id);
 
         $owner->first_name = strtoupper($request->firstName);

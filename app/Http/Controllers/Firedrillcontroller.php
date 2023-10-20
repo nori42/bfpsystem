@@ -116,6 +116,8 @@ class FiredrillController extends Controller
             {
                 $firedrill->claimed_by = strtoupper($request->claimedBy);
             }
+            $logMessage = "Released the Firedrill Certificate: CONTROL.NO {$firedrill->control_no} to {$establishment->establishment_name}";
+            ActivityLogger::logActivity($logMessage,'FIREDRILL');
         }
         
         $firedrill->save();

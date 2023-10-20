@@ -5,6 +5,9 @@
 @section('content')
     <div class="page-content">
         {{-- Put page content here --}}
+        @if (session('toastMssg'))
+            <x-toast :message="session('toastMssg')" />
+        @endif
         <x-pageWrapper>
             <h1>Edit Owner</h1>
             <form class="form-wrapper p-5" action="/owner/{{ $owner->id }}/edit" method="POST">

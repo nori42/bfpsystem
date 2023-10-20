@@ -21,7 +21,6 @@ class FSICHelper {
    public static function getIssuedFSICCount($substation, $year, $month){
        return Inspection::join('establishments', 'establishments.id', '=', 'inspections.establishment_id')
        ->where('inspections.status', 'Printed')
-       ->whereNot('registration_status','NEW')
        ->where('establishments.substation', $substation)
        ->whereYear('inspections.issued_on', '=', $year)
        ->whereMonth('inspections.issued_on', '=', $month)

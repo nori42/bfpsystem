@@ -35,7 +35,7 @@
 @section('printTools')
     <div class="printTools d-flex flex-column p-3 bg-white rounded-3 gap-2" printtools>
         <button class="btn btn-primary" id="btnCheckmarkAdd">Toggle Checkmark</button>
-        <button class="btn btn-primary" id="btnNumberAdd">Toggle Number</button>
+        <button class="btn btn-primary" id="btnNumberAdd">Toggle Input</button>
 
     </div>
 @endsection

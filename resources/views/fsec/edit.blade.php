@@ -4,14 +4,31 @@
 @section('content')
     @php
         $receipt = $buildingPlan->receipt;
+        $owner = $buildingPlan->owner;
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
+        @if (session('toastMssg'))
+            <x-toast :message="session('toastMssg')" />
+        @endif
         <x-pageWrapper>
             <h1>Edit Building Plan Application</h1>
             <form class="form-wrapper p-5" action="/fsec/{{ $buildingPlan->id }}" method="POST">
                 @csrf
                 @method('PUT')
+                <fieldset>
+                    <legend>Applicant</legend>
+                    <hr>
+                    <div class="d-flex gap-2">
+                        <x-form.input type="text" label="Last Name" name="lastName" :value="$owner->last_name" />
+                        <x-form.input type="text" label="First Name" name="firstName" :value="$owner->first_name" />
+                        <x-form.input type="text" label="Middle Name" name="middleName" :value="$owner->middle_name" />
+                        <x-form.input type="text" label="Name Suffix" name="nameSuffix" class="w-50"
+                            :value="$owner->name_suffix" />
+                    </div>
+                    <x-form.input type="text" label="Corporate Name" name="corporateName" :value="$owner->corporate_name" />
+                    <x-form.input class="w-50" type="text" label="Contact No" name="contactNo" :value="$owner->contact_no" />
+                </fieldset>
 
                 <fieldset>
                     <legend>Building</legend>
@@ -43,7 +60,8 @@
                         <x-form.input type="text" label="Building Story" name="buildingStory" :value="$buildingPlan->building_story" />
                         <x-form.input type="text" label="Floor Area" name="floorArea" :value="$buildingPlan->floor_area" />
                     </div>
-                    <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials" :value="$buildingPlan->bill_of_materials" />
+                    <x-form.input type="text" label="Bill Of Materials (BOQ)" name="billOfMaterials"
+                        :value="$buildingPlan->bill_of_materials" />
                     <x-form.input type="text" label="Address" name="address" :value="$buildingPlan->address"
                         customAttr="maxlength=60" />
                 </fieldset>

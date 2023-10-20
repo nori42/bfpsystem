@@ -197,6 +197,9 @@ class PrintController extends Controller
         $evaluation->remarks = "APPROVED";
         $evaluation->building_plan_id = $buildingPlan->id;
 
+        $buildingPlan->date_approved = date('Y-m-d',$evaluation->created_at);
+
+
         $evaluation->save();
         $buildingPlan->save();
 
