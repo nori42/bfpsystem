@@ -41,13 +41,25 @@ class FsecController extends Controller
             return back()->with('toastMssg',"Neither Name or Corporate must not be empty");
         }
 
-        // Add $owner Fields
-        $owner->first_name = strtoupper($request->firstName);
-        $owner->middle_name = strtoupper($request->middleName);
-        $owner->last_name = strtoupper($request->lastName);
-        $owner->suffix = strtoupper($request->nameSuffix);
-        $owner->corporate_name = strtoupper($request->corporateName);
-        $owner->save();
+        // check if owner exist
+        $owner = Owner::where('first_name',strtoupper($request->firstName))
+        ->where('middle_name',strtoupper($request->middleName))
+        ->where('last_name',strtoupper($request->lastName))
+        ->where('corporate_name',strtoupper($request->corporateName))
+        ->first();
+
+        // create owner if it doesn not exist
+        if($owner == null){
+            $owner = new Owner();
+            //get Data
+            $owner->first_name = strtoupper($request->firstName);
+            $owner->last_name = strtoupper($request->lastName);
+            $owner->middle_name =  strtoupper($request->middleName);
+            $owner->suffix = strtoupper($request->suffix);
+            $owner->contact_no = $request->contactNo;
+            $owner->corporate_name = strtoupper($request->corporateName);
+            $owner->save();
+        }
 
         // Add Building Fields
 

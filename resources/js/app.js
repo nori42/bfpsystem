@@ -5,6 +5,7 @@ import {
     addEventDropdown,
     closeDropdownCancel,
 } from "../js/dropdown.js";
+
 import * as bootstrap from "bootstrap";
 
 // When the user clicks anywhere outside of the modal, close it

@@ -79,15 +79,24 @@ class EstablishmentController extends Controller
     public function store(Request $request){
         // instantiate model
         $establishment = new Establishment();
-        $owner = new Owner();
-        //get Data
-        $owner->first_name = strtoupper($request->firstName);
-        $owner->last_name = strtoupper($request->lastName);
-        $owner->middle_name =  strtoupper($request->middleName);
-        $owner->suffix = strtoupper($request->suffix);
-        $owner->contact_no = $request->contactNo;
-        $owner->corporate_name = strtoupper($request->corporateName);
-        $owner->save();
+
+        $owner = Owner::where('first_name',strtoupper($request->firstName))
+        ->where('middle_name',strtoupper($request->middleName))
+        ->where('last_name',strtoupper($request->lastName))
+        ->where('corporate_name',strtoupper($request->corporateName))
+        ->first();
+
+        if($owner == null){
+            $owner = new Owner();
+            //get Data
+            $owner->first_name = strtoupper($request->firstName);
+            $owner->last_name = strtoupper($request->lastName);
+            $owner->middle_name =  strtoupper($request->middleName);
+            $owner->suffix = strtoupper($request->suffix);
+            $owner->contact_no = $request->contactNo;
+            $owner->corporate_name = strtoupper($request->corporateName);
+            $owner->save();
+        }
 
         $establishment->establishment_name = strtoupper($request->establishmentName);
         $establishment->substation = strtoupper($request->substation);
