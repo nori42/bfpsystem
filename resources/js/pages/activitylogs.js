@@ -12,10 +12,6 @@ document.querySelector("#btnViewFilter").addEventListener("click", () => {
     }
 });
 
-// dateFrom.addEventListener("change", () => {
-//     dateTo.value = dateFrom.value;
-// });
-
 // add events to checkbox
 const checkboxquery = selectAll("[checkboxquery]");
 if (checkboxquery.length > 0) {

@@ -8,6 +8,8 @@ import {
 
 import * as bootstrap from "bootstrap";
 
+// import.meta.glob(["../js/**", "../fonts/**"]);
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     // Modal variable

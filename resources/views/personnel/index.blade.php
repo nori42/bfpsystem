@@ -18,13 +18,20 @@
             {{-- Put page content here --}}
             <div class="d-flex gap-5">
             </div>
-            <x-personnel.cardList>
+            {{-- <x-personnel.cardList>
                 @foreach ($usersList as $user)
                     @if ($user->personnel != null)
                         <x-personnel.card :personnel="$user->personnel" />
                     @endif
                 @endforeach
-            </x-personnel.cardList>
+            </x-personnel.cardList> --}}
+            <div class="d-flex flex-column gap-2 mt-3 w-75">
+                @foreach ($usersList as $user)
+                    @if ($user->personnel != null)
+                        <x-personnel.item :personnel="$user->personnel" />
+                    @endif
+                @endforeach
+            </div>
         </x-pageWrapper>
     </div>
 @endsection

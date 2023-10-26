@@ -9,7 +9,6 @@
 
     @vite('resources/sass/bootstrap.scss')
     @vite('resources/css/layout.css')
-    {{-- @vite('resources/css/app.css') --}}
     @yield('stylesheet')
 </head>
 

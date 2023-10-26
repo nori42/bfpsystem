@@ -7,7 +7,13 @@
     $currentArchive = explode('/', Route::current()->uri)[1];
 @endphp
 
-
+@section('stylesheet')
+    <style>
+        .dropdown-item:active {
+            background-color: var(--primary-color);
+        }
+    </style>
+@endsection
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
     <div class="page-content">

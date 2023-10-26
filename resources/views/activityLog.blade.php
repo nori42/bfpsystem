@@ -48,23 +48,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            {{-- <div class="d-flex align-items-center gap-2">
-                                <label for="fsec" class="fs-5 fw-semibold">FSEC</label>
-                                <input type="radio" class="mr-2" name="activityIn" id="fsec" value="FSEC"
-                                    {{ $activityIn == 'FSEC' ? 'checked' : '' }} checkboxquery>
-                                <label for="fsic" class="fs-5 fw-semibold">FSIC</label>
-                                <input type="radio" class="mr-2" name="activityIn" id="fsic" value="FSIC"
-                                    {{ $activityIn == 'FSIC' ? 'checked' : '' }} checkboxquery>
-                                <label for="firedrill" class="fs-5 fw-semibold">FIREDRILL</label>
-                                <input type="radio" class="mr-2" name="activityIn" id="firedrill" value="FIREDRILL"
-                                    {{ $activityIn == 'FIREDRILL' ? 'checked' : '' }} checkboxquery>
-                                <label for="users" class="fs-5 fw-semibold">USERS</label>
-                                <input type="radio" class="mr-2" name="activityIn" id="users" value="USERS"
-                                    {{ $activityIn == 'USERS' ? 'checked' : '' }} checkboxquery>
-                                <label for="all" class="fs-5 fw-semibold">ALL</label>
-                                <input type="radio" class="mr-2" name="activityIn" id="all" value="ALL"
-                                    {{ $activityIn == 'ALL' ? 'checked' : '' }} checkboxquery>
-                            </div> --}}
                         @endif
 
                         <x-dateFilter :dateRange="['from' => $dateRange['from'], 'to' => $dateRange['to']]" />
@@ -129,8 +112,39 @@
             </div>
         </x-pageWrapper>
     </div>
+@endsection
 
 @section('page-script')
-    @vite(['/resources/js/pages/activitylogs.js'])
-@endsection
+    {{-- <script src="{{ asset('dropdown-4ed993c7.js') }}"></script> --}}
+    @vite('resources/js/pages/activitylogs.js')
+    {{-- <script>
+        const dateFrom = document.querySelector(["#dateFrom"]);
+        const dateTo = document.querySelector(["#dateTo"]);
+        const activityIn = document.querySelector(["#activityIn"]);
+
+        const loadingMssg = document.querySelector(["#loadingMssg"]);
+        const activtiyContent = document.querySelector(["#activityContent"]);
+
+        document.querySelector("#btnViewFilter").addEventListener("click", () => {
+            if (dateFrom.value != "" && dateTo.value != "") {
+                select("#activityContent").classList.toggle("d-none");
+                select("#loadingMssg").classList.toggle("d-none");
+            }
+        });
+
+        // add events to checkbox
+        const checkboxquery = selectAll("[checkboxquery]");
+        if (checkboxquery.length > 0) {
+            checkboxquery.forEach((checkbox) => {
+                checkbox.addEventListener("change", () => {
+                    select("#dateFrom").value = select("#dateFromCurrent").value;
+                    select("#dateTo").value = select("#dateToCurrent").value;
+
+                    select("#activityContent").classList.toggle("d-none");
+                    select("#loadingMssg").classList.toggle("d-none");
+                    select("#filter").submit();
+                });
+            });
+        }
+    </script> --}}
 @endsection
