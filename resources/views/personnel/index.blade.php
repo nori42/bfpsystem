@@ -25,7 +25,7 @@
                     @endif
                 @endforeach
             </x-personnel.cardList> --}}
-            <div class="d-flex flex-column gap-2 mt-3 w-75">
+            <div class="d-flex flex-column justify-content-center gap-4 mt-3 w-75 mx-auto mt-5">
                 @foreach ($usersList as $user)
                     @if ($user->personnel != null)
                         <x-personnel.item :personnel="$user->personnel" />

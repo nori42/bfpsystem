@@ -36,22 +36,23 @@
                 <span class="d-block fw-bold fs-2   ">Dashboard</span>
             </div>
 
-            <div class="d-flex justify-content-center gap-5 mb-5">
-                <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3" style="{{ $cardTotal }}">
-                    <div><i class="bi bi-building" style="font-size: 54px;"></i></div>
+            <div class="d-flex justify-content-center gap-3 mb-5">
+                <div class="d-flex justify-content-center align-items-center p-3 py-4 rounded-3 gap-3"
+                    style="{{ $cardTotal }}">
+                    <div><i class="bi bi-building border border-2 p-2 rounded-3" style="font-size: 54px;"></i></div>
                     <div>
-                        <div class="fs-5 text-secondary">Total Establishments</div>
+                        <div class="fs-5">Total Establishments</div>
                         <div class="text-center fs-2">{{ $totalEstablishments }}</div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3"
                     style="{{ $cardTotal }}">
-                    <div><i class="bi bi-hourglass-split" style="font-size: 54px;"></i></div>
+                    <div><i class="bi bi-hourglass-split border border-2 p-2 rounded-3" style="font-size: 54px;"></i></div>
                     <div>
                         <div>
                             <a href="{{ env('APP_URL') }}/fsec" class="text-white mt-2" style="text-decoration: none;">
-                                <span class="fs-5 text-secondary">Pending Building
+                                <span class="fs-5">Pending Building
                                     Plans</span><i class="bi bi-arrow-left mx-2"></i>
                             </a>
                         </div>
@@ -61,10 +62,13 @@
 
                 <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3"
                     style="{{ $cardTotal }}">
-                    <div class="text-center"><i class="bi bi-building-exclamation" style="font-size: 54px;"></i>
+                    <div class="text-center"><i class="bi bi-building-exclamation border border-2 p-2 rounded-3"
+                            style="font-size: 54px;"></i>
                     </div>
-                    <div class="fs-5 text-secondary">Expired Inpsection</div>
-                    <div class="text-center fs-2">{{ $expiredInspectionCount }}</div>
+                    <div>
+                        <div class="fs-5">Expired Inpsection</div>
+                        <div class="text-center fs-2">{{ $expiredInspectionCount }}</div>
+                    </div>
                 </div>
             </div>
 

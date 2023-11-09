@@ -26,10 +26,11 @@
                 <img class="align-self-start" src="{{ asset('img/LOGO.png') }}" width="160px" height="160px"
                     alt="">
 
-                <div class="text-white fs-3 align-self-start">Bureau of Fire Protection</div>
+                <div class="text-white fs-3 align-self-start"><i>Bureau of Fire Protection</i></div>
                 <div class="fw-bolder text-white align-self-start" style="font-size: 48px;">Cebu City Fire Station
                 </div>
-                <p class="text-white text-justify">We commit to prevent and suppress destructive fires, investigate
+                <p class="text-white text-justify mt-1 fs-5">We commit to prevent and suppress destructive fires,
+                    investigate
                     its causes;enforce Fire Code and other related laws; respond
                     to man-made and natural disasters and other emergencies. ---- A modern fire service fully
                     capable of ensuring a fire safe
@@ -40,7 +41,7 @@
 
         </div>
         <div class="rightPanel w-100 d-flex flex-column align-items-center justify-content-center">
-            <div class="w-60 mb-3">
+            <div class="w-60 mb-4">
                 <h3 class="fw-semibold text-start">Login</h3>
                 <div class="text-secondary text-start">Please enter your details.</div>
             </div>
@@ -51,24 +52,31 @@
 
                 @csrf
                 <div>
-                    <label class="fs-4">Username @error('username')
+                    <label class="fs-5 text-secondary">Username @error('username')
                             <span class="text-danger fs-5">(Username is required)</span>
                         @enderror
                     </label>
                     <input class="form-control d-block fs-4 w-100" type="text" name="username" autocomplete="off">
                 </div>
 
-                <div>
-                    <label class="fs-4" for="password">Password @error('password')
+                <div class="mt-4">
+                    <label class="fs-5 text-secondary" for="password">Password @error('password')
                             <span class="text-danger fs-5">(Password is required)</span>
                         @enderror
                     </label>
-                    <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
 
-                    <div class="mt-3">
-                        <label class="fw-bold fs-6" for="showPassword">Show Password</label>
-                        <input id="showPassword" class=" d-inline fs-4" type="checkbox" name="showPassword">
+                    <div class="position-relative mb-5">
+                        <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
+                        <button id="showPassword" data-shown="false" type="button" class="btn position-absolute fs-4"
+                            style="right: 1rem; top: 0.05rem;">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
                     </div>
+
+                    {{-- <div class="d-flex gap-2 mt-1 mb-3">
+                        <label class="fw-bold fs-6 my-3" for="showPassword">Show Password</label>
+                        <input id="showPassword" class=" d-inline fs-4" type="checkbox" name="showPassword">
+                    </div> --}}
                 </div>
 
                 <button class="btn btn-primary fs-3 fw-normal w-100 mt-3 py-2">Login</button>

@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="bg-primary-nb overflow-auto" style="height: 1000px;">
+<body class="overflow-auto bg-primary-nb" style="height: 1000px;">
     <div>
         <div class="d-flex justify-content-center">
             <img class="mt-3 mx-auto" src="/img/LOGO.png" alt="BFP LOGO" height="150" width="150">
@@ -18,7 +18,7 @@
         <div class="text-center text-white fs-5">Bureau of Fire Protection <br> Cebu City Fire Station</div>
     </div>
     <div class="vw-100 align-items-center d-flex justify-content-center create" style="margin-top:1rem !important;">
-        <form class="form-wrapper p-5 d-flex overflow-x-auto create" action="/personnel" method="POST"
+        <form class="form-wrapper p-5 d-flex overflow-x-auto create rounded-4" action="/personnel" method="POST"
             style="background-color: #eef3fc;">
             <div style="min-width: 570px;">
                 <h3 class="fw-semibold">Personnel Info</h3>
@@ -69,46 +69,50 @@
             <div class="align-self-stretch mx-5" style="border-right: 1px solid #8d8d8d;">
             </div>
             <div style="min-width: 500px;">
-                <div class="w-60 mb-3">
-                    <h3 class="fw-semibold text-start">Create New Password</h3>
-                    <div class="text-secondary text-start">
-                        New user is required to change the password.
+                <div>
+                    <div class="w-60 mb-3">
+                        <h3 class="fw-semibold text-start">Create New Password</h3>
+                        <div class="text-secondary text-start">
+                            New user is required to change the password.
+                        </div>
                     </div>
-                </div>
-                <div class="text-secondary">
+                    <div>
+                        <label class="fs-4 fw-normal">Password</label>
+                        <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password"
+                            required>
+                    </div>
 
-                    @if ($errors->has('password'))
-                        @foreach ($errors->get('password') as $error)
-                            @if ($error === 'The password field must be at least 8 characters.')
-                                <span class="text-danger">{{ $error }}</span><br>
-                            @elseif ($error === 'The password field must contain at least one uppercase and one lowercase letter.')
-                                <span class="text-danger">{{ $error }}</span><br>
-                            @elseif ($error === 'The password field must contain at least one number.')
-                                <span class="text-danger">{{ $error }}</span><br>
-                            @else
-                                <span>{{ $error }}</span><br>
-                            @endif
-                        @endforeach
-                    @else
-                        <span>The password field must be at least 8 characters.</span><br>
-                        <span>The password field must contain at least one uppercase and one lowercase
-                            letter.</span><br>
-                        <span>The password field must contain at least one number.</span>
-                    @endif
-                </div>
-                <div>
-                    <label class="fs-4 fw-normal">Password</label>
-                    <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password"
-                        required>
-                </div>
+                    <div>
+                        <label class="fs-4 fw-normal">Confirm Password</label>
+                        <input class="form-control d-block fs-5 w-100" id="confirmPassword" name="confirmPassword"
+                            type="password" required autocomplete="off">
+                    </div>
 
-                <div>
-                    <label class="fs-4 fw-normal">Confirm Password</label>
-                    <input class="form-control d-block fs-5 w-100" id="confirmPassword" name="confirmPassword"
-                        type="password" required autocomplete="off">
-                </div>
-                <div style="margin-top: 12rem;">
-                    <button class="btn btn-primary mt-4 px-5 w-35 float-end">Save</button>
+                    <div class="text-secondary mt-3">
+
+                        @if ($errors->has('password'))
+                            @foreach ($errors->get('password') as $error)
+                                @if ($error === 'The password field must be at least 8 characters.')
+                                    <span class="text-danger">{{ $error }}</span><br>
+                                @elseif ($error === 'The password field must contain at least one uppercase and one lowercase letter.')
+                                    <span class="text-danger">{{ $error }}</span><br>
+                                @elseif ($error === 'The password field must contain at least one number.')
+                                    <span class="text-danger">{{ $error }}</span><br>
+                                @else
+                                    <span>{{ $error }}</span><br>
+                                @endif
+                            @endforeach
+                        @else
+                            <span>The password field must be at least 8 characters.</span><br>
+                            <span>The password field must contain at least one uppercase and one lowercase
+                                letter.</span><br>
+                            <span>The password field must contain at least one number.</span>
+                        @endif
+                    </div>
+                    <div style="margin-top: 12rem;">
+                        <button class="btn btn-primary mt-4 px-5 w-35 float-end">Save</button>
+                    </div>
+
                 </div>
             </div>
         </form>
