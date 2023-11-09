@@ -33,9 +33,9 @@
                 <tbody>
                     @foreach ($firedrills as $firedrill)
                         @php
-                            
+
                             $representative = $firedrill->establishment->getOwnerName();
-                            
+
                         @endphp
                         <tr class="align-middle">
                             <td>{{ $firedrill->control_no }}</td>
@@ -67,6 +67,10 @@
             </table>
         </div>
     @else
-        <div class="fs-3 text-secondary fw-semibold">Select a date range</div>
+        <div class="fs-3 fw-semibold d-flex justify-content-center align-content-center mt-5">
+            <div class="border border-3 border-gray-500 rounded-3 px-5 py-3 text-secondary">
+                Choose a report and filter the date to see reports
+            </div>
+        </div>
     @endif
 @endsection

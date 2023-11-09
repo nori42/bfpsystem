@@ -22,7 +22,7 @@
         <span class="fs-6">Fire Incidents</span>
     </x-navLinks.link>
 
-    <x-navLinks.link href="/reports/fsic" :active="$currentRoute == 'reports'">
+    <x-navLinks.link href="/reports" :active="$currentRoute == 'reports'">
         <i class="bi bi-file-text-fill align-middle mr-4"></i>
         <span class="fs-6">Reports</span>
     </x-navLinks.link>

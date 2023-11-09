@@ -17,7 +17,11 @@ class FiredrillController extends Controller
     {   
         $establishment = Establishment::find($request->id);
         $owner = $establishment->owner;
-        $firedrills= Firedrill::where('establishment_id', $request->id)->orderBy('id','desc')->get();
+        $firedrills= Firedrill::where('establishment_id', $request->id)->whereNotNull('issued_on')->orderBy('id','desc')->get();
+        $notIssued = Firedrill::where('issued_on',null)->first();
+
+        if($notIssued)
+        $notIssued->forceDelete();
    
         return view('establishments.firedrill.index',[
             'firedrills' => $firedrills,
@@ -54,8 +58,6 @@ class FiredrillController extends Controller
         $establishment->firedrill_type = $request->validity;
         $establishment->save();
         $firedrill->save();
-
-        // ActivityLogger::firedrillLog($establishment->establishment_name,Activity::AddFiredrill);
         
         $firedrills = Firedrill::where('establishment_id', $request->estabId)->orderBy('id','desc')->get();
 

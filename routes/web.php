@@ -179,12 +179,13 @@ Route::put('/request/passwordreset',[PasswordResetController::class,'resetPasswo
 Route::post('/request/passwordreset',[PasswordResetController::class,'requestPasswordReset']);
 
 //Reports
+Route::get('/reports',[ReportsController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/fsic',[FSICReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/firedrill',[FiredrillReportController::class,'index'])->middleware('auth')->name('reports');
 Route::get('/reports/fsec',[FsecReportController::class,'index'])->middleware('auth')->name('reports');
-Route::get('/reports/print/firedrill',[ReportsController::class,'show_firedrill'])->middleware('auth')->name('reports');
-Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middleware('auth')->name('reports');
-Route::get('/reports/print/fsec',[ReportsController::class,'show_fsec'])->middleware('auth')->name('reports');
+// Route::get('/reports/print/firedrill',[ReportsController::class,'show_firedrill'])->middleware('auth')->name('reports');
+// Route::get('/reports/print/fsic',[ReportsController::class,'show_fsic'])->middleware('auth')->name('reports');
+// Route::get('/reports/print/fsec',[ReportsController::class,'show_fsec'])->middleware('auth')->name('reports');
 
 //Expired List
 Route::get('/expired/inspections',[ExpiredController::class,'inspections'])->middleware('auth')->name('expired');

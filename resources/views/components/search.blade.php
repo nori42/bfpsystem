@@ -5,7 +5,7 @@
 @endsection
 <div class="dashboardSearch">
     <div style="width:50%;">
-        <h1 class="text-white text-center py-5 fw-bold" style="font-size: 2.5rem;">
+        <h1 class="text-white text-center py-5 fw-bold" style="font-size: 3.5rem;">
             {{ $for == 'establishment' ? 'Search Establishments' : 'Search Building Plan Application' }}</h1>
 
         @php
@@ -33,12 +33,12 @@
                     </ul>
                 </div>
                 @if ($for == 'establishment')
-                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Business Permit, Owner Name
+                    <div class="text-center fs-5 mt-3" style="color:#CBCBCB;">Search by Business Permit, Owner Name
                         or
                         Establishment
                         Name</div>
                 @else
-                    <div class="text-center fs-5" style="color:#CBCBCB;">Search by Applicant Name</div>
+                    <div class="text-center fs-5 mt-3" style="color:#CBCBCB;">Search by Applicant Name</div>
                 @endif
 
                 <input class="visually-hidden" type="submit" value="Search">

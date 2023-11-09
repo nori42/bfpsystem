@@ -48,6 +48,10 @@ input, button, select{
     color: white !important;
 }
 
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
 
 /* table style global */
 .table tbody tr:nth-child(odd) {

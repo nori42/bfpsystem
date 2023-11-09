@@ -60,17 +60,10 @@ class UserController extends Controller
     public function update(Request $request){
         $user = User::find($request->id);
 
-
         switch($request->action){
             case 'updateUsername':
                 {
                     if(User::where('username', $request->username)->exists()){
-
-                        // return view('users.show',[
-                        //     'userId' => $request->id,
-                        //     'user' => $user,
-                        //     'toastMssg' => "Username already exist try again"
-                        // ]);
 
                         return redirect("personnel/{$request->id}");
                     }
@@ -78,12 +71,6 @@ class UserController extends Controller
                     {
                         $user->username = $request->username;
                         $user->save();
-
-                        // return view('users.show',[
-                        //     'userId' => $request->id,
-                        //     'user' => $user,
-                        //     'toastMssg' => "Username changed"
-                        // ]);
 
                         return redirect("personnel/{$request->id}");
                     }
@@ -96,23 +83,12 @@ class UserController extends Controller
                     ]);
                     
                     if (!Hash::check($request->passwordCurrent, $user->password)) {
-                        // return view('users.show',[
-                        //     'userId' => $request->id,
-                        //     'user' => $user,
-                        //     'toastMssg' => "Enter the correct password and try again"
-                        // ]);
 
                         return redirect("users/{$request->id}")->with('pass_incorrect',true);
                     }
 
                     $user->password = Hash::make($request->passwordNew);
                     $user->save();
-
-                    // return view('users.show',[
-                    //     'userId' => $request->id,
-                    //     'user' => $user,
-                    //     'toastMssg' => "Password changed"
-                    // ]);
 
                     return redirect("/logout")->with('toastMssg',"Password successly changed. Please re-login");
 

@@ -24,10 +24,11 @@
                     <form id="filter" class="d-flex gap-3 align-items-center" action="/activity">
 
                         @if ($dateRange['from'] != null)
-                            <div class="fs-5 fw-semibold">{{ $activityIn }}</div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                            {{-- <div class="fs-5 fw-semibold">{{ $activityIn }}</div> --}}
+                            <div>
+                                <button type="button" class="btn btn-primary  py-2 px-5 d-flex justify-content-between"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 9rem;">
+                                    {{ $activityIn }}
                                     <i class="bi bi-caret-down-fill"></i>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -49,6 +50,7 @@
                                 </ul>
                             </div>
                         @endif
+
 
                         <x-dateFilter :dateRange="['from' => $dateRange['from'], 'to' => $dateRange['to']]" />
                         <input type="hidden" name="activityIn" id="activityIn" value="{{ $activityIn }}">

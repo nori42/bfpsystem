@@ -13,7 +13,7 @@
         <div>
             <div class="card-title text-center fw-bold fs-4"
                 {{ strlen($name) >= 20 ? 'style="font-size:0.8rem !important;"' : '' }}>{{ $name }}</div>
-            <div class="text-secondary text-center fs-5">{{ $personnel->user->type }}</div>
+            <div class="text-secondary text-start fs-5">{{ $personnel->user->type }}</div>
         </div>
     </div>
     <a class="btn btn-primary border-0 fw-bold px-5" href="/personnel/{{ $personnel->id }}">Details</a>

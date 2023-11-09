@@ -3,7 +3,7 @@
 @section('reportContent')
     @if ($dateRange['from'] != null && $dateRange['to'] != null)
         <div class="d-flex align-items-center justify-content-between heading">
-            <div class="fs-5">Inpsections Certificate Issued</div>
+            <div class="fs-5 fw-bold">Inpsections Certificate Issued</div>
             <div class="fs-6 fw-semibold">{{ $inspections->count() }} Result{{ $inspections->count() > 1 ? 's' : '' }}
             </div>
             <div class="fs-6">
@@ -38,6 +38,10 @@
             </table>
         </div>
     @else
-        <div class="fs-3 text-secondary fw-semibold">Select a date range</div>
+        <div class="fs-3 fw-semibold d-flex justify-content-center align-content-center mt-5">
+            <div class="border border-3 border-gray-500 rounded-3 px-5 py-3 text-secondary">
+                Choose a report and filter the date to see reports
+            </div>
+        </div>
     @endif
 @endsection

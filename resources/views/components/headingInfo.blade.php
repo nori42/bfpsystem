@@ -3,30 +3,17 @@
 
 @php
     $personName = $owner->last_name != null ? $owner->first_name . ' ' . $owner->last_name : '';
-    // $company = null;
-    // $person = null;
-    
-    // if ($owner->person->last_name != null) {
-    //     $person = $owner->person;
-    //     $personName = $owner->person->first_name . ' ' . $owner->person->middle_name . ' ' . $owner->person->last_name . ' ' . $owner->person->suffix;
-    // }
-    
-    // if ($owner->corporate != null) {
-    //     $company = $owner->corporate;
-    // }
-    
-    // $representative = $personName != null ? $personName : $company->corporate_name;
 @endphp
 <div>
     <div>
         {{-- Establishment Info --}}
         <div class="position-relative d-inline-block" dropdown>
-            <button type="button" class="btn btn-primary py-2"style="width:auto !important" dropdown-btn><span
-                    class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment
-                Info<i class="bi bi-caret-down-fill text-white fs-6 mx-2"></i></button>
+            <button type="button" class="btn btn-outline-primary py-2 rounded-2"style="width:auto !important"
+                dropdown-btn><span class="material-symbols-outlined fs-3 align-middle">domain</span>Establishment
+                Info<i class="bi bi-caret-down-fill fs-6 mx-2"></i></button>
 
-            <div class="dropdown-menus position-absolute p-3 boxshadow" id="establishmentDetail" dropdown-menu
-                style="min-width: 380px;">
+            <div class="dropdown-menus position-absolute p-3 boxshadow rounded-3" id="establishmentDetail" dropdown-menu
+                style="min-width: 380px; translate: -40%;">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-between"><span class="fs-4 fw-bold">Info</span><a
                             class="btn btn-primary my-0" href="/establishments/{{ $establishment->id }}">
@@ -61,27 +48,4 @@
 </div>
 
 @section('component-scripts')
-    {{-- <script>
-        const menu = document.querySelector('#establishmentDetail')
-
-        function showInfo() {
-            if (getComputedStyle(menu)['opacity'] == 0) {
-
-                menu.style.pointerEvents = 'all';
-                menu.style.opacity = '1';
-            } else {
-                menu.style.pointerEvents = 'none';
-                menu.style.opacity = '0';
-            }
-
-        }
-        window.addEventListener('click', (ev) => {
-            if (document.querySelector('[dropdown-btn]') != ev.target && menu != ev.target.closest(
-                    '#establishmentDetail')) {
-                menu.style.opacity = '0';
-                menu.style.pointerEvents = 'none';
-
-            }
-        })
-    </script> --}}
 @endsection

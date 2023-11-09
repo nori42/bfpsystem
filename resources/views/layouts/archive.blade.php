@@ -46,34 +46,31 @@
                 </div> --}}
             </div>
             <div class="d-flex align-items-center gap-3 my-3">
-                <div class="fs-5 fw-semibold">
-                    @switch($currentArchive)
-                        @case('establishments')
-                            Establishments
-                        @break
+                <div>
+                    <button type="button" class="btn btn-primary py-2 px-5" data-bs-toggle="dropdown" aria-expanded="false">
+                        @switch($currentArchive)
+                            @case('establishments')
+                                Establishments
+                            @break
 
-                        @case('fsec')
-                            Building Plan Applications
-                        @break
+                            @case('fsec')
+                                Building Plan Applications
+                            @break
 
-                        @case('users')
-                            Users
-                        @break
+                            @case('users')
+                                Users
+                            @break
 
-                        @case('fsic')
-                            Inspections
-                        @break
+                            @case('fsic')
+                                Inspections
+                            @break
 
-                        @case('firedrill')
-                            Firedrill
-                        @break
+                            @case('firedrill')
+                                Firedrill
+                            @break
 
-                        @default
-                    @endswitch
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary px-3 py-1 rounded-0" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                            @default
+                        @endswitch
                         <i class="bi bi-caret-down-fill"></i>
                     </button>
                     <ul class="dropdown-menu">

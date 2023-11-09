@@ -17,4 +17,8 @@ class Inspection extends Model
     public function establishment(){
         return $this->belongsTo(Establishment::class);
     }
+
+    public function add(){
+        
+    }
 }

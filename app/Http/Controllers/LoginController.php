@@ -41,7 +41,7 @@ class LoginController extends Controller
         return back()->with('invalidCred', true);
     }
 
-    public function logout(Request $request) {
+    public function logout() {
         
         $user = User::find(Auth::user()->id);
         $user->last_active_at = null;

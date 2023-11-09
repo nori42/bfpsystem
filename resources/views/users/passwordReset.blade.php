@@ -13,17 +13,22 @@
     {{-- {{ isset($debug) ? dd($debug[0]) : '' }} --}}
     <div class="d-flex vh-100 vw-100">
         <div class="leftPanel w-100 ">
-            <h2 class="motto">To Save Live And Properties</h2>
-            <div class="d-flex flex-column align-items-center justify-content-center h-100 pb-5">
-                <img src="{{ asset('img/LOGO.png') }}" width="220px" height="220px" alt="">
-                <h3 class="fw-bold text-white text-center">Bureau of Fire Protection <br> Cebu City Fire Station</h3>
-                <p class="text-white w-85 text-center">We commit to prevent and suppress destructive fires, investigate
+            <div class="d-flex flex-column align-items-center justify-content-center h-100 pb-5" style="margin: 0 5rem;">
+                <img class="align-self-start" src="{{ asset('img/LOGO.png') }}" width="160px" height="160px"
+                    alt="">
+
+                <div class="fw-semibold text-white fs-3 align-self-start">Bureau of Fire Protection</div>
+                <div class="fw-bold text-white align-self-start" style="font-size: 48px;">Cebu City Fire Station
+                </div>
+                <p class="text-white">We commit to prevent and suppress destructive fires, investigate
                     its causes;enforce Fire Code and other related laws; respond
-                    to man-made and natural disasters and other emergencies.
+                    to man-made and natural disasters and other emergencies. ---- A modern fire service fully
+                    capable of ensuring a fire safe
+                    nation by 2034.
                 </p>
-                <p class="text-white">A modern fire service fully capable of ensuring a fire safe
-                    nation by 2034.</p>
+                <p class="text-white"></p>
             </div>
+
         </div>
         <div class="rightPanel w-100 d-flex flex-column align-items-center justify-content-center">
             @if (!isset($resetSent))
@@ -46,9 +51,9 @@
                             autocomplete="off">
                     </div>
 
-                    <button class="btn btn-primary fs-4 fw-normal w-100 mt-3 py-2">Request a password reset</button>
+                    <button class="btn btn-primary fs-4 fw-normal w-100 mt-3 py-2">Send Request</button>
                 </form>
-                <a href="/" class="my-4 fs-4">Back to Login</a>
+                <a href="/" class="my-4 fs-5">Back to Login</a>
             @else
                 <div>
                     <div class="fs-2 fw-bold">

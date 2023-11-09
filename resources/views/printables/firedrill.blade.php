@@ -100,11 +100,6 @@
             <div id="or_no">{{ $payment['orNo'] }}</div>
             <div id="date">{{ $payment['datePayment'] }}</div>
         </div>
-
-        {{-- <div data-draggable="true" data-editable="false" id="chiefName" class="chiefName bold">SFO4 Philip K Layug, BFP
-    </div>
-    <div data-draggable="true" data-editable="false" id="marshalName" class="marshalName bold">SUPT REYNALDO D ENOC,
-        BFP</div> --}}
     </div>
 @endsection
 

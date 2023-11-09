@@ -60,13 +60,7 @@ class FsecController extends Controller
             $owner->corporate_name = strtoupper($request->corporateName);
             $owner->save();
         }
-
-        // Add Building Fields
-
         //Add Receipt Fields
-
-        // $payor =$owner != null ? $owner->first_name.' '.$owner->middle_name.' '.$owner->last_name : $owner->corporate_name;
-
         $receipt->or_no = $request->orNo;
         $receipt->receipt_for = "FSEC";
         $receipt->amount = $request->amountPaid;

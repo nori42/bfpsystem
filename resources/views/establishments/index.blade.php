@@ -36,7 +36,3 @@
         </x-pageWrapper>
     </div>
 @endsection
-{{-- 
-@section('page-script')
-    @vite(['resources/js/pages/establishments/index.js'])
-@endsection --}}

@@ -20,9 +20,7 @@
                         <div class="indicator"></div>
                         <span id="establishmentTitle" class="py-2 fw-bold">Establishment</span>
                     </div>
-                    {{-- <span class="py-2">Attachments</span> --}}
                 </div>
-
 
                 {{-- Owner Info --}}
                 <div class="mx-auto mt-3 py-3 px-5 rounded-2 form-wrapper" id="ownerDetails" data-step="owner">
@@ -43,7 +41,6 @@
 
                         {{-- Title and Suffix --}}
                         <div class="d-flex gap-2 w-25">
-                            {{-- <x-form.input type="text" label="Title" name="title" /> --}}
                         </div>
                         <x-form.input type="text" label="Contact No." name="contactNoPerson" />
 
@@ -114,9 +111,6 @@
                                 <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
                                     required>
                                     <option value="" disabled selected>--Select Building Structure--</option>
-                                    {{-- @foreach ($building_type as $btype)
-                            <option value="{{$btype}}">{{$btype}}</option>
-                        @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -132,7 +126,6 @@
 
                     <x-form.inputWrapper>
                         <label class="info-label">Barangay</label>
-                        {{-- <input type="text" id="barangay" name="barangay" class="input" data-establishment-input required> --}}
                         <select class="form-control " name="barangay" id="barangay">
                             <option value="" selected>--Select Barangay--</option>
                         </select>

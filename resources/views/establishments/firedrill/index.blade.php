@@ -17,21 +17,17 @@
             @if (session('toastMssg'))
                 <x-toast :message="session('toastMssg')" />
             @endif
-            <div class=" mb-3">
-                <div class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</div>
+            <div class="mb-3 d-flex justify-content-between align-items-center bg-subtleBlue boxshadow p-4">
+                <div>
+                    <div class="fw-bold fs-5">Establishment: {{ $establishment->establishment_name }}</div>
 
-                <div class="fs-5 "> Owner:
-                    {{ $establishment->getOwnerName() }}
+                    <div class="fs-5 "> Owner:
+                        {{ $establishment->getOwnerName() }}
+                    </div>
                 </div>
-            </div>
-            <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
+                <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
 
-            {{-- <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
-                <a class="btn btn-primary rounded-0 fs-5 px-5"
-                    href="/establishments/{{ $establishment->id }}/firedrill">Firedrill</a>
-                <a class="btn btn-outline-primary rounded-0 fs-5 px-5"
-                    href="/establishments/{{ $establishment->id }}/firedrill/attachment">Attachments</a>
-            </div> --}}
+            </div>
 
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div>
@@ -57,8 +53,14 @@
                     @endforeach
                 </x-firedrill>
             @else
-                <h2 class="text-center text-secondary">No Firedrill</h2>
-                <div class="text-center text-secondary">List of issued firedrill certificate will be shown here.</div>
+                <div class="fs-5 d-flex justify-content-center align-content-center mt-5">
+                    <div class="border border-3 border-gray-500 rounded-3 px-5 py-3 text-secondary">
+                        <h2 class="text-center text-secondary fw-bold fs-4">No Firedrill</h2>
+                        <div class="text-center text-secondary fw-normal">List of issued firedrill certificate will be shown
+                            here.
+                        </div>
+                    </div>
+                </div>
             @endif
 
             <x-form.firedrillAdd :establishment="$establishment" />

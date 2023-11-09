@@ -66,11 +66,11 @@
                                 </div>
                             </div>
                         @endif
-
+                        {{-- 
                         @if (auth()->user()->id == $personnel->user->id)
                             <a class="btn btn-primary px-5" href="/personnel/{{ $personnel->id }}/edit"> <i
                                     class="bi bi-pencil-fill"></i> Edit Info</a>
-                        @endif
+                        @endif --}}
                         <button class="btn btn-primary" id="btnChangeDesig">Change Designation</button>
                     </div>
 

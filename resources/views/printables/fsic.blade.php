@@ -2,28 +2,28 @@
 
 @php
     $personName = null;
-    
+
     if ($establishment->owner->last_name != null) {
         $personName = $establishment->owner->first_name . ' ' . $establishment->owner->last_name;
     }
-    
+
     $corporateName = $establishment->owner->corporate_name;
     $registrationStatus = $inspection->registration_status;
-    
+
     $details = [
         'dateToday' => date('F d, Y', time()),
         'inspection' => $inspection,
         'expiryDate' => date('F d, Y', strtotime('+1 year')),
         'dateOfPayment' => date('m/d/Y', strtotime($inspection->receipt->date_of_payment)),
     ];
-    
+
     // OTHERS OPTION
     if ($inspection->registration_status == 'NEW' || $inspection->registration_status == 'RENEWAL' || $inspection->registration_status == 'OCCUPANCY') {
         $isStatusOthers = false;
     } else {
         $isStatusOthers = true;
     }
-    
+
     $json = resource_path('json\printSettings.json');
     $jsonData = File::get($json);
     $printSettings = json_decode($jsonData, true);
@@ -85,8 +85,6 @@
         <div data-draggable="true" class="date-container bold">
             {{ $inspection->issued_on == null ? $details['dateToday'] : date('F d, Y', strtotime($inspection->issued_on)) }}
         </div>
-
-
 
         <div data-draggable="true" class="check-container">
             <div class="checkbox-container">

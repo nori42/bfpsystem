@@ -61,12 +61,6 @@ class PersonnelController extends Controller
         $user->reset_password = null;
         $user->is_password_default = false;
         $user->save();
-        // $personnelList = Personnel::all();
-
-        // return view('personnel.index',[
-        //     'personnelList' =>  $personnelList,
-        //     'toastMssg' => "Added new personnel"
-        // ]);
         
         if(auth()->user()->type == 'ADMINISTRATOR')
         {

@@ -67,6 +67,7 @@
                 </tbody>
             </table>
         </x-pageWrapper>
+
         <div class="modal" id="addUser" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content py-4 px-5" style="min-width:820px;">

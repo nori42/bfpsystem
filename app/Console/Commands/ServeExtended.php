@@ -33,7 +33,7 @@ class ServeExtended extends Command
      */
     public function handle(): void
     {
-        //
+        //S
         //Update establishments that has expired inspections
         $inspections = Inspection::whereDate('expiry_date','>=',now()->subDay(5))->whereDate('expiry_date','<=',now())->get();
 

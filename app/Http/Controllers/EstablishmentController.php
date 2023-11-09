@@ -45,23 +45,8 @@ class EstablishmentController extends Controller
 
 
     public function create(){
-        // $owner = null;
-        
-        // $allOwners = Owner::all();
-
-        // $nameList = array();
-        
-        // foreach($allOwners as $owners)
-        // {
-        //     array_push($nameList, $owners['first_name'].", ".$owners['middle_name'].", ".$owners['last_name']);
-        // }
-
-        // $allOwnersJson = json_encode($allOwners);
-
-
         return view('establishments.createNew',[
             'page_title' => "Add Establishment"
-            // 'owner' => $owner
         ]);
     }
 
@@ -119,7 +104,6 @@ class EstablishmentController extends Controller
         $establishment->save();
 
         //Added activity log
-        // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::AddEstablishment);
         $logMessage = "Added new establishment: $establishment->establishment_name";
         ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
 

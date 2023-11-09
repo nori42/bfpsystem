@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ReportsController extends Controller
 {
+    public function index(){
+
+        return view('reports.index');
+    }
     //
     public function show_fsic(Request $request){
         $selfReport = $request->selfReport ? true : false;
@@ -34,6 +38,7 @@ class ReportsController extends Controller
             'selfReport' => $selfReport
         ]);
     }
+
     public function show_firedrill(Request $request){
         $selfReport = $request->selfReport ? true : false;
         $unclaimed = $request->unclaimed ? true : false;

@@ -126,9 +126,7 @@ class PrintController extends Controller
 
         $logMessage = "Issued a Firedrill Certificate: CONTROL.NO {$firedrill->control_no} to {$establishment->establishment_name}";
         ActivityLogger::logActivity($logMessage,'FIREDRILL');
-
-        // ActivityLogger::firedrillLog($firedrill->establishment->establishment_name,Activity::PrintFiredrill);
-
+        
         return redirect('/establishments'.'/'.$firedrill->establishment->id.'/firedrill');        
     }
 
@@ -202,10 +200,6 @@ class PrintController extends Controller
 
         $evaluation->save();
         $buildingPlan->save();
-
-        // $applicantName = explode(" ",$buildingPlan->getOwnerName());
-        // ActivityLogger::buildingPlanLog($applicantName[0].' '.$applicantName[2],Activity::ApproveBuildingPlan);
-        // ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::ApproveBuildingPlan);
 
         $logMessage = "Approved the Building Plan Application: ".$buildingPlan->getOwnerName();
         ActivityLogger::logActivity($logMessage,'FSEC');

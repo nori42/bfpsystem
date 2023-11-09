@@ -19,26 +19,23 @@
                 <x-toast :message="session('toastMssg')" />
             @endif
             <x-pageWrapper>
-                <div class="mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="fw-bold fs-5 align-middle">Establishment: {{ $establishment->establishment_name }}</div>
-                        @if ($establishment->inspection_is_expired)
-                            <x-tag bgColor="bg-danger" text="Expired Inspection" />
-                        @endif
+                <div class="mb-3 d-flex justify-content-between align-items-center bg-subtleBlue boxshadow p-4">
+                    <div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fw-bold fs-5 align-middle">Establishment: {{ $establishment->establishment_name }}
+                            </div>
+                            @if ($establishment->inspection_is_expired)
+                                <x-tag bgColor="bg-danger" text="Expired Inspection" />
+                            @endif
+                        </div>
+                        <div class="fs-5 mb-0"> Owner:
+                            {{ $establishment->getOwnerName() }}
+                        </div>
                     </div>
-                    <div class="fs-5 mb-0"> Owner:
-                        {{ $establishment->getOwnerName() }}
-                    </div>
+                    <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
                 </div>
+
                 {{-- Owner Info & Selected Establishment --}}
-                <x-headingInfo :establishment="$establishment" :owner="$owner" :representative="$representative" />
-                {{-- FSIC Action --}}
-                {{-- <div class="d-flex mt-3 w-100 border-bottom border-primary border-2">
-                    <a class="btn btn-primary rounded-0 fs-5 px-5"
-                        href="/establishments/{{ $establishment->id }}/fsic">Inspections</a>
-                    <a class="btn btn-outline-primary rounded-0 fs-5 px-5"
-                        href="/establishments/{{ $establishment->id }}/fsic/attachment">Attachments</a>
-                </div> --}}
 
                 {{-- Inspection --}}
                 <div class="d-flex justify-content-between align-items-center mt-3">
@@ -110,8 +107,13 @@
                         <a class="link d-block text-center" href="#top" id="backToTop">Back to top</a>
                     @endif
                 @else
-                    <h2 class="text-center text-secondary">No Inspection</h2>
-                    <div class="text-center text-secondary">List of issued inspections will be shown here.</div>
+                    <div class="fs-5 d-flex justify-content-center align-content-center mt-5">
+                        <div class="border border-3 border-gray-500 rounded-3 px-5 py-3 text-secondary">
+                            <h2 class="text-center text-secondary fw-bold fs-4">No Inspection</h2>
+                            <div class="text-center text-secondary fw-normal">List of issued inspections will be shown here.
+                            </div>
+                        </div>
+                    </div>
                 @endif
             </x-pageWrapper>
 

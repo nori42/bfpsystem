@@ -48,18 +48,6 @@
             @endif
             <div class="d-flex justify-content-center gap-5">
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
-                    {{-- <div class="{{ auth()->user()->type == 'ADMINISTRATOR' ? 'w-100' : '' }}">
-                        <div class="d-flex align-items-center">
-                            <a class="btn btn-outline-primary" href="/establishments/{{ $establishment->id }}/fsic">Fire
-                                Safety
-                                Inspection(FSIC) <i class="bi bi-arrow-right"></i></a>
-                        </div>
-
-                        <x-detailWrapper>
-                            <x-info2 label="Total Inspection Issued:" value="{{ $inspectionCount }}" />
-                            <x-info2 label="Last Inspection Issued:" value="{{ $lastInpsectionIssued }}" />
-                        </x-detailWrapper>
-                    </div> --}}
                     <div class="boxshadow rounded-4">
                         <div class="d-flex gap-3 bg-subtleBlue p-4">
                             <div class="text-center px-5">
@@ -82,8 +70,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center p-3">
-                            <a class="btn btn-outline-primary px-4"
-                                href="/establishments/{{ $establishment->id }}/fsic">Fire
+                            <a class="btn btn-primary px-4" href="/establishments/{{ $establishment->id }}/fsic">Fire
                                 Safety
                                 Inspection Certificates(FSIC) <i class="bi bi-arrow-right"></i></a>
                         </div>
@@ -135,7 +122,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center p-3">
-                            <a class="btn btn-outline-primary px-5"
+                            <a class="btn btn-primary px-5"
                                 href="/establishments/{{ $establishment->id }}/firedrill">Firedrill Certificates<i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
@@ -149,16 +136,17 @@
                 </div>
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attachmentModal">
+                        <a class="btn btn-primary px-4" href="/establishments/{{ $establishment->id }}/edit">
+                            <i class="bi bi-pencil-fill"></i>
+                            Update Establishment</a>
+
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#attachmentModal">
                             <span class="material-symbols-outlined align-middle">
                                 attach_file
                             </span>
                             File Attachments
                         </button>
-                        <a class="btn btn-primary px-4" href="/establishments/{{ $establishment->id }}/edit">
-                            <i class="bi bi-pencil-fill"></i>
-                            Update Establishment</a>
-                        <button class="btn btn-danger px-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button class="btn btn-outline-danger px-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             <i class="bi bi-trash3-fill"></i>
                             Delete</button>
                     </div>
