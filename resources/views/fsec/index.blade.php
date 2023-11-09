@@ -17,7 +17,7 @@
         <x-pageWrapper>
             <div class="d-flex justify-content-center gap-4">
                 <div>
-                    <div class="text-secondary fw-bold text-center">Click To Add New Application</div>
+                    <div class="text-secondary fw-bold text-center mb-3">Click To Add New Application</div>
                     <a href="/fsec/create" class="btn btn-primary px-5 py-2 mt-md-1 fs-4">
                         <span class="material-symbols-outlined align-middle fs-3">
                             assignment_add
@@ -25,8 +25,11 @@
                         New Building Plan Application
                     </a>
                 </div>
+                <div class="border border-1 mx-5" style="height: 13rem;">
+
+                </div>
                 <div>
-                    <div class="text-secondary fw-bold text-center">Click To Show Pending Applications</div>
+                    <div class="text-secondary fw-bold text-center mb-3">Click To Show Pending Applications</div>
                     <button class="btn btn-primary px-5 py-2 mt-md-1 fs-4" data-bs-toggle="modal"
                         data-bs-target="#pendingApplication">
                         <i class="bi bi-hourglass-split"></i>Pending
@@ -67,7 +70,7 @@
                                         @foreach ($buildingPlans as $plan)
                                             @php
                                                 $owner = $plan->owner;
-                                                
+
                                                 $representative = $plan->getOwnerName();
                                             @endphp
                                             <tr>

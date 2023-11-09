@@ -5,7 +5,7 @@
 @endsection
 <div class="dashboardSearch">
     <div style="width:50%;">
-        <h1 class="text-white text-center py-5 fw-bold" style="font-size: 3.5rem;">
+        <h1 class="text-white text-center py-5 fw-bold" style="font-size: 2.5rem;">
             {{ $for == 'establishment' ? 'Search Establishments' : 'Search Building Plan Application' }}</h1>
 
         @php

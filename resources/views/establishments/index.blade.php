@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
     @php
         $totalSubstation = 0;

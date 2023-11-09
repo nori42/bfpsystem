@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="w-50">
+            <div class="" style="width: 890px;">
 
                 <div class="d-flex justify-content-between mb-3">
                     <div class="fs-4 fw-bold">Issued Certificates</div>
