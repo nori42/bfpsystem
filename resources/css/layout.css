@@ -2,7 +2,7 @@
 @import url(./components/spinner.css);
 
 nav {
-    background-color: var(--secondary-color-dark);
+    background-color: var(--nav);
     min-width: 16%;
 }
 

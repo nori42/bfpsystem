@@ -45,7 +45,7 @@
         <div class="printablePage page-1" page="1">
             <img class="certificate" src="{{ asset('img/checklist_1.png') }}" alt=""
                 style="width: 100%; height: 100%;">
-            <div data-draggable="true" id="series-no" class="series-no bold">
+            <div data-draggable="true" id="series-no" class="series-no bold" contenteditable="true">
                 <span>{{ $buildingPlan->series_no }}</span>
             </div>
 

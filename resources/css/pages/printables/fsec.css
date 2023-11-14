@@ -6,7 +6,7 @@
     width: 8.5in;
     height: 11in;
     padding: 0;
-    /* background-image: url(/public/img/fsec.png); */
+    background-image: url(/public/img/fsec.png);
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:cover;
     margin:5rem auto;
@@ -69,6 +69,12 @@
     top: 673px;
     left: 216px;
     line-height: 1rem;
+}
+
+.plan-evaluator{
+    position: absolute;
+    top:750px;
+    left: 216px;
 }
 
 .chiefName{

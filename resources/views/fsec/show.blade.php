@@ -85,13 +85,17 @@
                                 style="display:none !important; width:180px; left:calc(-1 * (100% + 10px));">
                                 <ul class="list-unstyled">
 
-                                    <li><a href="/fsec/print/{{ $buildingPlan->id }}"
-                                            class="btn btn-primary w-100 text-start"><i
-                                                class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
-                                    <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
-                                            class="btn btn-outline-danger w-100 mt-2 text-start"><i
-                                                class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
-
+                                    @if ($buildingPlan->receipt->or_no != null)
+                                        <li><a href="/fsec/print/{{ $buildingPlan->id }}"
+                                                class="btn btn-primary w-100 text-start"><i
+                                                    class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
+                                        <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
+                                                class="btn btn-outline-danger w-100 mt-2 text-start"><i
+                                                    class="bi bi-file-earmark-excel mx-2 fs-5"></i>Disapprove</a></li>
+                                    @else
+                                        <div class="text-secondary text-center mt-3">Cannot take action without payment
+                                        </div>
+                                    @endif
                                     <hr style="color: #1a1a1a;">
 
                                     <li>

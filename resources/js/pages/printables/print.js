@@ -6,8 +6,16 @@ window.selectAll = (selector) => {
     return document.querySelectorAll([selector]);
 };
 
-// Remove Element if print preview
+window.addEventListener("keydown", (e) => {
+    if (e.key == "p") {
+        select("[btnback").remove();
+        selectAll("[btndone]").forEach((btn) => {
+            btn.classList.remove("d-none");
+        });
+    }
+});
 
+// Remove Element if print preview
 if (select("#isPreview")) {
     if (select("#isPreview").checked) {
         select("[printBtn]").remove();

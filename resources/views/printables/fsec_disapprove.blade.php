@@ -54,7 +54,7 @@
         <img class="certificate" src="{{ asset('img/fsec_disapprove.png') }}" alt=""
             style="width: 100%; height: 100%;">
 
-        <div data-draggable="true" class="series-no bold">
+        <div data-draggable="true" class="series-no bold" contenteditable="true">
             {{ $buildingPlan->series_no }}
         </div>
 

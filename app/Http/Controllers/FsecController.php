@@ -70,7 +70,8 @@ class FsecController extends Controller
         //Add Evaluation Fields
         $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
-        $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
+        // $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
+        $buildingPlan->series_no =  strtoupper($request->seriesNo);
         $buildingPlan->bp_application_no = strtoupper($request->bpApplicationNo);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
         $buildingPlan->date_received = $request->dateReceived;

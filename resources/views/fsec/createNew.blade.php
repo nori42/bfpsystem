@@ -47,6 +47,7 @@
                             <h2>Application Information</h2>
                         </div>
                         <hr>
+                        <x-form.input type="text" label="Series-No" name="seriesNo" class="w-50" />
                         <fieldset>
                             <div class="d-flex gap-2">
                                 <x-form.input type="text" label="Building Permit Application No. (BP APP#)"

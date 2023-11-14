@@ -75,7 +75,8 @@
                         <option value="" disabled selected>Select Barangay</option>
                     </select>
                 </x-form.inputWrapper>
-                <x-form.input type="text" label="Address" name="address" :required="true" :value="$establishment->address" />
+                <x-form.input type="text" label="Address" name="address" :required="true" :value="$establishment->address"
+                    customAttr='maxlength=70' />
 
                 <div class="d-flex justify-content-between">
                     <a href="/establishments/{{ $establishment->id }}" class="btn btn-outline-secondary mt-3 px-3"

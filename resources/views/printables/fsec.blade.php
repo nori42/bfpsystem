@@ -72,8 +72,20 @@
             <div id="date">{{ date('m/d/Y', strtotime($receipt->date_of_payment)) }}</div>
         </div>
 
-        <div data-draggable="true" id="chiefName" class="chiefName">{{ $chief }}</div>
-        <div data-draggable="true" id="marshalName" class="marshalName">{{ $marshal }}</div>
+        <div class="plan-evaluator fw-bolder text-center">
+            @php
+                $first_name = auth()->user()->personnel->first_name;
+                $first_name_lower = Str::lower($first_name);
+                $last_name = auth()->user()->personnel->last_name;
+                $last_name_lower = Str::lower($last_name);
+            @endphp
+            <div><span contenteditable="true">Eng`r.</span> {{ Str::ucfirst($first_name_lower) }}
+                {{ Str::ucfirst($last_name_lower) }}</div>
+            <div>Plans Evaluator</div>
+        </div>
+
+        <div data-draggable="true" id="chiefName" class="chiefName fw-bolder">{{ $chief }}</div>
+        <div data-draggable="true" id="marshalName" class="marshalName fw-bolder">{{ $marshal }}</div>
     </div>
 @endsection
 

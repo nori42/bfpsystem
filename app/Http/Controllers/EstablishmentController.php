@@ -184,36 +184,55 @@ class EstablishmentController extends Controller
         if($establishment == null)
         return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
 
-        switch($request->userType)
-        {
+        // switch($request->userType)
+        // {
             
-            case "FIREDRILL":
-                return redirect('/establishments'.'/'.$establishment->id.'/firedrill');
-            case "FSIC":
-                return redirect('/establishments'.'/'.$establishment->id.'/fsic');
-            default:
-            {
+        //     case "FIREDRILL":
+        //         return redirect('/establishments'.'/'.$establishment->id.'/firedrill');
+        //     case "FSIC":
+        //         return redirect('/establishments'.'/'.$establishment->id.'/fsic');
+        //     default:
+        //     {
 
-                $owner = Owner::find($establishment->owner_id);
+        //         $owner = Owner::find($establishment->owner_id);
                 
-                $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
-                $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
-                $building_type = [
-                    'Small', 'Medium', 'Large', 'High Rise'
-                ];       
+        //         $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+        //         $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
+        //         $building_type = [
+        //             'Small', 'Medium', 'Large', 'High Rise'
+        //         ];       
 
-                return view('establishments.show', [
-                    'establishment' => $establishment,
-                    'inspections' => $inspections,
-                    'firedrills' => $firedrills,
-                    'occupancies' => $occupancies,
-                    'subtype' => $sub_type,
-                    'owner' => $owner,
-                    'buildingType' => $building_type,
-                    'page_title' => 'Establishment Details' // use to set page title inside the panel
-                ]);
-            }
-        }
+        //         return view('establishments.show', [
+        //             'establishment' => $establishment,
+        //             'inspections' => $inspections,
+        //             'firedrills' => $firedrills,
+        //             'occupancies' => $occupancies,
+        //             'subtype' => $sub_type,
+        //             'owner' => $owner,
+        //             'buildingType' => $building_type,
+        //             'page_title' => 'Establishment Details' // use to set page title inside the panel
+        //         ]);
+        //     }
+        // }
+
+        $owner = Owner::find($establishment->owner_id);
+                
+        $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
+        $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
+        $building_type = [
+            'Small', 'Medium', 'Large', 'High Rise'
+        ];       
+
+        return view('establishments.show', [
+            'establishment' => $establishment,
+            'inspections' => $inspections,
+            'firedrills' => $firedrills,
+            'occupancies' => $occupancies,
+            'subtype' => $sub_type,
+            'owner' => $owner,
+            'buildingType' => $building_type,
+            'page_title' => 'Establishment Details' // use to set page title inside the panel
+        ]);
         
     }
     

@@ -66,7 +66,7 @@ Route::get('/search/establishment',[SearchEstablishment::class,'index']);
 //Establishments route
 
 Route::middleware(['auth','userType:ADMINISTRATOR,FSIC','personnelChecker'])->group(function () {
-    Route::get('/establishments/create', [EstablishmentController::class, 'create']);
+    Route::get('/establishments/create', [EstablishmentController::class, 'create'])->name("establishments");
     Route::get('/establishments/{id}/edit', [EstablishmentController::class, 'edit']);
     Route::post('/establishments', [EstablishmentController::class, 'store']);
     // Route::get('/establishments/create/{id}', [EstablishmentController::class, 'create_from_owner']);
@@ -93,7 +93,7 @@ Route::middleware(['auth','userType:ADMINISTRATOR,FSEC','personnelChecker'])->gr
     Route::get('/establishments/fsec/print/{id}', [FsecController::class, 'print_fsec']);
     Route::get('/fsec', [FsecController::class, 'index'])->name('fsec');
     Route::post('/fsec', [FsecController::class, 'store']);
-    Route::get('/fsec/create',[FsecController::class,'create']);
+    Route::get('/fsec/create',[FsecController::class,'create'])->name('fsec');
     Route::post('/fsec/search', [FsecController::class, 'search']);
     Route::put('/fsec/release',[FsecController::class,'release']);
     Route::get('/fsec/pending/',[FsecController::class,'pending']);

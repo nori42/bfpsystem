@@ -24,7 +24,7 @@
 
         $cardTotal = "
             width:100%;
-            background-color:#123B5A;
+            background-color:var(--nav);
             color:white;
         ";
     @endphp

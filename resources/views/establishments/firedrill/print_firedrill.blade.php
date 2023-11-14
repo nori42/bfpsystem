@@ -67,7 +67,7 @@
         </div>
         <img src="{{ asset('img/firedrill.png') }}" alt="" style="width: 100%; height: 100%;">
 
-        <div data-draggable="true" class="control-no bold">
+        <div data-draggable="true" class="control-no bold" contenteditable>
             {{ $controlNo }}
         </div>
 
