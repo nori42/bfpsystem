@@ -25,7 +25,7 @@
         </div>
 
         {{-- Modal add record --}}
-        <div id="addRecord" class="modal">
+        <div id="addRecord" class="modal fade">
             <div class="modal-dialog modal-dialog-centered modal-md">
                 <div class="modal-content py-4 px-5">
                     <form class="fw-bold" action="/fireincidents" method="POST" autocomplete="off">

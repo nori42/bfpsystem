@@ -45,7 +45,7 @@ class EstablishmentController extends Controller
 
 
     public function create(){
-        return view('establishments.createNew',[
+        return view('establishments.create',[
             'page_title' => "Add Establishment"
         ]);
     }
@@ -90,11 +90,13 @@ class EstablishmentController extends Controller
         $establishment->no_of_storey = $request->noOfStory;
         $establishment->createdBy = strtoupper("admin");
         $establishment->business_permit_no = $request->businessPermitNo; 
+        $establishment->building_permit_no = $request->buildingPermitNo; 
         $establishment->fire_insurance_co = strtoupper($request->fireInsuranceCo);
         $establishment->barangay =  strtoupper($request->barangay);
         $establishment->address = strtoupper($request->address);
         $establishment->height = $request->height;
         $establishment->floor_area = $request->floorArea;
+        $establishment->hazard_note = $request->hazardNote;
         $establishment->occupancy = strtoupper($request->occupancy);
         $establishment->inspection_is_expired = false;
         $establishment->firedrill_is_expired = false;
@@ -184,36 +186,6 @@ class EstablishmentController extends Controller
         if($establishment == null)
         return redirect()->back()->with(["MSSG"=>"No Result","SEARCH"=>$request->search]);
 
-        // switch($request->userType)
-        // {
-            
-        //     case "FIREDRILL":
-        //         return redirect('/establishments'.'/'.$establishment->id.'/firedrill');
-        //     case "FSIC":
-        //         return redirect('/establishments'.'/'.$establishment->id.'/fsic');
-        //     default:
-        //     {
-
-        //         $owner = Owner::find($establishment->owner_id);
-                
-        //         $occupancies = json_decode(file_get_contents(public_path() . "/json/selectOptions/occupancy.json"), true);
-        //         $sub_type = json_decode(file_get_contents(public_path() . "/json/selectOptions/subtype.json"), true);
-        //         $building_type = [
-        //             'Small', 'Medium', 'Large', 'High Rise'
-        //         ];       
-
-        //         return view('establishments.show', [
-        //             'establishment' => $establishment,
-        //             'inspections' => $inspections,
-        //             'firedrills' => $firedrills,
-        //             'occupancies' => $occupancies,
-        //             'subtype' => $sub_type,
-        //             'owner' => $owner,
-        //             'buildingType' => $building_type,
-        //             'page_title' => 'Establishment Details' // use to set page title inside the panel
-        //         ]);
-        //     }
-        // }
 
         $owner = Owner::find($establishment->owner_id);
                 

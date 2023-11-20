@@ -28,22 +28,6 @@
                     <div class="text-secondary">List of deleted
                         {{ $currentRoute == 'fsec' ? 'building plans' : $currentRoute }}</div>
                 </div>
-                {{-- <div>
-                    <span>
-                        <label class="fs-5 fw-semibold" for="establishment">Establishments</label>
-                        <input class="fs-3" type="radio" name="link" id="establishment"
-                            {{ $currentRoute == 'establishments' ? 'checked' : '' }}>
-                    </span>
-                    <span class="mx-3">
-                        <label class="fs-5 fw-semibold" for="buildingPlan">Building Plan Application</label>
-                        <input type="radio" name="link" id="buildingPlan"
-                            {{ $currentRoute == 'fsec' ? 'checked' : '' }}>
-                    </span>
-                    <span class="d-inline">
-                        <label class="fs-5 fw-semibold" for="users">Users</label>
-                        <input type="radio" name="link" id="users" {{ $currentRoute == 'users' ? 'checked' : '' }}>
-                    </span>
-                </div> --}}
             </div>
             <div class="d-flex align-items-center gap-3 my-3">
                 <div>
@@ -83,6 +67,7 @@
                     </ul>
                 </div>
             </div>
+            <hr>
             <div id="content">
                 @yield('archiveContent')
             </div>

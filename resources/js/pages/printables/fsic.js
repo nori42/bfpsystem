@@ -85,7 +85,7 @@ if (select("#btnAddNote")) {
                 elem.classList.add("editable");
             });
         } else {
-            btn.textContent = "Add Note";
+            btn.textContent = "Add Description";
             btn.classList.add("btn-primary");
             btn.classList.remove("btn-success");
             btn.setAttribute("toggled", "false");

@@ -79,13 +79,13 @@
                     </x-modal> --}}
                 </div>
                 <div>
-                    <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 24rem;">
+                    <div class="bg-subtleBlue boxshadow p-3" style="width:35rem; height: 26rem;">
                         <div class="mb-3 fw-bold">Personnel Details</div>
 
-                        {{-- <div class="row my-3">
-                            <div class="col-4 text-secondary">ID Number</div>
+                        <div class="row my-3">
+                            <div class="col-4 text-secondary text-nowrap">ID Number/Username</div>
                             <div class="col-8">{{ $personnel->user->username }}</div>
-                        </div> --}}
+                        </div>
 
                         <div class="row my-3">
                             <div class="col-4 text-secondary">Designation</div>

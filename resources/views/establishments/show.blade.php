@@ -174,6 +174,7 @@
                     <x-info label="No. of Story" :value="$establishment->no_of_storey" />
                     <x-info label="Height (m)" :value="$establishment->height" />
                     <x-info label="Floor Area (sq m)" :value="$establishment->floor_area" />
+                    <x-info label="Hazard Note" :value="$establishment->hazard_note" />
                 </div>
 
                 <div class="row my-3">

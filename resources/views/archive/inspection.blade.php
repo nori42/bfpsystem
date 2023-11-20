@@ -6,6 +6,7 @@
 
         <table class="table">
             <thead>
+                <th>Establishment</th>
                 <th>Inspection Date</th>
                 <th>Issued Date</th>
                 <th>FSIC No.</th>
@@ -16,6 +17,7 @@
             <tbody>
                 @foreach ($inspections as $item)
                     <tr>
+                        <td>{{ $item->establishment_name }}
                         <td>{{ $item->inspection_date ? date('m/d/Y', strtotime($item->inspection_date)) : '' }}
                         </td>
                         <td>{{ $item->issued_on ? date('m/d/Y', strtotime($item->issued_on)) : 'Not Issued' }}</td>

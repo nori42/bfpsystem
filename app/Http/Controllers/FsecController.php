@@ -26,7 +26,7 @@ class FsecController extends Controller
 
     public function create(){
 
-        return view('fsec.createNew');
+        return view('fsec.create');
     }
 
     public function store(Request $request){
@@ -70,8 +70,8 @@ class FsecController extends Controller
         //Add Evaluation Fields
         $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
-        // $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
-        $buildingPlan->series_no =  strtoupper($request->seriesNo);
+        $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
+        // $buildingPlan->series_no =  strtoupper($request->seriesNo);
         $buildingPlan->bp_application_no = strtoupper($request->bpApplicationNo);
         $buildingPlan->bill_of_materials = strtoupper($request->billOfMaterials);
         $buildingPlan->date_received = $request->dateReceived;
@@ -120,7 +120,7 @@ class FsecController extends Controller
         if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
             return back()->with('toastMssg',"Both Name or Corporate must not be empty");
         }
-
+        
         $buildingPlan = BuildingPlan::find($request->id);
         $receipt = $buildingPlan->receipt;
         $owner = $buildingPlan->owner;
@@ -166,7 +166,7 @@ class FsecController extends Controller
         return redirect('/fsec'.'/'.$buildingPlan->id)->with(["mssg" => "Application Updated"]);
     }
 
-    public function destory(Request $request){
+    public function destroy(Request $request){
         $buildingPlan = BuildingPlan::find($request->id);
 
         $buildingPlan->delete();

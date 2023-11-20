@@ -33,7 +33,7 @@
         <x-pageWrapper>
 
             <div class="mb-4">
-                <span class="d-block fw-bold fs-2   ">Dashboard</span>
+                <span class="d-block fw-bold fs-2">Dashboard</span>
             </div>
 
             <div class="d-flex justify-content-center gap-3 mb-5">
@@ -51,7 +51,7 @@
                     <div><i class="bi bi-hourglass-split border border-2 p-2 rounded-3" style="font-size: 54px;"></i></div>
                     <div>
                         <div>
-                            <a href="{{ env('APP_URL') }}/fsec" class="text-white mt-2" style="text-decoration: none;">
+                            <a href="/fsec" class="text-white mt-2" style="text-decoration: none;">
                                 <span class="fs-5">Pending Building
                                     Plans</span><i class="bi bi-arrow-left mx-2"></i>
                             </a>
@@ -85,28 +85,46 @@
                         <div class="fs-5 fw-bold bg-primary text-white px-4 py-3 rounded-top-3 text-center">Inspection
                             Certificate Issued
                         </div>
+
+                        @php
+                            $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban'];
+                        @endphp
+
                         <div class="px-5 py-3">
                             <div class="fs-4">Substation</div>
                             <table style="width: 21rem;">
-                                @foreach ($fsicIssued['issuedBySubstation'] as $key => $value)
+                                @foreach ($substations as $substation)
                                     <tr>
-                                        <td>{{ $key }}</td>
-                                        <td>{{ $value }}</td>
+                                        <td>{{ $substation }}</td>
+                                        <td>{{ $fsicIssued['substations']->get(strtoupper($substation)) ? $fsicIssued['substations']->get(strtoupper($substation))->count() : 0 }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>
                             <table class="mt-4" style="width:21rem;">
                                 <tr>
-                                    <td class="fw-bold">Total Substations</td>
+                                    <td class="fw-bold">CBP</td>
+                                    <td>{{ $fsicIssued['totalCBP'] }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold">New</td>
+                                    <td>{{ $fsicIssued['totalNew'] }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold">Total Substation</td>
                                     <td>{{ $fsicIssued['totalSubstation'] }}</td>
                                 </tr>
+
                                 <tr>
                                     <td class="fw-bold">Grand Total</td>
                                     <td>{{ $fsicIssued['totalGrand'] }}</td>
                                 </tr>
+
                                 <tr>
-                                    <td class="fw-bold">New</td>
-                                    <td>{{ $fsicIssued['new'] }}</td>
+                                    <td class="fw-bold">Occupancy</td>
+                                    <td>{{ $fsicIssued['totalOccupancy'] }}</td>
                                 </tr>
                             </table>
                         </div>

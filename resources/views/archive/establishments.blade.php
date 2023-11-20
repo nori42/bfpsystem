@@ -15,14 +15,12 @@
             <tbody>
                 @foreach ($establishments as $item)
                     @php
-                        $owner = $item->owner;
-                        if ($owner->person->last_name != null) {
-                            $person = $owner->person;
-                            $representative = $person->first_name . ' ' . $person->last_name;
+                        if ($item->last_name != null) {
+                            $representative = $item->first_name . ' ' . $item->last_name;
                         } else {
-                            $representative = $owner->corporate->corporate_name;
+                            $representative = $item->corporate_name;
                         }
-                        
+
                     @endphp
                     <tr>
                         <td>{{ $item->establishment_name }}</td>

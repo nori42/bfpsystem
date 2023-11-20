@@ -1,4 +1,5 @@
 const stations = [
+    "NEW",
     "CCSF",
     "CBP",
     "GUADALUPE",

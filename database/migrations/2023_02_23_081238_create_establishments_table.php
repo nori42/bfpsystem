@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('no_of_storey')->nullable();
             $table->string('height')->nullable();
             $table->string('floor_area')->nullable();
+            $table->string('hazard_note')->nullable();
             $table->string('business_permit_no')->nullable();
+            $table->string('building_permit_no')->nullable();
             $table->string('fire_insurance_co')->nullable();
             $table->string('barangay')->nullable();
             $table->string('address')->nullable();

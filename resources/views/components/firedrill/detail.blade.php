@@ -17,7 +17,7 @@
 {{-- <x-modal id="{{ $key }}" width="50" topLocation="2">
 </x-modal> --}}
 
-<div class="modal" id="{{ $key }}">
+<div class="modal fade" id="{{ $key }}">
     <div class="modal-dialog modal-dialog-centered" style="min-width: 900px;">
         <div class="modal-content px-5 py-4">
 

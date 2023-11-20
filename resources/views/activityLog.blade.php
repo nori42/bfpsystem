@@ -20,14 +20,14 @@
 
             <div id="activityContent">
                 <div class="d-flex align-items-center justify-content-between my-3 position-sticky bg-white"
-                    style="top:4rem;">
+                    style="z-index: 100; top:4rem;">
                     <form id="filter" class="d-flex gap-3 align-items-center" action="/activity">
 
                         @if ($dateRange['from'] != null)
                             {{-- <div class="fs-5 fw-semibold">{{ $activityIn }}</div> --}}
                             <div>
                                 <button type="button" class="btn btn-primary  py-2 px-5 d-flex justify-content-between"
-                                    data-bs-toggle="dropdown" aria-expanded="false" style="width: 9rem;">
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 12rem;">
                                     {{ $activityIn }}
                                     <i class="bi bi-caret-down-fill"></i>
                                 </button>
@@ -80,8 +80,9 @@
                     </div>
 
                 </div>
+                <hr>
                 <table class="table">
-                    <thead class="position-sticky" style="top:7.5rem; z-index: -1;">
+                    <thead class="position-sticky" style="top:7.5rem; z-index: 1;">
                         <th>User Type</th>
                         <th>User</th>
                         <th>Log</th>

@@ -68,7 +68,7 @@
             </table>
         </x-pageWrapper>
 
-        <div class="modal" id="addUser" tabindex="-1">
+        <div class="modal fade" id="addUser" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content py-4 px-5" style="min-width:820px;">
                     <form action="/users" method="POST" autocomplete="off">
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <div class="modal" id="activeUsers" tabindex="-1">
+        <div class="modal fade" id="activeUsers" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content py-4 px-5" style="min-width:780px;">
                     <div class="py-2">

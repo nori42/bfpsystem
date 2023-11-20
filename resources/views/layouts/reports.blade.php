@@ -41,7 +41,7 @@
 
         <div id="reportContent">
 
-            <div class="d-flex align-items-center justify-content-between gap-3 mt-3">
+            <div class="d-flex align-items-center justify-content-between gap-3 mt-3 position-relative" style="z-index: 100;">
                 <div class="d-flex">
                     <div>
                         @if (auth()->user()->type == 'ADMINISTRATOR')
@@ -99,7 +99,7 @@
                                                 <div class="mt-4 fs-4">Substation</div>
 
                                                 @php
-                                                    $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban', 'CBP'];
+                                                    $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban'];
                                                 @endphp
 
                                                 <table style="width: 16rem;">
@@ -113,12 +113,28 @@
                                                 </table>
                                                 <table class="mt-4" style="width:16rem;">
                                                     <tr>
-                                                        <td class="fw-bold">Grand Total</td>
-                                                        <td>{{ $fsicIssued['totalGrand'] }}</td>
+                                                        <td class="fw-bold">CBP</td>
+                                                        <td>{{ $fsicIssued['totalCBP'] }}</td>
                                                     </tr>
+
                                                     <tr>
                                                         <td class="fw-bold">New</td>
                                                         <td>{{ $fsicIssued['totalNew'] }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="fw-bold">Total Substation</td>
+                                                        <td>{{ $fsicIssued['totalSubstation'] }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="fw-bold">Grand Total</td>
+                                                        <td>{{ $fsicIssued['totalGrand'] }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="fw-bold">Occupancy</td>
+                                                        <td>{{ $fsicIssued['totalOccupancy'] }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -158,14 +174,6 @@
                                                     @endforeach
                                                 </table>
                                                 <table class="mt-4" style="width:16rem;">
-                                                    {{-- <tr>
-                                        <td class="fw-bold">CBP</td>
-                                        <td>{{ $firedrillIssued['totalCBP'] }}</td>
-                                    </tr> --}}
-                                                    {{-- <tr>
-                                        <td class="fw-bold">Total Substations</td>
-                                        <td>{{ $firedrillIssued['totalSubstation'] }}</td>
-                                    </tr> --}}
                                                     <tr>
                                                         <td class="fw-bold">Grand Total</td>
                                                         <td>{{ $firedrillIssued['totalGrand'] }}</td>

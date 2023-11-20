@@ -29,6 +29,7 @@ export default () => {
             "resources/js/selectoptions/occupancy.js",
             "resources/js/selectoptions/populateselect.js",
             "resources/js/selectoptions/registrationStatus.js",
+            "resources/js/selectoptions/issuedFor.js",
             "resources/js/selectoptions/substations.js",
             "resources/js/util/exportToXLSX.js",
             "resources/js/util/tableSort.js",

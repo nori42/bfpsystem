@@ -19,13 +19,13 @@
                             <label class="info-label">Occupancy</label>
                             <select class="form-select" name="occupancy" id="occupancy"
                                 select-value="{{ $establishment->occupancy }}" data-establishment-input required>
-                                <option value="" disabled selected>Select Occupancy</option>
+                                <option value="" disabled selected>--Select Occupancy--</option>
                                 {{-- Options is populated in script --}}
                             </select>
                         </div>
                         <div class="w-100">
                             <label class="info-label">Sub Type</label>
-                            <select class="form-select" name="subType" id="subType" data-establishment-input required
+                            <select class="form-select" name="subType" id="subType" data-establishment-input
                                 select-value="{{ $establishment->sub_type }}">
                                 {{-- Options is populated in script --}}
                             </select>
@@ -40,7 +40,7 @@
                             <label class="info-label">Substation</label>
                             <select class="form-select" name="substation" id="substation" data-establishment-input required
                                 select-value="{{ $establishment->substation }}">
-                                <option value="" disabled selected>Select Substation</option>
+                                <option value="" disabled selected>--Select Substation--</option>
                                 {{-- Options is populated in script --}}
                             </select>
                         </div>
@@ -48,8 +48,8 @@
                         <div class="w-100">
                             <label class="info-label">Building Structure</label>
                             <select class="form-select" name="buildingType" id="buildingType" data-establishment-input
-                                required select-value="{{ $establishment->building_type }}">
-                                <option value="" disabled selected>Select Building Type</option>
+                                select-value="{{ $establishment->building_type }}">
+                                <option value="" selected>--Select Building Type--</option>
                                 {{-- Options is populated in script --}}
                             </select>
                         </div>

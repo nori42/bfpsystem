@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             // $table->string('building_structures')->nullable();
             $table->string('registration_status')->nullable();
+            $table->string('issued_for')->nullable();
             $table->string('others_descrpt')->nullable();
             $table->string('valid_for_descrpt')->nullable();
             $table->string('valid_for_descrpt2')->nullable();

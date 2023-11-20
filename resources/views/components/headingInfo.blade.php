@@ -21,6 +21,7 @@
                     </li>
                     <li><span class="fw-bold">Establishment Name: </span>{{ $establishment->establishment_name }}</li>
                     <li><span class="fw-bold">Business Permit: </span>{{ $establishment->business_permit_no }}</li>
+                    <li><span class="fw-bold">Building Permit: </span>{{ $establishment->building_permit_no }}</li>
                     <li><span class="fw-bold">Substation: </span>{{ $establishment->substation }}</li>
                     <li><span class="fw-bold">Occupancy: </span>{{ $establishment->occupancy }}</li>
                     <li><span class="fw-bold">Occupancy Sub-Type: </span>{{ $establishment->sub_type }}</li>
@@ -28,8 +29,8 @@
                     <li><span class="fw-bold">Building Story: </span>{{ $establishment->no_of_storey }}</li>
                     <li><span class="fw-bold">Floor Area: </span>{{ $establishment->floor_area }} (sq m)</li>
                     <li><span class="fw-bold">Height: </span>{{ $establishment->height }} (m)</li>
+                    <li><span class="fw-bold">Hazard Note: </span>{{ $establishment->hazard_note }}</li>
                     <li><span class="fw-bold">Fire Insurance Co: </span>{{ $establishment->fire_insurance_co }}</li>
-                    <li><span class="fw-bold">Latest Permit: </span>{{ $establishment->latest_permit }}</li>
                     <li><span class="fw-bold">Barangay: </span>{{ $establishment->barangay }}</li>
                     <li><span class="fw-bold">Address: </span>{{ $establishment->address }}</li>
                     <li><span class="fw-bold fs-5 my-3">Owner</li>

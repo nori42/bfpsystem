@@ -19,10 +19,6 @@ class DashboardController extends Controller
         $monthNow = date('m');
 
 
-        DB::table('establishments')
-            ->where('firedrill_type','QUARTERLY')
-            ->where('firedrill_count_yearly','<',3)
-            ->update(['firedrill_is_expired' => true]);
 
         $expiredInspectionsCount = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
         ->where('establishments.inspection_is_expired',1)
@@ -38,36 +34,63 @@ class DashboardController extends Controller
             'Pari-an' => FiredrillHelper::getIssuedFiredrillCount('PARI-AN',$yearNow,$monthNow),
             'San Nicolas' => FiredrillHelper::getIssuedFiredrillCount('SAN NICOLAS',$yearNow,$monthNow),
             'Talamban' => FiredrillHelper::getIssuedFiredrillCount('TALAMBAN',$yearNow,$monthNow),
-            'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
+            'CBP' => FiredrillHelper::getIssuedFiredrillCount('CBP',$yearNow,$monthNow)
         ];
 
-        $fsicIssuedSubstation = [
-            'Guadalupe' => FSICHelper::getIssuedFSICCount('GUADALUPE',$yearNow,$monthNow),
-            'Labangon' => FSICHelper::getIssuedFSICCount('LABANGON',$yearNow,$monthNow),
-            'Lahug' => FSICHelper::getIssuedFSICCount('LAHUG',$yearNow,$monthNow),
-            'Mabolo' => FSICHelper::getIssuedFSICCount('MABOLO',$yearNow,$monthNow),
-            'Pahina Central' => FSICHelper::getIssuedFSICCount('PAHINA CENTRAL',$yearNow,$monthNow),
-            'Pardo' => FSICHelper::getIssuedFSICCount('PARDO',$yearNow,$monthNow),
-            'Pari-an' => FSICHelper::getIssuedFSICCount('PARI-AN',$yearNow,$monthNow),
-            'San Nicolas' => FSICHelper::getIssuedFSICCount('SAN NICOLAS',$yearNow,$monthNow),
-            'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$yearNow,$monthNow),
-            'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
-        ];
+        // $fsicIssuedSubstation = [
+        //     'Guadalupe' => FSICHelper::getIssuedFSICCount('GUADALUPE',$yearNow,$monthNow),
+        //     'Labangon' => FSICHelper::getIssuedFSICCount('LABANGON',$yearNow,$monthNow),
+        //     'Lahug' => FSICHelper::getIssuedFSICCount('LAHUG',$yearNow,$monthNow),
+        //     'Mabolo' => FSICHelper::getIssuedFSICCount('MABOLO',$yearNow,$monthNow),
+        //     'Pahina Central' => FSICHelper::getIssuedFSICCount('PAHINA CENTRAL',$yearNow,$monthNow),
+        //     'Pardo' => FSICHelper::getIssuedFSICCount('PARDO',$yearNow,$monthNow),
+        //     'Pari-an' => FSICHelper::getIssuedFSICCount('PARI-AN',$yearNow,$monthNow),
+        //     'San Nicolas' => FSICHelper::getIssuedFSICCount('SAN NICOLAS',$yearNow,$monthNow),
+        //     'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$yearNow,$monthNow),
+        //     'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
+        // ];
+        
+
+        $inspectionsSm = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
+            ->select('establishments.substation','establishments.id','inspections.fsic_no','inspections.registration_status')
+            ->whereNot('inspections.registration_status','NEW')
+            ->whereYear('inspections.issued_on', '=', $yearNow)
+            ->whereMonth('inspections.issued_on', '=', $monthNow)
+            ->get();
 
         $substationTotalCountFiredrill = 0;
         $cbpFiredrill = FiredrillHelper::getIssuedFiredrillCount('CBP',$yearNow,$monthNow);
 
-        $substationTotalCountInspection = 0;
-        $cbpInspection = FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow);
+        // $substationTotalCountInspection = 0;
+        // $cbpInspection = FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow);
 
         $totalEstablishments = Establishment::count();
         $totalPending = BuildingPlan::where('status','PENDING')->count();
 
-        foreach($firedrillIssuedSubstation as $key => $value){
+        // GET INSPECTIONS EXCEPT FOR CBP
+        $inspectionsSubstation = $inspectionsSm->where('substation','!=','CBP');
+
+        // GROUP SUBSTATIONS
+        $fsicIssuedSubstation = $inspectionsSm->groupBy('substation');
+
+        // GET REG_STAT OCCUPANCY INSPTECTIONS
+        $inspectionsOccupancy = $inspectionsSm->where('registration_status','OCCUPANCY');
+
+        // GET CBP SUBSTATIONS
+        $inspectionsCBP = $fsicIssuedSubstation->where('substation','CBP');
+
+        $totalNew = Inspection::where('registration_status','NEW')
+                        ->whereYear('inspections.issued_on', '=', $yearNow)
+                        ->whereMonth('inspections.issued_on', '=', $monthNow)->count();
+
+        $totalCBP = count($inspectionsCBP);
+        $totalOccupancy = count($inspectionsOccupancy);
+        $totalSubstation = count($inspectionsSubstation);
+        $totalGrand = $totalNew + $totalCBP + $totalSubstation;
+
+
+        foreach($firedrillIssuedSubstation as $value){
             $substationTotalCountFiredrill += $value;
-        }
-        foreach($fsicIssuedSubstation as $key => $value){
-            $substationTotalCountInspection += $value;
         }
 
         $firedrillIssued = [
@@ -80,11 +103,13 @@ class DashboardController extends Controller
         $issuedNew = FSICHelper::getIssuedNewByMonthNFSIC($yearNow,$monthNow);
 
         $fsicIssued = [
-            'issuedBySubstation' => $fsicIssuedSubstation,
-            'CBP' => $cbpInspection,
-            'new' => $issuedNew,
-            'totalSubstation' => $substationTotalCountInspection,
-            'totalGrand' => $cbpInspection + $substationTotalCountInspection
+            'substations' => $fsicIssuedSubstation,
+            'totalCBP' => $totalCBP,
+            'totalNew' => $totalNew,
+            'totalSubstation' => $totalSubstation,
+            'totalGrand' => $totalGrand,
+            'totalOccupancy' => $totalOccupancy,
+            'totalSubstation' => $totalSubstation
         ];
 
         $loggedInUsers = User::where('last_active_at', '>=', now()->subMinutes(5))->whereNotNull('last_active_at')->get();

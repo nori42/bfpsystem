@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\BuildingPlan;
 use App\Models\Establishment;
+use App\Models\Firedrill;
 use App\Models\Inspection;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -56,6 +57,8 @@ class ServeExtended extends Command
         Establishment::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
         User::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
         BuildingPlan::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
+        Inspection::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
+        Firedrill::onlyTrashed()->whereDate('deleted_at','<=',now()->subDays(30))->forceDelete();
         
         // Check for the firedrills
         switch(date('F-d',time())){

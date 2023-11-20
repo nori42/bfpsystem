@@ -30,10 +30,6 @@
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
             type="date" class="w-50" :required="true" />
-        <x-form.input name="note{{ $key }}" input-inspect label="Note" type="text"
-            customAttr="{{ $inputAttr }}" />
-        {{-- <x-form.input name="buildingStructures{{ $key }}" input-inspect label="Building Structures"
-            type="text" customAttr="{{ $inputAttr }}" /> --}}
 
     </fieldset>
     <hr>
@@ -44,15 +40,14 @@
             customAttr="{{ $inputAttr }}" type="text" :required="true" />
 
         <x-form.select label="Registration Status" name="registrationStatus{{ $key }}"
-            customAttr="{{ $inputAttr }} required" placeholder="Select Registration Status">
-            {{-- <x-form.selectOptions.options :options="$selectOptions['registrationStatus']" /> --}}
+            customAttr="{{ $inputAttr }} required" placeholder="--Select Registration Status--">
             <x-options.registrationStatus />
         </x-form.select>
 
-        {{-- <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="Select Issued For"
+        <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="--Select Issued For--"
             customAttr="{{ $inputAttr }}">
-            <x-form.selectOptions.options :options="$selectOptions['issuedFor']" />
-        </x-form.select> --}}
+            <x-options.issuedFor />
+        </x-form.select>
     </fieldset>
     <hr>
     <fieldset>
@@ -93,21 +88,68 @@
 <script>
     const registrationStatus = document.querySelector('#registrationStatus')
     const natureOfPayment = document.querySelector('#natureOfPayment')
+    const issuedFor = document.querySelector('#issuedFor')
+
+    const issuedForOpt = {
+        NEW: ["THE PURPOSE OF SECURING BUSINESS PERMIT", "NEW BUSINESS PERMIT"],
+        RENEWAL: ["RENEWAL OF BUSINESS PERMIT"],
+        ACCREDITATION: [
+            "RENEWAL OF BUSINESS PERMIT/TESDA ACCREDITATION",
+            "RENEWAL OF BUSINESS PERMIT/DOT ACCREDITATION",
+        ],
+        OTHER: [
+            "RENEWAL OF BUSINESS PERMIT/TESDA ACCREDITATION",
+            "RENEWAL OF BUSINESS PERMIT/DOT ACCREDITATION",
+            "ANNUAL INSPECTION OF PEZA CERTIFICATE",
+        ],
+        OCCUPANCY: ["PEZA OCCUPANCY PERMIT", "OCCUPANCY PERMIT"],
+    };
+
+    function appendOption(selectElem, option) {
+        const optionEl = document.createElement("option");
+        optionEl.setAttribute("value", option);
+        optionEl.innerHTML = option;
+        selectElem.appendChild(optionEl);
+    }
 
     registrationStatus.addEventListener('change', () => {
+        issuedFor.innerHTML = "";
+
         switch (registrationStatus.value) {
-            case "NEW":
+            case "NEW": {
                 natureOfPayment.value = "FSIF(NBP) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                break;
-            case "RENEWAL":
+                issuedForOpt.NEW.forEach(option => {
+                    appendOption(issuedFor, option)
+                });
+            }
+            break;
+            case "RENEWAL": {
                 natureOfPayment.value = "FSIF(RBP) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                break;
-            case "OCCUPANCY":
+                issuedForOpt.RENEWAL.forEach(option => {
+                    appendOption(issuedFor, option)
+                });
+            }
+            break;
+            case "OCCUPANCY": {
                 natureOfPayment.value = "FSIF(OCC) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                break;
-            case "ACCREDITATION":
+                issuedForOpt.OCCUPANCY.forEach(option => {
+                    appendOption(issuedFor, option)
+                });
+            }
+            break;
+            case "ACCREDITATION": {
                 natureOfPayment.value = "FSIF(ACCREDITATION) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                break;
+                issuedForOpt.ACCREDITATION.forEach(option => {
+                    appendOption(issuedFor, option)
+                });
+            }
+            break;
+            case "OTHER": {
+                issuedForOpt.OTHER.forEach(option => {
+                    appendOption(issuedFor, option)
+                });
+            }
+            break;
         }
     })
 </script>

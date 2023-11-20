@@ -113,11 +113,11 @@
                     <div data-draggable="true" data-editable class="others-info" others="descrpt">
                         <span>
                             @if ($isStatusOthers && $inspection->others_descrpt == null)
-                                {{ $inspection->registration_status }}
+                                {{ $inspection->issued_for }}
                             @endif
-                            @if ($inspection->others_descrpt != null)
+                            {{-- @if ($inspection->others_descrpt != null)
                                 {{ $inspection->others_descrpt }}
-                            @endif
+                            @endif --}}
                         </span>
                     </div>
                 </div>
@@ -143,13 +143,24 @@
         </div>
 
         <div class="more-info bold" data-draggable="true" data-editable descrpt1>
+            <span>
+                {{-- Add Space --}}
+                @for ($i = 0; $i < 3; $i++)
+                    &nbsp;
+                @endfor
+                {{ $inspection->issued_for }}
+            </span>
             <span>{{ $inspection->valid_for_descrpt }}</span>
         </div>
         <div class="more-info more-info-2 bold" data-draggable="true" data-editable descrpt1>
             <span>{{ $inspection->valid_for_descrpt2 }}</span>
         </div>
         <div data-draggable="true" class="validity bold">
-            <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('F d, Y', strtotime($inspection->expiry_date)) }}</span>
+            @if ($inspection->registration_status == 'OCCUPANCY')
+                <span>Not Applicable</span>
+            @else
+                <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('F d, Y', strtotime($inspection->expiry_date)) }}</span>
+            @endif
         </div>
 
         <div data-draggable="true" class="fc-fee bold">

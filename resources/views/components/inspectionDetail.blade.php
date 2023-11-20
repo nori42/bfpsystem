@@ -69,8 +69,8 @@
 
                     <x-form.input name="inspectionDateDetail" label="Inspection Date" customAttr="{{ $inputAttr }}"
                         type="date" class="w-50" value="{{ $inspection->inspection_date }}" :readonly="$printed" />
-                    <x-form.input name="noteDetail" input-inspect label="Note" type="text"
-                        customAttr="{{ $inputAttr }}" value="{{ $inspection->note }}" :readonly="$printed" />
+                    {{-- <x-form.input name="noteDetail" input-inspect label="Note" type="text"
+                        customAttr="{{ $inputAttr }}" value="{{ $inspection->note }}" :readonly="$printed" /> --}}
                     {{-- <x-form.input name="buildingStructuresDetail" input-inspect label="Building Structures" type="text"
                     customAttr="{{ $inputAttr }}" value="{{ $inspection->building_structures }}" :readonly="$printed" /> --}}
 
@@ -97,6 +97,8 @@
                         <x-options.registrationStatus />
                     </x-form.select>
 
+                    <x-form.input name="issuedFor" label="Issued For" input-inspect type="text"
+                        value="{{ $inspection->issued_for }}" :readonly="$printed" />
                 </fieldset>
                 <hr>
                 <fieldset>

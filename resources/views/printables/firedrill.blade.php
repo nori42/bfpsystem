@@ -38,7 +38,8 @@
         <form class="m-0 d-none" id="print" action="/firedrill/print/{{ $firedrill->id }}" method="POST" btndone>
             @csrf
             @method('PUT')
-            <button class="btn btn-success">Done<i class="bi bi-check-lg" name="action" value="reprint"></i></button>
+            <button class="btn btn-success" name="action" value="reprint">Done<i class="bi bi-check-lg"
+                    name="action"></i></button>
         </form>
         {{-- <a class="btn btn-success d-none" href="/establishments/{{ $firedrill->establishment_id }}/firedrill" btndone>Done
             <i class="bi bi-check-lg"></i></a> --}}

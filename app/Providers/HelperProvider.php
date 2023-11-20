@@ -20,7 +20,7 @@ class HelperProvider {
             
             $expiredInspections = Inspection::join('establishments','establishments.id','=','inspections.establishment_id')
             ->where('establishments.inspection_is_expired',1)
-            ->whereBetween('expiry_date',[date('Y-m-d',strtotime('-2 days', time())),date('Y-m-d')])
+            ->whereBetween('expiry_date',[date('Y-m-d',strtotime('-3 days', time())),date('Y-m-d')])
             ->orderBy('expiry_date','desc')
             ->get();
 

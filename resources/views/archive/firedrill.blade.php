@@ -6,9 +6,9 @@
 
         <table class="table">
             <thead>
+                <th>Establishment</th>
                 <th>Control No</th>
                 <th>Validity</th>
-                <th>OR No.</th>
                 <th>Date of Drill</th>
                 <th>Issued On</th>
                 <th>Date Claimed</th>
@@ -18,9 +18,9 @@
             <tbody>
                 @foreach ($firedrills as $item)
                     <tr>
+                        <td>{{ $item->establishment_name }}</td>
                         <td>{{ $item->control_no ? $item->control_no : 'Not Issued' }}</td>
                         <td>{{ $item->validity_term }}</td>
-                        <td>{{ $item->receipt->or_no }}</td>
                         <td>{{ date('F d, Y', strtotime($item->date_made)) }}</td>
                         <td>{{ $item->issued_on ? date('m/d/Y', strtotime($item->issued_on)) : 'Not Issued' }}</td>
                         <td>

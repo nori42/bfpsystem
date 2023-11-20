@@ -130,6 +130,6 @@ class PersonnelController extends Controller
         $personnel->delete();
         $user->delete();
 
-        return redirect('/personnel')->with(["toastMssg" => "Personnel successfully deleted"]);;
+        return redirect('/personnel')->with(["toastMssg" => "Personnel successfully deactivated"]);;
     }
 }

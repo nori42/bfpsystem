@@ -87,6 +87,8 @@ class FiredrillController extends Controller
         $owner = $establishment->owner;
 
         if($request->input('action') == "delete"){
+            $firedrill->control_no =$firedrill->control_no."_".$firedrill->id;
+            $firedrill->save();
             $firedrill->delete();
             return redirect("/establishments/{$firedrill->establishment->id}/firedrill")->with('toastMssg','Firedrill discarded');
         }

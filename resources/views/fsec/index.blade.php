@@ -39,7 +39,7 @@
             {{-- <x-modal topLocation="3" width="100" id="pendingModal" leftLocation="30" class="bg-white">
             </x-modal> --}}
 
-            <div class="modal" id="pendingApplication">
+            <div class="modal fade" id="pendingApplication">
                 <div class="modal-dialog modal-dialog-scrollable modal-xl">
                     <div class="modal-content px-5 py-3">
                         <div class="overflow-auto">

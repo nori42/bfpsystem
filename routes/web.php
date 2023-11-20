@@ -100,7 +100,7 @@ Route::middleware(['auth','userType:ADMINISTRATOR,FSEC','personnelChecker'])->gr
     Route::post('/fsec/upload/{for}',[FsecController::class,'uploadDisapproval']);
     Route::post('/fsec/upload/{for}',[FsecController::class,'uploadDisapproval']);
     Route::get('/fsec/{id}/edit', [FsecController::class, 'edit']);
-    Route::post('/fsec/{id}/delete', [FsecController::class, 'destory']);
+    Route::post('/fsec/{id}/delete', [FsecController::class, 'destroy']);
     Route::get('/fsec/{id}', [FsecController::class, 'show']);
     Route::put('/fsec/{id}',[FsecController::class,'update']);
 });

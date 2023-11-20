@@ -11,7 +11,7 @@
         @php
             $urlResource = $for == 'establishment' ? 'establishments/search' : 'fsec/search';
         @endphp
-        <form action={{ $urlResource }} method="POST">
+        <form id="searchForm" action={{ $urlResource }} method="POST">
             @csrf
             <div class="w-100">
 
