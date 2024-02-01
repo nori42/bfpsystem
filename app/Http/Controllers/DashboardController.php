@@ -37,6 +37,21 @@ class DashboardController extends Controller
             'CBP' => FiredrillHelper::getIssuedFiredrillCount('CBP',$yearNow,$monthNow)
         ];
 
+
+        // $fsicIssuedSubstation = [
+        //     'Guadalupe' => FSICHelper::getIssuedFSICCount('GUADALUPE',$yearNow,$monthNow),
+        //     'Labangon' => FSICHelper::getIssuedFSICCount('LABANGON',$yearNow,$monthNow),
+        //     'Lahug' => FSICHelper::getIssuedFSICCount('LAHUG',$yearNow,$monthNow),
+        //     'Mabolo' => FSICHelper::getIssuedFSICCount('MABOLO',$yearNow,$monthNow),
+        //     'Pahina Central' => FSICHelper::getIssuedFSICCount('PAHINA CENTRAL',$yearNow,$monthNow),
+        //     'Pardo' => FSICHelper::getIssuedFSICCount('PARDO',$yearNow,$monthNow),
+        //     'Pari-an' => FSICHelper::getIssuedFSICCount('PARI-AN',$yearNow,$monthNow),
+        //     'San Nicolas' => FSICHelper::getIssuedFSICCount('SAN NICOLAS',$yearNow,$monthNow),
+        //     'Talamban' => FSICHelper::getIssuedFSICCount('TALAMBAN',$yearNow,$monthNow),
+        //     'CBP' => FSICHelper::getIssuedFSICCount('CBP',$yearNow,$monthNow)
+        // ];
+        
+        
         // $fsicIssuedSubstation = [
         //     'Guadalupe' => FSICHelper::getIssuedFSICCount('GUADALUPE',$yearNow,$monthNow),
         //     'Labangon' => FSICHelper::getIssuedFSICCount('LABANGON',$yearNow,$monthNow),
@@ -119,7 +134,8 @@ class DashboardController extends Controller
             'totalEstablishments' => $totalEstablishments,
             'totalPending' => $totalPending,
             'loggedInUsers' => $loggedInUsers,
-            'expiredInspectionCount' => $expiredInspectionsCount
+            'expiredInspectionCount' => $expiredInspectionsCount,
+            'debug' => $inspectionsSm
         ]);
     }
 }

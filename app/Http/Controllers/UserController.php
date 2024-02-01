@@ -129,4 +129,6 @@ class UserController extends Controller
 
         return redirect("/users/{$user->id}")->with('toastMssg','Designation Changed');
     }
+
+    
 }

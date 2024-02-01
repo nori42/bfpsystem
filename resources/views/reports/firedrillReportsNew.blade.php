@@ -25,10 +25,12 @@
                     <th><span>O.R Number</span></th>
                     <th><span>Amount</span></th>
                     <th><span>Date of Payment</span></th>
-                    @if (!$unclaimed)
+                    {{-- @if (!$unclaimed)
                         <th><span>Claimed By</span></th>
                         <th><span>Date Claimed</span></th>
-                    @endif
+                    @endif --}}
+                    <th><span>Claimed By</span></th>
+                    <th><span>Date Claimed</span></th>
                 </thead>
                 <tbody>
                     @foreach ($firedrills as $firedrill)
@@ -55,10 +57,15 @@
                             <td>{{ $firedrill->receipt->or_no }}</td>
                             <td>&#8369;{{ $firedrill->receipt->amount }}</td>
                             <td>{{ date('m/d/Y', strtotime($firedrill->receipt->date_of_payment)) }}</td>
-                            @if (!$unclaimed)
+                            {{-- @if (!$unclaimed)
                                 <td>{{ $firedrill->claimed_by }}</td>
+                                </td>
                                 <td>{{ $firedrill->claimed_by ? date('m/d/Y', strtotime($firedrill->date_claimed)) : '' }}
-                            @endif
+                                </td>
+                            @endif --}}
+                            <td>{{ $firedrill->claimed_by ?? 'Unclaimed' }}</td>
+                            </td>
+                            <td>{{ $firedrill->claimed_by ? date('m/d/Y', strtotime($firedrill->date_claimed)) : '' }}
                             </td>
                         </tr>
                     @endforeach

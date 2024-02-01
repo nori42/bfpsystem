@@ -28,14 +28,20 @@ class OwnerFactory extends Factory
 
         if(rand(0,3) == 0){
             $compName = strtoupper(fake()->company());
+            $firstName = null;
+            $lastName = null;
+            $middleName = null;
         }
         else{
             $compName = null;
+            $firstName = strtoupper(fake()->firstName());
+            $middleName = strtoupper(fake()->lastName());
+            $lastName = strtoupper(fake()->lastName());
         }
         return [
-            'first_name' => strtoupper(fake()->firstName()),
-            'middle_name' => strtoupper(fake()->lastName()),
-            'last_name' => strtoupper(fake()->lastName()),
+            'first_name' => $firstName,
+            'middle_name' => $middleName,
+            'last_name' => $lastName,
             'contact_no' => fake()->phoneNumber,
             'corporate_name' => $compName
         ];

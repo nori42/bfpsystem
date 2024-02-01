@@ -31,12 +31,18 @@ class InspectionFactory extends Factory
         $dateInsp->setDate($randomYear, $randomMonth, $randomDay);
 
         $registrationStatus = array('NEW','RENEWAL','OCCUPANCY','ACCREDITATION','BUILDING PERMIT');
-        if(rand(0,5) == 0){
+        $issuedFor = array('NEW BUSINESS PERMIT','THE PURPOSE OF SECURING BUSINESS PERMIT','OCCUPANCY PERMIT','RENEWAL OF BUSINESS PERMIT');
+        if(true){
+
+            $date = HelperFactory::randomDate(2023,2023,7,9);
 
             return [
                 //
-                'inspection_date' => HelperFactory::randomDate(2023,2023,7,9),
-                'registration_status' => $registrationStatus[rand(0, 4)],
+                'inspection_date' => $date,
+                'registration_status' => $registrationStatus[0],
+                'issued_for' => $issuedFor[0],
+                'issued_on' => $date,
+                'status' => 'Printed',
                 'fsic_no' => rand(1000, 99999),
                 'user_id' => 1,
                 'receipt_id' => Receipt::factory(),
@@ -46,13 +52,6 @@ class InspectionFactory extends Factory
         }
         else
         {
-
-            // $randomDay = rand(1, 28); // Generate a random day between 1 and 28
-            // $randomMonth = rand(1, 12); // Generate a random month between 1 and 12
-            // $randomYear = rand(2019, 2022); // Generate a random year between 1900 and 2022
-            // $nextYear = $randomYear + 1;
-            // $date = new DateTime();
-            // $date->setDate($randomYear, $randomMonth, $randomDay);
 
             $date = HelperFactory::randomDate(2022,2022,9,9);
 

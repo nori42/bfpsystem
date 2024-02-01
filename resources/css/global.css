@@ -48,10 +48,18 @@ input, button, select{
     color: white !important;
 }
 
+.btn-subtleblue {
+    color: #c9d6e6 !important;
+
+}
+
 .text-primary {
     color: var(--primary-color) !important;
 }
-
+   
+.bg-subtleBlue {
+    background-color: #e3e2e2 !important;
+}
 
 /* table style global */
 .table tbody tr:nth-child(odd) {
@@ -71,7 +79,7 @@ input, button, select{
 
 /* form-wrapper global */
 .form-wrapper{
-    background-color: var(--primary-subtle);
+    background-color: #e3e2e2;
 }
 
 .form-wrapper label{

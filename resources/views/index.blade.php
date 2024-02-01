@@ -51,12 +51,13 @@
                 @endif
 
                 @csrf
+
                 <div>
                     <label class="fs-5 text-secondary">Username @error('username')
                             <span class="text-danger fs-5">(Username is required)</span>
                         @enderror
                     </label>
-                    <input class="form-control d-block fs-4 w-100" type="text" name="username" autocomplete="off">
+                    <input class="form-control d-block fs-6 w-100" type="text" name="username" autocomplete="off">
                 </div>
 
                 <div class="mt-4">
@@ -66,9 +67,9 @@
                     </label>
 
                     <div class="position-relative mb-5">
-                        <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password">
-                        <button id="showPassword" data-shown="false" type="button" class="btn position-absolute fs-4"
-                            style="right: 1rem; top: 0.05rem;">
+                        <input id="password" class="form-control d-block fs-6 w-100" type="password" name="password">
+                        <button id="showPassword" data-shown="false" type="button"
+                            class="btn position-absolute fs-5 p-1" style="right: 1rem; top: 0.02rem;">
                             <i class="bi bi-eye-fill"></i>
                         </button>
                     </div>

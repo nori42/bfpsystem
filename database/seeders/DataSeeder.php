@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BuildingPlan;
 use App\Models\Establishment;
 use App\Models\Firedrill;
 use App\Models\Inspection;
@@ -17,8 +18,7 @@ class DataSeeder extends Seeder
     public function run(): void
     {
         //
-        Establishment::factory()->count(HelperFactory::$establishmentCount)->create();
-        Inspection::factory()->count(1000)->create();
-        Firedrill::factory()->count(1000)->create();
+        Establishment::factory()->count(50)->create();
+        BuildingPlan::factory()->count(50)->create();
     }
 }

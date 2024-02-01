@@ -10,11 +10,9 @@
         //load json files
         $natureOfPayment = json_decode(file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'), true);
         $regStatus = json_decode(file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'), true);
-        $issuedFor = json_decode(file_get_contents(public_path() . '/json/selectOptions/issuedFor.json'), true);
         $selectOptions = [
             'natureOfPayment' => $natureOfPayment,
             'registrationStatus' => $regStatus,
-            'issuedFor' => $issuedFor,
         ];
     @endphp
     <div class="d-flex justify-content-between">
@@ -44,9 +42,9 @@
             <x-options.registrationStatus />
         </x-form.select>
 
-        <x-form.select label="Issued For" name="issuedFor{{ $key }}" placeholder="--Select Issued For--"
+        <x-form.select label="Issued For" name="issued_For{{ $key }}" placeholder="--Select Issued For--"
             customAttr="{{ $inputAttr }}">
-            <x-options.issuedFor />
+            {{-- <x-options.issuedFor /> --}}
         </x-form.select>
     </fieldset>
     <hr>
@@ -67,89 +65,16 @@
     </fieldset>
 
     <div class="d-flex justify-content-end mt-3 gap-2">
-        {{-- <button class="btn btn-primary px-3 py-0" type="submit" name="action" value="add">
-            <i class="bi bi-plus-circle-fill px-2"></i>
-            <span>Add</span>
-        </button> --}}
+        <button class="d-none btn btn-warning px-4" type="submit" name="action" value="addandprintoccupancy"
+            id="btnPrintOccupancy">
+            <i class="bi bi-printer-fill mr-3"></i>
+            Print Occupancy
+        </button>
         <button class="btn btn-primary px-4" type="submit" name="action" value="addandprint">
             <i class="bi bi-printer-fill mr-3"></i>
             Print
         </button>
     </div>
-    {{-- @if (!$isDetail)
-    @else
-        <div class="d-flex justify-content-end mt-3 gap-2">
-            <button class="btn btn-primary" type="submit" name="action" value="save">Save</button>
-            <button class="btn btn-primary" type="submit" name="action" value="saveandprint">Save and Print</button>
-        </div>
-    @endif --}}
 </form>
 
-<script>
-    const registrationStatus = document.querySelector('#registrationStatus')
-    const natureOfPayment = document.querySelector('#natureOfPayment')
-    const issuedFor = document.querySelector('#issuedFor')
-
-    const issuedForOpt = {
-        NEW: ["THE PURPOSE OF SECURING BUSINESS PERMIT", "NEW BUSINESS PERMIT"],
-        RENEWAL: ["RENEWAL OF BUSINESS PERMIT"],
-        ACCREDITATION: [
-            "RENEWAL OF BUSINESS PERMIT/TESDA ACCREDITATION",
-            "RENEWAL OF BUSINESS PERMIT/DOT ACCREDITATION",
-        ],
-        OTHER: [
-            "RENEWAL OF BUSINESS PERMIT/TESDA ACCREDITATION",
-            "RENEWAL OF BUSINESS PERMIT/DOT ACCREDITATION",
-            "ANNUAL INSPECTION OF PEZA CERTIFICATE",
-        ],
-        OCCUPANCY: ["PEZA OCCUPANCY PERMIT", "OCCUPANCY PERMIT"],
-    };
-
-    function appendOption(selectElem, option) {
-        const optionEl = document.createElement("option");
-        optionEl.setAttribute("value", option);
-        optionEl.innerHTML = option;
-        selectElem.appendChild(optionEl);
-    }
-
-    registrationStatus.addEventListener('change', () => {
-        issuedFor.innerHTML = "";
-
-        switch (registrationStatus.value) {
-            case "NEW": {
-                natureOfPayment.value = "FSIF(NBP) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                issuedForOpt.NEW.forEach(option => {
-                    appendOption(issuedFor, option)
-                });
-            }
-            break;
-            case "RENEWAL": {
-                natureOfPayment.value = "FSIF(RBP) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                issuedForOpt.RENEWAL.forEach(option => {
-                    appendOption(issuedFor, option)
-                });
-            }
-            break;
-            case "OCCUPANCY": {
-                natureOfPayment.value = "FSIF(OCC) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                issuedForOpt.OCCUPANCY.forEach(option => {
-                    appendOption(issuedFor, option)
-                });
-            }
-            break;
-            case "ACCREDITATION": {
-                natureOfPayment.value = "FSIF(ACCREDITATION) - FIRE SAFETY INSPECTION FEE - BFP-06"
-                issuedForOpt.ACCREDITATION.forEach(option => {
-                    appendOption(issuedFor, option)
-                });
-            }
-            break;
-            case "OTHER": {
-                issuedForOpt.OTHER.forEach(option => {
-                    appendOption(issuedFor, option)
-                });
-            }
-            break;
-        }
-    })
-</script>
+<script></script>

@@ -46,6 +46,40 @@ class PrintController extends Controller
         return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
     }
 
+    public function show_print_occupancy(Request $request){
+        $inspection = Inspection::find($request->id);
+        $establishment = $inspection->establishment;
+        return view('printables.occupancy', [
+            'inspection' => $inspection,
+            'establishment' => $establishment
+        ]);
+        
+    }
+
+    public function print_occupancy(Request $request){
+        $inspection = Inspection::find($request->id);
+        $establishment = Establishment::find($inspection->establishment->id);
+        
+        $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
+        $inspection->issued_on = date("Y-m-d");
+        $inspection->user_id = auth()->user()->id;
+        $inspection->others_descrpt = $request->othersDescrpt;
+        $inspection->valid_for_descrpt = $request->validForDescrpt1;
+        $inspection->valid_for_descrpt2 = $request->validForDescrpt2;
+        $inspection->status ='Printed';
+
+        $establishment->inspection_is_expired = false;
+
+        $inspection->save();
+        $establishment->save();
+
+        $logMessage = "Issued a Fire Safety Inspection Certificate: FSIC.NO {$inspection->fsic_no} to {$establishment->establishment_name}";
+        ActivityLogger::logActivity($logMessage,'FSIC');
+        // ActivityLogger::fsicLog($inspection->establishment->establishment_name,Activity::PrintInspection); 
+
+        return redirect('/establishments'.'/'.$inspection->establishment->id.'/fsic');        
+    }
+
     //Firedrill
     public function show_print_firedrill(Request $request){
         $firedrill = Firedrill::find($request->id);
@@ -55,8 +89,8 @@ class PrintController extends Controller
 
         $representative = $establishment->getOwnerName();
         
-        $firedrillsByYear = (Firedrill::where('year',date('Y')));
-        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYear->count());
+        $firedrillsByYearCnt = (Firedrill::where('year',date('Y'))->withTrashed()->count());
+        $newControlNo = date('Y').'-CCFO-'.sprintf("%04d",$firedrillsByYearCnt);
 
         return view('printables.firedrill',[
             'firedrill' => $firedrill,

@@ -245,7 +245,7 @@ class EstablishmentController extends Controller
         // ActivityLogger::establishmentLog($establishment->establishment_name,Activity::DeleteEstablishment);
         $logMessage = "Deleted the establishment: $establishment->establishment_name";
         ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
-        return redirect('/establishments')->with(["deleteSuccess" => "Establishment successfully deleted"]);
+        return redirect('/establishments')->with(["deleteSuccess" => "Establishment has been moved to archive"]);
     }
 
     //Add New Establishment for Existing Owner

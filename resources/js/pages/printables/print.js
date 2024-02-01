@@ -7,7 +7,7 @@ window.selectAll = (selector) => {
 };
 
 window.addEventListener("keydown", (e) => {
-    if (e.key == "p") {
+    if (e.ctrlKey && e.key == "p") {
         select("[btnback").remove();
         selectAll("[btndone]").forEach((btn) => {
             btn.classList.remove("d-none");

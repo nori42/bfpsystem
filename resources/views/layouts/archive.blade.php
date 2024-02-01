@@ -77,12 +77,39 @@
 
 @section('page-script')
     <script>
-        function goTo(route) {
-            document.querySelector('#content').innerHTML = '<h2 class="text-center text-secondary">Fetching data...</h2>'
-            location.href = '/archived/' + route
+        // function goTo(route) {
+        //     document.querySelector('#content').innerHTML = '<h2 class="text-center text-secondary">Fetching data...</h2>'
+        //     location.href = '/archived/' + route
+        // }
+
+
+        // // document.querySelector('#establishments').addEventListener('click', () => goTo('establishments'))
+        // // document.querySelector('#users').addEventListener('click', () => goTo('users'))
+        // // document.querySelector('#buildingPlan').addEventListener('click', () => goTo('fsec'))
+        window.select = (selector) => {
+            return document.querySelector([selector]);
+        };
+
+        window.selectAll = (selector) => {
+            return document.querySelectorAll([selector]);
+        };
+
+        window.addEvent = (event, elem, fnct) => {
+            elem.addEventListener(event, fnct);
+        };
+
+        window.showLoading = () => {
+            // toggleShow('loading-bar-spinner')
+            // document.querySelector('#loading-bar-spinner').style.display = 'block';
+            // document.querySelector('#deleteModalContent').style.visibility = 'hidden';
         }
-        document.querySelector('#establishment').addEventListener('click', () => goTo('establishments'))
-        document.querySelector('#users').addEventListener('click', () => goTo('users'))
-        document.querySelector('#buildingPlan').addEventListener('click', () => goTo('fsec'))
+
+        if (selectAll("[btnKey]")[0]) {
+            selectAll("[btnKey]").forEach((btn) => {
+                addEvent("click", btn, (e) => {
+                    select("#deletionId").value = e.target.getAttribute("btnKey");
+                });
+            });
+        }
     </script>
 @endsection

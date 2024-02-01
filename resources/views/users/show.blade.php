@@ -27,29 +27,9 @@
             </div>
             <div class="d-flex flex-column gap-3 mt-3">
                 {{-- Username --}}
-                {{-- <div>
-                    <x-account.btnEdit label="Username" value="{{ $user->username }}" menuId="usernameEdit" />
-
-                    <div id="usernameEdit" class="fs-6 px-5 py-3 bg-subtleBlue" style="display: none !important;">
-                        <div class="fw-bold my-3">Username</div>
-                        <div>
-                            <form action="/users/{{ $user->id }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="d-flex w-35">
-                                    <label class="text-secondary fw-bold w-100 text-end">Username</label>
-                                    <input class="mx-2 w-100" name="username" type="text" value="{{ $user->username }}"
-                                        autocomplete="off">
-                                </div>
-                                <button class="btn btn-primary my-3" name="action" value="updateUsername">Save
-                                    Changes</button>
-                            </form>
-                        </div>
-                    </div>
-                </div> --}}
                 <div>
                     {{-- <x-account.btnEdit label="Password" value="Change Password" menuId="passwordEdit" /> --}}
-                    <button class="btn btn-subtleBlue w-100 fs-5 px-5 py-3" btnPassword>
+                    <button class="btn btn-primary w-100 fs-5 px-5 py-3" btnPassword>
                         <span class="float-start">
                             <span class="fw-bold">Password</span>
                             <span class="fw-normal mx-5">Change Password</span>

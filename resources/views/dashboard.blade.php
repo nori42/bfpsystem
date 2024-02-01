@@ -5,7 +5,10 @@
 @section('stylesheet')
     @vite(['resources/css/pages/dashboard.css'])
 @endsection
+
 @section('content')
+    {{-- @dd($debug) --}}
+
     @php
         $summaryCardStyle = "
             max-width:28rem;
@@ -30,6 +33,7 @@
     @endphp
     <div class="page-content">
         {{-- Put page content here --}}
+
         <x-pageWrapper>
 
             <div class="mb-4">

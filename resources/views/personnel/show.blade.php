@@ -71,7 +71,10 @@
                             <a class="btn btn-primary px-5" href="/personnel/{{ $personnel->id }}/edit"> <i
                                     class="bi bi-pencil-fill"></i> Edit Info</a>
                         @endif --}}
-                        <button class="btn btn-primary" id="btnChangeDesig">Change Designation</button>
+
+                        @if ($personnel->user->type != 'ADMINISTRATOR')
+                            <button class="btn btn-primary" id="btnChangeDesig">Change Designation</button>
+                        @endif
                     </div>
 
 

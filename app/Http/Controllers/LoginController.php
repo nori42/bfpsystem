@@ -10,17 +10,17 @@ class LoginController extends Controller
 {
     public function login(Request $request) {
         
+
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required']
         ]);
         
-        
         if (Auth::attempt($credentials)) {
+            ActivityLogger::logActivity("Logged IN",'USER');
 
             $request->session()->regenerate();
 
-            ActivityLogger::logActivity("Logged IN",'USER');
 
             if(Auth::user()->is_password_default && Auth::user()->personnel_id != null){
                 return redirect()->intended('/newpassword');

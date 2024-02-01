@@ -22,7 +22,7 @@ class EstablishmentFactory extends Factory
 
     public function definition(): array
     {
-        $substations = array('CBP','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN');
+        $substations = array('NEW','CBP','GUADALUPE','LABANGON','LAHUG','MABOLO','PAHINA CENTRAL','PARDO','PARI-AN','SAN NICOLAS','TALAMBAN');
         $building_type = array('SMALL', 'MEDIUM', 'LARGE', 'HIGH RISE');
         $occupancy = array('RESIDENTIAL','ASSEMBLY','EDUCATIONAL','MERCANTILE','DETENTION AND CORRECTIONAL','INDUSTRIAL', 'BUSINESS', 'STORAGE', 'OTHERS');
 

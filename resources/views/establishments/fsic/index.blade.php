@@ -85,10 +85,18 @@
                                             Details
                                         </button>
                                         @if ($inspection->status == 'Printed' || $inspection->status == 'Expired')
-                                            <a class="btn btn-primary" href={{ '/fsic/print/' . $inspection->id }}>
-                                                <i class="bi bi-file-earmark-fill"></i>
-                                                View Certificate
-                                            </a>
+                                            @if ($inspection->registration_status == 'OCCUPANCY')
+                                                <a class="btn btn-primary"
+                                                    href={{ '/occupancy/print/' . $inspection->id }}>
+                                                    <i class="bi bi-file-earmark-fill"></i>
+                                                    View Certificate
+                                                </a>
+                                            @else
+                                                <a class="btn btn-primary" href={{ '/fsic/print/' . $inspection->id }}>
+                                                    <i class="bi bi-file-earmark-fill"></i>
+                                                    View Certificate
+                                                </a>
+                                            @endif
                                         @endif
 
                                         @if ($inspection->status == 'Expired')

@@ -173,7 +173,7 @@ class FsecController extends Controller
 
         ActivityLogger::buildingPlanLog($buildingPlan->getOwnerName(),Activity::DeleteBuildingPlan);
 
-        return redirect('/fsec')->with(['toastMssg' => "Application Deleted"]);
+        return redirect('/fsec')->with(['toastMssg' => "Application has been moved to archive"]);
     }
 
     public function release(Request $request){

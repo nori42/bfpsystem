@@ -1,0 +1,105 @@
+body {
+    height: unset;
+}
+
+.printablePage{
+    position: relative;
+    background: #FFFFFF;
+    width: 8.5in;
+    height: 11in;
+    padding: 0;
+    background-image: url(/resources/assets/images/occupancy.png);
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size:cover;
+    margin:5rem auto;
+}
+
+.header{
+    text-align: center;
+    position: absolute;
+    font-size: 11pt;
+    line-height: 1.125rem;
+    top: 90px;
+    left: 253px;
+}
+
+.date-container{
+    position: absolute;
+    font-size: 11pt;
+    top: 315px;
+    left: 545px;
+}
+
+.establishment-name{
+    position: absolute;
+    top: 405px;
+    left: 190px;
+    width: 670px;
+    text-align: center;
+}
+
+.fsic-no{
+    position: absolute;
+    font-size: 16pt !important;
+    top: 175px;
+    left: 230px;
+    color: #1d1d1d;
+}
+
+.rep-name{
+    position: absolute;
+    top: 459px;
+    left: 235px;
+    width: 350px;
+    text-align: center;
+}
+
+.address{
+    position: absolute;
+    top: 490px;
+    left: 82px;
+    width: 670px;
+    text-align: center;
+}
+
+.more-info{
+    position: absolute;
+    top: 565px;
+    left: 320px;
+    min-width:410px;
+    display: flex;
+    font-size: 0.875rem;
+}
+
+.validity {
+    position: absolute;
+    top: 610px;
+    left: 305px;
+}
+
+.fc-fee{
+    position: absolute;
+    top: 700px;
+    line-height: 1.125rem;
+    left: 180px;
+}
+
+.chiefName{
+    position: absolute;
+    top: 730px;
+    left: 510px;
+    text-transform: uppercase;
+}
+
+.marshalName{
+    position: absolute;
+    top: 805px;
+    left: 510px;
+    text-transform: uppercase;
+}
+
+@media print {
+    .printablePage {
+        background-image:none;
+    }
+}

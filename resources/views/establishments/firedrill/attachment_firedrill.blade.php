@@ -55,7 +55,7 @@
             </table>
         @else
             <h2 class="text-center text-secondary">No attachment</h2>
-            <div class="text-center text-secondary">Put inspection related files for this establishment here.</div>
+            <div class="text-center text-secondary">Put firedrill related files for this establishment here.</div>
         @endif
     </div>
 

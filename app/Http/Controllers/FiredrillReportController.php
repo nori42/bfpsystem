@@ -52,32 +52,42 @@ class FiredrillReportController extends Controller
             'totalUnclaimed' => count($firedrillUnclaimed)
         ];
 
-        if($request->unclaimed){
+        // if($request->unclaimed){
 
-            if($request->selfReport){
-                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-                ->where('user_id',auth()->user()->id)
-                ->whereNull('date_claimed')
-                ->get();
-            }
-            else{
-                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-                ->whereNull('date_claimed')
-                ->get();
-            }
+        //     if($request->selfReport){
+        //         $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+        //         ->where('user_id',auth()->user()->id)
+        //         ->whereNull('date_claimed')
+        //         ->get();
+        //     }
+        //     else{
+        //         $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+        //         ->whereNull('date_claimed')
+        //         ->get();
+        //     }
+        // }
+        // else{
+        //     if($request->selfReport){
+        //         $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+        //         ->where('user_id',auth()->user()->id)
+        //         ->whereNotNull('date_claimed')
+        //         ->get();
+        //     }
+        //     else{
+        //         $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+        //         ->whereNotNull('date_claimed')
+        //         ->get();
+        //     }
+        // }
+
+        if($request->selfReport){
+            $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+            ->where('user_id',auth()->user()->id)
+            ->get();
         }
         else{
-            if($request->selfReport){
-                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-                ->where('user_id',auth()->user()->id)
-                ->whereNotNull('date_claimed')
-                ->get();
-            }
-            else{
-                $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
-                ->whereNotNull('date_claimed')
-                ->get();
-            }
+            $firedrills = Firedrill::whereBetween('issued_on',[date('Y-m-d',strtotime($request->dateFrom)),date('Y-m-d',strtotime($request->dateTo))])
+            ->get();
         }
 
         return view('reports.firedrillReportsNew',[

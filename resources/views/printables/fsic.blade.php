@@ -115,9 +115,6 @@
                             @if ($isStatusOthers && $inspection->others_descrpt == null)
                                 {{ $inspection->issued_for }}
                             @endif
-                            {{-- @if ($inspection->others_descrpt != null)
-                                {{ $inspection->others_descrpt }}
-                            @endif --}}
                         </span>
                     </div>
                 </div>
@@ -148,8 +145,11 @@
                 @for ($i = 0; $i < 3; $i++)
                     &nbsp;
                 @endfor
-                {{ $inspection->issued_for }}
+                @if ($inspection->valid_for_descrpt == null)
+                    {{ $inspection->issued_for }}
+                @endif
             </span>
+
             <span>{{ $inspection->valid_for_descrpt }}</span>
         </div>
         <div class="more-info more-info-2 bold" data-draggable="true" data-editable descrpt1>

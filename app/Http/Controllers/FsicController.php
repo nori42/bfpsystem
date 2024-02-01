@@ -62,7 +62,7 @@ class FsicController extends Controller
         // $inspection->building_structures = $request->buildingStructures;
         $inspection->registration_status = $request->registrationStatus;
         $inspection->fsic_no = $request->fsicNo;
-        $inspection->issued_for = $request->issuedFor;
+        $inspection->issued_for = $request->issued_For;
         $inspection->user_id = auth()->user()->id;
         $inspection->receipt_id = $receipt->id;
         $inspection->establishment_id = $request->establishmentId;
@@ -101,6 +101,8 @@ class FsicController extends Controller
                 ]);
             case 'addandprint':
                 return redirect('/fsic/print/'.$inspection->id);
+            case 'addandprintoccupancy':
+                return redirect('/occupancy/print/'.$inspection->id);
         }
     }
 
@@ -126,7 +128,7 @@ class FsicController extends Controller
                 'inspections' =>  $inspectionList,
                 'owner' => $establishment->owner,
                 'representative' => $establishment->getOwnerName(),
-                'toastMssg' => "Inspection Discarded",
+                'toastMssg' => "Inspection has been moved to archive",
             ]);
         }
 

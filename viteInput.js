@@ -61,6 +61,7 @@ export default () => {
             "resources/css/pages/printables/fsec.css",
             "resources/css/pages/printables/fsic.css",
             "resources/css/pages/printables/print.css",
+            "resources/css/pages/printables/occupancy.css",
             "resources/css/components/autocomplete.css",
             "resources/css/components/formstep.css",
             "resources/css/components/headingInfo.css",

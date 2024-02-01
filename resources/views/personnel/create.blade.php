@@ -77,14 +77,14 @@
                         </div>
                     </div>
                     <div>
-                        <label class="fs-4 fw-normal">Password</label>
-                        <input id="password" class="form-control d-block fs-5 w-100" type="password" name="password"
+                        <label class="fs-5 fw-normal">Password</label>
+                        <input id="password" class="form-control d-block fs-6 w-100" type="password" name="password"
                             required>
                     </div>
 
                     <div>
-                        <label class="fs-4 fw-normal">Confirm Password</label>
-                        <input class="form-control d-block fs-5 w-100" id="confirmPassword" name="confirmPassword"
+                        <label class="fs-5 fw-normal">Confirm Password</label>
+                        <input class="form-control d-block fs-6 w-100" id="confirmPassword" name="confirmPassword"
                             type="password" required autocomplete="off">
                     </div>
 
