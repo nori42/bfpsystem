@@ -87,7 +87,7 @@
 
                                     @if ($buildingPlan->receipt->or_no != null)
                                         <li><a href="/fsec/print/{{ $buildingPlan->id }}"
-                                                class="btn btn-primary w-100 text-start"><i
+                                                class="btn btn-success w-100 text-start"><i
                                                     class="bi bi-file-earmark-check mx-2 fs-5"></i>Approve</a></li>
                                         <li><a href="/fsecdisapprove/print/{{ $buildingPlan->id }}"
                                                 class="btn btn-outline-danger w-100 mt-2 text-start"><i

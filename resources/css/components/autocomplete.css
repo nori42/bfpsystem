@@ -19,13 +19,13 @@
   }
 
   #autocomplete-list li:hover {
-    background-color: #123B5A;
+    background-color: var(--primary-color);
     color: white;
     font-weight: bold;
   }
 
   .highlight {
-    background-color: #123B5A;
+    background-color: var(--primary-color);
     color: white;
     font-weight: bold;
   }

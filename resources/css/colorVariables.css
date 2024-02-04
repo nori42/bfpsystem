@@ -1,10 +1,12 @@
 :root{
-    --primary-color:#1C3B64;
-    --secondary-color-dark:#21303D;
-    --nav: #0f2b41;
+    --primary-color:#E96E15;
+    /* --primary-color:#1C3B64; */
+    /* --secondary-color-dark:#21303D; */
+    --secondary-color-dark:#c85c0f;
+    --nav: #282828;
     --primary-subtle:#F6F8FC;
     --success:#53A3D8;
-    --btn-link-hover:#abcbff;
-    --top-panel:#123B5A;
+    --btn-link-hover:#E96E15;
+    --top-panel:#d57835;
     --disable:#9f9f9f;
 }

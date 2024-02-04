@@ -7,7 +7,7 @@ nav {
 }
 
 .link-active{
-    border-right: 10px solid #5675a8 !important;
+    border-right: 10px solid var(--btn-link-hover) !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
     /* background-color: #5675a8 !important; */
@@ -38,7 +38,7 @@ nav a:hover {
 
 nav a::before{
     content: "";
-    background-color:#5675a8;
+    background-color:var(--btn-link-hover);
     width: 0%;
     height: 100%;
     position: absolute;
