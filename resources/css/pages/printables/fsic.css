@@ -26,7 +26,7 @@ body {
 .date-container{
     position: absolute;
     font-size: 11pt;
-    top: 185px;
+    top: 193px;
     left: 576px;
 }
 
@@ -40,8 +40,8 @@ body {
 
 .check-container{
     position: absolute;
-    top: 273px;
-    left: 239px;
+    top: 276px;
+    left: 237px;
     width: 385px;
 
 }
@@ -153,7 +153,7 @@ body {
 
 .establishment-name{
     position: absolute;
-    top: 421px;
+    top: 425px;
     left: 81px;
     width: 670px;
     text-align: center;
@@ -161,7 +161,7 @@ body {
 
 .rep-name{
     position: absolute;
-    top: 455px;
+    top: 458px;
     left: 231px;
     width: 350px;
     text-align: center;
@@ -169,7 +169,7 @@ body {
 
 .address{
     position: absolute;
-    top: 490px;
+    top: 492px;
     left: 82px;
     width: 670px;
     text-align: center;
