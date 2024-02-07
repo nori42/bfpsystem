@@ -113,10 +113,13 @@ class FsicController extends Controller
 
         if($request->input('action') == "delete"){
             $establishment = $inspection->establishment;
-            
+
             $logMessage = "Deleted the inspection: FSIC.NO {$inspection->fsic_no}";            
             ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
 
+            //Update fsic number to null 
+            $inspection->fsic_no = null;
+            $inspection->save();    
             $inspection->delete();
 
             $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
