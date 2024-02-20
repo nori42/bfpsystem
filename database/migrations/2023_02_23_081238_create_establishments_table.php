@@ -1,4 +1,4 @@
-<?php
+-h<?php
 
 use App\Models\Owner;
 use Illuminate\Database\Migrations\Migration;

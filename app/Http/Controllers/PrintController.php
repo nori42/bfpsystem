@@ -230,6 +230,7 @@ class PrintController extends Controller
         $evaluation->building_plan_id = $buildingPlan->id;
 
         $buildingPlan->date_approved = date('Y-m-d',$evaluation->created_at);
+        $buildingPlan->fsec_no = strtoupper($request->fsec_no);
 
 
         $evaluation->save();

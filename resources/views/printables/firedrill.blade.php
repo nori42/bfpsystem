@@ -13,6 +13,7 @@
     $validity = $firedrill->validity_term . ' ' . $firedrill->year;
     $receipt = $firedrill->receipt;
     $payment = ['orNo' => $receipt->or_no, 'amountPaid' => $receipt->amount, 'datePayment' => date('m/d/Y', strtotime($receipt->date_of_payment))];
+
 @endphp
 
 @section('stylesheet')

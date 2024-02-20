@@ -12,6 +12,14 @@
     margin:5rem auto;
 }
 
+.fsec-no{
+    position: absolute;
+    font-size: 13pt !important;
+    top: 220px;
+    left: 240px;
+    color: #1a1a1a;
+}
+
 
 .header{
     text-align: center;

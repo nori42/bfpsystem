@@ -50,14 +50,12 @@
                     </div>
                 @endif
 
+
                 {{-- Actions --}}
-                @if ($buildingPlan->status != 'APPROVED')
-                    <div class="d-flex gap-2">
-
-
-                        <a class="btn btn-primary px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
-                            <i class="bi bi-pencil-fill mx-1"></i>Update Application</a>
-
+                <div class="d-flex gap-2">
+                    <a class="btn btn-primary px-4" href="/fsec/{{ $buildingPlan->id }}/edit">
+                        <i class="bi bi-pencil-fill mx-1"></i>Update Application</a>
+                    @if ($buildingPlan->status != 'APPROVED')
                         <div class="modal" id="deleteModal">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content px-5 py-4">
@@ -78,6 +76,7 @@
                             </div>
                         </div>
 
+                        {{-- Dropdown Menu --}}
                         <div class="position-relative py-0" dropdown>
                             <button class="btn btn-primary px-2" dropdown-btn>Action <i
                                     class="bi bi-caret-down-fill"></i></button>
@@ -106,8 +105,8 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
 
             </div>
 
@@ -132,6 +131,9 @@
                     <x-info label="Contact No." :value="$buildingPlan->owner->contact_no" />
                     <div class="col"></div>
                     <div class="col"></div>
+                </div>
+                <div class="row my-3">
+                    <x-info label="FSEC NO." :value="$buildingPlan->fsec_no" />
                 </div>
                 <div class="row my-3">
                     <x-info label="Series No." :value="$buildingPlan->series_no" />

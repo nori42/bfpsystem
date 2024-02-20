@@ -30,12 +30,21 @@
         @csrf
         @method('PUT')
         <input type="hidden" value="{{ $evaluator }}" name="evaluator">
+        <input type="hidden" id="fsec_no" name="fsec_no">
         <button class="btn btn-success">Done<i class="bi bi-check-lg"></i></button>
     </form>
     {{-- <a class="btn btn-success d-none" href="/fsec/{{ $buildingPlan }}" btndone>Done <i class="bi bi-check-lg"></i></a> --}}
 @endsection
 
 @section('printTools')
+    @if ($buildingPlan == null)
+        <div class="printTools p-4 bg-white">
+
+            <label for="fsec" class="fw-bold">FSEC NO.</label>
+            <br>
+            <input class="form-control border-black text-uppercase" type="text" name="fsec" id="fsec">
+        </div>
+    @endif
 @endsection
 
 @section('printablePage')
@@ -47,6 +56,10 @@
             <div>N. Bacalso Avenue, Pahina Central, Cebu City</div>
             <div>Tel. Nos. (032) - 256-0544 / 262-3110</div>
             <div>Email Address: cebucityfsn@yahoo.com</div>
+        </div>
+
+        <div data-draggable="true" class="fsec-no bold">
+            {{ $buildingPlan->fsec_no }}
         </div>
 
         <div data-draggable="true" class="date-container bold">
@@ -90,5 +103,5 @@
 @endsection
 
 @section('pagescript')
-    {{-- @vite('resources/js/pages/printables/fsic.js') --}}
+    <script defer src="{{ Vite::asset('resources/js/pages/printables/fsec.js') }}"></script>
 @endsection
