@@ -18,6 +18,7 @@ return new class extends Migration
         Schema::create('building_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('project_title')->nullable();
+            $table->string('applicant_name')->nullable();
             $table->string('fsec_no')->nullable();
             $table->string('name_of_building')->nullable();
             $table->string('series_no')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->string('building_story')->nullable();
             $table->string('floor_area')->nullable();
             $table->string('address')->nullable();
-            $table->foreignIdFor(Owner::class);
+            $table->foreignIdFor(Owner::class)->nullable();
             $table->foreignIdFor(Receipt::class);
             $table->timestamps();
             $table->softDeletes();

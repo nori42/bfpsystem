@@ -32,34 +32,35 @@ class FsecController extends Controller
     public function store(Request $request){
         // Instantiate Models
         $buildingPlan = new BuildingPlan();
-        $owner = new Owner();
+        // $owner = new Owner();
         $receipt = new Receipt();
         
         
         //If name and corporate is emptpy 
-        if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
-            return back()->with('toastMssg',"Neither Name or Corporate must not be empty");
-        }
+        // if(($request->firstName == null && $request->lastName == null) && $request->corporateName == null) {
+        //     return back()->with('toastMssg',"Neither Name or Corporate must not be empty");
+        // }
 
-        // check if owner exist
-        $owner = Owner::where('first_name',strtoupper($request->firstName))
-        ->where('middle_name',strtoupper($request->middleName))
-        ->where('last_name',strtoupper($request->lastName))
-        ->where('corporate_name',strtoupper($request->corporateName))
-        ->first();
+        // // check if owner exist
+        // $owner = Owner::where('first_name',strtoupper($request->firstName))
+        // ->where('middle_name',strtoupper($request->middleName))
+        // ->where('last_name',strtoupper($request->lastName))
+        // ->where('corporate_name',strtoupper($request->corporateName))
+        // ->first();
 
-        // create owner if it doesn not exist
-        if($owner == null){
-            $owner = new Owner();
-            //get Data
-            $owner->first_name = strtoupper($request->firstName);
-            $owner->last_name = strtoupper($request->lastName);
-            $owner->middle_name =  strtoupper($request->middleName);
-            $owner->suffix = strtoupper($request->suffix);
-            $owner->contact_no = $request->contactNo;
-            $owner->corporate_name = strtoupper($request->corporateName);
-            $owner->save();
-        }
+        // // create owner if it doesn not exist
+        // if($owner == null){
+        //     $owner = new Owner();
+        //     //get Data
+        //     $owner->first_name = strtoupper($request->firstName);
+        //     $owner->last_name = strtoupper($request->lastName);
+        //     $owner->middle_name =  strtoupper($request->middleName);
+        //     $owner->suffix = strtoupper($request->suffix);
+        //     $owner->contact_no = $request->contactNo;
+        //     $owner->corporate_name = strtoupper($request->corporateName);
+        //     $owner->save();
+        // }
+
         //Add Receipt Fields
         $receipt->or_no = $request->orNo;
         $receipt->receipt_for = "FSEC";
@@ -68,6 +69,7 @@ class FsecController extends Controller
         $receipt->save();
 
         //Add Evaluation Fields
+        $buildingPlan->applicant_name = strtoupper($request->applicantName);
         $buildingPlan->project_title = strtoupper($request->projectTitle);
         $buildingPlan->name_of_building = strtoupper($request->buildingName);
         $buildingPlan->series_no = (sprintf("%04d",count(BuildingPlan::all()) + 1)).'-S\''.date('Y');
@@ -80,7 +82,7 @@ class FsecController extends Controller
         $buildingPlan->building_story = strtoupper($request->buildingStory);
         $buildingPlan->floor_area = strtoupper($request->floorArea);
         $buildingPlan->address = strtoupper($request->address);
-        $buildingPlan->owner_id = $owner->id;
+        // $buildingPlan->owner_id = $owner->id;
         $buildingPlan->receipt_id = $receipt->id;
         $buildingPlan->save();
         

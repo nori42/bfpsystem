@@ -58,13 +58,13 @@
                             <th>FSIC No.</th>
                             <th>Registration Status</th>
                             <th>Expiry Date</th>
-                            {{-- <th>Status</th> --}}
+                            <th></th>
                             <th></th>
                         </thead>
                         <tbody>
                             @foreach ($inspections as $inspection)
                                 <tr
-                                    class="align-middle {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
+                                    class="align-middle bg-danger {{ ($loop->index == 0 && isset($isAdd)) || (isset($isUpdate) && $inspection->id == $inpsectUpdatedId) ? 'record-highlight' : '' }}">
                                     <td>{{ date('m/d/Y', strtotime($inspection->inspection_date)) }}</td>
                                     @php
 
@@ -75,8 +75,11 @@
                                     <td>{{ $inspection->registration_status }}</td>
                                     <td>{{ $inspection->expiry_date ? date('m/d/Y', strtotime($inspection->expiry_date)) : '' }}
                                     </td>
-                                    {{-- <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
-                                        {{ $inspection->status }}</td> --}}
+                                    <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
+                                        @if ($inspection->status == 'Error')
+                                            Mark As Error
+                                        @endif
+                                    </td>
                                     <td>
                                         <button class="btn fw-bold btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#inspection{{ $inspection->id }}" {{-- onclick="openModal(`inspection{{ $inspection->id }}`)" --}}
@@ -84,7 +87,7 @@
                                             <i class="bi bi-card-text"></i>
                                             Details
                                         </button>
-                                        @if ($inspection->status == 'Printed' || $inspection->status == 'Expired')
+                                        @if ($inspection->status == 'Printed' || $inspection->status == 'Expired' || $inspection->status == 'Error')
                                             @if ($inspection->registration_status == 'OCCUPANCY')
                                                 <a class="btn btn-primary"
                                                     href={{ '/occupancy/print/' . $inspection->id }}>
@@ -145,5 +148,6 @@
 
     @section('page-script')
         @yield('component-scripts')
-        @vite('resources/js/pages/inspections.js')
+        {{-- @vite('resources/js/pages/inspections.js') --}}
+        <script defer src="{{ Vite::asset('resources/js/pages/inspections.js') }}"></script>
     @endsection

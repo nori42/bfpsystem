@@ -22,6 +22,7 @@
                     <th><span>Address</span></th>
                     <th><span>Issued Date</span></th>
                     <th><span>Substation</span></th>
+                    <th></th>
                 </thead>
                 <tbody>
                     @foreach ($inspections as $inspection)
@@ -32,6 +33,11 @@
                             <td>{{ $inspection->establishment->address }}</td>
                             <td>{{ date('m/d/Y', strtotime($inspection->issued_on)) }}</td>
                             <td>{{ $inspection->establishment->substation }}</td>
+                            <td>
+                                @if ($inspection->status == 'Error')
+                                    <span class="text-danger">Error</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -13,18 +13,18 @@
             </div>
             <form class="form-wrapper boxshadow" action="/fsec" method="POST" autocomplete="off">
                 <div class="d-flex justify-content-evenly mx-auto steps-title mt-3" id="steps-title">
-                    <div class="step current-step text-center flex-grow-1 py-3" step="1">
+                    {{-- <div class="step current-step text-center flex-grow-1 py-3" step="1">
                         <i class="bi bi-circle fs-4 align-middle" step-icon="1"></i>
                         <span id="ownerTitle" class="fw-bold align-middle">Applicant</span>
-                    </div>
-                    <div class="step text-center flex-grow-1 py-3" step="2">
-                        <i class="bi bi-circle fs-4 align-middle" step-icon="2"></i>
+                    </div> --}}
+                    <div class="step text-center current-step flex-grow-1 py-3" step="2">
+                        <i class="bi bi-circle-fill current-step fs-4 align-middle" step-icon="2"></i>
                         <span id="establishmentTitle" class="fw-bold">Application</span>
                     </div>
                 </div>
                 @csrf
                 <div class="py-3 px-5">
-                    <div id="ownerDetails">
+                    <div id="ownerDetails" class="d-none">
                         <div class="header">
                             <h4 id="validateMssgOwner" class="text-danger d-none">Fill in the name or corporate field</h4>
                             <h2>Applicant Information</h2>
@@ -42,13 +42,14 @@
                                 customAttr="maxlength=11" />
                         </fieldset>
                     </div>
-                    <div id="applicantDetails" class="d-none">
-                        <div class="header">
+                    <div id="applicantDetails">
+                        {{-- <div class="header">
                             <h2>Application Information</h2>
                         </div>
-                        <hr>
+                        <hr> --}}
                         {{-- <x-form.input type="text" label="Series-No" name="seriesNo" class="w-50" />e --}}
                         <fieldset>
+                            <x-form.input type="text" label="Building Permit Applicant" name="applicantName" />
                             <div class="d-flex gap-2">
                                 <x-form.input type="text" label="Building Permit Application No. (BP APP#)"
                                     name="bpApplicationNo" />
@@ -105,11 +106,11 @@
                             class="btn btn-outline-primary font-bold d-none">
 
                         {{-- hidden in second step --}}
-                        <input type="button" value="Next" id="nextBtn" class="btn btn-primary font-bold px-5">
+                        <input type="button" value="Next" id="nextBtn"
+                            class="btn btn-primary font-bold px-5  d-none">
 
                         {{-- hidden in first step --}}
-                        <input type="submit" value="Save" id="saveBtn"
-                            class="btn btn-primary font-bold px-5 d-none">
+                        <input type="submit" value="Save" id="saveBtn" class="btn btn-primary font-bold px-5">
                     </div>
                     <div class="d-none py-5" id="loadingMssg">
                         <div class="d-flex justify-content-center">

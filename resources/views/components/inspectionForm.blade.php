@@ -27,7 +27,7 @@
         <input type="hidden" id="receiptFor" name="receiptFor" value="Fire Safety Inspection Certificate(FSIC)">
 
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
-            type="date" class="w-50" :required="true" />
+            type="date" class="w-50" :required="true" value="{{ date('Y') }}-01-01" />
 
     </fieldset>
     <hr>
@@ -55,7 +55,8 @@
             <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
                 type="text" :required="true" />
             <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment"
-                customAttr="{{ $inputAttr }}" type="date" class="w-50" :required="true" />
+                customAttr="{{ $inputAttr }}" type="date" class="w-50" :required="true"
+                value="{{ date('Y') }}-01-01" />
         </div>
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
             customAttr="{{ $inputAttr }} required" placeholder="Select Nature Of Payment">
@@ -76,5 +77,3 @@
         </button>
     </div>
 </form>
-
-<script></script>

@@ -11,7 +11,7 @@
     $registrationStatus = $inspection->registration_status;
 
     $details = [
-        'dateToday' => date('F d, Y', time()),
+        'dateToday' => date('F d, Y'),
         'inspection' => $inspection,
         'expiryDate' => date('F d, Y', strtotime('+1 year')),
         'dateOfPayment' => date('m/d/Y', strtotime($inspection->receipt->date_of_payment)),

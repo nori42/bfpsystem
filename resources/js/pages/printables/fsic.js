@@ -1,3 +1,5 @@
+const amount = document.querySelector("#amount");
+
 function makeElementEditable(element) {
     element.contentEditable = true;
 
@@ -112,3 +114,7 @@ function handleHighlight() {
     });
 }
 handleHighlight();
+
+const localeAmount = parseFloat(amount.textContent);
+amount.innerHTML =
+    "₱" + localeAmount.toLocaleString("en-US", { style: "decimal" });

@@ -135,6 +135,26 @@ class FsicController extends Controller
             ]);
         }
 
+        if($request->input('action') == "markerror"){
+            $establishment = $inspection->establishment;
+
+            $logMessage = "Mark error the inspection: FSIC.NO {$inspection->fsic_no}";            
+            ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
+
+            //Update fsic number to null 
+            $inspection->status = "Error";
+            $inspection->save();    
+
+            return redirect("/establishments/{$establishment->id}/fsic");
+            // return view('establishments.fsic.index',[
+            //     'establishment' => $inspection->establishment,
+            //     'inspections' =>  $inspectionList,
+            //     'owner' => $establishment->owner,
+            //     'representative' => $establishment->getOwnerName(),
+            //     'toastMssg' => "Inspection has been moved to archive",
+            // ]);
+        }
+
         $receipt->or_no = $request->orNoDetail;
         $receipt->nature_of_payment = $request->natureOfPaymentDetail;
         $receipt->amount = $request->amountPaidDetail;

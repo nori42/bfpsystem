@@ -32,6 +32,9 @@
                         @if ($inspection->status == 'Expired')
                             <div class="px-2 py-1 text-bg-danger rounded-1">Expired</div>
                         @endif
+                        @if ($inspection->status == 'Error')
+                            <div class="px-2 py-1 text-bg-danger rounded-1">Error</div>
+                        @endif
                     </div>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -54,6 +57,23 @@
                                             dropdown-btn-dismiss>No</button>
                                         <button class="btn btn-danger py-0" dropdown-btn name="action"
                                             value="delete">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($inspection->status != 'Error')
+                            <div dropdown>
+                                <button class="btn btn-warning text-nowrap" type="button" dropdown-btn name="action"
+                                    value="markerror">
+                                    <i class="bi bi-x-circle-fill mr-2"></i>Mark as Error</button>
+                                <div class="dropdown-menu mt-1 p-3" dropdown-menu style="width: 100px">
+                                    <div class="fw-bold text-nowrap">Do you confirm?</div>
+                                    <div>
+                                        <button class="btn btn-secondary py-0" type="button"
+                                            dropdown-btn-dismiss>No</button>
+                                        <button class="btn btn-warning py-0" dropdown-btn name="action"
+                                            value="markerror">Yes</button>
                                     </div>
                                 </div>
                             </div>

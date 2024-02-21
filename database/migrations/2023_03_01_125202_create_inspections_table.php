@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('valid_for_descrpt')->nullable();
             $table->string('valid_for_descrpt2')->nullable();
             $table->string('fsic_no')->unique()->nullable();
-            $table->enum('status',['Not Printed','Printed','Expired'])->default("Not Printed");
+            $table->enum('status',['Not Printed','Printed','Expired','Error'])->default("Not Printed");
             $table->date('issued_on')->nullable();
             $table->date('expiry_date')->nullable();
             $table->foreignIdFor(User::class)->nullable();
