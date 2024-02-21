@@ -29,6 +29,10 @@
         <x-form.input name="inspectionDate{{ $key }}" label="Inspection Date" customAttr="{{ $inputAttr }}"
             type="date" class="w-50" :required="true" value="{{ date('Y') }}-01-01" />
 
+        <x-form.input name="issuedDate{{ $key }}" label="Issued Date" customAttr="{{ $inputAttr }}"
+            type="date" class="w-50" :required="true"
+            value="{{ date('Y') }}-{{ date('m') }}-{{ date('d') }}" />
+
     </fieldset>
     <hr>
     <fieldset>

@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3"
+                {{-- <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3"
                     style="{{ $cardTotal }}">
                     <div><i class="bi bi-hourglass-split border border-2 p-2 rounded-3" style="font-size: 54px;"></i></div>
                     <div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="text-center fs-2">{{ $totalPending }}</div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="d-flex justify-content-center align-items-center p-3 rounded-3 gap-3"
                     style="{{ $cardTotal }}">

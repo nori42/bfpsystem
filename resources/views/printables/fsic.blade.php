@@ -42,7 +42,7 @@
 @section('btngroup')
     <a class="btn btn-secondary" href="/establishments/{{ $inspection->establishment_id }}/fsic" btnback>Back</a>
 
-    @if ($inspection->issued_on == null)
+    @if ($inspection->status == 'Not Printed')
         <form class="m-0 d-none" id="print" action="{{ $inspection->id }}" method="POST" btndone>
             @csrf
             @method('PUT')
@@ -66,7 +66,9 @@
 @endsection
 
 @section('printablePage')
-    <input type="checkbox" id="isPreview" {{ $inspection->issued_on != null ? 'checked' : '' }} hidden>
+    {{-- This will determined if the print certificate will show or not --}}
+    <input type="checkbox" id="isPreview"
+        {{ $inspection->issued_on != null && $inspection->status == 'Printed' ? 'checked' : '' }} hidden>
 
     <div class="printablePage">
         <div data-draggable="true" class="header bold">
@@ -159,12 +161,12 @@
             @if ($inspection->registration_status == 'OCCUPANCY')
                 <span>Not Applicable</span>
             @else
-                <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('F d, Y', strtotime($inspection->expiry_date)) }}</span>
+                <span>{{ $inspection->expiry_date == null ? $details['expiryDate'] : date('m/d/Y', strtotime($inspection->expiry_date)) }}</span>
             @endif
         </div>
 
         <div data-draggable="true" class="fc-fee bold">
-            <div id="amount">{{ $inspection->receipt->amount }}</div>
+            <div>₱<span id="amount">{{ $inspection->receipt->amount }}</span></div>
             <div id="or_no">{{ $inspection->receipt->or_no }}</div>
             <div id="date">{{ $details['dateOfPayment'] }}</div>
         </div>

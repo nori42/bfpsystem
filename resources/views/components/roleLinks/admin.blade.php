@@ -12,10 +12,10 @@
         <span class="fs-6">Establishments</span>
     </x-navLinks.link>
 
-    <x-navLinks.link href="/fsec" :active="$currentRoute == 'fsec'">
+    {{-- <x-navLinks.link href="/fsec" :active="$currentRoute == 'fsec'">
         <i class="bi bi-building-fill align-middle mr-4"></i>
         <span class="fs-6">Building Plan</span>
-    </x-navLinks.link>
+    </x-navLinks.link> --}}
 
     <x-navLinks.link href="/fireincidents" :active="$currentRoute == 'fireincidents'">
         <i class="bi bi-card-text align-middle mr-4"></i>

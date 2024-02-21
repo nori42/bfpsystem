@@ -26,8 +26,8 @@ class PrintController extends Controller
         $inspection = Inspection::find($request->id);
         $establishment = Establishment::find($inspection->establishment->id);
         
-        $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
-        $inspection->issued_on = date("Y-m-d");
+        // $inspection->expiry_date = date("Y-m-d",strtotime("+1 year"));
+        // $inspection->issued_on = date("Y-m-d");
         $inspection->user_id = auth()->user()->id;
         $inspection->others_descrpt = $request->othersDescrpt;
         $inspection->valid_for_descrpt = $request->validForDescrpt1;

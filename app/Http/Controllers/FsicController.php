@@ -20,14 +20,13 @@ class FsicController extends Controller
     //Inspection
     public function index(Request $request)
     {
-
-        $establishment = Establishment::where('id', $request->id)->first();
-        $inspections = Inspection::where('establishment_id', $request->id)->whereNotNull('issued_on')->orderBy('inspection_date','desc')->get();
-        $notIssued = Inspection::where('issued_on',null)->first();
-
+        $notIssued = Inspection::where('status','Not Printed');
         if($notIssued)
         $notIssued->forceDelete();
 
+        $establishment = Establishment::where('id', $request->id)->first();
+        $inspections = Inspection::where('establishment_id', $request->id)->whereNotNull('issued_on')->orderBy('inspection_date','desc')->get();
+  
         $owner = $establishment->owner;
 
         return view('establishments.fsic.index',[
@@ -57,6 +56,9 @@ class FsicController extends Controller
         $receipt->save();
 
         $inspection->inspection_date = $request->inspectionDate;
+        $inspection->issued_on = $request->issuedDate;
+        $inspection->expiry_date = date("Y-m-d",strtotime("+1 year",strtotime($request->issuedDate)));
+        // $inspection->expiry_date = $request->inspectionDate;
         // $inspection->building_conditions = $request->buildingConditions;
         $inspection->note = $request->note;
         // $inspection->building_structures = $request->buildingStructures;
