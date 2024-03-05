@@ -34,11 +34,20 @@
         <button class="btn btn-primary">Move</button>
     </div> --}}
 
+    <script>
+        let selectedText;
+
+        function fontSizeChange() {
+            const fontSize = document.querySelector("#fontSize");
+            if (selectedText != null || selectedText != undefined) {
+                selectedText.style.fontSize = fontSize.selectedOptions[0].value + "pt";
+            }
+        }
+    </script>
     @yield('printablePage')
     @vite(['resources/js/globalVar.js'])
     @yield('pagescript')
 
-    @
     <script defer src="{{ Vite::asset('resources/js/pages/printables/print.js') }}"></script>
     <script defer src="{{ Vite::asset('resources/js/pages/printables/print2.js') }}"></script>
 

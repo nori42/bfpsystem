@@ -1,6 +1,5 @@
-let selectedText;
-
 document.addEventListener("click", (event) => {
+    // Fontsize
     elem = event.target;
     const isElemEditable = elem.hasAttribute("data-text-editable");
     const textTools = document.querySelector("[data-text-tools]");
@@ -16,10 +15,3 @@ document.addEventListener("click", (event) => {
             textTools.classList.add("d-none");
     }
 });
-
-function fontSizeChange() {
-    const fontSize = document.querySelector("#fontSize");
-    if (selectedText != null || selectedText != undefined) {
-        selectedText.style.fontSize = fontSize.selectedOptions[0].value + "pt";
-    }
-}
