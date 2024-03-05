@@ -134,3 +134,12 @@ body {
 
     
 }
+
+
+/* Change Tools */
+
+.text-tools {
+    position: fixed;
+    right:100px;
+    z-index: 100;
+}

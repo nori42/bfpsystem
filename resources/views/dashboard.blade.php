@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="" style="width: 890px;">
+            {{-- <div class="" style="width: 890px;">
 
                 <div class="d-flex justify-content-between mb-3">
                     <div class="fs-4 fw-bold">Issued Certificates</div>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </x-pageWrapper>
     </div>
     <script></script>

@@ -13,6 +13,9 @@
 </head>
 
 <body>
+    @if (session('toastMssg'))
+        <x-toast :message="session('toastMssg')" />
+    @endif
     <div class="d-flex h-100 w-100">
         {{-- Left Panel --}}
         <nav class="overflow-auto">
@@ -110,7 +113,8 @@
                             </div>
                         @else
                             @php
-                                $name = auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
+                                $name =
+                                    auth()->user()->personnel->first_name . ' ' . auth()->user()->personnel->last_name;
                             @endphp
                             <div class="fs-6 fw-semibold text-white text-center align-middle">
                                 {{ $name }}

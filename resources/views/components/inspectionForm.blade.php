@@ -8,8 +8,14 @@
 
     @php
         //load json files
-        $natureOfPayment = json_decode(file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'), true);
-        $regStatus = json_decode(file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'), true);
+        $natureOfPayment = json_decode(
+            file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'),
+            true,
+        );
+        $regStatus = json_decode(
+            file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'),
+            true,
+        );
         $selectOptions = [
             'natureOfPayment' => $natureOfPayment,
             'registrationStatus' => $regStatus,
@@ -75,7 +81,7 @@
             <i class="bi bi-printer-fill mr-3"></i>
             Print Occupancy
         </button>
-        <button class="btn btn-primary px-4" type="submit" name="action" value="addandprint">
+        <button class="btn btn-primary px-4" type="submit" name="action" value="addandprint" data-server-action>
             <i class="bi bi-printer-fill mr-3"></i>
             Print
         </button>

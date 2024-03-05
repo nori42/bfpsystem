@@ -16,6 +16,9 @@
 @endsection
 {{-- PUT CONTENT TO LAYOUT/TEMPLATE --}}
 @section('content')
+    @if (session('toastMssg'))
+        <x-toast :message="session('toastMssg')" />
+    @endif
     <div class="page-content">
         {{-- Put page content here --}}
         <x-pageWrapper>

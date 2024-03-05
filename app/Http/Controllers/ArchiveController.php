@@ -82,7 +82,7 @@ class ArchiveController extends Controller
         $inspection = Inspection::onlyTrashed()->find($request->deletionId);
         $inspection->forceDelete();
 
-        return redirect('archived/fsic');
+        return redirect('archived/fsic')->with('toastMssg',"Inspection Deleted");
     }
 
     public function destroyEstablishment(Request $request){

@@ -8,8 +8,14 @@
                 $printed = $inspection->expiry_date != null;
 
                 //load json files
-                $natureOfPayment = json_decode(file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'), true);
-                $regStatus = json_decode(file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'), true);
+                $natureOfPayment = json_decode(
+                    file_get_contents(public_path() . '/json/selectOptions/natureOfPayment.json'),
+                    true,
+                );
+                $regStatus = json_decode(
+                    file_get_contents(public_path() . '/json/selectOptions/registrationStatus.json'),
+                    true,
+                );
                 $issuedFor = json_decode(file_get_contents(public_path() . '/json/selectOptions/issuedFor.json'), true);
                 $selectOptions = [
                     'natureOfPayment' => $natureOfPayment,
@@ -43,7 +49,7 @@
 
                 <fieldset class="d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center gap-2">
-                        <legend class="mb-3">Add Inspection</legend>
+                        <legend class="mb-3">Detail</legend>
 
                         @if (true)
                             <div dropdown>

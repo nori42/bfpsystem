@@ -36,8 +36,11 @@
 
     @yield('printablePage')
     @vite(['resources/js/globalVar.js'])
-    @vite('resources/js/pages/printables/print.js')
     @yield('pagescript')
+
+    @
+    <script defer src="{{ Vite::asset('resources/js/pages/printables/print.js') }}"></script>
+    <script defer src="{{ Vite::asset('resources/js/pages/printables/print2.js') }}"></script>
 
     {{-- Footer --}}
     <div class="footer">

@@ -48,7 +48,7 @@
                         <form action="/inspections/delete" method="post">
                             @csrf
                             <input type="hidden" id="deletionId" name="deletionId">
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" data-server-action>Delete</button>
                         </form>
 
                     </div>

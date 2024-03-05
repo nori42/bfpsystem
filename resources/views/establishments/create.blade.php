@@ -146,7 +146,7 @@
                         </select>
                     </x-form.inputWrapper>
 
-                    <x-form.input type="text" label="Address" name="address" customAttr='maxlength=80'
+                    <x-form.input type="text" label="Address" name="address" customAttr='maxlength=130'
                         :required="true" />
                 </div>
 
