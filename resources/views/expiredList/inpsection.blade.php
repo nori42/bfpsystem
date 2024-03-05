@@ -74,17 +74,7 @@
                                 @endif
 
                                 @php
-                                    // $person = $inspection->establishment->owner->person ? $inspection->establishment->owner->person : null;
-                                    // $corporate = $inspection->establishment->owner->corporate ? $inspection->establishment->owner->corporate : null;
-                                    
-                                    $representative = $inspection->establishment->getOwnerName();
-                                    
-                                    // if ($person->last_name != null) {
-                                    //     $representative = $person->first_name . ' ' . $person->last_name;
-                                    // } else {
-                                    //     $representative = $corporate->corporate_name;
-                                    // }
-                                    
+                                    $estalishment = $inspection->establishment;
                                 @endphp
                                 <tr>
                                     <td>

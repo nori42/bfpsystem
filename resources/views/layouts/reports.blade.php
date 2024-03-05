@@ -78,8 +78,9 @@
                                 :selfReport="$selfReport" :withFsecFlt="$currentReport == 'fsec'" />
 
                             @if ($dateRange['from'] != null && $dateRange['to'] != null)
+                                @yield('summary-content')
                                 @if ($currentReport == 'fsic')
-                                    <div class="position-relative" dropdown>
+                                    {{-- <div class="position-relative" dropdown>
                                         <button class="btn btn-primary py-2 px-5" id="viewSummary" type="button"
                                             dropdown-btn>View
                                             Summary
@@ -99,7 +100,17 @@
                                                 <div class="mt-4 fs-4">Substation</div>
 
                                                 @php
-                                                    $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban'];
+                                                    $substations = [
+                                                        'Guadalupe',
+                                                        'Labangon',
+                                                        'Lahug',
+                                                        'Mabolo',
+                                                        'Pahina Central',
+                                                        'Pardo',
+                                                        'Pari-an',
+                                                        'San Nicolas',
+                                                        'Talamban',
+                                                    ];
                                                 @endphp
 
                                                 <table style="width: 16rem;">
@@ -139,9 +150,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 @elseif($currentReport == 'firedrill')
-                                    <div class="position-relative" dropdown style="z-index: 999;">
+                                    {{-- <div class="position-relative" dropdown style="z-index: 999;">
                                         <button class="btn btn-primary text-nowrap py-2 px-5" id="viewSummary"
                                             type="button" dropdown-btn>View
                                             Summary
@@ -161,7 +172,18 @@
                                                 <div class="mt-4 fs-4">Substation</div>
 
                                                 @php
-                                                    $substations = ['Guadalupe', 'Labangon', 'Lahug', 'Mabolo', 'Pahina Central', 'Pardo', 'Pari-an', 'San Nicolas', 'Talamban', 'CBP'];
+                                                    $substations = [
+                                                        'Guadalupe',
+                                                        'Labangon',
+                                                        'Lahug',
+                                                        'Mabolo',
+                                                        'Pahina Central',
+                                                        'Pardo',
+                                                        'Pari-an',
+                                                        'San Nicolas',
+                                                        'Talamban',
+                                                        'CBP',
+                                                    ];
                                                 @endphp
 
                                                 <table style="width: 16rem;">
@@ -185,7 +207,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 @endif
 
                                 <div>
@@ -211,7 +233,6 @@
                                         <label for="released" class="fw-bold">Released</label>
                                     </div>
                                 @endif
-
                             @endif
                         </form>
                     @endif

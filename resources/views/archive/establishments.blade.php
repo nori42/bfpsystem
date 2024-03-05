@@ -8,8 +8,9 @@
             <thead>
                 <th>Establishment Name</th>
                 {{-- <th>Owner</th> --}}
-                {{-- <th>Total Inspections</th>
-                <th>Total Firedrill</th> --}}
+                {{-- <th>Total Inspections</th> --}}
+
+                {{-- <th>Total Firedrill</th> --}}
                 <th>Date Archived</th>
                 <th></th>
             </thead>

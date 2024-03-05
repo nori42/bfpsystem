@@ -18,7 +18,11 @@
     ];
 
     // OTHERS OPTION
-    if ($inspection->registration_status == 'NEW' || $inspection->registration_status == 'RENEWAL' || $inspection->registration_status == 'OCCUPANCY') {
+    if (
+        $inspection->registration_status == 'NEW' ||
+        $inspection->registration_status == 'RENEWAL' ||
+        $inspection->registration_status == 'OCCUPANCY'
+    ) {
         $isStatusOthers = false;
     } else {
         $isStatusOthers = true;
@@ -58,15 +62,36 @@
 @endsection
 
 @section('printTools')
-    @if ($inspection->issued_on == null)
+    @if ($inspection->status != 'Printed' && $inspection->status != 'Error')
         <div class="printTools d-flex flex-column p-3 bg-white rounded-3 gap-2" printtools>
             <button class="btn btn-primary" id="btnAddNote" toggled="false">Add Description</button>
+        </div>
+
+        <div class="text-tools p-3 bg-white rounded-3 d-none" data-text-tools>
+            <div class="fs-5">Text Tools</div>
+            <div class="d-flex align-items-center gap-3">
+                <label class="form-label fw-bold" for="fontSize">Font Size</label>
+                <select class="form-select" name="fontSize" id="fontSize" onchange="fontSizeChange()">
+                    <option value="" selected disabled>Choose Font Size</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                </select>
+            </div>
         </div>
     @endif
 @endsection
 
 @section('printablePage')
-    <input type="checkbox" id="isPreview" {{ $inspection->issued_on != null ? 'checked' : '' }} hidden>
+    <input type="checkbox" id="isPreview"
+        {{ ($inspection->issued_on != null && $inspection->status == 'Printed') || $inspection->status == 'Error' ? 'checked' : '' }}
+        hidden>
 
     <div class="printablePage">
         <div data-draggable="true" class="header bold">
@@ -76,30 +101,29 @@
             Email Address: cebucityfsn@yahoo.com <br>
         </div>
 
-        @if ($inspection->issued_on != null)
+        {{-- @if ($inspection->issued_on != null)
             <div data-draggable="true" class="fsic-no bold">
                 {{ $inspection->fsic_no }}
             </div>
-        @endif
+        @endif --}}
 
         <div data-draggable="true" class="date-container bold">
             {{ $inspection->issued_on == null ? $details['dateToday'] : date('F d, Y', strtotime($inspection->issued_on)) }}
         </div>
 
         <div data-draggable="true" id="estabName" class="establishment-name bold">
-            <span>{{ $inspection->establishment->establishment_name }}</span>
+            <span data-text-editable>{{ $inspection->establishment->establishment_name }}</span>
         </div>
         <div data-draggable="true" class="rep-name bold">
-            <span>{{ $personName ? $personName : $corporateName }}</span>
-
+            <span data-text-editable>{{ $personName ? $personName : $corporateName }}</span>
         </div>
         <div data-draggable="true" class="address bold">
             @if (strlen($establishment->address) >= 76 && strlen($establishment->address) < 80)
-                <span class="fs-9pt">{{ $establishment->address }}</span>
+                <span class="fs-9pt" data-text-editable>{{ $establishment->address }}</span>
             @elseif (strlen($establishment->address) >= 86 && strlen($establishment->address) < 96)
-                <span class="fs-8pt">{{ $establishment->address }}</span>
+                <span class="fs-8pt" data-text-editable>{{ $establishment->address }}</span>
             @else
-                <span>{{ $establishment->address }}</span>
+                <span data-text-editable>{{ $establishment->address }}</span>
             @endif
         </div>
 

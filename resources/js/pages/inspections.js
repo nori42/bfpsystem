@@ -1,4 +1,10 @@
 // PUT THE INSPECTIONS PAGE SCRIPT HERE
+import addTableSort from "../util/tableSort";
+
+// Add Sort
+if (select("#inspectionTable") != null) {
+    addTableSort(select("#inspectionTable"));
+}
 
 selectAll("select[select-value]").forEach((el) => {
     el.value = el.getAttribute("select-value");

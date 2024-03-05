@@ -136,7 +136,10 @@
                                 @if ($user->username != 'adminDev')
                                     <tr>
                                         <td>{{ $user->username }}</td>
-                                        <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}</td>
+                                        @if ($user->personnel)
+                                            <td>{{ $user->personnel->first_name . ' ' . $user->personnel->last_name }}
+                                            </td>
+                                        @endif
                                         <td>{{ $user->type }}</td>
                                     </tr>
                                 @endif

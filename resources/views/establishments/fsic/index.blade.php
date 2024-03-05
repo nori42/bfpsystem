@@ -51,7 +51,7 @@
                     </button>
                 </div>
                 @if ($inspections->count() != 0)
-                    <table class="table table-striped mt-2">
+                    <table id="inspectionTable" class="table table-striped mt-2">
                         <thead class="sticky-top top bg-white z-0">
                             <th>Inspection Date</th>
                             <th>Issued Date</th>
@@ -77,16 +77,33 @@
                                     </td>
                                     <td class="{{ $inspection->status == 'Printed' ? 'text-success' : 'text-danger' }}">
                                         @if ($inspection->status == 'Error')
-                                            Mark As Error
+                                            Marked As Error
+                                        @elseif ($inspection->status == 'Not Printed')
+                                            Not Printed
                                         @endif
                                     </td>
                                     <td>
-                                        <button class="btn fw-bold btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#inspection{{ $inspection->id }}" {{-- onclick="openModal(`inspection{{ $inspection->id }}`)" --}}
-                                            value={{ $inspection->id }}>
-                                            <i class="bi bi-card-text"></i>
-                                            Details
-                                        </button>
+                                        @if ($inspection->status != 'Not Printed')
+                                            <button class="btn fw-bold btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#inspection{{ $inspection->id }}" {{-- onclick="openModal(`inspection{{ $inspection->id }}`)" --}}
+                                                value={{ $inspection->id }}>
+                                                <i class="bi bi-card-text"></i>
+                                                Details
+                                            </button>
+                                        @else
+                                            @if ($inspection->registration_status == 'OCCUPANCY')
+                                                <a class="btn btn-primary"
+                                                    href={{ '/occupancy/print/' . $inspection->id }}><i
+                                                        class="bi bi-printer-fill"></i>Print Certificate</a>
+                                            @else
+                                                <a class="btn btn-primary" href="/fsic/print/{{ $inspection->id }}"><i
+                                                        class="bi bi-printer-fill"></i>Print Certificate</a>
+                                            @endif
+
+                                            <a class="btn btn-danger"
+                                                href="/establishments/fsic/{{ $inspection->id }}/destroy"><i
+                                                    class="bi bi-x-circle-fill mr-2" data-server-action></i>Delete</a>
+                                        @endif
                                         @if ($inspection->status == 'Printed' || $inspection->status == 'Expired' || $inspection->status == 'Error')
                                             @if ($inspection->registration_status == 'OCCUPANCY')
                                                 <a class="btn btn-primary"
@@ -108,7 +125,7 @@
                                     </td>
                                 </tr>
                                 {{-- Modal Detail --}}
-                                <x-inspectionDetail :inspection="$inspection" key="inspection{{ $inspection->id }}"
+                                <x-inspection.detail :inspection="$inspection" key="inspection{{ $inspection->id }}"
                                     :establishment="$establishment" />
                             @endforeach
                         </tbody>
@@ -148,6 +165,6 @@
 
     @section('page-script')
         @yield('component-scripts')
-        {{-- @vite('resources/js/pages/inspections.js') --}}
-        <script defer src="{{ Vite::asset('resources/js/pages/inspections.js') }}"></script>
+        @vite('resources/js/pages/inspections.js')
+        {{-- <script defer src="{{ Vite::asset('resources/js/pages/inspections.js') }}"></script> --}}
     @endsection

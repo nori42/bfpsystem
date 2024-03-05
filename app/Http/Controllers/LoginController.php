@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function login(Request $request) {
-        
+
 
         $credentials = $request->validate([
             'username' => ['required'],

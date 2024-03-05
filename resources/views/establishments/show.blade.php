@@ -46,6 +46,7 @@
             @if (session('mssg'))
                 <x-toast :message="session('mssg')" type="success" />
             @endif
+
             <div class="d-flex justify-content-center gap-5">
                 @if (auth()->user()->type == 'FSIC' || auth()->user()->type == 'ADMINISTRATOR')
                     <div class="boxshadow rounded-4">
@@ -211,7 +212,7 @@
 
                             $representative = $establishment->getOwnerName();
                         @endphp
-                        <x-info label="Owner/Representative" :value="$representative" />
+                        <x-info label="Owner/Representative" :value="$establishment->getOwnerBoth()" />
                         <x-info label="Contact No." :value="$contactNo" />
                     </div>
                 </x-detailWrapper>

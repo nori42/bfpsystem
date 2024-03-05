@@ -111,6 +111,9 @@ Route::middleware(['auth','auth.session','userType:ADMINISTRATOR,FSIC'])->group(
     Route::get('/establishments/{id}/fsic', [FsicController::class, 'index']);
     Route::post('/establishments/{id}/fsic', [FsicController::class, 'store']);
     Route::put('/establishments/{id}/fsic', [FsicController::class, 'update']);
+    Route::get('/establishments/fsic/{id}/destroy', [FsicController::class, 'destroy']);
+    Route::get('/establishments/fsic/{id}/markerror', [FsicController::class, 'markerror']);
+    Route::get('/establishments/fsic/{id}/archive', [FsicController::class, 'archive']);
 
     // Route::get('/establishments/fsic/print/{id}', [FsicController::class, 'show_print_fsic']);
     // Route::put('/establishments/fsic/print/{id}', [FsicController::class, 'print_fsic']);

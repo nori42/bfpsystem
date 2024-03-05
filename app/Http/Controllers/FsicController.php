@@ -20,10 +20,6 @@ class FsicController extends Controller
     //Inspection
     public function index(Request $request)
     {
-        $notIssued = Inspection::where('status','Not Printed');
-        if($notIssued)
-        $notIssued->forceDelete();
-
         $establishment = Establishment::where('id', $request->id)->first();
         $inspections = Inspection::where('establishment_id', $request->id)->whereNotNull('issued_on')->orderBy('inspection_date','desc')->get();
   
@@ -40,36 +36,14 @@ class FsicController extends Controller
     //Inspection
     public function store(Request $request){
 
-        if(Inspection::where('fsic_no',$request->fsicNo)->exists())
-            return back()->with('toastMssg','FSIC No. already in used');
+        if(Inspection::where('fsic_no',$request->fsicNo)->exists()){
+            return back()->with('toastMssg','FSIC No. already in used.');
+        }
         
         // instantiate model
         $inspection = new Inspection();
-        $receipt = new Receipt();
 
-        $receipt->or_no = $request->orNo;
-        $receipt->nature_of_payment = $request->natureOfPayment;
-        $receipt->amount = $request->amountPaid;
-        $receipt->date_of_payment = $request->dateOfPayment;
-        $receipt->receipt_for = $request->receiptFor;
-
-        $receipt->save();
-
-        $inspection->inspection_date = $request->inspectionDate;
-        $inspection->issued_on = $request->issuedDate;
-        $inspection->expiry_date = date("Y-m-d",strtotime("+1 year",strtotime($request->issuedDate)));
-        // $inspection->expiry_date = $request->inspectionDate;
-        // $inspection->building_conditions = $request->buildingConditions;
-        $inspection->note = $request->note;
-        // $inspection->building_structures = $request->buildingStructures;
-        $inspection->registration_status = $request->registrationStatus;
-        $inspection->fsic_no = $request->fsicNo;
-        $inspection->issued_for = $request->issued_For;
-        $inspection->user_id = auth()->user()->id;
-        $inspection->receipt_id = $receipt->id;
-        $inspection->establishment_id = $request->establishmentId;
-
-        $inspection->save();
+        $inspection->create($request->collect());
 
         $establishment = $inspection->establishment;
 
@@ -90,17 +64,7 @@ class FsicController extends Controller
         switch($request->input('action'))
         {
             case 'add':
-                return view('establishments.fsic.index',[
-                'newPost'=> true,
-                'toastMssg'=>'Inspection Added Successfully',
-                'isAdd' => true,
-                'establishment' => $establishment,
-                'inspections' => $inspectionDetail,
-                'selectOptions' => $selectOptions,
-                'owner' => $inspection->establishment->owner,
-                'representative' => $establishment->getOwnerName(),
-                'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
-                ]);
+                return redirect("/establishment/{$establishment->id}/fsic");
             case 'addandprint':
                 return redirect('/fsic/print/'.$inspection->id);
             case 'addandprintoccupancy':
@@ -122,20 +86,14 @@ class FsicController extends Controller
             //Update fsic number to null 
             $inspection->fsic_no = null;
             $inspection->save();    
-            $inspection->delete();
+            $inspection->archive();
 
             $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
 
 
-
-            return view('establishments.fsic.index',[
-                'establishment' => $inspection->establishment,
-                'inspections' =>  $inspectionList,
-                'owner' => $establishment->owner,
-                'representative' => $establishment->getOwnerName(),
-                'toastMssg' => "Inspection has been moved to archive",
-            ]);
+            return redirect("/establishments/{$establishment->id}/fsic")->with('toastMssg',"Inspection has been moved to archive");
         }
+        
 
         if($request->input('action') == "markerror"){
             $establishment = $inspection->establishment;
@@ -148,13 +106,6 @@ class FsicController extends Controller
             $inspection->save();    
 
             return redirect("/establishments/{$establishment->id}/fsic");
-            // return view('establishments.fsic.index',[
-            //     'establishment' => $inspection->establishment,
-            //     'inspections' =>  $inspectionList,
-            //     'owner' => $establishment->owner,
-            //     'representative' => $establishment->getOwnerName(),
-            //     'toastMssg' => "Inspection has been moved to archive",
-            // ]);
         }
 
         $receipt->or_no = $request->orNoDetail;
@@ -165,12 +116,9 @@ class FsicController extends Controller
         $receipt->save();
 
         $inspection->inspection_date = $request->inspectionDateDetail;
-        // $inspection->building_conditions = $request->buildingConditionsDetail;
-        // $inspection->building_structures = $request->buildingStructuresDetail;
         $inspection->note = $request->noteDetail;
         $inspection->registration_status = $request->registrationStatusDetail;
         $inspection->fsic_no = $request->fsicNoDetail;
-        // $inspection->issued_for = $request->issuedForDetail;
 
         $inspection->save();
 
@@ -179,23 +127,22 @@ class FsicController extends Controller
         switch($request->input('action'))
         {
             case 'save':
-                return view('establishments.fsic.index',[
-                    'establishment' => $inspection->establishment,
-                    'inspections' =>  $inspectionList,
-                    'owner' => $inspection->establishment->owner,
-                    'representative' => $inspection->establishment->getOwnerName(),
-                    'inpsectUpdatedId' => $inspection->id,
-                    'toastMssg' => "Updated Successfully",
-                    'isUpdate' => true,
-                    'page_title' => 'Fire Safety Inspection Certificate' // use to set page title inside the panel
-                ]);
+                return redirect("/establishments/{$establishment->id}/fsic");
             case 'saveandprint':
                 return redirect('/fsic/print/'.$inspection->id);
 
         }
         
     }
+    
 
+
+    public function destroy(Request $request){
+        $inspection = Inspection::find($request->id);
+        $inspection->forceDelete();
+
+        return redirect("/establishments/{$inspection->establishment->id}/fsic")->with('toastMssg','Inspection Deleted');
+    }
 
     //Attachment
     public function show_attachment(Request $request)
@@ -235,5 +182,39 @@ class FsicController extends Controller
             'status' => 'success',
             'data' => $data
         ]);
+    }
+
+    public function archive(Request $request){
+        $inspection = Inspection::find($request->id);
+
+        $establishment = $inspection->establishment;
+
+        $logMessage = "Deleted the inspection: FSIC.NO {$inspection->fsic_no}";            
+        ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
+
+        //Update fsic number to null 
+        $inspection->fsic_no = null;
+        $inspection->save();    
+        $inspection->archive();
+
+        $inspectionList = Inspection::where('establishment_id', $request->id)->orderBy('inspection_date','desc')->get();
+
+
+        return redirect("/establishments/{$establishment->id}/fsic")->with('toastMssg',"Inspection has been moved to archive");
+    }
+
+    public function markerror(Request $request){
+        $inspection = Inspection::find($request->id);
+
+        $establishment = $inspection->establishment;
+
+        $logMessage = "Mark error the inspection: FSIC.NO {$inspection->fsic_no}";            
+        ActivityLogger::logActivity($logMessage,'ESTABLISHMENT');
+
+        //Update fsic number to null 
+        $inspection->status = "Error";
+        $inspection->save();    
+
+        return redirect("/establishments/{$establishment->id}/fsic")->with('toastMssg',"Inspection has been mark as error");
     }
 }

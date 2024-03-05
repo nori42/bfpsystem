@@ -21,3 +21,8 @@
     from {background-color: #39c839;}
     to {background-color: white;}
   }
+
+#inspectionTable th:hover {
+    color: #4b99ff;
+    cursor: pointer;
+}

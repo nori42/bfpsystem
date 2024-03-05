@@ -84,7 +84,8 @@ class FSICReportController extends Controller
             'fsicIssued' => $fsicIssued,
             'inspections' => $inspections,
             'selfReport' => $selfReport,
-            'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo]
+            'dateRange' => ['from' => $request->dateFrom,'to' => $request->dateTo],
+            'substationsCount' => Inspection::get_inspections_by_substation_count(['from' => $request->dateFrom,'to' => $request->dateTo])
         ]);
     }
 

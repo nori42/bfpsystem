@@ -42,7 +42,7 @@ if (select("[printbtn]") != null) {
     });
 }
 
-export const handleMove = (btn) => {
+const handleMove = (btn) => {
     moveables = document.querySelectorAll('[data-draggable="true"]');
 
     if (btn.innerText == "Move") {
@@ -70,8 +70,7 @@ export const handleMove = (btn) => {
         btn.style.color = "";
     }
 };
-
-export const handleEdit = () => {
+const handleEdit = () => {
     editables = document.querySelectorAll('[data-editable="true"]');
     btnMoreInfo = document.querySelector("#btnMoreInfo");
 
