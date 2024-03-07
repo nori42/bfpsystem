@@ -60,13 +60,12 @@
     <hr>
     <fieldset>
         <legend>Receipt Information</legend>
-        <x-form.input name="orNo{{ $key }}" label="OR No." input-inspect type="text" :required="true" />
+        <x-form.input name="orNo{{ $key }}" label="OR No." input-inspect type="text" />
         <div class="d-flex gap-2">
             <x-form.input name="amountPaid{{ $key }}" label="Amount Paid" customAttr="{{ $inputAttr }}"
-                type="text" :required="true" />
+                type="text" />
             <x-form.input name="dateOfPayment{{ $key }}" label="Date Of Payment"
-                customAttr="{{ $inputAttr }}" type="date" class="w-50" :required="true"
-                value="{{ date('Y') }}-01-01" />
+                customAttr="{{ $inputAttr }}" type="date" class="w-50" value="{{ date('Y') }}-01-01" />
         </div>
         <x-form.select label="Nature Of Payment" name="natureOfPayment{{ $key }}"
             customAttr="{{ $inputAttr }} required" placeholder="Select Nature Of Payment">

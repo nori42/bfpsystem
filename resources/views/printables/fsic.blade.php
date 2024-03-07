@@ -190,11 +190,13 @@
             @endif
         </div>
 
-        <div data-draggable="true" class="fc-fee bold">
-            <div><span id="amount">{{ $inspection->receipt->amount }}</span></div>
-            <div id="or_no">{{ $inspection->receipt->or_no }}</div>
-            <div id="date">{{ $details['dateOfPayment'] }}</div>
-        </div>
+        @if ($inspection->receipt->or_no)
+            <div data-draggable="true" class="fc-fee bold">
+                <div><span id="amount">{{ $inspection->receipt->amount }}</span></div>
+                <div id="or_no">{{ $inspection->receipt->or_no }}</div>
+                <div id="date">{{ $details['dateOfPayment'] }}</div>
+            </div>
+        @endif
 
         <div data-draggable="true" id="chiefName" class="chiefName bold">{{ $chief }}
         </div>

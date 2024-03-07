@@ -116,5 +116,11 @@ function handleHighlight() {
 handleHighlight();
 
 const localeAmount = parseFloat(amount.textContent);
-amount.innerHTML =
-    "₱" + localeAmount.toLocaleString("en-US", { style: "decimal" });
+
+if (Number.isInteger(localeAmount)) {
+    amount.innerHTML = "₱" + localeAmount.toLocaleString() + ".00";
+} else {
+    amount.innerHTML =
+        "₱" +
+        localeAmount.toLocaleString("en-US", { minimumFractionDigits: 2 });
+}
