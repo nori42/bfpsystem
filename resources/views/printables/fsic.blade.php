@@ -103,7 +103,7 @@
             Email Address: cebucityfsn@yahoo.com <br>
         </div>
 
-        @if ($inspection->issued_on != null)
+        @if (($inspection->issued_on != null && $inspection->status == 'Printed') || $inspection->status == 'Error')
             <div data-draggable="true" class="fsic-no bold">
                 {{ $inspection->fsic_no }}
             </div>
